@@ -5,6 +5,7 @@ using System.Text;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using DbC;
+using Integer.Infrastructure.DateAndTime;
 
 namespace Integer.Domain.Agenda
 {
@@ -13,18 +14,32 @@ namespace Integer.Domain.Agenda
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRA_DESCRICAO = 150;
 
-        public string Nome { get; private set; }
+        public virtual string Nome { get; protected set; }
+        public EstadoEventoEnum Estado { get; private set; }
         public string Descricao { get; private set; }
         public DateTime DataInicio { get; private set; }
         public DateTime DataFim { get; private set; }
         public Grupo Grupo { get; private set; }
         public TipoEventoEnum Tipo { get; private set; }
         public DateTime DataCadastro { get; private set; }
+        public IEnumerable<Conflito> Conflitos { get; private set; }
+
+        public virtual Horario Horario
+        {
+            get
+            {
+                return new Horario(this.DataInicio, this.DataFim);
+            }
+        }
+
+        protected Evento() { }
 
         public Evento(string nome, string descricao, DateTime dataInicioEvento, DateTime dataFimEvento, Grupo grupo, TipoEventoEnum tipoDoEvento)
         {
             Preencher(nome, descricao, dataInicioEvento, dataFimEvento, grupo, tipoDoEvento);
-            DataCadastro = DateTime.Now;
+            DataCadastro = SystemTime.Now();
+            Estado = EstadoEventoEnum.Agendado;
+            Conflitos = new List<Conflito>();
         }
 
         private void Preencher(string nome, string descricao, 
@@ -100,6 +115,35 @@ namespace Integer.Domain.Agenda
             tipoFoiInformado.Validate();
 
             Tipo = tipoDoEvento;
+        }
+
+        public void AdicionarConflito(Evento outroEvento, MotivoConflitoEnum motivo)
+        {
+            #region
+
+            var outroEventoNaoEhNulo = Assertion.That(outroEvento != null).WhenNot("Erro ao tentar adicionar conflito com evento nulo.");
+
+            #endregion
+            outroEventoNaoEhNulo.Validate();
+
+            this.Estado = EstadoEventoEnum.NaoAgendado;
+
+            if (Conflitos == null)
+                Conflitos = new List<Conflito>();
+
+            int quantidadeDeConflitosAntes = Conflitos.Count();
+
+            var conflitosAux = Conflitos.ToList();
+            conflitosAux.Add(new Conflito(outroEvento, motivo));
+            Conflitos = conflitosAux;
+
+            #region
+
+            var aumentouAQuantidadeDeConflitos = Assertion.That(quantidadeDeConflitosAntes + 1 == Conflitos.Count())
+                                                          .WhenNot("Erro ao adicionar conflitos ao evento. Quantidade não foi incrementada.");
+
+            #endregion
+            aumentouAQuantidadeDeConflitos.Validate();
         }
     }
 }

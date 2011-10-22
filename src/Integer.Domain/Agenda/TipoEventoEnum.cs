@@ -7,10 +7,9 @@ namespace Integer.Domain.Agenda
 {
     public enum TipoEventoEnum
     {
-        ForaneoVicarialArquidiocesano = 1,
-        Paroquial = 2,
-        Sacramento = 3,
-        GrandeMovimentoDePessoas = 4,
-        Comum = 5
+        Paroquial = 1,
+        Sacramento = 2,
+        GrandeMovimentoDePessoas = 3,
+        Comum = 4
     }
 }

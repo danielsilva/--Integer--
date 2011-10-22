@@ -29,7 +29,7 @@ namespace Integer.Domain.Paroquia
                                                                   .WhenNot(String.Format("O nome do grupo não pode ultrapassar o tamanho de {0} caracteres.", 
                                                                                          NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME.ToString()));
             #endregion
-            (nomeFoiInformado && nomePossuiQuantidadeDeCaracteresValida).Validate();
+            (nomeFoiInformado & nomePossuiQuantidadeDeCaracteresValida).Validate();
             
             Nome = nome.Trim();
         }

@@ -6,6 +6,7 @@ using Integer.Domain.Agenda;
 using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
+using Integer.Infrastructure.DateAndTime;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
@@ -26,6 +27,7 @@ namespace Integer.UnitTests.Domain.Agenda
             TipoEventoEnum tipoDoEvento = TipoEventoEnum.Comum;
 
             dataAtual = DateTime.Now;
+            SystemTime.Now = () => dataAtual;
             evento = new Evento(nome, descricao, dataInicioEvento, dataFimEvento, grupo, tipoDoEvento);
         }
 
@@ -33,6 +35,12 @@ namespace Integer.UnitTests.Domain.Agenda
         public void Possui_DataCadastro_Igual_A_Data_Atual() 
         {
             Assert.AreEqual(dataAtual.ToString("dd/MM/yyyy hh:mm"), evento.DataCadastro.ToString("dd/MM/yyyy hh:mm"));
+        }
+
+        [Test]
+        public void Possui_Estado_Agendado() 
+        {
+            Assert.AreEqual(EstadoEventoEnum.Agendado, evento.Estado);
         }
 
         [Test]

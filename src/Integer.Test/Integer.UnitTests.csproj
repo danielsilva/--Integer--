@@ -39,12 +39,66 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="DbC">
       <HintPath>..\..\lib\DbC.dll</HintPath>
+    </Reference>
+    <Reference Include="Esent.Interop">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Esent.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Http">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Munin">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Munin.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Esent">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Storage.Esent.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Managed">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Raven.Storage.Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Spatial.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\Spatial.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="SpellChecker.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.472\lib\net40\SpellChecker.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,11 +109,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Agenda\ConflitoTest.cs" />
+    <Compile Include="Domain\Agenda\EventoParoquialExistenteExceptionTest.cs" />
+    <Compile Include="Domain\Agenda\Evento_AdicionarConflito.cs" />
+    <Compile Include="Domain\Agenda\HorarioTest.cs" />
+    <Compile Include="Domain\Services\AgendaEventoServiceTest.cs" />
     <Compile Include="Domain\Agenda\Evento_Novo_Validacoes.cs" />
     <Compile Include="Domain\Agenda\Evento_Novo_Criado_Corretamente.cs" />
     <Compile Include="Domain\Paroquia\Grupo_Novo_Validacoes.cs" />
     <Compile Include="Domain\Paroquia\Grupo_Novo_Criado_Corretamente.cs" />
+    <Compile Include="Domain\Services\AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.cs" />
+    <Compile Include="Domain\Services\AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.cs" />
+    <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_Test.cs" />
+    <Compile Include="InMemoryDataBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\EventoSamples.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repository\" />
@@ -68,6 +132,10 @@
     <ProjectReference Include="..\Integer.Domain\Integer.Domain.csproj">
       <Project>{6D72F9EE-9D92-4E5B-A359-79C3A4271154}</Project>
       <Name>Integer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integer.Infrastructure.Repository\Integer.Infrastructure.Repository.csproj">
+      <Project>{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}</Project>
+      <Name>Integer.Infrastructure.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Integer.Infrastructure\Integer.Infrastructure.csproj">
       <Project>{40103D98-6F26-4BCD-A994-7A16567F713B}</Project>

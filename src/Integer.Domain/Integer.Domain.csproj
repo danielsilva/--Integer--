@@ -78,10 +78,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agenda\Conflito.cs" />
+    <Compile Include="Agenda\EstadoEventoEnum.cs" />
     <Compile Include="Agenda\Evento.cs" />
+    <Compile Include="Agenda\Exceptions\EventoParoquialExistenteException.cs" />
+    <Compile Include="Agenda\Eventos.cs" />
+    <Compile Include="Agenda\Horario.cs" />
+    <Compile Include="Agenda\MotivoConflitoEnum.cs" />
     <Compile Include="Agenda\TipoEventoEnum.cs" />
     <Compile Include="Paroquia\Grupo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AgendaEventoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Integer.Infrastructure\Integer.Infrastructure.csproj">
