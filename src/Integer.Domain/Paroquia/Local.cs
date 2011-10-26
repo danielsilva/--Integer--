@@ -8,16 +8,16 @@ using DbC;
 
 namespace Integer.Domain.Paroquia
 {
-    public class Grupo
+    public class Local
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
 
         public short Id { get; private set; }
         public string Nome { get; private set; }
 
-        protected Grupo() { }
+        protected Local() { }
 
-        public Grupo(string nome)
+        public Local(string nome)
         {
             PreencherNome(nome);
         }

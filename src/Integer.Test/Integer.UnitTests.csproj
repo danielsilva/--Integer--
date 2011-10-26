@@ -110,9 +110,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Agenda\ConflitoTest.cs" />
+    <Compile Include="Domain\Agenda\Evento_ReservarLocal.cs" />
     <Compile Include="Domain\Agenda\EventoParoquialExistenteExceptionTest.cs" />
     <Compile Include="Domain\Agenda\Evento_AdicionarConflito.cs" />
+    <Compile Include="Domain\Agenda\Reserva_Nova_Validacoes.cs" />
+    <Compile Include="Domain\Agenda\Reserva_Nova_Criada_Corretamente.cs" />
     <Compile Include="Domain\Agenda\HorarioTest.cs" />
+    <Compile Include="Domain\Paroquia\Local_Novo_Validacoes.cs" />
+    <Compile Include="Domain\Paroquia\Local_Novo_Criado_Corretamente.cs" />
     <Compile Include="Domain\Services\AgendaEventoServiceTest.cs" />
     <Compile Include="Domain\Agenda\Evento_Novo_Validacoes.cs" />
     <Compile Include="Domain\Agenda\Evento_Novo_Criado_Corretamente.cs" />

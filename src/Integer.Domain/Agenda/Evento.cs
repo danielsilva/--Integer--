@@ -23,6 +23,7 @@ namespace Integer.Domain.Agenda
         public TipoEventoEnum Tipo { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public IEnumerable<Conflito> Conflitos { get; private set; }
+        public IEnumerable<Reserva> Reservas { get; private set; }
 
         public virtual Horario Horario
         {
@@ -40,6 +41,7 @@ namespace Integer.Domain.Agenda
             DataCadastro = SystemTime.Now();
             Estado = EstadoEventoEnum.Agendado;
             Conflitos = new List<Conflito>();
+            Reservas = new List<Reserva>();
         }
 
         private void Preencher(string nome, string descricao, 
@@ -144,6 +146,15 @@ namespace Integer.Domain.Agenda
 
             #endregion
             aumentouAQuantidadeDeConflitos.Validate();
+        }
+
+        public void Reservar(Local local, DateTime dataInicio, DateTime dataFim)
+        {
+            var reserva = new Reserva(local, dataInicio, dataFim);
+
+            var reservasAux = Reservas.ToList();
+            reservasAux.Add(reserva);
+            Reservas = reservasAux;
         }
     }
 }

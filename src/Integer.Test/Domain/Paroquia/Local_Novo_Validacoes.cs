@@ -11,14 +11,14 @@ using DbC;
 namespace Integer.UnitTests.Domain.Paroquia
 {
     [TestFixture]
-    public class Grupo_Novo_Validacoes
+    public class Local_Novo_Validacoes
     {
         string nome;
-        Grupo grupo;
+        Local local;
 
-        private void Cria_Grupo() 
+        private void Cria_Local() 
         {
-            grupo = new Grupo(nome);
+            local = new Local(nome);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Integer.UnitTests.Domain.Paroquia
         public void QuandoNomeEhNulo_DisparaExcecao()
         {
             nome = null;
-            Cria_Grupo();
+            Cria_Local();
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Integer.UnitTests.Domain.Paroquia
         public void QuandoNomeEhVazio_DisparaExcecao()
         {
             nome = " ";
-            Cria_Grupo();
+            Cria_Local();
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace Integer.UnitTests.Domain.Paroquia
             nomeMaiorQue50.Length = 51;
             nome = nomeMaiorQue50.ToString();
 
-            Cria_Grupo();
+            Cria_Local();
         }
     }
 }
