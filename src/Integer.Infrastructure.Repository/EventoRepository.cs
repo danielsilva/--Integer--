@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Integer.Domain.Agenda;
 using Raven.Client;
+using System.Linq.Expressions;
+using Integer.Infrastructure.LINQExpressions;
 
 namespace Integer.Infrastructure.Repository
 {
@@ -16,9 +18,12 @@ namespace Integer.Infrastructure.Repository
             this.documentSession = documentSession;
         }
 
-        public IEnumerable<Evento> Todos(Func<Evento, bool> condicao)
+        public IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao)
         {
-            return documentSession.Query<Evento>().Where(condicao);
+            var filtro = condicao.And(e => e.Estado != EstadoEventoEnum.Cancelado)
+                                 .Compile();
+
+            return documentSession.Query<Evento>().Where(filtro);
         }
 
         public void Salvar(Evento evento)

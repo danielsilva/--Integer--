@@ -36,7 +36,6 @@ namespace Integer.UnitTests.Domain.Agenda
 
         [Test]
         [ExpectedException(typeof(DbCException))]
-        [Ignore("TODO")]
         public void QuandoJaExisteReservaDeUmLocalParaOutroHorarioParecido_DisparaExcecao() 
         {
             Local local = MockRepository.GenerateStub<Local>();

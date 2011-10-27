@@ -9,9 +9,16 @@ namespace Integer.Domain.Agenda
 {
     public class Reserva : IEquatable<Reserva>
     {
-        public virtual DateTime DataInicio { get; private set; }
-        public virtual DateTime DataFim { get; private set; }
-        public virtual Local Local { get; private set; }
+        public DateTime DataInicio { get; private set; }
+        public DateTime DataFim { get; private set; }
+        public Local Local { get; private set; }
+        public Horario Horario 
+        { 
+            get 
+            {
+                return new Horario(this.DataInicio, this.DataFim);
+            } 
+        }
 
         private string NomeLocal 
         {

@@ -150,6 +150,20 @@ namespace Integer.Domain.Agenda
 
         public void Reservar(Local local, DateTime dataInicio, DateTime dataFim)
         {
+            #region pré-condição
+
+            var horarioDesejado = new Horario(dataInicio, dataFim);
+            var reservaComMesmoHorarioParaOLocal = Reservas.FirstOrDefault(r => r.Local == local 
+                                                                                && r.Horario.VerificarConcorrencia(horarioDesejado));
+
+            var naoExisteReservaSemelhante = Assertion.That(reservaComMesmoHorarioParaOLocal == null)
+                                                      .WhenNot(String.Format(@"O local '{0}' foi reservado mais de uma vez para um mesmo horário. 
+                                                                                Verifique se o horário {1} está coincidindo com outra reserva para este local neste evento.", 
+                                                                                local.Nome, horarioDesejado.ToString()));
+            
+            #endregion
+            naoExisteReservaSemelhante.Validate();
+
             var reserva = new Reserva(local, dataInicio, dataFim);
 
             var reservasAux = Reservas.ToList();

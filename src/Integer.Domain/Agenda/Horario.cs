@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DbC;
 
 namespace Integer.Domain.Agenda
 {
-    public class Horario
+    public class Horario : IEquatable<Horario>
     {
         private readonly DateTime dataInicio;
         private readonly DateTime dataFim;
 
         public Horario(DateTime dataInicio, DateTime dataFim)
         {
+            var dataInicioEhMenorQueDataFim = Assertion.That(dataInicio < dataFim).WhenNot("Data Início deve ser anterior à Data Fim.");
+            dataInicioEhMenorQueDataFim.Validate();
+
             this.dataInicio = dataInicio;
             this.dataFim = dataFim;
         }
@@ -39,6 +43,37 @@ namespace Integer.Domain.Agenda
         public override string ToString()
         {
             return this.Duracao;
+        }
+
+        public bool VerificarConcorrencia(Horario outroHorario)
+        {
+            bool esteHorarioTerminaAntes = this.dataFim < outroHorario.dataInicio;
+            bool esteHorarioComecaDepois = outroHorario.dataFim < this.dataInicio;
+
+            return !(esteHorarioTerminaAntes || esteHorarioComecaDepois);
+        }
+
+        public bool Equals(Horario outroHorario)
+        {
+            if (outroHorario == null)
+                return false;
+
+            return (this.dataInicio.Equals(outroHorario.dataInicio)
+                    && this.dataFim.Equals(outroHorario.dataFim));
+        }
+
+        public override bool Equals(object obj)
+        {
+            Horario outroHorario = obj as Horario;
+            if (outroHorario == null)
+                return false;
+
+            return Equals(outroHorario);
+        }
+
+        public override int GetHashCode()
+        {
+            return dataInicio.GetHashCode() ^ dataFim.GetHashCode();
         }
     }
 }

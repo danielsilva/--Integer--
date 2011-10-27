@@ -83,24 +83,24 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        public void QuandoEventoNovoParoquial_AconteceDentro_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado()
+        public void QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado()
         {
-            CriarEventoNovoParoquialQueAconteceDentro();
+            CriarEventoNovoParoquialQueSobrepoe();
 
             Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
         }
 
         [Test]
-        public void QuandoEventoNovoParoquial_AconteceDentro_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial()
+        public void QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial()
         {
-            CriarEventoNovoParoquialQueAconteceDentro();
+            CriarEventoNovoParoquialQueSobrepoe();
 
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
             Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
         }
 
-        private void CriarEventoNovoParoquialQueAconteceDentro()
+        private void CriarEventoNovoParoquialQueSobrepoe()
         {
             DateTime dataInicioEvento = eventoNaoParoquialExistente.DataInicio.AddMinutes(1);
             DateTime dataFimEvento = eventoNaoParoquialExistente.DataFim.AddMinutes(-1);

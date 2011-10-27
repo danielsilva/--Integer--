@@ -49,7 +49,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        public void QuandoEventoNovoNaoParoquial_AconteceDentroDoEventoParoquial_DisparaExcecao() 
+        public void QuandoEventoNovoNaoParoquial_SobrepoeAoEventoParoquial_DisparaExcecao() 
         {
             DateTime dataInicioEvento = eventoParoquialExistente.DataInicio.AddMinutes(1);
             DateTime dataFimEvento = eventoParoquialExistente.DataFim.AddMinutes(-1);

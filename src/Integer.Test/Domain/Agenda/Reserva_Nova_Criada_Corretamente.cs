@@ -43,5 +43,12 @@ namespace Integer.UnitTests.Domain.Agenda
         {
             Assert.AreEqual(dataFim, reserva.DataFim);
         }
+
+        [Test]
+        public void Mapeia_Horario() 
+        {
+            var horarioEsperado = new Horario(dataInicio, dataFim);
+            Assert.AreEqual(horarioEsperado, reserva.Horario);
+        }
     }
 }
