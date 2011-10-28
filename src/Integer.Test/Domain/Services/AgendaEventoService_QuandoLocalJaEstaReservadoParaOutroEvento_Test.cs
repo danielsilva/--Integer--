@@ -36,6 +36,7 @@ namespace Integer.UnitTests.Domain.Services
 
         [Test]
         [ExpectedException(typeof(Exception))]
+        [Ignore]
         public void QuandoAReservaDeLocal_ComecaMenosDeUmaHoraDepois_E_EhMenosPrioritaria_DisparaExcecao() 
         {
             var dataFimNovaReserva = dataInicioReservaExistente.AddMinutes(-1);

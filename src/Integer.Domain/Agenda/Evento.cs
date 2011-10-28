@@ -121,7 +121,7 @@ namespace Integer.Domain.Agenda
 
         public void AdicionarConflito(Evento outroEvento, MotivoConflitoEnum motivo)
         {
-            #region
+            #region pré-condição
 
             var outroEventoNaoEhNulo = Assertion.That(outroEvento != null).WhenNot("Erro ao tentar adicionar conflito com evento nulo.");
 
@@ -139,7 +139,7 @@ namespace Integer.Domain.Agenda
             conflitosAux.Add(new Conflito(outroEvento, motivo));
             Conflitos = conflitosAux;
 
-            #region
+            #region pós-condição
 
             var aumentouAQuantidadeDeConflitos = Assertion.That(quantidadeDeConflitosAntes + 1 == Conflitos.Count())
                                                           .WhenNot("Erro ao adicionar conflitos ao evento. Quantidade não foi incrementada.");
@@ -169,6 +169,14 @@ namespace Integer.Domain.Agenda
             var reservasAux = Reservas.ToList();
             reservasAux.Add(reserva);
             Reservas = reservasAux;
+        }
+
+        public bool PossuiPrioridadeSobre(Evento outroEvento)
+        {
+            bool esteFoiCadastradoAntes = DateTime.Compare(this.DataCadastro, outroEvento.DataCadastro) == -1;
+
+            return this.Tipo.NivelDePrioridadeNaAgenda() > outroEvento.Tipo.NivelDePrioridadeNaAgenda()
+                    || (this.Tipo.NivelDePrioridadeNaAgenda() == outroEvento.Tipo.NivelDePrioridadeNaAgenda() && esteFoiCadastradoAntes);
         }
     }
 }

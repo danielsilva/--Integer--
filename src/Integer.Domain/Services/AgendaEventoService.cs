@@ -24,7 +24,7 @@ namespace Integer.Domain.Services
             VerificaSeConflitaComEventoParoquial(novoEvento.DataInicio, novoEvento.DataFim);
             if (novoEvento.Tipo == TipoEventoEnum.Paroquial)
                 DesmarcaEventosNaoParoquiaisQueExistiremNaMesmaData(novoEvento);
-            // TODO
+            
             VerificaDisponibilidadeDeLocais(novoEvento);
 
             eventos.Salvar(novoEvento);
@@ -67,7 +67,7 @@ namespace Integer.Domain.Services
             Func<Evento, bool> verificaQueReservouLocalNoMesmoHorario = CriarCondicaoParaVerificarReservaDeLocal(novoEvento);
             IEnumerable<Evento> eventosQueReservaramLocalNoMesmoHorario = eventos.Todos(e => verificaQueReservouLocalNoMesmoHorario(e));
 
-            // TODO varrer os eventos que reservaram o local, verificar a disponibilidade e aplicar a regra correspondente
+            // TODO varrer os eventos que reservaram o local, verificar a prioridade e aplicar a regra correspondente
         }
 
         private Func<Evento, bool> CriarCondicaoParaVerificarReservaDeLocal(Evento novoEvento) 

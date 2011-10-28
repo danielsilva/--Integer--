@@ -15,13 +15,12 @@ namespace Integer.UnitTests.Domain.Services
     public class AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test : InMemoryDataBaseTest
     {
         AgendaEventoService agendaEventoService;
-        TimeSpan intervaloMinimoEntreEventos = TimeSpan.FromMinutes(59);
-
         Evento eventoParoquialExistente;
 
         [SetUp]
         public void Init()
         {
+            CriarNovoBancoDeDados();
             CriarEventoParoquialPreExistente();
 
             var eventos = new EventoRepository(DataBaseSession);
@@ -39,6 +38,18 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
+        public void QuandoEventoNovoNaoParoquial_AconteceUmaHoraDepoisDoEventoParoquial_CadastraComSucesso()
+        {
+            DateTime dataInicioEvento = eventoParoquialExistente.DataFim.AddMinutes(60);
+            DateTime dataFimEvento = dataInicioEvento.AddHours(1);
+            var eventoNovoNaoParoquial = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
+
+            agendaEventoService.Agendar(eventoNovoNaoParoquial);
+
+            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+        }
+
+        [Test]
         public void QuandoEventoNovoNaoParoquial_AconteceMenosDeUmaHoraAntesDoEventoParoquial_DisparaExcecao()
         {
             DateTime dataFimEvento = eventoParoquialExistente.DataInicio.AddMinutes(-59);
@@ -46,6 +57,18 @@ namespace Integer.UnitTests.Domain.Services
             var eventoNovoNaoParoquial = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
 
             Assert.Throws<EventoParoquialExistenteException>(() => agendaEventoService.Agendar(eventoNovoNaoParoquial));
+        }
+
+        [Test]
+        public void QuandoEventoNovoNaoParoquial_AconteceUmaHoraAntesDoEventoParoquial_CadastraComSucesso()
+        {
+            DateTime dataFimEvento = eventoParoquialExistente.DataInicio.AddMinutes(-60);
+            DateTime dataInicioEvento = dataFimEvento.AddHours(-1);
+            var eventoNovoNaoParoquial = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
+
+            agendaEventoService.Agendar(eventoNovoNaoParoquial);
+
+            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
         }
 
         [Test]

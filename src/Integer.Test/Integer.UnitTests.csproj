@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Agenda\ConflitoTest.cs" />
+    <Compile Include="Domain\Agenda\Evento_PossuiPrioridadeSobre.cs" />
     <Compile Include="Domain\Agenda\Evento_ReservarLocal.cs" />
     <Compile Include="Domain\Agenda\EventoParoquialExistenteExceptionTest.cs" />
     <Compile Include="Domain\Agenda\Evento_AdicionarConflito.cs" />

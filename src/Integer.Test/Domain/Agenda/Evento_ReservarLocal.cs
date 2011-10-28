@@ -13,12 +13,6 @@ namespace Integer.UnitTests.Domain.Agenda
     [TestFixture]
     public class Evento_ReservarLocal
     {
-        [SetUp]
-        public void init() 
-        {
-
-        }
-
         [Test]
         public void AoReservarComSucesso_ReservaEstahAssociadoAEvento() 
         {
