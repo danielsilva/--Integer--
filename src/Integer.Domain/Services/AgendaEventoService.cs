@@ -68,6 +68,13 @@ namespace Integer.Domain.Services
             IEnumerable<Evento> eventosQueReservaramLocalNoMesmoHorario = eventos.Todos(e => verificaQueReservouLocalNoMesmoHorario(e));
 
             // TODO varrer os eventos que reservaram o local, verificar a prioridade e aplicar a regra correspondente
+            foreach (Evento eventoQueReservouLocal in eventosQueReservaramLocalNoMesmoHorario)
+            {
+                if (eventoQueReservouLocal.PossuiPrioridadeSobre(novoEvento))
+                    throw new Exception();
+                else 
+                    eventoQueReservouLocal.AdicionarConflito(novoEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
+            }
         }
 
         private Func<Evento, bool> CriarCondicaoParaVerificarReservaDeLocal(Evento novoEvento) 

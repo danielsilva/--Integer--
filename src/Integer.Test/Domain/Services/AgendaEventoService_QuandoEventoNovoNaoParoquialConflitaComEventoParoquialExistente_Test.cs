@@ -72,10 +72,10 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        public void QuandoEventoNovoNaoParoquial_SobrepoeAoEventoParoquial_DisparaExcecao() 
+        public void QuandoEventoNovoNaoParoquial_SobrepoeEventoParoquial_DisparaExcecao() 
         {
-            DateTime dataInicioEvento = eventoParoquialExistente.DataInicio.AddMinutes(1);
-            DateTime dataFimEvento = eventoParoquialExistente.DataFim.AddMinutes(-1);
+            DateTime dataInicioEvento = eventoParoquialExistente.DataInicio.AddMinutes(-1);
+            DateTime dataFimEvento = eventoParoquialExistente.DataFim.AddMinutes(1);
             var novoEvento = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
 
             Assert.Throws<EventoParoquialExistenteException>(() => agendaEventoService.Agendar(novoEvento));

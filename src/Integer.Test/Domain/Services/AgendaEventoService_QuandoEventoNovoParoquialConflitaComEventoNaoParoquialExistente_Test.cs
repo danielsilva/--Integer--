@@ -44,6 +44,7 @@ namespace Integer.UnitTests.Domain.Services
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
             Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
         [Test]
@@ -96,6 +97,7 @@ namespace Integer.UnitTests.Domain.Services
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
             Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
         [Test]
@@ -148,6 +150,7 @@ namespace Integer.UnitTests.Domain.Services
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
             Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
         [Test]
@@ -160,8 +163,8 @@ namespace Integer.UnitTests.Domain.Services
 
         private void CriarEventoNovoParoquialQueSobrepoe()
         {
-            DateTime dataInicioEvento = eventoNaoParoquialExistente.DataInicio.AddMinutes(1);
-            DateTime dataFimEvento = eventoNaoParoquialExistente.DataFim.AddMinutes(-1);
+            DateTime dataInicioEvento = eventoNaoParoquialExistente.DataInicio.AddMinutes(-1);
+            DateTime dataFimEvento = eventoNaoParoquialExistente.DataFim.AddMinutes(1);
             eventoNovoParoquial = CriarEvento(TipoEventoEnum.Paroquial, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoParoquial);

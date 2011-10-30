@@ -126,7 +126,8 @@
     <Compile Include="Domain\Paroquia\Grupo_Novo_Criado_Corretamente.cs" />
     <Compile Include="Domain\Services\AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.cs" />
     <Compile Include="Domain\Services\AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.cs" />
-    <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_Test.cs" />
+    <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test.cs" />
+    <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.cs" />
     <Compile Include="InMemoryDataBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Samples\EventoSamples.cs" />
