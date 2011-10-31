@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agenda\Conflito.cs" />
+    <Compile Include="Agenda\Exceptions\LocalReservadoException.cs" />
     <Compile Include="Agenda\TipoEventoEnumExtensions.cs" />
     <Compile Include="Agenda\EstadoEventoEnum.cs" />
     <Compile Include="Agenda\Evento.cs" />

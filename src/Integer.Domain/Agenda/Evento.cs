@@ -71,6 +71,9 @@ namespace Integer.Domain.Agenda
 
         private void PreencherDescricao(string descricao)
         {
+            if (String.IsNullOrEmpty(descricao))
+                return;
+
             #region pré-condição
             var descricaoPossuiQuantidadeValidaDeCaracteres 
                 = Assertion.That(descricao.Trim().Length <= NUMERO_MAXIMO_DE_CARACTERES_PRA_DESCRICAO)
@@ -177,6 +180,11 @@ namespace Integer.Domain.Agenda
 
             return this.Tipo.NivelDePrioridadeNaAgenda() > outroEvento.Tipo.NivelDePrioridadeNaAgenda()
                     || (this.Tipo.NivelDePrioridadeNaAgenda() == outroEvento.Tipo.NivelDePrioridadeNaAgenda() && esteFoiCadastradoAntes);
+        }
+
+        public void CancelarAgendamento()
+        {
+            this.Estado = EstadoEventoEnum.Cancelado;
         }
     }
 }

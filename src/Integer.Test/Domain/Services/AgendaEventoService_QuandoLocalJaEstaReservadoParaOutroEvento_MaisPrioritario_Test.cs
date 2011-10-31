@@ -37,7 +37,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [LocalReservadoException(typeof(Exception))]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_DisparaExcecao() 
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
