@@ -35,6 +35,22 @@ namespace Integer.Domain.Agenda
             }
         }
 
+        public DateTime Inicio 
+        { 
+            get 
+            {
+                return this.dataInicio;
+            } 
+        }
+
+        public DateTime Fim 
+        { 
+            get 
+            {
+                return this.dataFim;
+            } 
+        }
+
         public static implicit operator string(Horario horario)
         {
             return horario.Duracao;

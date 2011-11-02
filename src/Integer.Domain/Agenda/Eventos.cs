@@ -9,6 +9,8 @@ namespace Integer.Domain.Agenda
     public interface Eventos
     {
         IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao);
+        IEnumerable<Evento> QuePossuemConflitosCom(Evento evento);
+        IEnumerable<Evento> QuePossuemConflitoCom(Evento evento, MotivoConflitoEnum motivoConflitoEnum);
 
         void Salvar(Evento evento);
     }

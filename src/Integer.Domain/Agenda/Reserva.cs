@@ -17,7 +17,12 @@ namespace Integer.Domain.Agenda
             get 
             {
                 return new Horario(this.DataInicio, this.DataFim);
-            } 
+            }
+            private set 
+            {
+                this.DataInicio = value.Inicio;
+                this.DataFim = value.Fim;
+            }
         }
 
         private string NomeLocal 
@@ -63,6 +68,11 @@ namespace Integer.Domain.Agenda
 
             this.DataInicio = dataInicio;
             this.DataFim = dataFim;
+        }
+
+        public void AlterarHorario(Horario novoHorario)
+        {
+            this.Horario = novoHorario;
         }
 
         public bool Equals(Reserva outraReserva)

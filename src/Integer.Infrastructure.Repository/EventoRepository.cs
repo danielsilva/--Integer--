@@ -31,5 +31,16 @@ namespace Integer.Infrastructure.Repository
             documentSession.Store(evento);
             documentSession.SaveChanges();
         }
+
+
+        public IEnumerable<Evento> QuePossuemConflitosCom(Evento evento)
+        {
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento == evento));
+        }
+
+        public IEnumerable<Evento> QuePossuemConflitoCom(Evento evento, MotivoConflitoEnum motivo)
+        {
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento == evento && c.Motivo == motivo));
+        }
     }
 }

@@ -7,6 +7,7 @@ using Integer.Infrastructure.Validation;
 using DbC;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Events;
+using System.Collections;
 
 namespace Integer.Domain.Agenda
 {
@@ -175,6 +176,23 @@ namespace Integer.Domain.Agenda
             Reservas = reservasAux;
         }
 
+        public void AlterarReservasDeLocais(IDictionary<Local, Horario> reservasNovas) 
+        {
+            foreach (var reservaDoEvento in this.Reservas)
+            {
+                bool reservaDoEventoFoiAlterada = reservasNovas.ContainsKey(reservaDoEvento.Local);
+                if (reservaDoEventoFoiAlterada) 
+                {
+                    Horario novoHorario = reservasNovas[reservaDoEvento.Local];
+                    if (novoHorario != reservaDoEvento.Horario) 
+                    {
+                        reservaDoEvento.AlterarHorario(novoHorario);
+                        DomainEvents.Raise<HorarioDeReservaDeLocalAlteradoEvent>(new HorarioDeReservaDeLocalAlteradoEvent(this, reservaDoEvento));
+                    }
+                }
+            }
+        }
+
         public bool PossuiPrioridadeSobre(Evento outroEvento)
         {
             bool esteFoiCadastradoAntes = DateTime.Compare(this.DataCadastro, outroEvento.DataCadastro) == -1;
@@ -187,6 +205,31 @@ namespace Integer.Domain.Agenda
         {
             this.Estado = EstadoEventoEnum.Cancelado;
             DomainEvents.Raise<EventoCanceladoEvent>(new EventoCanceladoEvent(this));
+        }
+
+        public void RemoverConflitoCom(Evento outroEvento)
+        {
+            #region pré-condição
+            Assertion outroEventNaoEhNulo = Assertion.That(outroEvento != null).WhenNot("Não foi possível remover conflitos referentes ao evento. Referência nula.");
+            #endregion
+            outroEventNaoEhNulo.Validate();
+
+            IEnumerable<Conflito> conflitosReferentesAoEvento = this.Conflitos.Where(c => c.Evento == outroEvento);
+            if (conflitosReferentesAoEvento != null)
+            {
+                foreach (Conflito conflito in conflitosReferentesAoEvento)
+                {
+                    IList<Conflito> ConflitosAux = this.Conflitos.ToList();
+                    ConflitosAux.Remove(conflito);
+
+                    this.Conflitos = ConflitosAux;
+                }
+            }
+            if (this.Conflitos.Count() == 0)
+            {
+                this.Estado = EstadoEventoEnum.Agendado;
+                // TODO: enviar e-mail avisando que o evento voltou a ficar agendado
+            }
         }
     }
 }

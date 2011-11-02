@@ -110,8 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Agenda\ConflitoTest.cs" />
+    <Compile Include="Domain\Agenda\Reserva_AlterarHorario.cs" />
+    <Compile Include="Domain\Agenda\Evento_AlterarReservasDeLocais.cs" />
     <Compile Include="Domain\Agenda\Evento_CancelarAgendamento.cs" />
     <Compile Include="Domain\Agenda\Evento_PossuiPrioridadeSobre.cs" />
+    <Compile Include="Domain\Agenda\Evento_RemoverConflito.cs" />
     <Compile Include="Domain\Agenda\Evento_ReservarLocal.cs" />
     <Compile Include="Domain\Agenda\EventoParoquialExistenteExceptionTest.cs" />
     <Compile Include="Domain\Agenda\Evento_AdicionarConflito.cs" />
@@ -129,6 +132,7 @@
     <Compile Include="Domain\Services\AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.cs" />
     <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test.cs" />
     <Compile Include="Domain\Services\AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.cs" />
+    <Compile Include="Domain\Services\RemoveConflitoServiceTest.cs" />
     <Compile Include="InMemoryDataBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Samples\EventoSamples.cs" />

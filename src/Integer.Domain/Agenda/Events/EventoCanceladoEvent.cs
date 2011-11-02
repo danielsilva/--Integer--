@@ -6,7 +6,7 @@ using Integer.Infrastructure.Events;
 
 namespace Integer.Domain.Agenda
 {
-    public class EventoCanceladoEvent : IDomainEvent
+    public class EventoCanceladoEvent : DomainEvent
     {
         public EventoCanceladoEvent(Evento eventoCancelado)
         {

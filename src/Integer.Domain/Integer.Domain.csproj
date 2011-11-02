@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agenda\Conflito.cs" />
+    <Compile Include="Agenda\Events\HorarioDeReservaDeLocalAlteradoEvent.cs" />
     <Compile Include="Agenda\Events\EventoCanceladoEvent.cs" />
     <Compile Include="Agenda\Exceptions\LocalReservadoException.cs" />
     <Compile Include="Agenda\TipoEventoEnumExtensions.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Paroquia\Grupo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AgendaEventoService.cs" />
+    <Compile Include="Services\RemoveConflitoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Integer.Infrastructure\Integer.Infrastructure.csproj">

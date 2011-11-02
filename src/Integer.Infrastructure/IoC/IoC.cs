@@ -7,7 +7,7 @@ namespace Integer.Infrastructure.IoC
 {
     public static class IoCWorker
     {
-        private static IDependencyResolver resolver;
+        private static DependencyResolver resolver;
 
         public static bool IsInitialized 
         {
@@ -17,7 +17,7 @@ namespace Integer.Infrastructure.IoC
             }
         }
 
-        public static void Initialize(IDependencyResolver resolver)
+        public static void Initialize(DependencyResolver resolver)
         {
             IoCWorker.resolver = resolver;
         }

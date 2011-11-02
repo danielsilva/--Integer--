@@ -12,7 +12,7 @@ namespace Integer.Infrastructure.Events
         private static List<Delegate> actions;
 
         //Registra um callback para o domain event
-        public static void Register<T>(Action<T> callback) where T : IDomainEvent
+        public static void Register<T>(Action<T> callback) where T : DomainEvent
         {
             if (actions == null)
                 actions = new List<Delegate>();
@@ -27,11 +27,11 @@ namespace Integer.Infrastructure.Events
         }
 
         //Raises the given domain event
-        public static void Raise<T>(T args) where T : IDomainEvent
+        public static void Raise<T>(T args) where T : DomainEvent
         {
             if (IoCWorker.IsInitialized)
             {
-                var handlers = IoCWorker.ResolveAll<IDomainEventHandler<T>>();
+                var handlers = IoCWorker.ResolveAll<DomainEventHandler<T>>();
                 foreach (var handler in handlers)
                 {
                     handler.Handle(args);
