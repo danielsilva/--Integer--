@@ -6,6 +6,7 @@ using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using DbC;
 using Integer.Infrastructure.DateAndTime;
+using Integer.Infrastructure.Events;
 
 namespace Integer.Domain.Agenda
 {
@@ -185,6 +186,7 @@ namespace Integer.Domain.Agenda
         public void CancelarAgendamento()
         {
             this.Estado = EstadoEventoEnum.Cancelado;
+            DomainEvents.Raise<EventoCanceladoEvent>(new EventoCanceladoEvent(this));
         }
     }
 }
