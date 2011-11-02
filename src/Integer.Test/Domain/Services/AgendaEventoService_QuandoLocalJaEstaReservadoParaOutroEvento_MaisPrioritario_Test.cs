@@ -37,7 +37,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        [LocalReservadoException(typeof(Exception))]
+        [ExpectedException(typeof(LocalReservadoException))]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_DisparaExcecao() 
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
@@ -51,7 +51,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(LocalReservadoException))]
         public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_DisparaExcecao()
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
@@ -65,7 +65,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(LocalReservadoException))]
         public void QuandoAReservaNova_SobrepoeReservaExistente_DisparaExcecao()
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);

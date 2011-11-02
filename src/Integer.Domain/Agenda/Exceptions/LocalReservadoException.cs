@@ -7,13 +7,11 @@ namespace Integer.Domain.Agenda
 {
     public class LocalReservadoException : Exception
     {
-        private readonly Evento evento;
-        private readonly IEnumerable<Reserva> reservasQuePossuemConflito;
+        private readonly IEnumerable<Evento> eventos;
 
-        public LocalReservadoException(Evento evento, IEnumerable<Reserva> reservasQuePossuemConflito)
+        public LocalReservadoException(IEnumerable<Evento> eventos)
         {
-            this.evento = evento;
-            this.reservasQuePossuemConflito = reservasQuePossuemConflito;
+            this.eventos = eventos;
         }
 
         public override string Message
@@ -23,10 +21,12 @@ namespace Integer.Domain.Agenda
                 StringBuilder msgErro = new StringBuilder();
                 foreach (Evento eventoPrioritario in eventos)
                 {
-                    foreach (var reserva in eventoPrioritario.ReservasDeLocais)
+                    msgErro.AppendLine(String.Format("O evento '{0}' já reservou: " + Environment.NewLine, eventoPrioritario.Nome));
+                    foreach (var reserva in eventoPrioritario.Reservas)
                     {
-                        msgErro.AppendLine(String.Format("O local '{0}' já está reservado para o evento '{1}' no horário: {2}", reserva.Local.Nome, eventoPrioritario.Nome, reserva.Horario));
+                        msgErro.AppendLine(String.Format("- '{0}' no horário: {1}", reserva.Local.Nome, reserva.Horario));
                     }
+                    msgErro.AppendLine(Environment.NewLine);
                 }
                 return msgErro.ToString();
             }
