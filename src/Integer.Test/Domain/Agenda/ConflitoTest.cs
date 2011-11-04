@@ -35,7 +35,7 @@ namespace Integer.UnitTests.Domain.Agenda
         [Test]
         public void Mapeia_Evento() 
         {
-            Assert.AreEqual(evento, conflito.Evento);
+            Assert.AreEqual(evento.Id, conflito.Evento.Id);
         }
 
         [Test]

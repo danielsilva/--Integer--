@@ -35,12 +35,12 @@ namespace Integer.Infrastructure.Repository
 
         public IEnumerable<Evento> QuePossuemConflitosCom(Evento evento)
         {
-            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento == evento));
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Equals(evento)));
         }
 
         public IEnumerable<Evento> QuePossuemConflitoCom(Evento evento, MotivoConflitoEnum motivo)
         {
-            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento == evento && c.Motivo == motivo));
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Equals(evento) && c.Motivo == motivo));
         }
     }
 }

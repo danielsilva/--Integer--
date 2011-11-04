@@ -59,7 +59,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(conflito.Evento, eventoNovo);
+            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 
@@ -98,7 +98,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(conflito.Evento, eventoNovo);
+            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 
@@ -137,7 +137,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(conflito.Evento, eventoNovo);
+            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 

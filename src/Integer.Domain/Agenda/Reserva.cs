@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Integer.Domain.Paroquia;
 using DbC;
+using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Agenda
 {
@@ -11,7 +12,7 @@ namespace Integer.Domain.Agenda
     {
         public DateTime DataInicio { get; private set; }
         public DateTime DataFim { get; private set; }
-        public Local Local { get; private set; }
+        public DenormalizedReference<Local> Local { get; private set; }
         public Horario Horario 
         { 
             get 
@@ -73,6 +74,17 @@ namespace Integer.Domain.Agenda
         public void AlterarHorario(Horario novoHorario)
         {
             this.Horario = novoHorario;
+        }
+
+        public bool PossuiConflitoCom(Reserva reserva) 
+        {
+            var dataInicioOutraReserva = reserva.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            var dataFimOutraReserva = reserva.DataFim.AddMinutes(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS.Minutes);
+
+            return this.Local.Equals(reserva.Local)
+                                    && ((this.DataInicio <= dataInicioOutraReserva && dataInicioOutraReserva <= this.DataFim)
+                                        || (this.DataInicio <= dataFimOutraReserva && dataFimOutraReserva <= this.DataFim)
+                                        || (dataInicioOutraReserva <= this.DataInicio && this.DataFim <= dataFimOutraReserva));
         }
 
         public bool Equals(Reserva outraReserva)

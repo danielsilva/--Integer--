@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateAndTime\SystemTime.cs" />
+    <Compile Include="DocumentModelling\DenormalizedReference.cs" />
+    <Compile Include="DocumentModelling\INamedDocument.cs" />
     <Compile Include="Events\DomainEvents.cs" />
     <Compile Include="Events\DomainEvent.cs" />
     <Compile Include="Events\DomainEventHandler.cs" />

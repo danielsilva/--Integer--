@@ -28,7 +28,9 @@ namespace Integer.UnitTests.Domain.Agenda
         {
             Evento evento = CriarEvento();
             Evento outroEvento = CriarEvento();
+            outroEvento.Id = "1";
             Evento maisOutroEvento = CriarEvento();
+            maisOutroEvento.Id = "2";
             evento.AdicionarConflito(outroEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
             evento.AdicionarConflito(maisOutroEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Integer.Infrastructure.DateAndTime;
+using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Agenda
 {
@@ -19,8 +20,8 @@ namespace Integer.Domain.Agenda
             this.Data = SystemTime.Now();
         }
 
-        public virtual Evento Evento { get; private set; }
-        public virtual DateTime Data { get; private set; }
+        public DenormalizedReference<Evento> Evento { get; private set; }
+        public DateTime Data { get; private set; }
         public MotivoConflitoEnum Motivo { get; private set; }
     }
 }

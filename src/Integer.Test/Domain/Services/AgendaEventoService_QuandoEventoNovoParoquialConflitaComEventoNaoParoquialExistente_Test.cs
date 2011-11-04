@@ -43,7 +43,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
@@ -96,7 +96,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
@@ -149,7 +149,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial, conflito.Evento);
+            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
             Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 

@@ -22,9 +22,7 @@ namespace Integer.UnitTests.Domain.Agenda
         {
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new Dictionary<Local, Horario>();
-            reservasAlteradas.Add(local, new Horario(dataInicioEvento, dataFimEvento));
-
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.AreEqual(1, evento.Reservas.Count());
@@ -37,9 +35,7 @@ namespace Integer.UnitTests.Domain.Agenda
         {
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new Dictionary<Local, Horario>();
-            reservasAlteradas.Add(local, new Horario(dataInicioEvento, dataFimEvento.AddHours(-1)));
-
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.AreEqual(1, evento.Reservas.Count());
@@ -55,12 +51,11 @@ namespace Integer.UnitTests.Domain.Agenda
 
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new Dictionary<Local, Horario>();
-            reservasAlteradas.Add(local, new Horario(dataInicioEvento, dataFimEvento.AddHours(-1)));
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.AreEqual(evento, eventoDisparado.Evento);
-            Assert.AreEqual(evento.Reservas.First(), eventoDisparado.Reserva);
+            Assert.AreEqual(evento.Reservas, eventoDisparado.ReservasAlteradas);
         }
 
         private Evento CriarEventoComReserva()
@@ -70,7 +65,9 @@ namespace Integer.UnitTests.Domain.Agenda
             var grupo = MockRepository.GenerateStub<Grupo>();
             var evento = new Evento("Nome", "Descricao", dataInicioEvento, dataFimEvento, grupo, TipoEventoEnum.Comum);
 
-            local = MockRepository.GenerateStub<Local>();
+            local = new Local("Local");
+            local.Id = "1";
+
             evento.Reservar(local, dataInicioEvento, dataFimEvento);
 
             return evento;

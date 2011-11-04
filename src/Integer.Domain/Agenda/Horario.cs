@@ -8,6 +8,8 @@ namespace Integer.Domain.Agenda
 {
     public class Horario : IEquatable<Horario>
     {
+        public static readonly TimeSpan INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS = TimeSpan.FromMinutes(59);
+
         private readonly DateTime dataInicio;
         private readonly DateTime dataFim;
 

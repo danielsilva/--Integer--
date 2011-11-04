@@ -8,13 +8,13 @@ namespace Integer.Domain.Agenda
 {
     public class HorarioDeReservaDeLocalAlteradoEvent : DomainEvent
     {
-        public HorarioDeReservaDeLocalAlteradoEvent(Evento evento, Reserva reserva)
+        public HorarioDeReservaDeLocalAlteradoEvent(Evento evento, IEnumerable<Reserva> reservasAlteradas)
         {
             this.Evento = evento;
-            this.Reserva = reserva;
+            this.ReservasAlteradas = reservasAlteradas;
         }
 
         public Evento Evento { get; private set; }
-        public Reserva Reserva { get; private set; }
+        public IEnumerable<Reserva> ReservasAlteradas { get; private set; }
     }
 }

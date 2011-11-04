@@ -33,7 +33,7 @@ namespace Integer.UnitTests.Domain.Agenda
         public void EventoPossuiUmConflitoReferenteAoOutroEvento() 
         {
             Assert.AreEqual(1, evento.Conflitos.Count());
-            Assert.AreEqual(outroEvento, evento.Conflitos.Single().Evento);
+            Assert.AreEqual(outroEvento.Id, evento.Conflitos.Single().Evento.Id);
         }
     }
 }

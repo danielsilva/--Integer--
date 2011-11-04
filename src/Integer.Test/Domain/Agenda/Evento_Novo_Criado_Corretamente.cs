@@ -70,7 +70,7 @@ namespace Integer.UnitTests.Domain.Agenda
         [Test]
         public void Mapeia_Grupo()
         {
-            Assert.AreEqual(0, evento.Grupo.Id);
+            Assert.AreEqual(null, evento.Grupo.Id);
         }
 
         [Test]

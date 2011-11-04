@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agenda\Conflito.cs" />
+    <Compile Include="Agenda\Events\HorarioDeEventoAlteradoEvent.cs" />
     <Compile Include="Agenda\Events\HorarioDeReservaDeLocalAlteradoEvent.cs" />
     <Compile Include="Agenda\Events\EventoCanceladoEvent.cs" />
     <Compile Include="Agenda\Exceptions\LocalReservadoException.cs" />

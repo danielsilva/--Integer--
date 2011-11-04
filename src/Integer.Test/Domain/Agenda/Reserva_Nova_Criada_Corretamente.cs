@@ -29,7 +29,7 @@ namespace Integer.UnitTests.Domain.Agenda
         [Test]
         public void Mapeia_Local() 
         {
-            Assert.AreEqual(local, reserva.Local);
+            Assert.AreEqual(local.Id, reserva.Local.Id);
         }
 
         [Test]

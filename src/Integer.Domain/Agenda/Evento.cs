@@ -8,20 +8,22 @@ using DbC;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Events;
 using System.Collections;
+using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Agenda
 {
-    public class Evento
+    public class Evento : INamedDocument
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRA_DESCRICAO = 150;
 
-        public virtual string Nome { get; protected set; }
+        public string Id { get; set; }
+        public virtual string Nome { get; set; }
         public EstadoEventoEnum Estado { get; private set; }
         public string Descricao { get; private set; }
         public DateTime DataInicio { get; private set; }
         public DateTime DataFim { get; private set; }
-        public Grupo Grupo { get; private set; }
+        public DenormalizedReference<Grupo> Grupo { get; private set; }
         public TipoEventoEnum Tipo { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public IEnumerable<Conflito> Conflitos { get; private set; }
@@ -158,7 +160,7 @@ namespace Integer.Domain.Agenda
             #region pré-condição
 
             var horarioDesejado = new Horario(dataInicio, dataFim);
-            var reservaComMesmoHorarioParaOLocal = Reservas.FirstOrDefault(r => r.Local == local 
+            var reservaComMesmoHorarioParaOLocal = Reservas.FirstOrDefault(r => r.Local.Equals(local)
                                                                                 && r.Horario.VerificarConcorrencia(horarioDesejado));
 
             var naoExisteReservaSemelhante = Assertion.That(reservaComMesmoHorarioParaOLocal == null)
@@ -176,21 +178,41 @@ namespace Integer.Domain.Agenda
             Reservas = reservasAux;
         }
 
-        public void AlterarReservasDeLocais(IDictionary<Local, Horario> reservasNovas) 
+        public void Alterar(string nome, string descricao, DateTime dataInicio, DateTime dataFim, Grupo grupo, TipoEventoEnum tipo)
         {
+            bool dataInicioMudou = !this.DataInicio.Equals(dataInicio);
+            bool dataFimMudou = !this.DataFim.Equals(dataFim);
+            if (dataInicioMudou || dataFimMudou)
+            {
+                this.DataInicio = dataInicio;
+                this.DataFim = dataFim;
+                DomainEvents.Raise<HorarioDeEventoAlteradoEvent>(new HorarioDeEventoAlteradoEvent(this));
+            }
+
+            this.Nome = nome;
+            this.Descricao = descricao;
+            this.Grupo = grupo;
+            this.Tipo = tipo;
+        }
+
+        public void AlterarReservasDeLocais(IEnumerable<Reserva> reservasNovas) 
+        {
+            IList<Reserva> reservasAlteradas = new List<Reserva>();
             foreach (var reservaDoEvento in this.Reservas)
             {
-                bool reservaDoEventoFoiAlterada = reservasNovas.ContainsKey(reservaDoEvento.Local);
+                bool reservaDoEventoFoiAlterada = reservasNovas.Count(r => r.Local.Equals(reservaDoEvento.Local)) > 0;
                 if (reservaDoEventoFoiAlterada) 
                 {
-                    Horario novoHorario = reservasNovas[reservaDoEvento.Local];
-                    if (novoHorario != reservaDoEvento.Horario) 
+                    Reserva reservaAlterada = reservasNovas.First(r => r.Local.Equals(reservaDoEvento.Local));
+                    if (reservaAlterada.Horario != reservaDoEvento.Horario) 
                     {
-                        reservaDoEvento.AlterarHorario(novoHorario);
-                        DomainEvents.Raise<HorarioDeReservaDeLocalAlteradoEvent>(new HorarioDeReservaDeLocalAlteradoEvent(this, reservaDoEvento));
+                        reservaDoEvento.AlterarHorario(reservaAlterada.Horario);
+                        reservasAlteradas.Add(reservaDoEvento);
                     }
                 }
             }
+            if (reservasAlteradas.Count > 0)
+                DomainEvents.Raise<HorarioDeReservaDeLocalAlteradoEvent>(new HorarioDeReservaDeLocalAlteradoEvent(this, reservasAlteradas));
         }
 
         public bool PossuiPrioridadeSobre(Evento outroEvento)
@@ -214,7 +236,7 @@ namespace Integer.Domain.Agenda
             #endregion
             outroEventNaoEhNulo.Validate();
 
-            IEnumerable<Conflito> conflitosReferentesAoEvento = this.Conflitos.Where(c => c.Evento == outroEvento);
+            IEnumerable<Conflito> conflitosReferentesAoEvento = this.Conflitos.Where(c => c.Evento.Equals(outroEvento));
             if (conflitosReferentesAoEvento != null)
             {
                 foreach (Conflito conflito in conflitosReferentesAoEvento)
@@ -230,6 +252,35 @@ namespace Integer.Domain.Agenda
                 this.Estado = EstadoEventoEnum.Agendado;
                 // TODO: enviar e-mail avisando que o evento voltou a ficar agendado
             }
+        }
+
+        public bool PossuiConflitoDeHorarioCom(Evento outroEvento)
+        {
+            DateTime dataInicioComIntervaloMinimo = outroEvento.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            DateTime dataFimComIntervaloMinimo = outroEvento.DataFim.Add(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+
+            bool dataInicioComIntervaloFicaDentroDoEvento = (this.DataInicio <= dataInicioComIntervaloMinimo && dataInicioComIntervaloMinimo <= this.DataFim);
+            bool dataFimComIntervaloFicaDentroDoEvento = (this.DataInicio <= dataFimComIntervaloMinimo && dataFimComIntervaloMinimo <= this.DataFim);
+            bool comecaAntesETerminaDepoisDoEvento = (dataInicioComIntervaloMinimo <= this.DataInicio && this.DataFim <= dataFimComIntervaloMinimo);
+
+            return dataInicioComIntervaloFicaDentroDoEvento
+                    || dataFimComIntervaloFicaDentroDoEvento
+                    || comecaAntesETerminaDepoisDoEvento;
+        }
+
+        public bool VerificarSeReservasPossuemConflito(IEnumerable<Reserva> outrasReservas)
+        {
+            bool existeConflito = false;
+            foreach (Reserva minhaReserva in this.Reservas)
+            {
+                foreach (Reserva outraReserva in outrasReservas)
+                {
+                    existeConflito |= minhaReserva.PossuiConflitoCom(outraReserva);
+                    if (existeConflito)
+                        break;
+                }
+            }
+            return existeConflito;
         }
     }
 }

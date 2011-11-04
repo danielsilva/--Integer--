@@ -5,15 +5,16 @@ using System.Text;
 using Integer.Infrastructure.Validation;
 using System.Diagnostics.Contracts;
 using DbC;
+using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Paroquia
 {
-    public class Local
+    public class Local : INamedDocument
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
 
-        public short Id { get; private set; }
-        public string Nome { get; private set; }
+        public virtual string Id { get; set; }
+        public string Nome { get; set; }
 
         protected Local() { }
 

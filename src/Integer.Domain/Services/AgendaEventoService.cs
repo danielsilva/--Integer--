@@ -12,7 +12,6 @@ namespace Integer.Domain.Services
     public class AgendaEventoService
     {
         private Eventos eventos;
-        private readonly TimeSpan INTERVALO_MINIMO = TimeSpan.FromMinutes(59);
 
         public AgendaEventoService(Eventos eventos)
         {
@@ -21,7 +20,7 @@ namespace Integer.Domain.Services
 
         public void Agendar(Evento novoEvento)
         {
-            VerificaSeConflitaComEventoParoquial(novoEvento.DataInicio, novoEvento.DataFim);
+            VerificaSeConflitaComEventoParoquial(novoEvento);
             if (novoEvento.Tipo == TipoEventoEnum.Paroquial)
                 DesmarcaEventosNaoParoquiaisQueExistiremNaMesmaData(novoEvento);
             
@@ -30,10 +29,9 @@ namespace Integer.Domain.Services
             eventos.Salvar(novoEvento);
         }
 
-        private void VerificaSeConflitaComEventoParoquial(DateTime dataInicio, DateTime dataFim)
+        private void VerificaSeConflitaComEventoParoquial(Evento novoEvento)
         {
-            Func<Evento, bool> verificaConflitoDeHorario = CriarCondicaoParaVerificacaoDeConflitoDeHorario(dataInicio, dataFim);
-            IEnumerable<Evento> eventosParoquiaisEmConflito = eventos.Todos(e => e.Tipo == TipoEventoEnum.Paroquial && verificaConflitoDeHorario(e));
+            IEnumerable<Evento> eventosParoquiaisEmConflito = eventos.Todos(e => e.Tipo == TipoEventoEnum.Paroquial && e.PossuiConflitoDeHorarioCom(novoEvento));
 
             if (eventosParoquiaisEmConflito.Count() > 0)
                 throw new EventoParoquialExistenteException(eventosParoquiaisEmConflito);
@@ -41,25 +39,11 @@ namespace Integer.Domain.Services
 
         private void DesmarcaEventosNaoParoquiaisQueExistiremNaMesmaData(Evento novoEvento)
         {
-            var verificaConflitoDeHorario = CriarCondicaoParaVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim);
-
-            var eventosNaoParoquiaisEmConflito = eventos.Todos(e => e.Tipo != TipoEventoEnum.Paroquial && verificaConflitoDeHorario(e));
+            var eventosNaoParoquiaisEmConflito = eventos.Todos(e => e.Tipo != TipoEventoEnum.Paroquial && e.PossuiConflitoDeHorarioCom(novoEvento));
             foreach (Evento eventoNaoParoquial in eventosNaoParoquiaisEmConflito)
             {
                 eventoNaoParoquial.AdicionarConflito(novoEvento, MotivoConflitoEnum.ExisteEventoParoquialNaData);
             }
-        }
-
-        private Func<Evento, bool> CriarCondicaoParaVerificacaoDeConflitoDeHorario(DateTime dataInicio, DateTime dataFim)
-        {
-            DateTime dataInicioComIntervaloMinimo = dataInicio.Subtract(INTERVALO_MINIMO);
-            DateTime dataFimComIntervaloMinimo = dataFim.Add(INTERVALO_MINIMO);
-
-            Func<Evento, bool> dataInicioComIntervaloFicaDentroDoEvento = (e => e.DataInicio <= dataInicioComIntervaloMinimo && dataInicioComIntervaloMinimo <= e.DataFim);
-            Func<Evento, bool> dataFimComIntervaloFicaDentroDoEvento = (e => e.DataInicio <= dataFimComIntervaloMinimo && dataFimComIntervaloMinimo <= e.DataFim);
-            Func<Evento, bool> comecaAntesETerminaDepoisDoEvento = (e => dataInicioComIntervaloMinimo <= e.DataInicio && e.DataFim <= dataFimComIntervaloMinimo);
-
-            return e => dataInicioComIntervaloFicaDentroDoEvento(e) || dataFimComIntervaloFicaDentroDoEvento(e) || comecaAntesETerminaDepoisDoEvento(e);
         }
 
         private void VerificaDisponibilidadeDeLocais(Evento novoEvento)
@@ -82,18 +66,11 @@ namespace Integer.Domain.Services
 
         private Func<Evento, bool> CriarCondicaoParaVerificarReservaDeLocal(Evento novoEvento) 
         {
-            Expression<Func<Evento, bool>> predicate = PredicateBuilder.False<Evento>();
+            Expression<Func<Evento, bool>> predicate = PredicateBuilder.InitializeWithFalse<Evento>();
 
             foreach (Reserva reserva in novoEvento.Reservas)
             {
-                var dataInicioReservada = reserva.DataInicio.Subtract(INTERVALO_MINIMO);
-                var dataFimReservada = reserva.DataFim.AddMinutes(INTERVALO_MINIMO.Minutes);
-
-                short idLocalReservado = reserva.Local.Id;
-                predicate = predicate.Or(e => e.Reservas.Count(r => r.Local.Id == idLocalReservado
-                                                                                    && ((r.DataInicio <= dataInicioReservada && dataInicioReservada <= r.DataFim)
-                                                                                        || (r.DataInicio <= dataFimReservada && dataFimReservada <= r.DataFim)
-                                                                                        || (dataInicioReservada <= r.DataInicio && r.DataFim <= dataFimReservada))) > 0);
+                predicate = predicate.Or(e => e.Reservas.Count(r => r.PossuiConflitoCom(reserva)) > 0);
             }
 
             return predicate.Compile();

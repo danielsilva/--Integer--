@@ -7,7 +7,7 @@ using Integer.Domain.Agenda;
 
 namespace Integer.Domain.Services
 {
-    public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>
+    public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>, DomainEventHandler<HorarioDeEventoAlteradoEvent>
     {
         private readonly Eventos eventos;
 
@@ -27,16 +27,76 @@ namespace Integer.Domain.Services
 
         public void Handle(HorarioDeReservaDeLocalAlteradoEvent alteracaoDeHorario)
         {
-            Evento evento = alteracaoDeHorario.Evento;
-            Reserva reservaAlterada = alteracaoDeHorario.Reserva;
+            Evento eventoAlterado = alteracaoDeHorario.Evento;
+            IEnumerable<Reserva> reservasAlteradas = alteracaoDeHorario.ReservasAlteradas;
 
-            IEnumerable<Evento> eventosComConflito = eventos.QuePossuemConflitoCom(evento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
+            RemoverConflitosDeReservaDeLocalDeOutrosEventos(eventoAlterado, reservasAlteradas);
+            RemoverConflitosDeReservaDeLocalDoEvento(eventoAlterado, reservasAlteradas);            
+        }
+
+        private void RemoverConflitosDeReservaDeLocalDeOutrosEventos(Evento eventoAlterado, IEnumerable<Reserva> reservasAlteradas)
+        {
+            IEnumerable<Evento> eventosComConflito = eventos.QuePossuemConflitoCom(eventoAlterado, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
             foreach (Evento eventoComConflito in eventosComConflito)
             {
-                Reserva reservaComConflito = eventoComConflito.Reservas.Single(r => r.Local == reservaAlterada.Local);
-                
-                //TODO verificar se o conflito foi resolvido. Caso positivo, removê-lo
-                //reservaComConflito.
+                bool possuiConflito = eventoComConflito.VerificarSeReservasPossuemConflito(reservasAlteradas);
+                if (!possuiConflito)
+                    eventoComConflito.RemoverConflitoCom(eventoAlterado);
+            }
+        }
+
+        private void RemoverConflitosDeReservaDeLocalDoEvento(Evento eventoAlterado, IEnumerable<Reserva> reservasAlteradas)
+        {
+            IEnumerable<Conflito> conflitosDeLocal = eventoAlterado.Conflitos.Where(c => c.Motivo == MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
+            if (conflitosDeLocal.Count() > 0) 
+            {
+                IEnumerable<string> idsEventosConflitantes = conflitosDeLocal.Select(c => c.Evento.Id);
+                IEnumerable<Evento> eventosConflitantes = eventos.Todos(e => idsEventosConflitantes.Contains(e.Id));
+
+                foreach (Evento eventoConflitante in eventosConflitantes)
+                {
+                    bool possuiConflito = eventoConflitante.VerificarSeReservasPossuemConflito(reservasAlteradas);
+                    if (!possuiConflito)
+                        eventoAlterado.RemoverConflitoCom(eventoConflitante);
+                }
+            }
+        }
+
+        public void Handle(HorarioDeEventoAlteradoEvent alteracaoDeHorario)
+        {
+            Evento eventoAlterado = alteracaoDeHorario.EventoAlterado;
+
+            if (eventoAlterado.Tipo == TipoEventoEnum.Paroquial)
+                RemoverConflitosDeEventosNaoParoquiais(eventoAlterado);
+
+            RemoverConflitosDoEvento(eventoAlterado);               
+        }
+
+        private void RemoverConflitosDeEventosNaoParoquiais(Evento eventoAlterado)
+        {
+            IEnumerable<Evento> eventosComConflito = eventos.QuePossuemConflitoCom(eventoAlterado, MotivoConflitoEnum.ExisteEventoParoquialNaData);
+            foreach (Evento evento in eventosComConflito)
+            {
+                bool possuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
+                if (!possuiConflito)
+                    evento.RemoverConflitoCom(eventoAlterado);
+            }
+        }
+
+        private void RemoverConflitosDoEvento(Evento eventoAlterado)
+        {
+            IEnumerable<Conflito> conflitosComEventosParoquiais = eventoAlterado.Conflitos.Where(c => c.Motivo == MotivoConflitoEnum.ExisteEventoParoquialNaData);
+            if (conflitosComEventosParoquiais.Count() > 0)
+            {
+                IEnumerable<string> idsEventosParoquiais = conflitosComEventosParoquiais.Select(c => c.Evento.Id);
+                IEnumerable<Evento> eventosParoquiais = eventos.Todos(e => idsEventosParoquiais.Contains(e.Id));
+
+                foreach (Evento evento in eventosParoquiais)
+                {
+                    bool possuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
+                    if (!possuiConflito)
+                        eventoAlterado.RemoverConflitoCom(evento);
+                }
             }
         }
     }
