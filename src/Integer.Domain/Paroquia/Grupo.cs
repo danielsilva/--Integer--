@@ -14,12 +14,13 @@ namespace Integer.Domain.Paroquia
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
 
-        public string Id { get; set; }
-        public string Nome { get; set; }
+        public virtual string Id { get; set; }
+        public virtual string Nome { get; set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
         public bool PrecisaTrocarSenha { get; private set; }
-        public DenormalizedReference<Grupo> GrupoPai { get; set; }
+        public string CorNoCalendario { get; private set; }
+        public DenormalizedReference<Grupo> GrupoPai { get; private set; }
         public IEnumerable<DenormalizedReference<Grupo>> GruposFilhos { get; private set; }
 
         private string SenhaDescriptografada
@@ -37,9 +38,12 @@ namespace Integer.Domain.Paroquia
 
         protected Grupo() { }
 
-        public Grupo(string nome, string email)
+        public Grupo(string nome, string email, Grupo grupoPai, string corNoCalendario)
         {
             PreencherNome(nome);
+            PreencherGrupoPai(grupoPai);
+            PreencherCor(corNoCalendario ?? grupoPai.CorNoCalendario);
+
             // TODO validar email
             this.Email = email;
         }
@@ -56,6 +60,20 @@ namespace Integer.Domain.Paroquia
             (nomeFoiInformado & nomePossuiQuantidadeDeCaracteresValida).Validate();
             
             Nome = nome.Trim();
+        }
+
+        private void PreencherGrupoPai(Grupo grupo)
+        {
+            if (grupo == null)
+                throw new ArgumentNullException("GrupoPai não pode ser nulo.");
+
+            this.GrupoPai = grupo;
+            this.CorNoCalendario = grupo.CorNoCalendario;
+        }
+
+        private void PreencherCor(string cor) 
+        {
+            this.CorNoCalendario = cor;
         }
 
         public void TrocarSenha(string novaSenha)

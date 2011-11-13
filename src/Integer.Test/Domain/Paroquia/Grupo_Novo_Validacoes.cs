@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using DbC;
+using Rhino.Mocks;
 
 namespace Integer.UnitTests.Domain.Paroquia
 {
@@ -15,13 +16,16 @@ namespace Integer.UnitTests.Domain.Paroquia
     {
         string nome;
         string email;
-        Grupo grupo;
+        Grupo grupo, grupoPai;
+        string cor;
 
         [SetUp]
         public void Setup()
         {
             nome = "Grupo";
             email = "email@email.com";
+            grupoPai = MockRepository.GenerateStub<Grupo>();
+            cor = "cor";
         }
 
         [Test]
@@ -51,9 +55,17 @@ namespace Integer.UnitTests.Domain.Paroquia
             Cria_Grupo();
         }
 
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void QuandoGrupoPaiEhNulo_DisparaExcecao() 
+        {
+            grupoPai = null;
+            Cria_Grupo();
+        }
+
         private void Cria_Grupo()
         {
-            grupo = new Grupo(nome, email);
+            grupo = new Grupo(nome, email, grupoPai, cor);
         }
     }
 }

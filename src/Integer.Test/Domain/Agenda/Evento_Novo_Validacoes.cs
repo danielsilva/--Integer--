@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using DbC;
+using Rhino.Mocks;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
@@ -27,7 +28,7 @@ namespace Integer.UnitTests.Domain.Agenda
             descricao = "Retiro de aprofundamento da espiritualidade Salvatoriana";
             dataInicioEvento = new DateTime(2011, 01, 01, 8, 0, 0);
             dataFimEvento = new DateTime(2011, 01, 01, 10, 0, 0);
-            grupo = new Grupo("Conselho Pastoral Paroquial", null);
+            grupo = MockRepository.GenerateStub<Grupo>();
             tipoDoEvento = TipoEventoEnum.Comum;
         }
 

@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using Integer.Infrastructure.DateAndTime;
+using Rhino.Mocks;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
@@ -23,8 +24,10 @@ namespace Integer.UnitTests.Domain.Agenda
             string descricao = "Retiro de aprofundamento da espiritualidade Salvatoriana";
             dataInicioEvento = new DateTime(2011, 01, 01, 8, 0, 0);
             dataFimEvento = new DateTime(2011, 01, 01, 10, 0, 0);
-            Grupo grupo = new Grupo("Conselho Pastoral Paroquial", null);
             TipoEventoEnum tipoDoEvento = TipoEventoEnum.Comum;
+
+            Grupo grupo = MockRepository.GenerateStub<Grupo>();
+            grupo.Id = "IdGrupo";
 
             dataAtual = DateTime.Now;
             SystemTime.Now = () => dataAtual;
@@ -70,7 +73,7 @@ namespace Integer.UnitTests.Domain.Agenda
         [Test]
         public void Mapeia_Grupo()
         {
-            Assert.AreEqual(null, evento.Grupo.Id);
+            Assert.AreEqual("IdGrupo", evento.Grupo.Id);
         }
 
         [Test]

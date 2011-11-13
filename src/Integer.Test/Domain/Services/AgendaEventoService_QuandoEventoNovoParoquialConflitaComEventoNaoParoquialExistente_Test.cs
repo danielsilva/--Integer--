@@ -7,6 +7,7 @@ using Integer.Domain.Services;
 using Integer.Infrastructure.Repository;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
+using Rhino.Mocks;
 
 namespace Integer.UnitTests.Domain.Services
 {
@@ -79,6 +80,7 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovoParoquial = CriarEvento(TipoEventoEnum.Paroquial, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoParoquial);
+            DataBaseSession.SaveChanges();
         }
 
         [Test]
@@ -132,6 +134,7 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovoParoquial = CriarEvento(TipoEventoEnum.Paroquial, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoParoquial);
+            DataBaseSession.SaveChanges();
         }
 
         [Test]
@@ -168,11 +171,12 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovoParoquial = CriarEvento(TipoEventoEnum.Paroquial, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoParoquial);
+            DataBaseSession.SaveChanges();
         }
 
         private Evento CriarEvento(TipoEventoEnum tipo, DateTime dataInicio, DateTime dataFim)
         {
-            Grupo grupo = new Grupo("Grupo", null);
+            Grupo grupo = MockRepository.GenerateStub<Grupo>();
 
             return new Evento("Nome", "Descricao", dataInicio, dataFim, grupo, tipo);
         }

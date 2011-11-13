@@ -73,6 +73,7 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
             agendaEventoService.Agendar(eventoNovo);
+            DataBaseSession.SaveChanges();
         }
 
         [Test]
@@ -112,6 +113,7 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
             agendaEventoService.Agendar(eventoNovo);
+            DataBaseSession.SaveChanges();
         }
 
         [Test]
@@ -151,6 +153,7 @@ namespace Integer.UnitTests.Domain.Services
             eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
             agendaEventoService.Agendar(eventoNovo);
+            DataBaseSession.SaveChanges();
         }
 
         private void CriarEventoExistenteQueReservouLocal(TipoEventoEnum tipoEvento) 
@@ -168,7 +171,7 @@ namespace Integer.UnitTests.Domain.Services
 
         private Evento CriarEvento(TipoEventoEnum tipo, DateTime dataInicio, DateTime dataFim)
         {
-            var grupo = new Grupo("Grupo", null);
+            var grupo = MockRepository.GenerateStub<Grupo>();
             return new Evento("Nome", "Descricao", dataInicio, dataFim, grupo, tipo);
         }
     }

@@ -22,6 +22,7 @@ namespace Integer.UnitTests.Domain.Services
 
             Evento novoEvento = CriarEvento();
             agendaService.Agendar(novoEvento);
+            DataBaseSession.SaveChanges();
             
             Assert.AreEqual(1, DataBaseSession.Query<Evento>().Count());
         }

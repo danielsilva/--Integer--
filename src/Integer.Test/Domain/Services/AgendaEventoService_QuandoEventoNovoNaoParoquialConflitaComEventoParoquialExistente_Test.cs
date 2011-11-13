@@ -45,6 +45,7 @@ namespace Integer.UnitTests.Domain.Services
             var eventoNovoNaoParoquial = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoNaoParoquial);
+            DataBaseSession.SaveChanges();
 
             Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
         }
@@ -67,6 +68,7 @@ namespace Integer.UnitTests.Domain.Services
             var eventoNovoNaoParoquial = CriarEvento(TipoEventoEnum.Comum, dataInicioEvento, dataFimEvento);
 
             agendaEventoService.Agendar(eventoNovoNaoParoquial);
+            DataBaseSession.SaveChanges();
 
             Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
         }
@@ -83,7 +85,7 @@ namespace Integer.UnitTests.Domain.Services
 
         private Evento CriarEvento(TipoEventoEnum tipo, DateTime dataInicio, DateTime dataFim)
         {
-            Grupo grupo = new Grupo("Grupo", null);
+            Grupo grupo = MockRepository.GenerateStub<Grupo>();
 
             return new Evento("Nome", "Descricao", dataInicio, dataFim, grupo, tipo);
         }
