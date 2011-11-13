@@ -198,21 +198,31 @@ namespace Integer.Domain.Agenda
         public void AlterarReservasDeLocais(IEnumerable<Reserva> reservasNovas) 
         {
             IList<Reserva> reservasAlteradas = new List<Reserva>();
+            IList<Reserva> reservasCanceladas = new List<Reserva>();
+
             foreach (var reservaDoEvento in this.Reservas)
             {
                 bool reservaDoEventoFoiAlterada = reservasNovas.Count(r => r.Local.Equals(reservaDoEvento.Local)) > 0;
-                if (reservaDoEventoFoiAlterada) 
+                if (reservaDoEventoFoiAlterada)
                 {
                     Reserva reservaAlterada = reservasNovas.First(r => r.Local.Equals(reservaDoEvento.Local));
-                    if (reservaAlterada.Horario != reservaDoEvento.Horario) 
+                    if (reservaAlterada.Horario != reservaDoEvento.Horario)
                     {
                         reservaDoEvento.AlterarHorario(reservaAlterada.Horario);
                         reservasAlteradas.Add(reservaDoEvento);
                     }
                 }
+                else 
+                {
+                    reservasCanceladas.Add(reservaDoEvento);
+                }
             }
+
             if (reservasAlteradas.Count > 0)
                 DomainEvents.Raise<HorarioDeReservaDeLocalAlteradoEvent>(new HorarioDeReservaDeLocalAlteradoEvent(this, reservasAlteradas));
+
+            if (reservasCanceladas.Count > 0)
+                DomainEvents.Raise<ReservaDeLocalCanceladaEvent>(new ReservaDeLocalCanceladaEvent(this, reservasCanceladas));
         }
 
         public bool PossuiPrioridadeSobre(Evento outroEvento)

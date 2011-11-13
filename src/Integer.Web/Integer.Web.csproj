@@ -41,6 +41,74 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncCtpLibrary, Version=1.0.4107.18181, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\lib\Autofac.2.5.2.830\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\..\lib\Autofac.2.5.2.830\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\lib\Autofac.Mvc3.2.5.2.830\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\lib\AutoMapper.2.0.0\lib\net40-client\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DbC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\DbC.dll</HintPath>
+    </Reference>
+    <Reference Include="Esent.Interop, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8dd49bbdae3f61af, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Esent.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory, Version=3.0.0.3800, Culture=neutral, PublicKeyToken=efe927acf176eea2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=2.9.4.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Spatial, Version=2.9.1.2, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Lucene.Net.Contrib.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.SpellChecker, Version=2.9.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Lucene.Net.Contrib.SpellChecker.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Munin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=974fec519e29970d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Munin.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Esent, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Storage.Esent.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Managed, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Storage.Managed.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -65,14 +133,166 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CalendarioController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Enums\VisualizacaoCalendarioEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CalendarioHelper.cs" />
+    <Compile Include="Helpers\DivExtensions.cs" />
+    <Compile Include="Helpers\GrupoHelper.cs" />
+    <Compile Include="Helpers\ValidationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CalendarioViewModel.cs" />
+    <Compile Include="ViewModels\GrupoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
+    <Content Include="Content\alerts\images\help.gif" />
+    <Content Include="Content\alerts\images\important.gif" />
+    <Content Include="Content\alerts\images\info.gif" />
+    <Content Include="Content\alerts\images\title.gif" />
+    <Content Include="Content\alerts\jquery.alerts.css" />
+    <Content Include="Content\alerts\jquery.alerts.min.css" />
+    <Content Include="Content\calendar\calendar.css" />
+    <Content Include="Content\calendar\calendar.min.css" />
+    <Content Include="Content\calendar\dp.css" />
+    <Content Include="Content\calendar\dp.min.css" />
+    <Content Include="Content\calendar\images\calendar\bgs\CardHeadbg.jpg" />
+    <Content Include="Content\calendar\images\calendar\bgs\CardHeadbg.png" />
+    <Content Include="Content\calendar\images\calendar\bgs\ch.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\headbg.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\minus1.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\plus1.gif" />
+    <Content Include="Content\calendar\images\calendar\bubble_combined.png" />
+    <Content Include="Content\calendar\images\calendar\combined.gif" />
+    <Content Include="Content\calendar\images\calendar\dp\btn-arrow-light.gif" />
+    <Content Include="Content\calendar\images\calendar\dp\btn-arrow.gif" />
+    <Content Include="Content\calendar\images\calendar\grid.png" />
+    <Content Include="Content\calendar\images\calendar\gridth.gif" />
+    <Content Include="Content\calendar\images\calendar\headbg.gif" />
+    <Content Include="Content\calendar\images\calendar\indicator_web20_working.gif" />
+    <Content Include="Content\calendar\images\calendar\load-bg.png" />
+    <Content Include="Content\calendar\images\calendar\tbg.gif" />
+    <Content Include="Content\calendar\images\share\card.gif" />
+    <Content Include="Content\calendar\images\share\glass-bg.gif" />
+    <Content Include="Content\calendar\images\share\hd-sprite.gif" />
+    <Content Include="Content\calendar\images\share\headbg.gif" />
+    <Content Include="Content\calendar\images\share\information.png" />
+    <Content Include="Content\calendar\images\share\left-btn.gif" />
+    <Content Include="Content\calendar\images\share\right-btn.gif" />
+    <Content Include="Content\calendar\images\share\table.gif" />
+    <Content Include="Content\calendar\images\share\table_c.gif" />
+    <Content Include="Content\calendar\images\share\tbg.gif" />
+    <Content Include="Content\calendar\images\share\tool-sprites.gif" />
+    <Content Include="Content\dateTimePicker\dark.datetimepicker.css" />
+    <Content Include="Content\dateTimePicker\dark.datetimepicker.min.css" />
+    <Content Include="Content\FormPrincipal.css" />
+    <Content Include="Content\images\amarelo.gif" />
+    <Content Include="Content\images\azul.gif" />
+    <Content Include="Content\images\btnAzul.gif" />
+    <Content Include="Content\images\busy.gif" />
+    <Content Include="Content\images\cancelar.png" />
+    <Content Include="Content\images\cancelar16.png" />
+    <Content Include="Content\images\cancelar2_16.png" />
+    <Content Include="Content\images\exclamacao.png" />
+    <Content Include="Content\images\exclamacao_alerta.png" />
+    <Content Include="Content\images\green.gif" />
+    <Content Include="Content\images\header_background.png" />
+    <Content Include="Content\images\icons\add.png" />
+    <Content Include="Content\images\icons\appt.gif" />
+    <Content Include="Content\images\icons\au.gif" />
+    <Content Include="Content\images\icons\Btn.Close.gif" />
+    <Content Include="Content\images\icons\cacheClear.png" />
+    <Content Include="Content\images\icons\cal-day.gif" />
+    <Content Include="Content\images\icons\cal-month.gif" />
+    <Content Include="Content\images\icons\cal-proc.gif" />
+    <Content Include="Content\images\icons\cal-rsc-perm.gif" />
+    <Content Include="Content\images\icons\cal-week.gif" />
+    <Content Include="Content\images\icons\cal-wk-week.gif" />
+    <Content Include="Content\images\icons\cal.gif" />
+    <Content Include="Content\images\icons\calendar.gif" />
+    <Content Include="Content\images\icons\calwrkwk.gif" />
+    <Content Include="Content\images\icons\canmtg.gif" />
+    <Content Include="Content\images\icons\circle_animation.gif" />
+    <Content Include="Content\images\icons\clndr.gif" />
+    <Content Include="Content\images\icons\clndrsmll.gif" />
+    <Content Include="Content\images\icons\cn.gif" />
+    <Content Include="Content\images\icons\date.png" />
+    <Content Include="Content\images\icons\date_add.png" />
+    <Content Include="Content\images\icons\date_reflash.png" />
+    <Content Include="Content\images\icons\delete.png" />
+    <Content Include="Content\images\icons\edit.png" />
+    <Content Include="Content\images\icons\folder_user.gif" />
+    <Content Include="Content\images\icons\group.gif" />
+    <Content Include="Content\images\icons\group_add.gif" />
+    <Content Include="Content\images\icons\hk.png" />
+    <Content Include="Content\images\icons\ico1.gif" />
+    <Content Include="Content\images\icons\indicator.gif" />
+    <Content Include="Content\images\icons\Item.Add.gif" />
+    <Content Include="Content\images\icons\Item.Delete.gif" />
+    <Content Include="Content\images\icons\Item.Edit.gif" />
+    <Content Include="Content\images\icons\Item.Input.gif" />
+    <Content Include="Content\images\icons\Item.Save.gif" />
+    <Content Include="Content\images\icons\Item.Search.gif" />
+    <Content Include="Content\images\icons\msg_center.gif" />
+    <Content Include="Content\images\icons\msg_email.gif" />
+    <Content Include="Content\images\icons\msg_im.gif" />
+    <Content Include="Content\images\icons\msg_mobile.gif" />
+    <Content Include="Content\images\icons\mtgreq-cancel.gif" />
+    <Content Include="Content\images\icons\mtgreq.gif" />
+    <Content Include="Content\images\icons\mtgrsp-accept.gif" />
+    <Content Include="Content\images\icons\mtgrsp-decline.gif" />
+    <Content Include="Content\images\icons\mtgrsp-tent.gif" />
+    <Content Include="Content\images\icons\pgrs-sm.gif" />
+    <Content Include="Content\images\icons\printButton.png" />
+    <Content Include="Content\images\icons\resultset_next.png" />
+    <Content Include="Content\images\icons\resultset_previous.png" />
+    <Content Include="Content\images\icons\rowdelete.png" />
+    <Content Include="Content\images\icons\table.gif" />
+    <Content Include="Content\images\icons\table_c.gif" />
+    <Content Include="Content\images\icons\table_copy.png" />
+    <Content Include="Content\images\icons\table_r.png" />
+    <Content Include="Content\images\icons\table_refresh.png" />
+    <Content Include="Content\images\icons\tick.png" />
+    <Content Include="Content\images\icons\turnback.png" />
+    <Content Include="Content\images\icons\us.gif" />
+    <Content Include="Content\images\icons\view.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\main_background.png" />
+    <Content Include="Content\images\question_mark.png" />
+    <Content Include="Content\images\titulo.png" />
+    <Content Include="Content\images\titulo1.png" />
+    <Content Include="Content\images\validation\accept.png" />
+    <Content Include="Content\images\validation\exclamation.png" />
+    <Content Include="Content\images\validation\tooltop.gif" />
+    <Content Include="Content\images\validation\warning.gif" />
+    <Content Include="Content\images\_main_background.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\jQueryUI\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\jQueryUI\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\jQueryUI\jquery.ui.all.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.base.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.core.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.dialog.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.theme.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\toolTip2\jquery.tooltip.css" />
+    <Content Include="Content\toolTip\jquery.bt.css" />
+    <Content Include="Global.asax" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -87,6 +307,55 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\Calendario\EventoForm.js" />
+    <Content Include="Scripts\Plugins\alerts\jquery.alerts.js" />
+    <Content Include="Scripts\Plugins\alerts\jquery.alerts.min.js" />
+    <Content Include="Scripts\Plugins\blockUI\jquery.blockUI.js" />
+    <Content Include="Scripts\Plugins\blockUI\jquery.blockUI.min.js" />
+    <Content Include="Scripts\Plugins\calendar\Common.js" />
+    <Content Include="Scripts\Plugins\calendar\Common.min.js" />
+    <Content Include="Scripts\Plugins\calendar\dateFormat.js" />
+    <Content Include="Scripts\Plugins\calendar\dateFormat.min.js" />
+    <Content Include="Scripts\Plugins\calendar\datepicker_lang_BR.js" />
+    <Content Include="Scripts\Plugins\calendar\datepicker_lang_BR.min.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.calendar.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.calendar.min.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.datepicker.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.datepicker.min.js" />
+    <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.js" />
+    <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.min.js" />
+    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker-pt-BR.js" />
+    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker-pt-BR.min.js" />
+    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.js" />
+    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.core.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.core.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.dialog.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.dialog.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.draggable.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.draggable.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.mouse.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.mouse.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.position.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.position.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.widget.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\Plugins\livequery\jquery.livequery.js" />
+    <Content Include="Scripts\Plugins\livequery\jquery.livequery.min.js" />
+    <Content Include="Scripts\Plugins\mask\jquery.meio.mask.js" />
+    <Content Include="Scripts\Plugins\mask\jquery.meio.mask.min.js" />
+    <Content Include="Scripts\Plugins\shadedBorder\shadedborder.js" />
+    <Content Include="Scripts\Plugins\shadedBorder\shadedborder.min.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.dimensions.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.tooltip.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.tooltip.min.js" />
+    <Content Include="Scripts\Plugins\toolTip\excanvas.compiled.js" />
+    <Content Include="Scripts\Plugins\toolTip\excanvas.js" />
+    <Content Include="Scripts\Plugins\toolTip\jquery.bt.js" />
+    <Content Include="Scripts\Plugins\toolTip\jquery.bt.min.js" />
+    <Content Include="Scripts\Usuario\Login.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -118,8 +387,33 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Calendario\Calendario.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Integer.Domain\Integer.Domain.csproj">
+      <Project>{6D72F9EE-9D92-4E5B-A359-79C3A4271154}</Project>
+      <Name>Integer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integer.Infrastructure.Repository\Integer.Infrastructure.Repository.csproj">
+      <Project>{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}</Project>
+      <Name>Integer.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integer.Infrastructure\Integer.Infrastructure.csproj">
+      <Project>{40103D98-6F26-4BCD-A994-7A16567F713B}</Project>
+      <Name>Integer.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Usuario\_LoginForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Usuario\_TrocaSenha.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -139,7 +433,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5628</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/integer2</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

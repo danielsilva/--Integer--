@@ -32,7 +32,8 @@ namespace Integer.UnitTests.Domain.Services
             dataInicio = DateTime.Now;
             dataFim = dataInicio.AddHours(2);
 
-            Grupo grupo = new Grupo("Grupo");
+            Grupo grupo = MockRepository.GenerateStub<Grupo>();
+            grupo.Nome = "Grupo";
 
             return new Evento("Nome", "Descricao", dataInicio, dataFim, grupo, TipoEventoEnum.Comum);
         }

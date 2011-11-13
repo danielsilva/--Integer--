@@ -1,12 +1,162 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
+    <title>{ Integer } - Calendário da Paróquia Divino Salvador - RJ</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+
+    <!--jquery-->
+    <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.js" type="text/javascript"></script>
+    <!--jquery-->
+
+    <!--jQueryUI-->
+    <link href="@Url.Content("~/Content/jQueryUI/jquery.ui.theme.css")" rel="Stylesheet" type="text/css" />
+    <!--jQueryUI-->
+
+    <!--tooltip-->
+    <!--[if IE]><script type="text/javascript" src="@Url.Content("../../Scripts/Plugins/toolTip/excanvas.compiled.js")"></script><![endif]-->
+    <script src="@Url.Content("~/Scripts/Plugins/toolTip/jquery.bt.min.js")" type="text/javascript"></script>
+    <!--tooltip-->
+
+    <!--blockUI-->
+    <script src="@Url.Content("~/Scripts/Plugins/blockUI/jquery.blockUI.min.js")" type="text/javascript"></script>
+    <!--blockUI-->
+
+    <!--alerts-->
+    <link href="@Url.Content("~/Content/alerts/jquery.alerts.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/Plugins/alerts/jquery.alerts.min.js")" type="text/javascript"></script>
+    <!--alerts-->
+
+    <!--shadedBorder-->
+    <script src="@Url.Content("~/Scripts/Plugins/shadedBorder/shadedborder.min.js")" type="text/javascript"></script>
+    <!--shadedBorder-->
+
+    <script type="text/javascript">
+        function ExibirBloqueioBrowser() {
+            jInfo("<p>O navegador de internet que você utiliza não suporta as funcionalidades deste sistema. Sugerimos que atualize seu Internet Explorer para a versão 8.0.</p> <p>Outras opções disponíveis são: '<a href=\"http://www.google.com/chrome?hl=pt-BR\"><u>Google Chrome</u></a>' ou '<a href=\"http://br.mozdev.org/\"><u>Mozilla Firefox</u></a>'.</p><p>(Caso tenha curiosidade, você pode testar a qualidade do seu navegador através <a href=\"http://acid3.acidtests.org/\"><u>deste teste</u></a>. A página de teste deve abrir corretamente em um navegador de qualidade, que deve alcançar 100 pontos.)</p>", "Lamentamos o inconveniente.");
+        }
+
+        var roundedBorder = RUZEE.ShadedBorder.create({ corner: 8, shadow: 16 });
+        $(document).ready(function () {
+            if ($.browser.msie && $.browser.version.substr(0, 3) != "8.0" && $.browser.version.substr(0, 3) != "9.0") {
+                ExibirBloqueioBrowser();
+            }
+
+            roundedBorder.render($("#formulario"));
+
+            $("#lnkSair").live("click", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/integer2/Usuario/Sair",
+                    complete: function (XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.getResponseHeader("Location") != null
+                        && XMLHttpRequest.getResponseHeader("Location") != "") {
+                            window.location = XMLHttpRequest.getResponseHeader("Location");
+                        }
+                    }
+                });
+            });
+        });
+
+        function BlockUI() {
+            $.blockUI({
+                overlayCSS: {
+                    opacity: 0.5
+                },
+                css: {
+                    padding: 0,
+                    margin: 0,
+                    height: '35px',
+                    width: '35px',
+                    top: '40%',
+                    left: '47%',
+                    textAlign: 'center',
+                    color: '#000',
+                    border: '3px solid #aaa',
+                    backgroundColor: '#fff',
+                    cursor: 'wait'
+                },
+                message: '<img src="/integer2/Content/images/busy.gif" style="margin-top:9px;" />',
+                baseZ: 2000
+            });
+        }
+
+        // TODO retornar blockUI
+        //$(document).ajaxStart(BlockUI).ajaxStop($.unblockUI);
+
+        $(document).ajaxError(function () {
+            ExibeMensagemErroInesperado();
+        });
+
+        $(document).ajaxSuccess(function (event, XMLHttpRequest) {
+            var erro = (XMLHttpRequest.getResponseHeader("ERRO") != null && XMLHttpRequest.getResponseHeader("ERRO") != "") ? XMLHttpRequest.getResponseHeader("ERRO") : "";
+            if (erro != "") {
+                ExibeAlerta("Ops!", erro);
+            }
+        });
+
+        function ExibeHelpTip(jQueryObject, msg) {
+            $("#divTips").queue(function () {
+                $("#divTips").empty();
+                $("#divTips").append(msg);
+                jQueryObject.bt({
+                    contentSelector: $("#divTips"),
+                    fill: 'rgba(255, 255, 255, 1)',
+                    strokeWidth: 2,
+                    strokeStyle: '#274EBD',
+                    trigger: ['mousemove', 'mouseout']
+                });
+                $("#divTips").dequeue();
+            });
+        }
+
+        function ExibeMensagemErroInesperado() {
+            ExibeAlerta("Houve uma falha no sistema", "Uma falha foi identificada nesta funcionalidade. \nO administrador do sistema já foi notificado sobre o ocorrido.\n Em breve, o tratamento será implementado.");
+        }
+
+        function ExibeAlerta(titulo, msg, callback) {
+            jAlert(msg, titulo, callback);
+        }
+
+        function ExibeConfirmacao(msg, titulo, callback) {
+            if (titulo == null) titulo = "Confirme";
+            jConfirm(msg, titulo, callback);
+        }       
+
+    </script>
+
+    @RenderSection("head")
 </head>
 
 <body>
-    @RenderBody()
+    <div id="wrapper">
+		    <div id="header">
+			<div id="header-left">
+				<a href="/integer2"><img id="titulo" class="imageLink" src="/integer2/Content/images/titulo1.png" align="top" alt=""/></a>
+			</div>
+			
+			<div id="header-right">
+			    <div id="loginMenu">
+			    @if (Request.IsAuthenticated) {
+			        <div id="boasVindas">
+                        Olá, <b>@Html.Encode(Page.User.Identity.Name)</b>! 
+                        { <a id="lnkSair">Sair</a> }
+                    </div>
+                }
+                else {
+                    <ul>
+					    <li>@Html.ActionLink("Entrar","Login", "Usuario")</li>
+				    </ul>
+                }
+				</div>
+			</div>
+		</div>
+    		
+		    <div id="main">
+		        <div id="divTips" style="display:none;"></div>
+		        @RenderBody()
+		    </div>
+	    </div>
+    	
+	    <div id="divErro"></div>
 </body>
 </html>

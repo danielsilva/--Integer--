@@ -1,0 +1,24 @@
+﻿@using Integer.Web.Helpers
+
+<h1>Bem-vindo(a)!</h1>
+	@using (Html.BeginForm()) {
+        <input type="hidden" value="<%= Model.login != null ? Model.login : "" %>" name="login" />
+	    <text>É necessário trocar a senha que foi gerada.</text>
+	    <br/><br/> 
+	    @Html.ValidationMessage("formSenha")
+	    <div class="linha">
+	        <div class="formItem">
+	        <label for="nome" style="float:left;">Nova senha</label>@Html.ValidationImage("novaSenha")
+	        @Html.Password("novaSenha", "", new { @id = "txtSenha", @class = "input-text" })
+	        </div>
+        </div>
+        <div class="linha">
+            <div class="formItem">
+	        <label for="sobrenome" style="float:left;">Repita a nova senha</label>@Html.ValidationImage("novaSenhaRepetida")
+	        @Html.Password("novaSenhaRepetida", "", new { @id = "txtSenhaRepetida", @class = "input-text" })
+	        </div>
+	    </div>
+	     <div class="spacer" style="text-align:center;">
+		    <a href="#" id="lnkEnviarNovaSenha" class="botaoPrimario">Enviar</a>
+	    </div>
+	}

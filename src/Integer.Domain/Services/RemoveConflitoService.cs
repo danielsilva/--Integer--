@@ -7,7 +7,10 @@ using Integer.Domain.Agenda;
 
 namespace Integer.Domain.Services
 {
-    public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>, DomainEventHandler<HorarioDeEventoAlteradoEvent>
+    public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, 
+                                         DomainEventHandler<ReservaDeLocalCanceladaEvent>,
+                                         DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>, 
+                                         DomainEventHandler<HorarioDeEventoAlteradoEvent>
     {
         private readonly Eventos eventos;
 
@@ -98,6 +101,15 @@ namespace Integer.Domain.Services
                         eventoAlterado.RemoverConflitoCom(evento);
                 }
             }
+        }
+
+        public void Handle(ReservaDeLocalCanceladaEvent cancelamentoDeReserva)
+        {
+            Evento eventoAlterado = cancelamentoDeReserva.Evento;
+            IEnumerable<Reserva> reservasCanceladas = cancelamentoDeReserva.Reservas;
+
+            RemoverConflitosDeReservaDeLocalDeOutrosEventos(eventoAlterado, reservasCanceladas);
+            RemoverConflitosDeReservaDeLocalDoEvento(eventoAlterado, reservasCanceladas); 
         }
     }
 }

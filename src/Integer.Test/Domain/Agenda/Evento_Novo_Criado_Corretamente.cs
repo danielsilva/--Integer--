@@ -23,7 +23,7 @@ namespace Integer.UnitTests.Domain.Agenda
             string descricao = "Retiro de aprofundamento da espiritualidade Salvatoriana";
             dataInicioEvento = new DateTime(2011, 01, 01, 8, 0, 0);
             dataFimEvento = new DateTime(2011, 01, 01, 10, 0, 0);
-            Grupo grupo = new Grupo("Conselho Pastoral Paroquial");
+            Grupo grupo = new Grupo("Conselho Pastoral Paroquial", null);
             TipoEventoEnum tipoDoEvento = TipoEventoEnum.Comum;
 
             dataAtual = DateTime.Now;

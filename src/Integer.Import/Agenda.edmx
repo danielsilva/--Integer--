@@ -1,0 +1,777 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Local" EntityType="Model.Store.Local" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Grupo" EntityType="Model.Store.Grupo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Evento" EntityType="Model.Store.Evento" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reserva" EntityType="Model.Store.Reserva" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Conflito" EntityType="Model.Store.Conflito" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuario" EntityType="Model.Store.Usuario" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SolicitacaoAcesso" EntityType="Model.Store.SolicitacaoAcesso" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AtuacaoNoGrupo" EntityType="Model.Store.AtuacaoNoGrupo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PublicoAlvo" EntityType="Model.Store.PublicoAlvo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EventoPublicoAlvo" EntityType="Model.Store.EventoPublicoAlvo" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ReservaLocal" Association="Model.Store.ReservaLocal">
+      <End Role="Reserva" EntitySet="Reserva" />
+      <End Role="Local" EntitySet="Local" />
+    </AssociationSet>
+    <AssociationSet Name="EventoGrupo" Association="Model.Store.EventoGrupo">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="EventoConflito" Association="Model.Store.EventoConflito">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Conflito" EntitySet="Conflito" />
+    </AssociationSet>
+    <AssociationSet Name="ConflitoEvento" Association="Model.Store.ConflitoEvento">
+      <End Role="Conflito" EntitySet="Conflito" />
+      <End Role="Evento" EntitySet="Evento" />
+    </AssociationSet>
+    <AssociationSet Name="EventoReserva" Association="Model.Store.EventoReserva">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitacaoAcessoGrupo" Association="Model.Store.SolicitacaoAcessoGrupo">
+      <End Role="SolicitacaoAcesso" EntitySet="SolicitacaoAcesso" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioSolicitacaoAcesso" Association="Model.Store.UsuarioSolicitacaoAcesso">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="SolicitacaoAcesso" EntitySet="SolicitacaoAcesso" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioAtuacaoNoGrupo" Association="Model.Store.UsuarioAtuacaoNoGrupo">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="AtuacaoNoGrupo" EntitySet="AtuacaoNoGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="AtuacaoNoGrupoGrupo" Association="Model.Store.AtuacaoNoGrupoGrupo">
+      <End Role="AtuacaoNoGrupo" EntitySet="AtuacaoNoGrupo" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="GrupoGrupo" Association="Model.Store.GrupoGrupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Grupo1" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventoPublicoAlvo_Evento" Association="Model.Store.FK_EventoPublicoAlvo_Evento">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="EventoPublicoAlvo" EntitySet="EventoPublicoAlvo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventoPublicoAlvo_PublicoAlvo" Association="Model.Store.FK_EventoPublicoAlvo_PublicoAlvo">
+      <End Role="PublicoAlvo" EntitySet="PublicoAlvo" />
+      <End Role="EventoPublicoAlvo" EntitySet="EventoPublicoAlvo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GrupoPai_Id" Type="smallint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Evento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DataInicio" Type="datetime" Nullable="false" />
+    <Property Name="DataFim" Type="datetime" Nullable="false" />
+    <Property Name="idTipo" Type="int" Nullable="false" />
+    <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="Grupo_Id" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DataInicio" Type="datetime" Nullable="false" />
+    <Property Name="DataFim" Type="datetime" Nullable="false" />
+    <Property Name="Local_Id" Type="smallint" Nullable="false" />
+    <Property Name="EventoReserva_Reserva_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Conflito">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idMotivo" Type="int" Nullable="false" />
+    <Property Name="Data" Type="datetime" Nullable="false" />
+    <Property Name="EventoConflito_Conflito_Id" Type="bigint" Nullable="false" />
+    <Property Name="Evento_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CPF" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Senha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="PrecisaTrocarSenha" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SolicitacaoAcesso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EhCoordenador" Type="bit" Nullable="false" />
+    <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+    <Property Name="DataAvaliacao" Type="datetime" Nullable="true" />
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="Grupo_Id" Type="smallint" Nullable="false" />
+    <Property Name="UsuarioSolicitacaoAcesso_SolicitacaoAcesso_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AtuacaoNoGrupo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EhCoordenador" Type="bit" Nullable="false" />
+    <Property Name="UsuarioAtuacaoNoGrupo_AtuacaoNoGrupo_Id" Type="int" Nullable="false" />
+    <Property Name="Grupo_Id" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PublicoAlvo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EventoPublicoAlvo">
+    <Key>
+      <PropertyRef Name="EventoPublicoAlvo_PublicoAlvo_Id" />
+      <PropertyRef Name="ListaInternaPublicosAlvo_Id" />
+    </Key>
+    <Property Name="EventoPublicoAlvo_PublicoAlvo_Id" Type="bigint" Nullable="false" />
+    <Property Name="ListaInternaPublicosAlvo_Id" Type="smallint" Nullable="false" />
+  </EntityType>
+  <Association Name="ReservaLocal">
+    <End Role="Reserva" Type="Model.Store.Reserva" Multiplicity="*" />
+    <End Role="Local" Type="Model.Store.Local" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="Local_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventoGrupo">
+    <End Role="Evento" Type="Model.Store.Evento" Multiplicity="*" />
+    <End Role="Grupo" Type="Model.Store.Grupo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Evento">
+        <PropertyRef Name="Grupo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventoConflito">
+    <End Role="Evento" Type="Model.Store.Evento" Multiplicity="1" />
+    <End Role="Conflito" Type="Model.Store.Conflito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Conflito">
+        <PropertyRef Name="EventoConflito_Conflito_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ConflitoEvento">
+    <End Role="Conflito" Type="Model.Store.Conflito" Multiplicity="*" />
+    <End Role="Evento" Type="Model.Store.Evento" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Conflito">
+        <PropertyRef Name="Evento_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventoReserva">
+    <End Role="Evento" Type="Model.Store.Evento" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reserva" Type="Model.Store.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="EventoReserva_Reserva_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitacaoAcessoGrupo">
+    <End Role="SolicitacaoAcesso" Type="Model.Store.SolicitacaoAcesso" Multiplicity="*" />
+    <End Role="Grupo" Type="Model.Store.Grupo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitacaoAcesso">
+        <PropertyRef Name="Grupo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioSolicitacaoAcesso">
+    <End Role="Usuario" Type="Model.Store.Usuario" Multiplicity="1" />
+    <End Role="SolicitacaoAcesso" Type="Model.Store.SolicitacaoAcesso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitacaoAcesso">
+        <PropertyRef Name="UsuarioSolicitacaoAcesso_SolicitacaoAcesso_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioAtuacaoNoGrupo">
+    <End Role="Usuario" Type="Model.Store.Usuario" Multiplicity="1" />
+    <End Role="AtuacaoNoGrupo" Type="Model.Store.AtuacaoNoGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AtuacaoNoGrupo">
+        <PropertyRef Name="UsuarioAtuacaoNoGrupo_AtuacaoNoGrupo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AtuacaoNoGrupoGrupo">
+    <End Role="AtuacaoNoGrupo" Type="Model.Store.AtuacaoNoGrupo" Multiplicity="*" />
+    <End Role="Grupo" Type="Model.Store.Grupo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AtuacaoNoGrupo">
+        <PropertyRef Name="Grupo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GrupoGrupo">
+    <End Role="Grupo" Type="Model.Store.Grupo" Multiplicity="0..1" />
+    <End Role="Grupo1" Type="Model.Store.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Grupo1">
+        <PropertyRef Name="GrupoPai_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventoPublicoAlvo_Evento">
+    <End Role="Evento" Type="Model.Store.Evento" Multiplicity="1" />
+    <End Role="EventoPublicoAlvo" Type="Model.Store.EventoPublicoAlvo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventoPublicoAlvo">
+        <PropertyRef Name="EventoPublicoAlvo_PublicoAlvo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventoPublicoAlvo_PublicoAlvo">
+    <End Role="EventoPublicoAlvo" Type="Model.Store.EventoPublicoAlvo" Multiplicity="*" />
+    <End Role="PublicoAlvo" Type="Model.Store.PublicoAlvo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="PublicoAlvo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventoPublicoAlvo">
+        <PropertyRef Name="ListaInternaPublicosAlvo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="AgendaContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Local" EntityType="Model.Local" />
+          <EntitySet Name="Grupo" EntityType="Model.Grupo" />
+          <EntitySet Name="Evento" EntityType="Model.Evento" />
+          <EntitySet Name="Reserva" EntityType="Model.Reserva" />
+          <AssociationSet Name="ReservaLocal" Association="Model.ReservaLocal">
+            <End Role="Reserva" EntitySet="Reserva" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="EventoGrupo" Association="Model.EventoGrupo">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <EntitySet Name="Conflito" EntityType="Model.Conflito" />
+          <AssociationSet Name="EventoConflito" Association="Model.EventoConflito">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Conflito" EntitySet="Conflito" />
+          </AssociationSet>
+          <AssociationSet Name="ConflitoEvento" Association="Model.ConflitoEvento">
+            <End Role="Conflito" EntitySet="Conflito" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="EventoReserva" Association="Model.EventoReserva">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="Model.Usuario" />
+          <EntitySet Name="SolicitacaoAcesso" EntityType="Model.SolicitacaoAcesso" />
+          <AssociationSet Name="SolicitacaoAcessoGrupo" Association="Model.SolicitacaoAcessoGrupo">
+            <End Role="SolicitacaoAcesso" EntitySet="SolicitacaoAcesso" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioSolicitacaoAcesso" Association="Model.UsuarioSolicitacaoAcesso">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="SolicitacaoAcesso" EntitySet="SolicitacaoAcesso" />
+          </AssociationSet>
+          <EntitySet Name="AtuacaoNoGrupo" EntityType="Model.AtuacaoNoGrupo" />
+          <AssociationSet Name="UsuarioAtuacaoNoGrupo" Association="Model.UsuarioAtuacaoNoGrupo">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AtuacaoNoGrupo" EntitySet="AtuacaoNoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="AtuacaoNoGrupoGrupo" Association="Model.AtuacaoNoGrupoGrupo">
+            <End Role="AtuacaoNoGrupo" EntitySet="AtuacaoNoGrupo" />
+            <End Role="Grupo" EntitySet="Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="GrupoGrupo" Association="Model.GrupoGrupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="Grupo1" EntitySet="Grupo" />
+          </AssociationSet>
+          <EntitySet Name="PublicoAlvo" EntityType="Model.PublicoAlvo" />
+          <AssociationSet Name="EventoPublicoAlvo" Association="Model.EventoPublicoAlvo">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="PublicoAlvo" EntitySet="PublicoAlvo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+          <NavigationProperty Name="ListaInternaGruposFilhos" Relationship="Model.GrupoGrupo" FromRole="Grupo" ToRole="Grupo1" />
+          <NavigationProperty Name="GrupoPai" Relationship="Model.GrupoGrupo" FromRole="Grupo1" ToRole="Grupo" />
+          </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="Descricao" Nullable="true" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="idTipo" Nullable="false" cg:GetterAccess="Private" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataCadastro" Nullable="false" cg:SetterAccess="Private" />
+          <NavigationProperty Name="Grupo" Relationship="Model.EventoGrupo" FromRole="Evento" ToRole="Grupo" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" />
+          <NavigationProperty Name="ListaInternaConflitos" Relationship="Model.EventoConflito" FromRole="Evento" ToRole="Conflito" />
+          <NavigationProperty Name="ListaInternaReservasdeLocais" Relationship="Model.EventoReserva" FromRole="Evento" ToRole="Reserva" />
+          <NavigationProperty Name="ListaInternaPublicosAlvo" Relationship="Model.EventoPublicoAlvo" FromRole="Evento" ToRole="PublicoAlvo" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <NavigationProperty Name="Local" Relationship="Model.ReservaLocal" FromRole="Reserva" ToRole="Local" />
+          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <Association Name="ReservaLocal">
+          <End Type="Model.Reserva" Role="Reserva" Multiplicity="*" />
+          <End Type="Model.Local" Role="Local" Multiplicity="1" />
+        </Association>
+        <Association Name="EventoGrupo">
+          <End Type="Model.Evento" Role="Evento" Multiplicity="*" />
+          <End Type="Model.Grupo" Role="Grupo" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Conflito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <NavigationProperty Name="Evento" Relationship="Model.ConflitoEvento" FromRole="Conflito" ToRole="Evento" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="idMotivo" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" />
+          <Property Type="DateTime" Name="Data" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <Association Name="EventoConflito">
+          <End Type="Model.Evento" Role="Evento" Multiplicity="1" />
+          <End Type="Model.Conflito" Role="Conflito" Multiplicity="*" />
+        </Association>
+        <Association Name="ConflitoEvento">
+          <End Type="Model.Conflito" Role="Conflito" Multiplicity="0..1" />
+          <End Type="Model.Evento" Role="Evento" Multiplicity="1" />
+        </Association>
+        <Association Name="EventoReserva">
+          <End Type="Model.Evento" Role="Evento" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Reserva" Role="Reserva" Multiplicity="*" >
+          </End>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="Email" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="CPF" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="Login" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="Senha" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" />
+          <NavigationProperty Name="ListaInternaSolicitacoesDeAcesso" Relationship="Model.UsuarioSolicitacaoAcesso" FromRole="Usuario" ToRole="SolicitacaoAcesso" />
+          <NavigationProperty Name="ListaInternaAtuacoesNosGrupos" Relationship="Model.UsuarioAtuacaoNoGrupo" FromRole="Usuario" ToRole="AtuacaoNoGrupo" />
+          <Property Type="Boolean" Name="PrecisaTrocarSenha" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="SolicitacaoAcesso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <NavigationProperty Name="Grupo" Relationship="Model.SolicitacaoAcessoGrupo" FromRole="SolicitacaoAcesso" ToRole="Grupo" />
+          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataCriacao" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataAvaliacao" cg:SetterAccess="Private" Nullable="true" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <Association Name="SolicitacaoAcessoGrupo">
+          <End Type="Model.SolicitacaoAcesso" Role="SolicitacaoAcesso" Multiplicity="*" />
+          <End Type="Model.Grupo" Role="Grupo" Multiplicity="1" />
+        </Association>
+        <Association Name="UsuarioSolicitacaoAcesso">
+          <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Model.SolicitacaoAcesso" Role="SolicitacaoAcesso" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AtuacaoNoGrupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <NavigationProperty Name="Grupo" Relationship="Model.AtuacaoNoGrupoGrupo" FromRole="AtuacaoNoGrupo" ToRole="Grupo" cg:SetterAccess="Private" />
+          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" />
+        </EntityType>
+        <Association Name="UsuarioAtuacaoNoGrupo">
+          <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Model.AtuacaoNoGrupo" Role="AtuacaoNoGrupo" Multiplicity="*" />
+        </Association>
+        <Association Name="AtuacaoNoGrupoGrupo">
+          <End Type="Model.AtuacaoNoGrupo" Role="AtuacaoNoGrupo" Multiplicity="*" />
+          <End Type="Model.Grupo" Role="Grupo" Multiplicity="1" />
+        </Association>
+        <Association Name="GrupoGrupo">
+          <End Type="Model.Grupo" Role="Grupo" Multiplicity="0..1" />
+          <End Type="Model.Grupo" Role="Grupo1" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PublicoAlvo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nome" Nullable="false" />
+        </EntityType>
+        <Association Name="EventoPublicoAlvo">
+          <End Type="Model.Evento" Role="Evento" Multiplicity="*" />
+          <End Type="Model.PublicoAlvo" Role="PublicoAlvo" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AgendaContainer">
+    <EntitySetMapping Name="Local">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Local)">
+        <MappingFragment StoreEntitySet="Local">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grupo">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Grupo)">
+        <MappingFragment StoreEntitySet="Grupo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Evento">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Evento)">
+        <MappingFragment StoreEntitySet="Evento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+          <ScalarProperty Name="DataFim" ColumnName="DataFim" />
+          <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reserva">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Reserva)">
+        <MappingFragment StoreEntitySet="Reserva">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+          <ScalarProperty Name="DataFim" ColumnName="DataFim" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conflito">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Conflito)">
+        <MappingFragment StoreEntitySet="Conflito">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idMotivo" ColumnName="idMotivo" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Usuario)">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CPF" ColumnName="CPF" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="PrecisaTrocarSenha" ColumnName="PrecisaTrocarSenha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitacaoAcesso">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.SolicitacaoAcesso)">
+        <MappingFragment StoreEntitySet="SolicitacaoAcesso">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EhCoordenador" ColumnName="EhCoordenador" />
+          <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+          <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AtuacaoNoGrupo">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AtuacaoNoGrupo)">
+        <MappingFragment StoreEntitySet="AtuacaoNoGrupo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EhCoordenador" ColumnName="EhCoordenador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PublicoAlvo">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.PublicoAlvo)">
+        <MappingFragment StoreEntitySet="PublicoAlvo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ReservaLocal" TypeName="Model.ReservaLocal" StoreEntitySet="Reserva">
+      <EndProperty Name="Local">
+        <ScalarProperty Name="Id" ColumnName="Local_Id" />
+      </EndProperty>
+      <EndProperty Name="Reserva">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventoGrupo" TypeName="Model.EventoGrupo" StoreEntitySet="Evento">
+      <EndProperty Name="Grupo">
+        <ScalarProperty Name="Id" ColumnName="Grupo_Id" />
+      </EndProperty>
+      <EndProperty Name="Evento">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventoConflito" TypeName="Model.EventoConflito" StoreEntitySet="Conflito">
+      <EndProperty Name="Evento">
+        <ScalarProperty Name="Id" ColumnName="EventoConflito_Conflito_Id" />
+      </EndProperty>
+      <EndProperty Name="Conflito">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ConflitoEvento" TypeName="Model.ConflitoEvento" StoreEntitySet="Conflito">
+      <EndProperty Name="Evento">
+        <ScalarProperty Name="Id" ColumnName="Evento_Id" />
+      </EndProperty>
+      <EndProperty Name="Conflito">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventoReserva" TypeName="Model.EventoReserva" StoreEntitySet="Reserva">
+      <EndProperty Name="Evento">
+        <ScalarProperty Name="Id" ColumnName="EventoReserva_Reserva_Id" />
+      </EndProperty>
+      <EndProperty Name="Reserva">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SolicitacaoAcessoGrupo" TypeName="Model.SolicitacaoAcessoGrupo" StoreEntitySet="SolicitacaoAcesso">
+      <EndProperty Name="Grupo">
+        <ScalarProperty Name="Id" ColumnName="Grupo_Id" />
+      </EndProperty>
+      <EndProperty Name="SolicitacaoAcesso">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuarioSolicitacaoAcesso" TypeName="Model.UsuarioSolicitacaoAcesso" StoreEntitySet="SolicitacaoAcesso">
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="Id" ColumnName="UsuarioSolicitacaoAcesso_SolicitacaoAcesso_Id" />
+      </EndProperty>
+      <EndProperty Name="SolicitacaoAcesso">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuarioAtuacaoNoGrupo" TypeName="Model.UsuarioAtuacaoNoGrupo" StoreEntitySet="AtuacaoNoGrupo">
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="Id" ColumnName="UsuarioAtuacaoNoGrupo_AtuacaoNoGrupo_Id" />
+      </EndProperty>
+      <EndProperty Name="AtuacaoNoGrupo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AtuacaoNoGrupoGrupo" TypeName="Model.AtuacaoNoGrupoGrupo" StoreEntitySet="AtuacaoNoGrupo">
+      <EndProperty Name="Grupo">
+        <ScalarProperty Name="Id" ColumnName="Grupo_Id" />
+      </EndProperty>
+      <EndProperty Name="AtuacaoNoGrupo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GrupoGrupo" TypeName="Model.GrupoGrupo" StoreEntitySet="Grupo">
+      <EndProperty Name="Grupo">
+        <ScalarProperty Name="Id" ColumnName="GrupoPai_Id" />
+      </EndProperty>
+      <EndProperty Name="Grupo1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="GrupoPai_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventoPublicoAlvo" TypeName="Model.EventoPublicoAlvo" StoreEntitySet="EventoPublicoAlvo">
+      <EndProperty Name="Evento">
+        <ScalarProperty Name="Id" ColumnName="EventoPublicoAlvo_PublicoAlvo_Id" />
+      </EndProperty>
+      <EndProperty Name="PublicoAlvo">
+        <ScalarProperty Name="Id" ColumnName="ListaInternaPublicosAlvo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model" >
+        <EntityTypeShape EntityType="Model.Local" Width="1.5" PointX="5.5" PointY="5.625" Height="1.4033821614583326" />
+        <EntityTypeShape EntityType="Model.Grupo" Width="1.5" PointX="3.625" PointY="0.625" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="Model.Evento" Width="2.125" PointX="0.625" PointY="0.75" Height="3.1340950520833331" />
+        <EntityTypeShape EntityType="Model.Reserva" Width="1.5" PointX="2.875" PointY="5.375" Height="1.7879850260416665" />
+        <AssociationConnector Association="Model.ReservaLocal">
+          <ConnectorPoint PointX="4.375" PointY="6.3266910807291659" />
+          <ConnectorPoint PointX="5.5" PointY="6.3266910807291659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.EventoGrupo">
+          <ConnectorPoint PointX="2.75" PointY="1.5814925130208335" />
+          <ConnectorPoint PointX="3.625" PointY="1.5814925130208335" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Conflito" Width="1.5" PointX="3.75" PointY="2.75" Height="1.7879850260416665" />
+        <AssociationConnector Association="Model.EventoConflito">
+          <ConnectorPoint PointX="2.75" PointY="3.3170475260416667" />
+          <ConnectorPoint PointX="3.75" PointY="3.3170475260416667" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.ConflitoEvento">
+          <ConnectorPoint PointX="3.75" PointY="2.9710237630208334" />
+          <ConnectorPoint PointX="2.75" PointY="2.9710237630208334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.EventoReserva">
+          <ConnectorPoint PointX="2.46875" PointY="4.076396484375" />
+          <ConnectorPoint PointX="2.46875" PointY="5.46875" />
+          <ConnectorPoint PointX="2.875" PointY="5.46875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Usuario" Width="1.875" PointX="9.125" PointY="0.625" Height="2.9417936197916661" />
+        <EntityTypeShape EntityType="Model.SolicitacaoAcesso" Width="1.75" PointX="6.375" PointY="0.625" Height="2.172587890625" />
+        <AssociationConnector Association="Model.SolicitacaoAcessoGrupo">
+          <ConnectorPoint PointX="6.375" PointY="1.5189925130208333" />
+          <ConnectorPoint PointX="5.125" PointY="1.5189925130208333" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.UsuarioSolicitacaoAcesso">
+          <ConnectorPoint PointX="9.125" PointY="1.7112939453124998" />
+          <ConnectorPoint PointX="8.125" PointY="1.7112939453124998" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.AtuacaoNoGrupo" Width="2" PointX="6.25" PointY="3.5" Height="1.5956835937499996" />
+        <AssociationConnector Association="Model.UsuarioAtuacaoNoGrupo">
+          <ConnectorPoint PointX="9.125" PointY="3.148791445312499" />
+          <ConnectorPoint PointX="8.21875" PointY="3.148791445312499" />
+          <ConnectorPoint PointX="8.21875" PointY="3.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.AtuacaoNoGrupoGrupo">
+          <ConnectorPoint PointX="6.25" PointY="3.5" />
+          <ConnectorPoint PointX="5.875" PointY="3.125" />
+          <ConnectorPoint PointX="5.875" PointY="1.9972407695312497" />
+          <ConnectorPoint PointX="5.125" PointY="1.9972407695312497" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.GrupoGrupo">
+          <ConnectorPoint PointX="4.1569230769230767" PointY="2.4129850260416665" />
+          <ConnectorPoint PointX="4.1569230769230767" PointY="2.6629850260416665" />
+          <ConnectorPoint PointX="4.6034615384615378" PointY="2.6629850260416665" />
+          <ConnectorPoint PointX="4.6034615384615378" PointY="2.4129850260416665" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.PublicoAlvo" Width="1.5" PointX="0.625" PointY="5.625" Height="1.4033821614583326" />
+        <AssociationConnector Association="Model.EventoPublicoAlvo">
+          <ConnectorPoint PointX="1.375" PointY="4.076396484375" />
+          <ConnectorPoint PointX="1.375" PointY="5.625" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

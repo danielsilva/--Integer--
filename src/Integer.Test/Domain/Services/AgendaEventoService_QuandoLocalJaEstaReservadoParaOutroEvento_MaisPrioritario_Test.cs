@@ -93,7 +93,7 @@ namespace Integer.UnitTests.Domain.Services
 
         private Evento CriarEvento(TipoEventoEnum tipo, DateTime dataInicio, DateTime dataFim)
         {
-            var grupo = new Grupo("Grupo");
+            var grupo = new Grupo("Grupo", null);
             return new Evento("Nome", "Descricao", dataInicio, dataFim, grupo, tipo);
         }
     }

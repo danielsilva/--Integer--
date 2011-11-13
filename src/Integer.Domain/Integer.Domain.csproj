@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agenda\Conflito.cs" />
+    <Compile Include="Agenda\Events\ReservaDeLocalCanceladaEvent.cs" />
     <Compile Include="Agenda\Events\HorarioDeEventoAlteradoEvent.cs" />
     <Compile Include="Agenda\Events\HorarioDeReservaDeLocalAlteradoEvent.cs" />
     <Compile Include="Agenda\Events\EventoCanceladoEvent.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Agenda\MotivoConflitoEnum.cs" />
     <Compile Include="Agenda\Reserva.cs" />
     <Compile Include="Agenda\TipoEventoEnum.cs" />
+    <Compile Include="Paroquia\Grupos.cs" />
     <Compile Include="Paroquia\Local.cs" />
     <Compile Include="Paroquia\Grupo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

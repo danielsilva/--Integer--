@@ -14,11 +14,14 @@ namespace Integer.UnitTests.Domain.Paroquia
     public class Grupo_Novo_Validacoes
     {
         string nome;
+        string email;
         Grupo grupo;
 
-        private void Cria_Grupo() 
+        [SetUp]
+        public void Setup()
         {
-            grupo = new Grupo(nome);
+            nome = "Grupo";
+            email = "email@email.com";
         }
 
         [Test]
@@ -46,6 +49,11 @@ namespace Integer.UnitTests.Domain.Paroquia
             nome = nomeMaiorQue50.ToString();
 
             Cria_Grupo();
+        }
+
+        private void Cria_Grupo()
+        {
+            grupo = new Grupo(nome, email);
         }
     }
 }
