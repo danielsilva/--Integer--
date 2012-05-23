@@ -1,0 +1,142 @@
+﻿@model Integer.Web.ViewModels.EventoViewModel
+
+@using Integer.Web.Helpers
+
+   @* @Html.JQueryValidationTitle("Para prosseguir, efetue as correções nos campos indicados.")
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("Id", Model.Id, new { @id = "hddIdEvento" })
+        <% Html.RenderPartial("DicaForm"); %>
+        <div class="linha">
+            <div class="formItem" style="width:330px;">
+                <label for="nome" style="float:left;">Nome</label><%= Html.ValidationImageFor(m => m.Nome) %>
+                <%= Html.TextBoxFor(m => m.Nome, new { @id = "txtNome", @class = "input-text", @maxlength = 50 })%>
+                <% if (Model.DataCadastro.HasValue)
+                   { %>
+                    <div id="divDataCadastro" style="width:100%;">
+                        <img id="lnkCancelaAgendamento" onclick="javascript:CancelarEvento();" alt="Cancelar agendamento" src="<%= Page.ResolveClientUrl("/integer2/Content/images/cancelar16.png")  %>" style="padding-left:4px;padding-top:2px;cursor:pointer;float:right;" />
+                        <div style="text-align:right;"><i>agendado em:</i>&nbsp;<%= Model.DataCadastro.Value.ToString("dd/MM/yyyy HH:mm")%>h</div>
+                    </div>
+                <% } %>
+            </div>
+            
+            <div class="formItem" style="width:220px;padding-right:0px;">
+                <label for="grupo" style="float:left;">Grupo</label><%= Html.ValidationImageFor(m => m.Grupo)%>
+                <div style="float:left;width:200px;">                
+                    <%= Html.DropDownListFor(m => m.Grupo, new SelectList(Model.Grupos, "Id", "Nome", Model.Grupo), "Selecione", new { @id = "ddlGrupo", @class = "select" }) %>
+                </div>
+            </div>
+            
+            <div class="formItem" style="width:90px;padding-right:0px;">
+                <% if (Model.Id > 0) 
+                   { %>
+                    <a id="lnkCopiar" class="botaoPrimario" style="float:left;">Copiar</a><img id="imgInfoCopiar" src="./Content/images/question_mark.png" class="question_mark" />
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="linha" style="height:80px;">
+            <div class="formItem" style="width:420px;">
+                <label for="descricao" style="float:left;">Descrição</label><img id="imgInfoDescricao" src="./Content/images/question_mark.png" class="question_mark" /><%= Html.ValidationImageFor(m => m.Descricao)%>
+                <%= Html.TextAreaFor(m => m.Descricao,  new { @id = "txtDescricao", @class = "text-area", @style = "height:50px;" })%>
+            </div>
+            <div class="formItem" style="padding-right:0px;width:200px;">
+                <label for="ddlCategoria" style="float:left;">Tipo</label><%= Html.ValidationImageFor(m => m.Tipo) %>     
+                    <%= Html.DropDownListFor(m => m.Tipo, new SelectList(Model.TiposDeEvento, "Id", "Nome", Model.Tipo), "Selecione", new { @id = "ddlTipoDeEvento", @class = "select" })%>
+            </div>
+        </div>
+        
+        <div class="linha"  style="height:100px;">
+            <div class="formItem" style="width:420px;">
+                <fieldset>
+                    <legend>Data/Hora do evento</legend>
+                    <img id="imgInfoDataHoraEvento" src="./Content/images/question_mark.png" class="question_mark" />
+                    <div class="formItem" style="padding-left:20px;width:130px;">
+                        <label for="txtDataInicioEvento" style="float:left;">Início</label><%= Html.ValidationImageFor(m => m.DataInicio) %>
+                        <%= Html.EditorFor(m => m.DataInicio, new { name = "DataInicio" })%>
+                    </div>
+                    <div class="formItem" style="float:right;width:130px;">
+                        <label for="txtDataFimEvento" style="float:left;">Fim</label><%= Html.ValidationImageFor(m => m.DataFim) %>
+                        <%= Html.EditorFor(m => m.DataFim, new { name = "DataFim" })%>
+                    </div>
+                </fieldset>
+            </div>
+            
+            <div id="divListaPublicoAlvo" class="formItem">
+            
+            <% if (Model.PublicoAlvo != null) 
+               {
+                   var i = 0;
+                   foreach (var publicoAlvo in Model.PublicoAlvo) 
+                   { %>
+                    <input type="hidden" id="hddPublicoAlvo<%= i %>" name="PublicoAlvo[<%= i %>].Id" value="<%= publicoAlvo %>" />
+                <%  i++;
+                   }
+               }  %>                
+                <label for="lstPublicoAlvo" style="float:left;">Público-alvo:</label><img id="imgInfoPublicoAlvo" src="./Content/images/question_mark.png" class="question_mark" /><%= Html.ValidationImageFor(m => m.PublicoAlvo) %>
+                <select id="lstPublicoAlvo" name="Publico" multiple="multiple" style="width:110px;height:60px;">
+                    <% foreach (var publicoAlvo in Model.PublicosAlvo) { %>
+                        <% if (Model.PublicoAlvo != null && Model.PublicoAlvo.SingleOrDefault(p => p.Id == publicoAlvo.Id) != null)
+                           { %>
+                            <option value="<%= publicoAlvo.Id %>" selected="selected"><%= publicoAlvo.Nome %></option>
+                        <% }
+                           else { %>
+                           <option value="<%= publicoAlvo.Id %>"><%= publicoAlvo.Nome %></option>
+                           <% } %>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+        <div class="linha" style="min-height:0px;height:15px;">
+            <div class="formItem">
+                <b><a id="lnkReservarLocais" style="width:120px;float:left;text-decoration:none;"><u>Reservar Local</u> ▼</a></b><img id="imgInfoReservarLocal" src="./Content/images/question_mark.png" class="question_mark" /><%= Html.ValidationImageFor(m => m.Reservas)%>
+            </div>
+        </div>
+        
+        <div id="Reservas">
+            <%  short indiceReserva = 0;
+                if (Model.Reservas != null)
+                {
+                    foreach (var reserva in Model.Reservas) {
+                        reserva.IndiceReserva = indiceReserva;
+                        Html.RenderPartial("ReservadeLocal", reserva);
+                        indiceReserva++;
+                    }
+                }
+            %>
+            <%= Html.Hidden("IndiceReserva", indiceReserva, new { @id = "hiddenIndiceReserva" })%>
+        </div>
+        <% if (Model.Id > 0)
+           { %>
+        <div id="divConflitos" style="width:100%;margin-top:15px;">
+            <fieldset>
+                <legend>Conflitos</legend>
+                <b><%= Model.ConflitosComEventosMaisPrioritarios.Count() %></b> evento(s) Prioritário(s)
+                <%     foreach (var conflito in Model.ConflitosComEventosMaisPrioritarios)
+                       { %>
+                        <div style="margin-top:5px;margin-bottom:7px;">
+                        <% if (Model.podeAlterarConflitos)
+                           { %>
+                            <img id="imgRemoverConflito" alt="Remover conflito" onclick="javascript:RemoverConflito(<%= conflito.Id %>);" src="./Content/images/cancelar2_16.png" style="float:left;cursor:pointer;margin-right:5px;" /> 
+                        <% } %>
+                        <a onclick="javascript:EditarEvento(<%= conflito.IdEvento %>);"><span id="lblConflito<%= conflito.Id %>" ><%= conflito.NomeEvento %></span></a> (<%= conflito.DescricaoMotivo %>)</div>
+                <%      } %>
+                <br/><br />
+                <b><%= Model.ConflitosComEventosMenosPrioritarios.Count() %></b> evento(s) Conflitante(s)<br/>
+                <% string separador = "";
+                       foreach (var conflito in Model.ConflitosComEventosMenosPrioritarios)
+                       { %>
+                        <%= separador%><a onclick="javascript:EditarEvento(<%= conflito.IdEvento %>);"><%= conflito.NomeEvento %></a>
+                        <% separador = ", ";
+                       }  %>
+            </fieldset>
+        </div>
+        <% } %>
+
+        <div class="spacer">
+            <a id="lnkSalvar" class="botaoPrimario">SALVAR</a>
+            <!--<a href="#" id="lnkCancelar" class="botaoSecundario">Cancelar</a>-->
+        </div>
+    }
+
+*@

@@ -27,7 +27,7 @@ namespace Integer.Infrastructure.Repository
 
     	private static IDocumentStore CreateDocumentStore()
         {
-            NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
+            NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8081);
             var store = new EmbeddableDocumentStore
             {
                 DataDirectory = "App_Data\\Integer",

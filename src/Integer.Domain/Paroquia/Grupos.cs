@@ -12,6 +12,6 @@ namespace Integer.Domain.Paroquia
         IEnumerable<Grupo> Todos(Expression<Func<Grupo, bool>> condicao);
         Grupo Com(Expression<Func<Grupo, bool>> condicao);
 
-        void Salvar(Grupo evento);
+        void Salvar(Grupo grupo);
     }
 }

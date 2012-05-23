@@ -9,6 +9,7 @@ using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Events;
 using System.Collections;
 using Integer.Infrastructure.DocumentModelling;
+using Integer.Infrastructure.Email;
 
 namespace Integer.Domain.Agenda
 {

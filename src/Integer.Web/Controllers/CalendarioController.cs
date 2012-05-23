@@ -23,7 +23,7 @@ namespace Integer.Web.Controllers
 
         public ActionResult Index()
         {
-            return View("Calendario");
+            return View("Calendario2");
         }
 
         [HttpGet]

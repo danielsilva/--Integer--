@@ -47,5 +47,17 @@ namespace Integer.UnitTests.Domain.Paroquia
         {
             Assert.AreEqual("cor", grupo.CorNoCalendario);
         }
+
+        [Test]
+        public void PrecisaTrocarSenha() 
+        {
+            Assert.IsTrue(grupo.PrecisaTrocarSenha);
+        }
+
+        [Test]
+        public void Senha_EhPadrao_calendario2012() 
+        {
+            Assert.AreEqual("calendario2012", grupo.SenhaDescriptografada);
+        }
     }
 }

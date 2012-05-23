@@ -24,7 +24,15 @@ namespace Integer.Web.Helpers
         {
             gruposExistentes = grupos.Todos().OrderBy(g => g.Nome).ToList();
 
-            IEnumerable<string> idsDeGruposQueSaoFilhos = gruposExistentes.SelectMany(g => g.GruposFilhos.Select(filho => filho.Id));
+            // TODO organizar grupos por grupos do conselho
+            gruposOrganizados = new List<GrupoViewModel>();
+            foreach (var grupo in gruposExistentes)
+            {
+                gruposOrganizados.Add(new GrupoViewModel() { Id = grupo.Id, Nome = grupo.Nome });
+            }
+
+            return gruposOrganizados;            
+            /*IEnumerable<string> idsDeGruposQueSaoFilhos = gruposExistentes.SelectMany(g => g.GruposFilhos.Select(filho => filho.Id));
             Grupo grupoRaiz = gruposExistentes.Where(g => !idsDeGruposQueSaoFilhos.Contains(g.Id)).SingleOrDefault();
             
             if (grupoRaiz != null)
@@ -34,7 +42,7 @@ namespace Integer.Web.Helpers
                 AdicionarGruposFilhos(grupoRaiz);
             }
 
-            return gruposOrganizados;
+            return gruposOrganizados;*/
         }
 
         private void AdicionarGruposFilhos(Grupo grupoPai)

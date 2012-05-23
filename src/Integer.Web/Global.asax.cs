@@ -14,6 +14,9 @@ using Integer.Domain.Agenda;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
+using Integer.Web.Infra.AutoMapper;
+using Integer.Infrastructure.Email;
+using System.Text;
 
 namespace Integer
 {
@@ -37,6 +40,7 @@ namespace Integer
         {
             BeginRequest += this.Application_BeginRequest;
             EndRequest += this.Application_EndRequest;
+            Error += this.Application_Error;
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -70,6 +74,7 @@ namespace Integer
         {
             DocumentStoreHolder.Initialize();
             InitializeIoC();
+            AutoMapperConfiguration.Configure();
         }
 
         private void InitializeIoC()
@@ -81,12 +86,17 @@ namespace Integer
 
             builder.RegisterType<EventoRepository>().As<Eventos>();
             builder.RegisterType<GrupoRepository>().As<Grupos>();
+            builder.RegisterType<LocalRepository>().As<Locais>();
 
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<EventoCanceladoEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<ReservaDeLocalCanceladaEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeEventoAlteradoEvent>>();
             
+            // TODO EmailWrapper per HttpRequest
+            //var emailWrapper = new EmailWrapper();
+            //builder.RegisterInstance<EmailWrapper>(emailWrapper).InstancePerHttpRequest();
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
@@ -100,9 +110,25 @@ namespace Integer
         {
             var context = ((MvcApplication)sender).Context;
             if (context.Error == null)
+            {
                 CurrentSession.SaveChanges();
+                // TODO enviar emails agendados
+                //var email = DependencyResolver.Current.GetService<EmailWrapper>();
+                //email.EnviarEmailsAgendados();
+            }
 
             CurrentSession.Dispose();
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var context = ((MvcApplication)sender).Context;
+
+            StringBuilder mensagem = new StringBuilder();
+            mensagem.AppendLine(context.Error.Message);
+            mensagem.AppendLine(context.Error.StackTrace);
+
+            EmailWrapper.EnviarEmail("danielsilva.rj@gmail.com", "{ Integer } - ERRO", mensagem.ToString());
         }
     }
 }

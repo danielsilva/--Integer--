@@ -1,0 +1,45 @@
+﻿@model Integer.Web.ViewModels.GrupoViewModel
+
+@using Integer.Web.Helpers
+
+<h1>Cadastro de Grupo/Pastoral</h1>
+@using (Html.BeginForm())
+{
+    @Html.JQueryValidationTitle("Para prosseguir, efetue as correções nos campos indicados.")
+	<br/>
+    @Html.HiddenFor(g => g.Id, new { @id = "hddId", @name = "Id" })
+
+    <div class="linha" style="float:left;">
+	    <div class="formItem">
+	    <span style="float:left;">@Html.LabelFor(g => g.Nome)</span>
+        @Html.ValidationMessageFor(g => g.Nome)
+	    @Html.TextBoxFor(g => g.Nome, new { @id = "txtNome", @class = "input-text" })
+	    </div>
+    
+	    <div class="formItem">
+	    <span style="float:left;">@Html.LabelFor(g => g.Email)</span> 
+        @Html.ValidationMessageFor(g => g.Nome)
+	    @Html.TextBoxFor(g => g.Email, new { @id = "txtEmail", @class = "input-text", @name = "email" })
+	    </div>
+    </div>
+    <br/>
+    <div class="linha" style="float:left;">
+	    <div class="formItem" style="width:250px">
+	    @Html.LabelFor(g => g.GrupoPai) 
+        @Html.ValidationImageFor(g => g.GrupoPai)
+	    @Html.DropDownListFor(g => g.GrupoPai,
+                                new SelectList(Model.Grupos, "Id", "Nome", Model.GrupoPai),
+                                "Selecione",
+                                new { @id = "ddlGrupoPai", @class = "input-text" })
+	    </div>
+    
+	    <div class="formItem"  style="width:110px">
+	    @Html.LabelFor(g => g.CorNoCalendario) 
+        @Html.ValidationImageFor(g => g.CorNoCalendario)
+	    @Html.TextBoxFor(g => g.CorNoCalendario, new { @id = "txtCor", @class = "input-text" })
+	    </div>
+    </div>
+    
+		<a href="#" id="lnkSalvar" class="botaoPrimario">Salvar</a>
+	
+}

@@ -36,7 +36,7 @@ namespace Integer.Web.Controllers
             if (ModelState.IsValid)
             {
                 Grupo grupo = grupos.Com(g => g.Email == login);
-                if (grupo == null || grupo.ValidarSenha(senha))
+                if (grupo == null || !grupo.ValidarSenha(senha))
                 {
                     ModelState.AddModelError("formAcesso", "Senha inválida ou grupo não cadastrado.");
                 }
@@ -46,7 +46,7 @@ namespace Integer.Web.Controllers
                     {
                         dynamic usuarioDinamico = new ExpandoObject();
                         usuarioDinamico.login = grupo.Email;
-                        return PartialView("_TrocaSenha", usuarioDinamico);
+                        return PartialView("TrocaSenha", usuarioDinamico);
                     }
                     else
                     {
@@ -55,7 +55,7 @@ namespace Integer.Web.Controllers
                     }
                 }
             }
-            return PartialView("_LoginForm");
+            return PartialView("LoginForm");
         }
 
         [HttpPost]
@@ -86,7 +86,7 @@ namespace Integer.Web.Controllers
             }
             dynamic usuarioDinamico = new ExpandoObject();
             usuarioDinamico.login = login;
-            return PartialView("_TrocaSenha", usuarioDinamico);
+            return PartialView("TrocaSenha", usuarioDinamico);
         }
 
         [HttpPost]

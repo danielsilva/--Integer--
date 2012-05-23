@@ -7,16 +7,16 @@ using System.Web.Routing;
 using System.Text;
 using System.Linq.Expressions;
 
-namespace Integer.Web.Helpers {
-    
-    public static class ValidationExtensions {
-
-        public static string ValidationImage(this HtmlHelper htmlHelper, string modelName) 
+namespace Integer.Web.Helpers 
+{    
+    public static class ValidationExtensions 
+    {
+        public static MvcHtmlString ValidationImage(this HtmlHelper htmlHelper, string modelName) 
         {
             return htmlHelper.ValidationImage(modelName, null);
         }
 
-        public static string ValidationImage(this HtmlHelper htmlHelper, string modelName, object htmlAttributes) 
+        public static MvcHtmlString ValidationImage(this HtmlHelper htmlHelper, string modelName, object htmlAttributes) 
         {
             string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(modelName);
             if (!htmlHelper.ViewData.ModelState.ContainsKey(fullHtmlFieldName))
@@ -46,50 +46,52 @@ namespace Integer.Web.Helpers {
                 }
             }
             divMensagensErro.Append("</div>");
-            htmlHelper.ViewContext.HttpContext.Response.Write(divMensagensErro.ToString());
+            htmlHelper.ViewContext.Writer.Write(divMensagensErro.ToString());
 
-            StringBuilder javaScript = new StringBuilder();
-            javaScript.Append("<script type='text/javascript'>");
-            javaScript.Append("  $('#" + idValidationImage + "').bt({ contentSelector: \"$('#" + idDivMensagensErro + "').html()\", fill: 'rgba(255, 247, 191, .9)', strokeWidth: 2, strokeStyle: '#E86857' });");
-            javaScript.Append("</script>");
-            htmlHelper.ViewContext.HttpContext.Response.Write(javaScript.ToString());
+            string javaScript = @" <script type='text/javascript'>
+                                        $(function() {
+                                            $('#" + idValidationImage + @"').bt({ contentSelector: $('#" + idDivMensagensErro + @"').html(), fill: 'rgba(255, 247, 191, .9)', strokeWidth: 2, strokeStyle: '#E86857' });
+                                        });
+                                        </script>";
+            htmlHelper.ViewContext.Writer.Write(javaScript);
 
-            TagBuilder builder = new TagBuilder("img");
-            builder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
-            builder.MergeAttribute("id", idValidationImage);
-            builder.MergeAttribute("src", "/integer2/Content/images/exclamacao.png");
-            builder.MergeAttribute("class", "jTip");
+            TagBuilder imgBuilder = new TagBuilder("img");
+            imgBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            imgBuilder.MergeAttribute("id", idValidationImage);
+            imgBuilder.MergeAttribute("src", "/integer2/Content/images/exclamacao.png");
+            imgBuilder.MergeAttribute("class", "jTip");
 
-            return builder.ToString(TagRenderMode.SelfClosing);
-        }        
+            return MvcHtmlString.Create(javaScript + imgBuilder.ToString(TagRenderMode.SelfClosing));
+        }
 
-        public static string ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression) 
+        public static MvcHtmlString ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression) 
         {
             return htmlHelper.ValidationImageFor(expression, null);
         }
 
-        public static string ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return htmlHelper.ValidationImageFor(ExpressionHelper.GetExpressionText((LambdaExpression)expression), null, htmlAttributes);
         }
 
-        public static string ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string uniqueFieldKey)
+        public static MvcHtmlString ValidationImageFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string uniqueFieldKey)
         {
             return htmlHelper.ValidationImageFor(ExpressionHelper.GetExpressionText((LambdaExpression)expression), uniqueFieldKey, null);
         }
 
-        public static string ValidationImageFor<TModel>(this HtmlHelper<TModel> htmlHelper, string expression, string uniqueFieldKey, object htmlAttributes)
+        public static MvcHtmlString ValidationImageFor<TModel>(this HtmlHelper<TModel> htmlHelper, string expression, string uniqueFieldKey, object htmlAttributes)
         {
             string fieldName = uniqueFieldKey ?? expression;
 
             return htmlHelper.ValidationImage(fieldName, htmlAttributes);
         }
 
-        public static string JQueryValidationTitle(this HtmlHelper htmlHelper, string message) {
+        public static MvcHtmlString JQueryValidationTitle(this HtmlHelper htmlHelper, string message)
+        {
             return htmlHelper.JQueryValidationTitle(message, null);
         }
 
-        public static string JQueryValidationTitle(this HtmlHelper htmlHelper, string message, object htmlAttributes)
+        public static MvcHtmlString JQueryValidationTitle(this HtmlHelper htmlHelper, string message, object htmlAttributes)
         {
             string str;
             if (htmlHelper.ViewData.ModelState.IsValid) {
@@ -111,7 +113,7 @@ namespace Integer.Web.Helpers {
                 str = null;
             }
 
-            return str;
+            return MvcHtmlString.Create(str);
         }
     }
 }

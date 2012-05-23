@@ -2,7 +2,7 @@
 
 <h1>Bem-vindo(a)!</h1>
 	@using (Html.BeginForm()) {
-        <input type="hidden" value="<%= Model.login != null ? Model.login : "" %>" name="login" />
+        <input type="hidden" value="@Model.login" name="login" />
 	    <text>É necessário trocar a senha que foi gerada.</text>
 	    <br/><br/> 
 	    @Html.ValidationMessage("formSenha")

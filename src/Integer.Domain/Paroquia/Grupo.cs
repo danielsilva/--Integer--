@@ -23,7 +23,7 @@ namespace Integer.Domain.Paroquia
         public DenormalizedReference<Grupo> GrupoPai { get; private set; }
         public IEnumerable<DenormalizedReference<Grupo>> GruposFilhos { get; private set; }
 
-        private string SenhaDescriptografada
+        public string SenhaDescriptografada
         {
             get
             {
@@ -36,19 +36,24 @@ namespace Integer.Domain.Paroquia
             }
         }
 
-        protected Grupo() { }
+        protected Grupo() 
+        {
+            this.GruposFilhos = new List<DenormalizedReference<Grupo>>();
+        }
 
         public Grupo(string nome, string email, Grupo grupoPai, string corNoCalendario)
         {
             PreencherNome(nome);
             PreencherGrupoPai(grupoPai);
-            PreencherCor(corNoCalendario ?? grupoPai.CorNoCalendario);
+            PreencherCor(corNoCalendario);
 
             // TODO validar email
             this.Email = email;
+
+            CriarSenhaPadrao();
         }
 
-        private void PreencherNome(string nome)
+        public void PreencherNome(string nome)
         {
             #region pré-condição
             var nomeFoiInformado = Assertion.That(!String.IsNullOrWhiteSpace(nome))
@@ -64,11 +69,9 @@ namespace Integer.Domain.Paroquia
 
         private void PreencherGrupoPai(Grupo grupo)
         {
-            if (grupo == null)
-                throw new ArgumentNullException("GrupoPai não pode ser nulo.");
-
             this.GrupoPai = grupo;
-            this.CorNoCalendario = grupo.CorNoCalendario;
+            if (grupo != null)
+                this.CorNoCalendario = grupo.CorNoCalendario;
         }
 
         private void PreencherCor(string cor) 
@@ -76,11 +79,17 @@ namespace Integer.Domain.Paroquia
             this.CorNoCalendario = cor;
         }
 
+        private void CriarSenhaPadrao()
+        {
+            this.Senha = Encryptor.Encrypt("calendario2012");
+            PrecisaTrocarSenha = true;
+        }
+
         public void TrocarSenha(string novaSenha)
         {
             #region pré-condição
 
-            Assertion novaSenhaPrecisaSerDiferente = Assertion.That(this.SenhaDescriptografada.Equals(novaSenha))
+            Assertion novaSenhaPrecisaSerDiferente = Assertion.That(!this.SenhaDescriptografada.Equals(novaSenha))
                                                                 .WhenNot("A nova senha não pode ser igual à anterior.");
 
             #endregion
@@ -93,7 +102,7 @@ namespace Integer.Domain.Paroquia
 
             string senhaAlterada = Encryptor.Decrypt(this.Senha);
             Assertion senhaFoiAlterada = Assertion.That(SenhaDescriptografada == novaSenha).WhenNot("ERRO: A senha não pode ser alterada.");
-            Assertion marcouQueNaoPrecisaTrocarSenha = Assertion.That(this.PrecisaTrocarSenha).WhenNot("ERRO: Houve um problema ao atualizar a senha.");
+            Assertion marcouQueNaoPrecisaTrocarSenha = Assertion.That(!this.PrecisaTrocarSenha).WhenNot("ERRO: Houve um problema ao atualizar a senha.");
 
             #endregion
             (senhaFoiAlterada & marcouQueNaoPrecisaTrocarSenha).Validate();
@@ -102,6 +111,29 @@ namespace Integer.Domain.Paroquia
         public bool ValidarSenha(string senha)
         {
             return SenhaDescriptografada == senha;
+        }
+
+        public void Alterar(string nome, string email, Grupo grupoPai, string cor)
+        {
+            PreencherNome(nome);
+            PreencherGrupoPai(grupoPai);
+            PreencherCor(cor);
+            this.Email = email;
+        }
+
+        public string ObterMensagemBoasVindas()
+        {
+            return @"Informamos que seu acesso ao calendário está disponível.<br/><br/>
+                     Seus dados para acesso são:<br/>
+                    
+                    <b>Login: </b>" + this.Email + @"<br/>
+                    <b>Senha: </b>" + this.SenhaDescriptografada + @"<br/><br/>
+
+                    As informações de acesso são sigilosas.<br/>
+                    Portanto, ressaltamos a importância de não compartilhar pessoas que não sejam agentes de seu grupo/pastoral.<br/><br/>
+
+                    Atenciosamente,<br/>
+                    Pastoral da Comunicação";
         }
     }
 }

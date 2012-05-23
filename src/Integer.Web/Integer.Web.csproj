@@ -81,6 +81,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Lucene.Net.Contrib.SpellChecker.dll</HintPath>
     </Reference>
+    <Reference Include="MVC Foolproof Validation">
+      <HintPath>..\..\lib\foolproof.0.9.4048\lib\MVC Foolproof Validation.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\RavenDB-Embedded.1.0.499\lib\net40\Raven.Abstractions.dll</HintPath>
@@ -135,6 +138,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Enums\VisualizacaoCalendarioEnum.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,9 +148,16 @@
     <Compile Include="Helpers\DivExtensions.cs" />
     <Compile Include="Helpers\GrupoHelper.cs" />
     <Compile Include="Helpers\ValidationExtensions.cs" />
+    <Compile Include="Infra\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationHelpers\ValidationHelper.cs" />
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
+    <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
+    <Compile Include="ViewModels\EventoViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\GrupoViewModel.cs" />
+    <Compile Include="ViewModels\ReservaDeLocalViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\alerts\images\help.gif" />
@@ -188,6 +199,154 @@
     <Content Include="Content\calendar\images\share\tool-sprites.gif" />
     <Content Include="Content\dateTimePicker\dark.datetimepicker.css" />
     <Content Include="Content\dateTimePicker\dark.datetimepicker.min.css" />
+    <Content Include="Content\extCalendar\css\calendar-colors.css" />
+    <Content Include="Content\extCalendar\css\calendar.css" />
+    <Content Include="Content\extCalendar\css\extensible-all.css" />
+    <Content Include="Content\extCalendar\css\recurrence.css" />
+    <Content Include="Content\extCalendar\images\default\calendar-sprites.gif" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-edit-hd.png" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-list-hidden-ie6.png" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-list-hidden.png" />
+    <Content Include="Content\extCalendar\images\default\ext\button-arrow.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\page-next.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\page-prev.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\toolbar-bg.gif" />
+    <Content Include="Content\extCalendar\images\default\silk\calendar_edit.png" />
+    <Content Include="Content\extCalendar\images\default\silk\calendar_view_month.png" />
+    <Content Include="Content\extCalendar\images\default\silk\cross.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_go.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-add.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\checkbox.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\clear-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\date-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\error-tip-corners.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\exclamation.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\radio.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\search-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\spinner-small.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\spinner.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\text-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger-square.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger-tpl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\arrow-left-white.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\arrow-right-white.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-selected-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-selected-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\checked.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\col-move-bottom.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\col-move-top.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-over-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-over-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\columns.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-left.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-left.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-right.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-right.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dirty.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\done.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\footer-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-blue-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-blue-split.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-hrow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-split.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-vista-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hd-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hrow-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hrow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-rowheader.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-by.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-collapse.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-expand-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-expand.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hd-pop.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-asc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-desc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-lock.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-lock.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-unlock.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-unlock.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\invalid_line.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\mso-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\nowait.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-first-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-first.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-last-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-last.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-next-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-next.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-prev-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-prev.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\pick-button.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\property-cell-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\property-cell-selected-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\refresh-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\refresh.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-check-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-expand-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-sel.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort_asc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort_desc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\unchecked.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\wait.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\blue-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\calendar.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\glass-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\hd-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-error.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-info.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-question.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-warning.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\large-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\left-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\loading-balls.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\right-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow-c.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow-lr.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\warning.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tool-sprite-tpl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tool-sprites.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tools-sprites-trans.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\arrows.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-above.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-add.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-append.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-below.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-between.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-under.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-minus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-minus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-plus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-plus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-line.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-minus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-minus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-plus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-plus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\folder-open.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\folder.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\leaf.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\s.gif" />
+    <Content Include="Content\ExtJS\style\css\ext-all.css" />
     <Content Include="Content\FormPrincipal.css" />
     <Content Include="Content\images\amarelo.gif" />
     <Content Include="Content\images\azul.gif" />
@@ -259,6 +418,8 @@
     <Content Include="Content\images\icons\turnback.png" />
     <Content Include="Content\images\icons\us.gif" />
     <Content Include="Content\images\icons\view.png" />
+    <Content Include="Content\images\integer2.png" />
+    <Content Include="Content\images\integer.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\main_background.png" />
     <Content Include="Content\images\question_mark.png" />
@@ -284,14 +445,25 @@
     <Content Include="Content\jQueryUI\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\jQueryUI\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Content\jQueryUI\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\jQueryUI\jquery.ui.accordion.css" />
     <Content Include="Content\jQueryUI\jquery.ui.all.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.autocomplete.css" />
     <Content Include="Content\jQueryUI\jquery.ui.base.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.button.css" />
     <Content Include="Content\jQueryUI\jquery.ui.core.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.datepicker.css" />
     <Content Include="Content\jQueryUI\jquery.ui.dialog.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.progressbar.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.resizable.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.selectable.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.slider.css" />
+    <Content Include="Content\jQueryUI\jquery.ui.tabs.css" />
     <Content Include="Content\jQueryUI\jquery.ui.theme.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
+    <Content Include="Content\ttbootstrap\bootstrap.css" />
+    <Content Include="Content\ttbootstrap\bootstrap.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -308,6 +480,10 @@
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\Calendario\EventoForm.js" />
+    <Content Include="Scripts\Grupo\Cadastro.js" />
+    <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\Plugins\alerts\jquery.alerts.js" />
     <Content Include="Scripts\Plugins\alerts\jquery.alerts.min.js" />
     <Content Include="Scripts\Plugins\blockUI\jquery.blockUI.js" />
@@ -328,6 +504,15 @@
     <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker-pt-BR.min.js" />
     <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.js" />
     <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.min.js" />
+    <Content Include="Scripts\Plugins\extCalendar\calendar-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\calendar.js" />
+    <Content Include="Scripts\Plugins\extCalendar\extensible-core-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\extensible-core.js" />
+    <Content Include="Scripts\Plugins\extCalendar\locale\ext-lang-pt_BR.js" />
+    <Content Include="Scripts\Plugins\ExtJS\bootstrap.js" />
+    <Content Include="Scripts\Plugins\ExtJS\ext-all-debug.js" />
+    <Content Include="Scripts\Plugins\ExtJS\ext-all.js" />
+    <Content Include="Scripts\Plugins\ExtJS\locale\ext-lang-pt_BR.js" />
     <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.js" />
     <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.min.js" />
     <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.core.js" />
@@ -355,7 +540,9 @@
     <Content Include="Scripts\Plugins\toolTip\excanvas.js" />
     <Content Include="Scripts\Plugins\toolTip\jquery.bt.js" />
     <Content Include="Scripts\Plugins\toolTip\jquery.bt.min.js" />
-    <Content Include="Scripts\Usuario\Login.js" />
+    <Content Include="Scripts\Grupo\Login.js" />
+    <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.js" />
+    <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -410,11 +597,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Usuario\_LoginForm.cshtml" />
+    <Content Include="Views\Usuario\LoginForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Usuario\_TrocaSenha.cshtml" />
+    <Content Include="Views\Usuario\TrocaSenha.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Grupo\Grupo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Grupo\GrupoForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Calendario\EventoForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Calendario\Calendario2.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

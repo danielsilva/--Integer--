@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="margin-left:auto; margin-right:auto; width:80%;">
+    <input type="button" id="btnCriar" class="btn" value="Criar Novo" />
+    <div id="treeGrupo" style="margin-top:20px;"></div>
+</div>
+<div id="divForm"></div>
+
+@section script {
+    <script src="@Url.Content("~/Scripts/Grupo/Cadastro.js")" type="text/javascript"></script>
+      
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            ConfiguraLightbox();
+        });
+
+        function ConfiguraLightbox() {
+            $('#divForm').dialog({
+                autoOpen: false,
+                show: 'blind',
+                //bgiframe: true,
+                closeOnEscape: false,
+                modal: true,
+                resizable: false,
+                width: 750,
+                dialogClass: "formulario",
+                position: ["center", 50],
+                overlay: { opacity: 0.8 },
+                title: 'Grupo'
+            });
+            $('#btnCriar').click(function () {
+                $('#divForm').dialog('open');
+            });
+        }
+
+        Ext.require([
+            'Ext.data.*',
+            'Ext.grid.*',
+            'Ext.tree.*'
+        ]);
+
+        Ext.onReady(function () {
+            Ext.define('Grupo', {
+                extend: 'Ext.data.Model',
+                fields: [
+                    { name: 'Nome', type: 'string' },
+                    { name: 'Email', type: 'string' },
+                    { name: 'Cor', type: 'string' }
+                ]
+            });
+
+            var store = Ext.create('Ext.data.TreeStore', {
+                model: 'Grupo',
+                proxy: {
+                    type: 'ajax',
+                    url: 'Grupo/ObterGrupos'
+                }
+            });
+
+            var tree = Ext.create('Ext.tree.Panel', {
+                autoLoad: false,
+                header: false,
+                height: 500,
+                renderTo: 'treeGrupo',
+                collapsible: true,
+                useArrows: true,
+                rootVisible: false,
+                store: store,
+                columns: [{
+                    xtype: 'treecolumn',
+                    text: 'Grupo',
+                    flex: 2,
+                    dataIndex: 'Nome'
+                }, {
+                    text: 'E-mail',
+                    flex: 2,
+                    dataIndex: 'Email'
+                }, {
+                    text: 'Cor',
+                    flex: 1,
+                    dataIndex: 'Cor'
+                }],
+                tools: [{
+                    type: 'plus',
+                    tooltip: 'Adicionar Grupo',
+                    handler: function (event, toolEl, panel) {
+                        var urlForm = "Grupo/Criar";
+                        $("#divForm").load(urlForm);
+                        $("#divForm").dialog("open");
+                    }
+                }]
+            });
+        });
+    </script>
+}
