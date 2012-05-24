@@ -26,6 +26,63 @@ namespace Integer.Web.Controllers
             return View("Calendario2");
         }
 
+        public ActionResult CalendarioBasico() 
+        {
+            return View("Calendario3");
+        }
+
+        [HttpGet]
+        public JsonResult Eventos() 
+        {
+            return Json(new List<dynamic>(){
+                new
+                {
+                    id = 1001,
+                    cid = 1,
+                    title = "Vacation",
+                    start = DateTime.UtcNow.ToString("o"),
+                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
+                    notes = "Have fun"
+                },
+                new
+                {
+                    id = 1002,
+                    cid = 1,
+                    title = "Vacation",
+                    start = DateTime.UtcNow.ToString("o"),
+                    end = DateTime.UtcNow.AddDays(3).ToString("o"),
+                    notes = "Have fun"
+                },
+                new
+                {
+                    id = 1003,
+                    cid = 1,
+                    title = "Vacation",
+                    start = DateTime.UtcNow.ToString("o"),
+                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
+                    notes = "Have fun"
+                },
+                new
+                {
+                    id = 1004,
+                    cid = 1,
+                    title = "Vacation",
+                    start = DateTime.UtcNow.ToString("o"),
+                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
+                    notes = "Have fun"
+                },
+                new
+                {
+                    id = 1005,
+                    cid = 1,
+                    title = "Vacation",
+                    start = DateTime.UtcNow.ToString("o"),
+                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
+                    notes = "Have fun"
+                }
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult ObterEventos(DateTime showDate, VisualizacaoCalendarioEnum viewType, string idGrupo)
         {
