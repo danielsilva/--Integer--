@@ -50,7 +50,7 @@ namespace Integer.Web.Controllers
                     cid = 1,
                     title = "Vacation",
                     start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddDays(3).ToString("o"),
+                    end = DateTime.UtcNow.AddDays(20).ToString("o"),
                     notes = "Have fun"
                 },
                 new
