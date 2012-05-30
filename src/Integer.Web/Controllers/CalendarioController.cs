@@ -23,12 +23,7 @@ namespace Integer.Web.Controllers
 
         public ActionResult Index()
         {
-            return View("Calendario2");
-        }
-
-        public ActionResult CalendarioBasico() 
-        {
-            return View("Calendario3");
+            return View("Calendario");
         }
 
         [HttpGet]

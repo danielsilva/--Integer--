@@ -11,7 +11,7 @@ body{
 	margin: 0px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	background-color: #EBF2F8;
+	background-color: #EBF2F8 !important;
 }
 
 form{
@@ -38,7 +38,7 @@ a{
 }
 
 a:hover{
-	color: #ffaa00;
+	color: #FFE4B2;
 	border: 0px;
 	outline: 0px;
 	text-decoration: none;
@@ -46,7 +46,7 @@ a:hover{
 }
 
 a:active{
-	color: #ffaa00;
+	color: #FFE4B2;
 	border: 0px;
 	outline: 0px;
 	text-decoration: none;
@@ -260,7 +260,8 @@ div#header #header-right{
 	text-align: right;
 }
 
-#main{
+#main
+{
 	position: relative;
 	width: 100%;
 	min-height: 540px;
@@ -383,7 +384,7 @@ div#loginMenu li a{
 }
 
 div#loginMenu li a:hover{
-	background-color:  #FFB014; 
+	background-color:  #FFCE6D; 
 	height: 100%;
 }
 
