@@ -3,6 +3,8 @@ App_Data/
 bin/
 obj/
 
+packages/
+
 *.suo
 *.user
 

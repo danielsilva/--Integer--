@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Repository;
 using Rhino.Mocks;
+using NUnit.Framework;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test : InMemoryDataBaseTest
     {
         Evento eventoExistente, eventoNovo;

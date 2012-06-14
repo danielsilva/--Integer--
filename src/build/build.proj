@@ -1,0 +1,72 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets	="Rebuild">
+	
+	<PropertyGroup>
+		<BaseDir>$(MSBuildProjectDirectory)\..</BaseDir>
+		<BuildDir>$(BaseDir)\.build</BuildDir>
+		<BuildToolsDir>$(MSBuildProjectDirectory)\Tools</BuildToolsDir>
+		<Configuration>Release</Configuration>
+		<Platform>Any CPU</Platform>
+		<MSBuildProperties>Configuration=$(Configuration);Platform=$(Platform)</MSBuildProperties>
+		<WebProject>$(BaseDir)\Integer.Web\Integer.Web.csproj</WebProject>
+	</PropertyGroup>
+	
+	<Import Project="$(BuildToolsDir)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+	
+	<UsingTask 
+		AssemblyFile="$(ProgramW6432)\NCover\Build Task Plugins\NCover.MSBuildTasks.dll"
+		TaskName="NCover.MSBuildTasks.NCover" />
+	
+	<ItemGroup>    
+		<SolutionFile 
+			Include="$(BaseDir)\Integer.sln" />					
+	</ItemGroup>
+	
+	<Target Name="Clean">
+		<MSBuild 	
+			Projects="@(SolutionFile)" 
+			Targets="Clean" 
+			Properties="$(MSBuildProperties)" />		
+		<RemoveDir 
+			Directories="$(BuildDir)" 
+			ContinueOnError="True" />
+		<RemoveDir 
+			Directories="$(DeployDir)" 
+			ContinueOnError="True" />
+	</Target>  
+
+	<Target Name="Build">
+		<MSBuild 
+			Projects="@(SolutionFile)" 
+			Properties="$(MSBuildProperties)">
+			
+			<Output 
+				TaskParameter="TargetOutputs"
+				PropertyName="BuiltAssembliesOutputs" />
+		</MSBuild>	
+		<ItemGroup>
+			<TestAssemblies		
+				Include="$(BaseDir)\**\bin\Release\*.Test?.dll" />
+		</ItemGroup>
+	</Target>		
+
+    <Target Name="Rebuild">
+		<CallTarget 
+			Targets="Clean; Build; Test" />		
+	</Target>		
+
+	<Target Name="Test" DependsOnTargets="Build">		
+		<NUnit ToolPath="$(BuildToolsDir)" DisableShadowCopy="true" Assemblies="@(TestAssemblies)" OutputXmlFile="test-results.xml" />
+	</Target>
+	
+	<Target Name="Coverage" DependsOnTargets="Build">		
+		<NCover 
+			ToolPath="$(ProgramW6432)\NCover\"
+			TestRunnerExe="$(BuildToolsDir)\nunit-console.exe"
+			TestRunnerArgs="%(TestAssemblies.Identity)"
+			CoverageFile="$(BuildDir)\%(TestAssemblies.FileName).Coverage.xml" />
+		
+		<Message Text="##teamcity[dotNetCoverage ncover3_home='$(ProgramW6432)\NCover\']" />
+		<Message Text="##teamcity[dotNetCoverage ncover3_reporter_args='//or FullCoverageReport:Html:{teamcity.report.path}']" />
+		<Message Text="##teamcity[importData type='dotNetCoverage' tool='ncover3' path='$(BuildDir)\%(TestAssemblies.FileName).Coverage.xml']" />
+	</Target>
+</Project>

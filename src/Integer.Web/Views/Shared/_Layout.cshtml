@@ -9,7 +9,7 @@
     <div id="header">
 		<div id="wrapper">
             <div id="header-left">
-			    <a href="/integer2"><img id="titulo" class="imageLink" src="/integer2/Content/images/integer.png" align="top" alt=""/></a>
+			    <a href="@Url.Content("~/")"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>
 		    </div>
 			
 		    <div id="header-right">
@@ -144,6 +144,15 @@
             jConfirm(msg, titulo, callback);
         }       
 
+    </script>
+
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function () {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/ZkpCLR97DUhpAnpPV4wfQg.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
     </script>
 </body>
 </html>
