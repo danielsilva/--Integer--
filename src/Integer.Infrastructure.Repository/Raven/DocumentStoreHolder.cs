@@ -2,21 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Linq;
-using Raven.Client;
-using Raven.Client.Document;
-using Raven.Client.Indexes;
-using Raven.Client.Embedded;
-using Raven.Database.Server;
+//using Raven.Client;
+//using Raven.Client.Document;
+//using Raven.Client.Indexes;
+//using Raven.Client.Embedded;
+//using Raven.Database.Server;
 
 namespace Integer.Infrastructure.Repository
 {
     public class DocumentStoreHolder
     {
-    	private static IDocumentStore documentStore;
+    	private static dynamic documentStore;
 
-    	public static IDocumentStore DocumentStore
+    	public static dynamic DocumentStore
     	{
-    		get { return (documentStore ?? (documentStore = CreateDocumentStore())); }
+    		get { return (documentStore); }
     	}
 
         public static void Initialize()
@@ -25,23 +25,23 @@ namespace Integer.Infrastructure.Repository
             CreateIndexes();
         }
 
-    	private static IDocumentStore CreateDocumentStore()
+    	private static dynamic CreateDocumentStore()
         {
-            NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8081);
-            var store = new EmbeddableDocumentStore
-            {
-                DataDirectory = "App_Data\\Integer",
-                DefaultDatabase = "Integer",
-                UseEmbeddedHttpServer = true
-            };
-            store.Initialize();
+            //NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8081);
+            //var store = new EmbeddableDocumentStore
+            //{
+            //    DataDirectory = "App_Data\\Integer",
+            //    DefaultDatabase = "Integer",
+            //    UseEmbeddedHttpServer = true
+            //};
+            //store.Initialize();
 
-            return store;
+            return null;//store;
         }
 
 		public static void CreateIndexes()
 		{
-			IndexCreation.CreateIndexes(typeof(DocumentStoreHolder).Assembly, DocumentStore);
+			//IndexCreation.CreateIndexes(typeof(DocumentStoreHolder).Assembly, DocumentStore);
 		}
     }
 }
