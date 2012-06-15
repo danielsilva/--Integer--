@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B37DA4
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integer.Infrastructure.Repository", "Integer.Infrastructure.Repository\Integer.Infrastructure.Repository.csproj", "{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,16 @@ Global
 		{F6FB50AE-D39F-42E4-8E5F-2DF44486C98D}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F6FB50AE-D39F-42E4-8E5F-2DF44486C98D}.Release|x86.ActiveCfg = Release|x86
 		{F6FB50AE-D39F-42E4-8E5F-2DF44486C98D}.Release|x86.Build.0 = Release|x86
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +126,7 @@ Global
 		{2FD1BAE1-7B85-4077-9611-346D0FF50C1A} = {40B1A18F-F3F2-4278-92D6-487BCF1B7D8F}
 		{6D72F9EE-9D92-4E5B-A359-79C3A4271154} = {9BA935E4-9758-496B-B7B9-D6A813CE3127}
 		{40103D98-6F26-4BCD-A994-7A16567F713B} = {DB238B72-B2BD-47A2-83BF-02AE38E5A708}
+		{E67BAA91-5A25-440A-BCBF-C7D9E85C28CF} = {DB238B72-B2BD-47A2-83BF-02AE38E5A708}
 		{F6FB50AE-D39F-42E4-8E5F-2DF44486C98D} = {C79BF14C-2007-4152-AA79-904A2E214098}
 	EndGlobalSection
 EndGlobal
