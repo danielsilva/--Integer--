@@ -10,7 +10,6 @@
 		<WebProject>$(BaseDir)\Integer.Web\Integer.Web.csproj</WebProject>
 	</PropertyGroup>
 	
-	
 	<UsingTask 
 		AssemblyFile="$(BuildToolsDir)\MSBuildCommunityTasks\MSBuild.Community.Tasks.dll" 
 		TaskName="MSBuild.Community.Tasks.NUnit" />
@@ -58,9 +57,7 @@
 	</Target>		
 
 	<Target Name="Test" DependsOnTargets="Build">
-		<!--<Exec Command="$(BuildToolsDir)\NUnit\bin\nunit-console.exe @(TestAssemblies) /nologo /noshadow /domain=single /output=test-results.xml" />-->
-		<NUnit ToolPath="$(BuildToolsDir)\Nunit\bin" DisableShadowCopy="true" Assemblies="@(TestAssemblies)" OutputXmlFile="test-results.xml" />
+		<NUnit ToolPath="$(BuildToolsDir)\Nunit\binaries" DisableShadowCopy="true" Assemblies="@(TestAssemblies)" OutputXmlFile="test-results.xml" />
 	</Target>
-	
 	
 </Project>
