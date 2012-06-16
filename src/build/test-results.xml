@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\dev\Projetos\Integer\src\Integer.Test\bin\Release\Integer.UnitTests.dll" total="99" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-06-16" time="02:25:20">
+  <environment nunit-version="2.6.0.12051" clr-version="2.0.50727.5456" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\dev\Projetos\Integer\src\build" machine-name="DANIEL-PC" user="Daniel" user-domain="Daniel-PC" />
+  <culture-info current-culture="pt-BR" current-uiculture="pt-BR" />
+  <test-suite type="Test Project" name="" executed="True" result="Failure" success="False" time="23.443" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\dev\Projetos\Integer\src\Integer.Test\bin\Release\Integer.UnitTests.dll" executed="True" result="Failure" success="False" time="22.652" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Integer" executed="True" result="Failure" success="False" time="22.628" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="UnitTests" executed="True" result="Failure" success="False" time="22.627" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Domain" executed="True" result="Failure" success="False" time="22.627" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Agenda" executed="True" result="Success" success="True" time="0.878" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ConflitoTest" executed="True" result="Success" success="True" time="0.458" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.ConflitoTest.Mapeia_Evento" executed="True" result="Success" success="True" time="0.037" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.ConflitoTest.Mapeia_Motivo" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.ConflitoTest.Possui_Data_Igual_A_Data_Atual" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_AdicionarConflito" executed="True" result="Success" success="True" time="0.022" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_AdicionarConflito.EventoPossuiEstado_NaoAgendado" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_AdicionarConflito.EventoPossuiUmConflitoReferenteAoOutroEvento" executed="True" result="Success" success="True" time="0.008" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_AlterarReservasDeLocais" executed="True" result="Success" success="True" time="0.070" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_AlterarReservasDeLocais.QuandoAlteraDatas_DisparaEventoDeAlteracaoDeReserva" executed="True" result="Success" success="True" time="0.060" asserts="2" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_AlterarReservasDeLocais.QuandoAlteraDatas_ReservaFicaComNovasDatas" executed="True" result="Success" success="True" time="0.005" asserts="2" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_AlterarReservasDeLocais.QuandoNaoMudaNada_ReservasPermanecemInalteradas" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_CancelarAgendamento" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_CancelarAgendamento.QuandoCancelaAgendamento_DisparaEventoDeDominioQueContemEventoCancelado" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_CancelarAgendamento.QuandoCancelaAgendamento_EventoFicaComEstadoCancelado" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_Novo_Criado_Corretamente" executed="True" result="Success" success="True" time="0.027" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_DataFim" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_DataInicio" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_Descricao" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_Grupo" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_Nome" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Mapeia_TipoEvento" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Possui_DataCadastro_Igual_A_Data_Atual" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Criado_Corretamente.Possui_Estado_Agendado" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_Novo_Validacoes" executed="True" result="Success" success="True" time="0.036" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoDataFimNaoInformada_DisparaExcecao" executed="True" result="Success" success="True" time="0.013" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoDataInicioEhPosteriorADataFim_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoDataInicioNaoInformada_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoDescricaoTemMaisDe150Caracteres_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoGrupoNaoInformado_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoNomeEhNulo_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoNomeEhVazio_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoNomeTemMaisDe50Caracteres_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_Novo_Validacoes.QuandoTipoNaoInformado_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_PossuiPrioridadeSobre" executed="True" result="Success" success="True" time="0.030" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_PossuiPrioridadeSobre.EventoDeMesmoTipo_CadastradoAntes_PossuiPrioridade" executed="True" result="Success" success="True" time="0.019" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_PossuiPrioridadeSobre.EventoGrande_PossuiPrioridadeSobre_EventoComum" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_PossuiPrioridadeSobre.EventoParoquial_PossuiPrioridadeSobre_EventoSacramento" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_PossuiPrioridadeSobre.EventoSacramento_PossuiPrioridadeSobre_EventoGrandeNumeroDePessoas" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_RemoverConflito" executed="True" result="Success" success="True" time="0.019" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_RemoverConflito.QuandoRemoveConflito_E_AindaPossuiConflitos_EventoFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.013" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_RemoverConflito.QuandoRemoveUltimoConflito_EventoFicaComEstadoAgendado" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Evento_ReservarLocal" executed="True" result="Success" success="True" time="0.032" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_ReservarLocal.AoReservarComSucesso_ReservaEstahAssociadoAEvento" executed="True" result="Success" success="True" time="0.026" asserts="2" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Evento_ReservarLocal.QuandoJaExisteReservaDeUmLocalParaOutroHorarioParecido_DisparaExcecao" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="EventoParoquialExistenteExceptionTest" executed="True" result="Success" success="True" time="0.086" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.EventoParoquialExistenteExceptionTest.ExibeAMensagemCorreta" executed="True" result="Success" success="True" time="0.086" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="HorarioTest" executed="True" result="Success" success="True" time="0.013" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.HorarioTest.Construtor_VerificaSeDataInicioEhMenorQueDataFim_DisparandoExcecao" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.HorarioTest.ToString_QuandoComecaETerminaNoMesmoDia_SeparaSomenteAHora" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.HorarioTest.ToString_QuandoTerminaEmOutroDia_SeparaDiaEHora" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.HorarioTest.VerificarConcorrencia_QuandoHorarioNaoSobrepoe_RetornaFalse" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.HorarioTest.VerificarConcorrencia_QuandoHorarioSobrepoe_RetornaTrue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Reserva_AlterarHorario" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_AlterarHorario.QuandoAlteraDataFim_MapeiaCorretamente" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_AlterarHorario.QuandoAlteraDataInicio_MapeiaCorretamente" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Reserva_Nova_Criada_Corretamente" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Criada_Corretamente.Mapeia_DataFim" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Criada_Corretamente.Mapeia_DataInicio" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Criada_Corretamente.Mapeia_Horario" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Criada_Corretamente.Mapeia_Local" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Reserva_Nova_Validacoes" executed="True" result="Success" success="True" time="0.012" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Validacoes.QuandoDataFimNaoExiste_DisparaExcecao" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Validacoes.QuandoDataInicioEhIgualADataFim_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Validacoes.QuandoDataInicioEhPosteriorADataFim_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Validacoes.QuandoDataInicioNaoExiste_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Agenda.Reserva_Nova_Validacoes.QuandoLocalEhNulo_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Paroquia" executed="True" result="Failure" success="False" time="0.051" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="Grupo_Novo_Criado_Corretamente" executed="True" result="Success" success="True" time="0.021" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.Mapeia_Cor" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.Mapeia_Email" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.Mapeia_GrupoPai" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.Mapeia_Nome" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.PrecisaTrocarSenha" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Criado_Corretamente.Senha_EhPadrao_calendario2012" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Grupo_Novo_Validacoes" executed="True" result="Failure" success="False" time="0.014" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Validacoes.QuandoGrupoPaiEhNulo_DisparaExcecao" executed="True" result="Failure" success="False" time="0.003" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.ArgumentNullException was expected]]></message>
+                                  <stack-trace />
+                                </failure>
+                              </test-case>
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Validacoes.QuandoNomeEhNulo_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Validacoes.QuandoNomeEhVazio_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Grupo_Novo_Validacoes.QuandoNomeTemMaisDe50Caracteres_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Local_Novo_Criado_Corretamente" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Local_Novo_Criado_Corretamente.Mapeia_Nome" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="Local_Novo_Validacoes" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Local_Novo_Validacoes.QuandoNomeEhNulo_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Local_Novo_Validacoes.QuandoNomeEhVazio_DisparaExcecao" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Paroquia.Local_Novo_Validacoes.QuandoNomeTemMaisDe50Caracteres_DisparaExcecao" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Services" executed="True" result="Success" success="True" time="21.673" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test" executed="True" result="Success" success="True" time="12.968" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.QuandoEventoNovoNaoParoquial_AconteceMenosDeUmaHoraAntesDoEventoParoquial_DisparaExcecao" executed="True" result="Success" success="True" time="9.555" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.QuandoEventoNovoNaoParoquial_AconteceMenosDeUmaHoraDepoisDoEventoParoquial_DisparaExcecao" executed="True" result="Success" success="True" time="0.195" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.QuandoEventoNovoNaoParoquial_AconteceUmaHoraAntesDoEventoParoquial_CadastraComSucesso" executed="True" result="Success" success="True" time="0.461" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.QuandoEventoNovoNaoParoquial_AconteceUmaHoraDepoisDoEventoParoquial_CadastraComSucesso" executed="True" result="Success" success="True" time="0.389" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test.QuandoEventoNovoNaoParoquial_SobrepoeEventoParoquial_DisparaExcecao" executed="True" result="Success" success="True" time="0.296" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test" executed="True" result="Success" success="True" time="4.151" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_CadastraComSucesso" executed="True" result="Success" success="True" time="0.480" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial" executed="True" result="Success" success="True" time="0.269" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.261" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_CadastraComSucesso" executed="True" result="Success" success="True" time="0.357" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial" executed="True" result="Success" success="True" time="0.247" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.154" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceUmaHoraAntes_CadastraComSucesso" executed="True" result="Success" success="True" time="0.333" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceUmaHoraAntes_EventoNaoParoquialExistentePermaneceAgendadoESemConflitos" executed="True" result="Success" success="True" time="0.278" asserts="2" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceUmaHoraDepois_CadastraComSucesso" executed="True" result="Success" success="True" time="0.330" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_AconteceUmaHoraDepois_EventoNaoParoquialExistentePermaneceAgendadoESemConflitos" executed="True" result="Success" success="True" time="0.226" asserts="2" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_Sobrepoe_CadastraComSucesso" executed="True" result="Success" success="True" time="0.365" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial" executed="True" result="Success" success="True" time="0.240" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test.QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.271" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test" executed="True" result="Success" success="True" time="0.879" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test.QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_DisparaExcecao" executed="True" result="Success" success="True" time="0.298" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test.QuandoAReservaNova_SobrepoeReservaExistente_DisparaExcecao" executed="True" result="Success" success="True" time="0.231" asserts="0" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test.QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_DisparaExcecao" executed="True" result="Success" success="True" time="0.232" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test" executed="True" result="Success" success="True" time="3.069" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComConflitoReferenteAoEventoNovo" executed="True" result="Success" success="True" time="0.242" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.327" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_SalvaEventoNovoComSucesso" executed="True" result="Success" success="True" time="0.367" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComConflitoReferenteAoEventoNovo" executed="True" result="Success" success="True" time="0.321" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.245" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_SobrepoeReservaExistente_SalvaEventoNovoComSucesso" executed="True" result="Success" success="True" time="0.373" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComConflitoReferenteAoEventoNovo" executed="True" result="Success" success="True" time="0.253" asserts="3" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComEstadoNaoAgendado" executed="True" result="Success" success="True" time="0.354" asserts="1" />
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test.QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_SalvaEventoNovoComSucesso" executed="True" result="Success" success="True" time="0.416" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgendaEventoServiceTest" executed="True" result="Success" success="True" time="0.324" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.AgendaEventoServiceTest.AgendaComSucesso" executed="True" result="Success" success="True" time="0.164" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="RemoveConflitoServiceTest" executed="True" result="Success" success="True" time="0.239" asserts="0">
+                            <results>
+                              <test-case name="Integer.UnitTests.Domain.Services.RemoveConflitoServiceTest.a" executed="True" result="Success" success="True" time="0.030" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+      <test-suite type="Assembly" name="C:\dev\Projetos\Integer\src\Integer.Web.Tests\bin\Release\Integer.Web.Tests.dll" executed="True" result="Success" success="True" time="0.291" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Integer" executed="True" result="Success" success="True" time="0.229" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Web" executed="True" result="Success" success="True" time="0.228" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="0.227" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Controllers" executed="True" result="Success" success="True" time="0.226" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="CalendarioControllerTest" executed="True" result="Success" success="True" time="0.218" asserts="0">
+                            <results>
+                              <test-case name="Integer.Web.Tests.Controllers.CalendarioControllerTest.ActionPadrao_DeveRetornarViewCalendario" executed="True" result="Success" success="True" time="0.174" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
