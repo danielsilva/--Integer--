@@ -1,11 +1,5 @@
 ﻿@charset "utf-8";
 
-/* Tags */
-
-* {
-	margin: 0px;
-	padding: 0px;
-}
 
 body{
 	margin: 0px;
@@ -13,367 +7,22 @@ body{
 	font-size: 12px;
 	background-color: #EBF2F8 !important;
 }
-
-form{
-	border:0px; 
-	margin:0px; 
-	padding-left:0px;
-}
-
-p{
-	padding: 10px;
-}
-
-p.margemTopo{
-	padding-left: 0px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-}
-
-a{
-	color: #1240ab;
-	border: 0px;
-	outline: 0px;
-	text-decoration: none;
-}
-
-a:hover{
-	color: #FFE4B2;
-	border: 0px;
-	outline: 0px;
-	text-decoration: none;
-	cursor:pointer;
-}
-
-a:active{
-	color: #FFE4B2;
-	border: 0px;
-	outline: 0px;
-	text-decoration: none;
-}
-
-fieldset {
-	padding: 10px 10px 10px 10px;
-}
-
-/* Imagens */
-
-img.imageLink{
-	border: 0px;
-	top:0;
-}
-
-img#titulo{
-	margin: 5px 0px 0px 10px;
-}
-
-/* Textos */
-
-span.negrito{
-	font-weight: bold;
-}
-
-span#footerNote{
-	color: #ffffff;
-}
-
-p.footerEvento{
-	font-size: 9px;
-	color: #06266f;
-	padding-left: 0px;
-	padding-bottom: 30px;
-}
-
-/* Formulário */
-
-input{	
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:12px;
-}
-
-.input-validation-error
+h2  
 {
-    border: 1px solid #FF4242;
-    background-color: #ffeeee;
-}
-
-.field-validation-error
-{
-	color: #ff0000;
-	margin-left:5px;
-}
-
-.validation-summary-errors
-{
-	width:97%;
-	border-top: dashed 1px #C6CFE1;
-	border-bottom: dashed 1px #C6CFE1;
-	background-color:#FFF7BF;
-	height:35px;
-	padding-top:15px;
-	padding-left:15px;
-}
-
-div.formulario {
-	background:#EAF0F9;/*#dfe4ee;*/
-	_padding:10px;
-	padding:10px 10px 20px 10px;
-	color:#333333;
-	margin: 0px auto;
-	margin-bottom:10px;
-	width: 50%;
-}
-div.formulario .sb-inner {
-	background:#EAF0F9;
-}
-
-
-div.formulario h1{
-	font-size:14px;
-	/*color:#000000;*/
-	margin-bottom: 14px;
-	margin-top: 3px;
-}
-
-div.formulario .linha{
-	_position:relative;
-	min-height:50px;	
-	margin:10px 10px 0px 10px;
-}
-
-div.formulario .formItem{
-	padding-right:40px;
-	width: 180px;
-	float:left;
-}
-/*
-div.formulario p{
-	padding-bottom:10px;
-}*/
-
-div.formulario label{
-	_width: 180px;
-	text-align: left;
-	margin-bottom: 5px;
-	display: block;
-	font-weight: bold;
-	font-size:12px;
-}
-
-div.formulario .input-text,
-div.formulario .select {
-	border:1px solid #c6cfe1;
-	color:#666666;
-	width:100%;
-	height:20px;
-	font-size:13px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	padding-left:3px;
-	padding-top:2px;
-}
-
-div.formulario .text-area {
-	border:1px solid #c6cfe1;
-	color:#666666;
-	width:100%;
-	height:20px;
-	font-size:13px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	padding-left:3px;
-	padding-top:2px;
-	overflow-Y:fixed;
-}
-
-
-.spacer
-{
-	margin:30px 12px 10px 12px;
-	font-size:11px;
-}
-
-
-.botaoPrimario,
-.botaoPrimario:hover
-{
-	background:url(images/btnAzul.gif);
-	padding:0px 6px;
-	border-left:1px solid #3A6A97;
-	border-right:1px solid #3A6A97;
-	height:28px;
-	line-height:28px;
-	color:#ffffff;
-	font-size:12px;
-	font-weight:bold;
-	margin-right:10px;
-	display:inline-block;
-	text-decoration:none;
-}
-
-.botaoSecundario,
-.botaoSecundario:hover {
-	background:url(images/azul.gif);
-	padding:0px 6px;
-	border:1px solid #06266f;
-	height:24px;
-	line-height:24px;
-	color:#ffffff;
-	font-size:12px;
-	font-weight:bold;
-	margin-right:10px;
-	display:inline-block;
-	text-decoration:none;
-}
-
-.question_mark 
-{
-	margin-left:3px;
-	margin-right:3px;
-	float:left;
-	background:url(images/question_mark.png);
-}
-
-/* Layout */
-
-#wrapper{
-	width: 940px;
-	margin: 0px auto;
-}
-
-div#header{
-	background-color: #066EAE;
-	width: 100%;
-	height: 80px;
-	margin: 0px auto;
-}
-
-div#header #header-left{
-	float: left;
-	width: 49%;
-	height: 100%;
-	text-align: left;
-}
-
-div#header #header-right{
-	float: right;
-	width: 49%;
-	height: 80px;
-	text-align: right;
-}
-
-#main
-{
-	position: relative;
-	width: 100%;
-	min-height: 540px;
-	overflow: auto;
-	margin: 20px 0px;
-}
-
-#main #main-left{
-	float: left;
-	width: 75%;
-	margin: 10px 0px;
-}
-
-#main #main-left h1{
-	font-size:16px;
-	color:#000000;
-	padding-bottom:4px;
-}
-
-#main #main-right{
-	float: right;
-	width: 21%;
-	margin: 10px 0px;
-	border: 0px;
-	background:#EAF0F9;
-	padding:10px;
-	padding-top: 0px;
-	color:#333333;
-}
-
-#footer{
-	background-color: #bf8f30;
-	height: 50px;
-	padding: 10px;
-	text-align: center;
-}
-
-div.blocoTexto{
-	border: 0px;
-	background:#EAF0F9;
-	padding:10px;
-	color:#333333;
-	margin: 0px auto;
-	margin-bottom:20px;
-}
-
-div.blocoTexto h1{
-	font-size:14px;
-	color:#000000;
-	padding-bottom:4px;
-}
-
-div.blocoTexto p{
-	padding-bottom:14px;
-}
-
-/* Listas */
-
-ul#inscricoes {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-}
-
-ul#inscricoes li {
-	margin: 0;
-	padding: 8px 10px;
-	border-bottom: 1px dashed #aaaaaa;
-}
-
-ul#inscricoes li a{
-	color: #1240ab;
-	text-decoration: none;
-}
-
-ul#inscricoes li a:hover{
-	color: #ffaa00;
-	text-decoration: underline;
-}
-
+    font-size:12pt !important;
+    }
 /* Menu de Login */
 
-div#loginMenu {
-	float: right;
-	background-color: #066EAE;
-	width: 50%;
+div.loginmenu{
+    float: right;
+	background-color: #71ACCE;
 	margin-right: 10px;
 	height: 100%;
 	font-size: 18px;
+	position:relative;
 }
 
-div#boasVindas {
-	color: #ffffff;
-	padding-top:20px;
-}
-
-div#boasVindas a {
-	color: #ffaa00;
-}
-
-div#loginMenu ul{
-	list-style-type: none;
-	height: 100%;
-}
-
-div#loginMenu li{
-	float: right;
-	background-color: #71ACCE;
-	height: 100%;
-}
-
-div#loginMenu li a{	
+div.loginmenu a{	
 	padding-left: 15px;
 	padding-right: 15px;
 	display: block;
@@ -383,9 +32,33 @@ div#loginMenu li a{
 	height:100%;
 }
 
-div#loginMenu li a:hover{
+div.loginmenu a:hover{
 	background-color:  #FFCE6D; 
 	height: 100%;
+}
+
+#loginform  {
+    position: absolute;
+    /*display: none;*/
+    top: 105px;
+    left: -150px;
+    z-index: 7;
+    border: 2px solid #ccc;
+    border: 2px solid rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    width: 230px;
+    max-height:250px;
+    background: #fff;
+    font-size:12px;
+}
+
+div#boasVindas {
+	color: #ffffff;
+	padding-top:20px;
+}
+
+div#boasVindas a {
+	color: #ffaa00;
 }
 
 #simplemodal-overlay
