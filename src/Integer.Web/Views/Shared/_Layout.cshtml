@@ -1,7 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Integer</title>
+    <title>Integer - Calendário Paroquial</title>
+    <link href="@Url.Content("~/Content/ExtJS/style/css/ext-all.css")" rel="stylesheet" type="text/css" /> 
+    @RenderSection("Styles", required: false)
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />   
     <link href="@Url.Content("~/Content/ttbootstrap/bootstrap.min.css")" rel="stylesheet" type="text/css" />
 </head>
@@ -12,10 +14,17 @@
             <a class="brand" href="@Url.Content("~/")"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>
             <div class="loginmenu pull-right">
                 @Html.ActionLink("Entrar", "Login", "Usuario")
-                <div id="loginform">
-                    Teste
-                    <br/>
-                </div>
+                
+                    <form id="loginform" class="well">
+                      <label>Login</label>
+                      <input type="text" class="span2" placeholder="Type something…" /> 
+                      <label>Senha</label>
+                      <input type="text" class="span2" placeholder="Type something…" />                      
+                      <label class="checkbox">
+                        <input type="checkbox" /> Mantenha-me conectado
+                      </label>
+                      <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
             </div>
         </div>
     </div>
@@ -27,19 +36,15 @@
 
     <div id="divErro"></div>
 
-    <!--ExtJS-->
-    <link href="@Url.Content("~/Content/ExtJS/style/css/ext-all.css")" rel="stylesheet" type="text/css" /> 
-    
-    @RenderSection("Styles", required: false)
-
     <!--jquery-->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.1.min.js" type="text/javascript"></script>
-    <!--ExtJS-->
-    <script src="@Url.Content("~/Scripts/Plugins/ExtJS/ext-all-debug.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/Plugins/ExtJS/locale/ext-lang-pt_BR.js")" type="text/javascript"></script>
 
     <!--TTBootstrap-->
     <script src="@Url.Content("~/Scripts/Plugins/ttbootstrap/bootstrap.min.js")" type="text/javascript"></script>
+
+    <!--ExtJS-->
+    <script src="@Url.Content("~/Scripts/Plugins/ExtJS/ext-all-debug.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Plugins/ExtJS/locale/ext-lang-pt_BR.js")" type="text/javascript"></script>    
 
     @RenderSection("Scripts", required: false)    
 
