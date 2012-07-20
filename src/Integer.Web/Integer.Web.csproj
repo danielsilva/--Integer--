@@ -495,8 +495,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
-    <Content Include="Content\ttbootstrap\bootstrap.css" />
-    <Content Include="Content\ttbootstrap\bootstrap.min.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\ttbootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\ttbootstrap\img\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -514,6 +516,7 @@
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\Calendario\EventoForm.js" />
     <Content Include="Scripts\Grupo\Cadastro.js" />
+    <Content Include="Scripts\Login\login.js" />
     <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
     <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
@@ -544,7 +547,9 @@
     <Content Include="Scripts\Plugins\extCalendar\locale\ext-lang-pt_BR.js" />
     <Content Include="Scripts\Plugins\ExtJS\bootstrap.js" />
     <Content Include="Scripts\Plugins\ExtJS\ext-all-debug.js" />
+    <Content Include="Content\ExtJS\style\css\ext-all-scoped.css" />
     <Content Include="Scripts\Plugins\ExtJS\ext-all.js" />
+    <Content Include="Content\ExtJS\style\css\ext-ie-scoped.css" />
     <Content Include="Scripts\Plugins\ExtJS\locale\ext-lang-pt_BR.js" />
     <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.js" />
     <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.min.js" />

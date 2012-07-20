@@ -6,6 +6,7 @@ body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	background-color: #EBF2F8 !important;
+	padding-top:90px;
 }
 h2  
 {
@@ -15,33 +16,18 @@ h2
 
 div.loginmenu{
     float: right;
-	background-color: #71ACCE;
 	margin-right: 10px;
 	height: 100%;
 	font-size: 18px;
 	position:relative;
 }
 
-div.loginmenu a{	
-	padding-left: 15px;
-	padding-right: 15px;
-	display: block;
-	line-height: 100px;
-	text-decoration: none;
-	color: #ffffff;
-	height:100%;
-}
-
-div.loginmenu a:hover{
-	background-color:  #FFCE6D; 
-	height: 100%;
-}
-
 #loginform  {
     position: absolute;
     /*display: none;*/
-    top: 105px;
-    left: -150px;
+    top: 50px;
+    left: -180px;
+    width:200px !important;
     z-index: 7;
     border: 2px solid #ccc;
     border: 2px solid rgba(0, 0, 0, .2);
