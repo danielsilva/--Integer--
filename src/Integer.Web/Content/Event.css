@@ -1,0 +1,11 @@
+﻿#frmEvent 
+{
+    margin-bottom: 0px !important;
+}
+
+#frmEvent div.row
+{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width:90%;
+}

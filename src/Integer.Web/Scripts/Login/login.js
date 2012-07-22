@@ -1,6 +1,10 @@
 ﻿$("#btnlogin").click(function () {
     var loginform = $("#loginform");
-    loginform.toggle();
+    
+    if (loginform.is(':visible')) 
+        loginform.fadeOut('fast');
+    else 
+        loginform.fadeIn('fast');
 
     $('body').append("<div id='mask'></div>");
     $('#mask').css({
@@ -14,7 +18,7 @@
 
     $('#mask').click(function () {
         $(this).remove();
-        $("#loginform").hide();
+        $("#loginform").fadeOut('fast');
     });
 });
 

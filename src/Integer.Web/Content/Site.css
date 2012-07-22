@@ -6,7 +6,7 @@ body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	background-color: #EBF2F8 !important;
-	padding-top:90px;
+	padding-top:70px;
 }
 h2  
 {
@@ -20,6 +20,7 @@ div.loginmenu{
 	height: 100%;
 	font-size: 18px;
 	position:relative;
+	padding-top: 3px;
 }
 
 #loginform  {

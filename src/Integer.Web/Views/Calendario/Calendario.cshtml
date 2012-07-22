@@ -5,7 +5,12 @@
 @section Styles {
     <link href="@Url.Content("~/Content/extCalendar/css/extensible-all.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/extCalendar/css/calendar.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />   
     <style type="text/css">
+        .ext-cal-evt
+        {
+            padding: 1px 1px 1px 5px !important;
+            }
         .ext-cal-ev-spanleft
         {
             margin-left:0px !important;
@@ -28,10 +33,14 @@
     <script src="@Url.Content("~/Scripts/Plugins/extCalendar/calendar-debug.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js")" type="text/javascript"></script>
     <script type="text/javascript">
+        $().ready(function () {
+            $('.btn-group').button();
+        });
+
         Ext.onReady(function () {
             var getEvents = $.getJSON('@Url.Action("Eventos", "Calendario")');
 
-            var calendarWidth = 750;
+            var calendarWidth = 810;
             var startDate = new Date();
 
             getEvents.success(function (events) {
@@ -42,7 +51,7 @@
                     startDate: startDate,
                     renderTo: 'divCalendar',
                     width: calendarWidth,
-                    height: 500,
+                    height: 520,
 
                     readOnly: false,
 
@@ -80,5 +89,43 @@
     </script>
 }
 
-<h2 id="calendarTitle" style="text-align:center; margin-left:auto; margin-right:auto;"></h2>
-<div id="divCalendar" style="margin-left:auto; margin-right:auto;"></div>
+
+
+<div id="divCalendar" style="margin-left:auto; margin-right:auto;">
+    <button class="btn btn-info btn-large" >Agendar evento</button>
+    <h3 id="calendarTitle" style="text-align:center; margin-left:auto; margin-right:auto;"></h3>
+    <form id="frmEvent" class="well" style="margin-left:auto;margin-right:auto;">
+        <button class="close">&times;</button>
+        <div class="row">
+            <div class="span3">
+                <label>Nome</label>
+                <input type="text" class="span3">
+
+                <label>Descrição</label>
+                <textarea class="input-xlarge span3" rows="4" placeholder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc"></textarea>
+            </div>
+            <div class="span3">
+                <label>Tipo</label>
+                <select class="span3"></select>
+
+                <label>Data</label>
+                <div class="input-append">
+                    <input type="text" style="width:70px;float:left;"><button class="btn" type="button"><i class="icon-calendar"></i></button>
+                </div>
+                  <br/>
+                <div class="btn-group pull-left" style="float:left;" data-toggle="buttons-checkbox">
+                  <button class="btn">Manhã</button>
+                  <button class="btn">Tarde</button>
+                  <button class="btn">Noite</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p></p>
+            <div class="span3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>
+

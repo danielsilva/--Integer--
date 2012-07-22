@@ -232,6 +232,7 @@
     <Content Include="Content\calendar\images\share\tool-sprites.gif" />
     <Content Include="Content\dateTimePicker\dark.datetimepicker.css" />
     <Content Include="Content\dateTimePicker\dark.datetimepicker.min.css" />
+    <Content Include="Content\Event.css" />
     <Content Include="Content\extCalendar\css\calendar-colors.css" />
     <Content Include="Content\extCalendar\css\calendar.css" />
     <Content Include="Content\extCalendar\css\extensible-all.css" />
