@@ -94,8 +94,15 @@
         }
 
         function showFormEvent(date, el) {
-            var formEvent = $('#divEvent');
-            $('#' + el.id).closest('div').after(formEvent);
+            var formEvent = $('#frmEvent');
+            var divWeek = $('#' + el.id).closest('div');
+
+            divWeek.after(formEvent);
+            formEvent.show();
+//            divWeek.addClass('accordion-heading');
+//            divWeek.wrap('<div class="accordion-group"></div>');
+//            divWeek.after(formEvent);
+//            $(".collapse").collapse();
         }
 
         $('#timeMorning').tooltip({ placement: 'bottom' });
@@ -110,40 +117,39 @@
 <div id="divCalendar" style="margin-left:auto; margin-right:auto;">
     <button class="btn btn-info btn-large" >Agendar evento</button>
     <h3 id="calendarTitle" style="text-align:center; margin-left:auto; margin-right:auto;"></h3>
-    <div id="divEvent" style="display:block;">
-        <form id="frmEvent" class="well" style="margin-left:auto;margin-right:auto;display:block;">
-            <button class="close">&times;</button>
-            <div class="row">
-                <div class="span3">
-                    <label>Nome</label>
-                    <input type="text" class="span3">
+    
+    <form id="frmEvent" class="well" style="margin-left:auto;margin-right:auto;">
+        <button class="close">&times;</button>
+        <div class="row">
+            <div class="span3">
+                <label>Nome</label>
+                <input type="text" class="span3">
 
-                    <label>Descrição</label>
-                    <textarea class="input-xlarge span3" rows="4" placeholder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc"></textarea>
-                </div>
-                <div class="span3">
-                    <label>Tipo</label>
-                    <select class="span3"></select>
+                <label>Descrição</label>
+                <textarea class="input-xlarge span3" rows="4" placeholder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc"></textarea>
+            </div>
+            <div class="span3">
+                <label>Tipo</label>
+                <select class="span3"></select>
                 
-                    <label>&nbsp;</label>
-                    <label style="float:left;">Dia&nbsp;</label>
-                    <label id="lblDate" style="font-weight:bold;">22/07/2012</label>
+                <label>&nbsp;</label>
+                <label style="float:left;">Dia&nbsp;</label>
+                <label id="lblDate" style="font-weight:bold;">22/07/2012</label>
                 
-                    <label>Horário</label>
-                    <div class="btn-group pull-left" style="float:left;" data-toggle="buttons-checkbox">
-                      <button id="timeMorning" title='6h à 12h' class="btn">Manhã</button>
-                      <button id="timeAfternoon" title='12h à 18h' class="btn">Tarde</button>
-                      <button id="timeEvening" title='18h à 22h' class="btn">Noite</button>
-                    </div>
+                <label>Horário</label>
+                <div class="btn-group pull-left" style="float:left;" data-toggle="buttons-checkbox">
+                    <button id="timeMorning" title='6h às 12h' class="btn">Manhã</button>
+                    <button id="timeAfternoon" title='12h às 18h' class="btn">Tarde</button>
+                    <button id="timeEvening" title='18h às 22h' class="btn">Noite</button>
                 </div>
             </div>
-            <div class="row">
-                <p></p>
-                <div class="span3">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
+        </div>
+        <div class="row">
+            <p></p>
+            <div class="span3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
