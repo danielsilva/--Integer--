@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model Integer.Web.ViewModels.EventoViewModel
 
 @section Styles {
     <link href="@Url.Content("~/Content/extCalendar/css/extensible-all.css")" rel="stylesheet" type="text/css" />
@@ -35,6 +36,10 @@
     <script type="text/javascript">
         $().ready(function () {
             $('.btn-group').button();
+
+            $('#btnSchedule').click(function () {
+                $('#divFormEvent').modal('show');
+            });
         });
 
         Ext.onReady(function () {
@@ -93,18 +98,6 @@
             $("#calendarTitle").html(Ext.Date.format(date, 'F'));
         }
 
-        function showFormEvent(date, el) {
-            var formEvent = $('#frmEvent');
-            var divWeek = $('#' + el.id).closest('div');
-
-            divWeek.after(formEvent);
-            formEvent.show();
-//            divWeek.addClass('accordion-heading');
-//            divWeek.wrap('<div class="accordion-group"></div>');
-//            divWeek.after(formEvent);
-//            $(".collapse").collapse();
-        }
-
         $('#timeMorning').tooltip({ placement: 'bottom' });
         $('#timeAfternoon').tooltip({ placement: 'bottom' });
         $('#timeEvening').tooltip({ placement: 'bottom' });
@@ -112,18 +105,18 @@
     </script>
 }
 
-
-
 <div id="divCalendar" style="margin-left:auto; margin-right:auto;">
-    <button class="btn btn-info btn-large" >Agendar evento</button>
+    <button id="btnSchedule" class="btn btn-info btn-large" >Agendar evento</button>
     <h3 id="calendarTitle" style="text-align:center; margin-left:auto; margin-right:auto;"></h3>
-    
-    <form id="frmEvent" class="well" style="margin-left:auto;margin-right:auto;">
-        <button class="close">&times;</button>
+</div>
+
+<div id="divFormEvent" class="modal hide" style="width:750px;">
+    @using (Html.BeginForm("Save", "Calendario", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
         <div class="row">
             <div class="span3">
                 <label>Nome</label>
-                <input type="text" class="span3">
+                @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
+                @Html.ValidationMessageFor(m => m.Nome)
 
                 <label>Descrição</label>
                 <textarea class="input-xlarge span3" rows="4" placeholder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc"></textarea>
@@ -134,7 +127,15 @@
                 
                 <label>&nbsp;</label>
                 <label style="float:left;">Dia&nbsp;</label>
-                <label id="lblDate" style="font-weight:bold;">22/07/2012</label>
+                <div class="input-append">
+                    <input class="span2" id="txtDate" size="16" type="text"><button class="btn icon-calendar" type="button">&nbsp;</button>
+                </div>
+                <div class="controls">
+                    <div class="input-append">
+                        <input class="span2" id="appendedInput" size="16" type="text"><button class="add-on icon-calendar">&times;</button>
+                    </div>
+                    <span class="help-inline">Here's more help text</span>
+                </div>
                 
                 <label>Horário</label>
                 <div class="btn-group pull-left" style="float:left;" data-toggle="buttons-checkbox">
@@ -145,11 +146,11 @@
             </div>
         </div>
         <div class="row">
-            <p></p>
-            <div class="span3">
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal">Cancelar</a>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </div>
-    </form>
+    }
 </div>
 

@@ -143,5 +143,14 @@ namespace Integer.Web.Controllers
             var listaGrupos = new GrupoHelper(grupos).CriarListaGrupos();
             return Json(listaGrupos, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult Save(EventoViewModel evento) 
+        {
+            if (!ModelState.IsValid)
+                return View("Calendario", evento);
+
+            return null;
+        }
     }
 }
