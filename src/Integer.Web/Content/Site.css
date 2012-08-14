@@ -57,3 +57,43 @@ a.simplemodal-close:link,
 a.simplemodal-close:active,
 a.simplemodal-close:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:4px; right:0px; color:#999; background:url(images/close.png) no-repeat; height:25px; width:25px; }
 a.simplemodal-close:hover {color:#9bb3b3;}
+
+/* FORM
+--------------------------------------------*/
+
+form label
+{
+    float: left;
+    }
+
+/* MISC 
+------------------------------------------- */
+
+.error {
+    color: Red;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+    margin-left: 10px;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}

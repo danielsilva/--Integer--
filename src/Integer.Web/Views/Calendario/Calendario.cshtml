@@ -114,17 +114,16 @@
     @using (Html.BeginForm("Save", "Calendario", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
         <div class="row">
             <div class="span3">
-                <label>Nome</label>
+                <label>Nome</label>@Html.ValidationMessageFor(m => m.Nome)
                 @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
-                @Html.ValidationMessageFor(m => m.Nome)
-
-                <label>Descrição</label>
-                <textarea class="input-xlarge span3" rows="4" placeholder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc"></textarea>
+                
+                <label>Descrição</label>@Html.ValidationMessageFor(m => m.Descricao)
+                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
             </div>
             <div class="span3">
-                <label>Tipo</label>
-                <select class="span3"></select>
-                
+                <label>Tipo</label>@Html.ValidationMessageFor(m => m.Tipo)
+                @Html.DropDownListFor(m => m.Tipo, new SelectList(new List<string> { "a", "b"}), new { @class = "span3" })
+                                
                 <label>&nbsp;</label>
                 <label style="float:left;">Dia&nbsp;</label>
                 <div class="input-append">
