@@ -124,16 +124,10 @@
                 <label>Tipo</label>@Html.ValidationMessageFor(m => m.Tipo)
                 @Html.DropDownListFor(m => m.Tipo, new SelectList(new List<string> { "a", "b"}), new { @class = "span3" })
                                 
-                <label>&nbsp;</label>
-                <label style="float:left;">Dia&nbsp;</label>
+                <p></p>
+                <label>Dia&nbsp;</label>
                 <div class="input-append">
-                    <input class="span2" id="txtDate" size="16" type="text"><button class="btn icon-calendar" type="button">&nbsp;</button>
-                </div>
-                <div class="controls">
-                    <div class="input-append">
-                        <input class="span2" id="appendedInput" size="16" type="text"><button class="add-on icon-calendar">&times;</button>
-                    </div>
-                    <span class="help-inline">Here's more help text</span>
+                    <input class="span2" id="txtDate" size="16" type="text" style="float:left;" /><button class="btn" type="button"><i class="icon-calendar"></i></button>
                 </div>
                 
                 <label>Horário</label>

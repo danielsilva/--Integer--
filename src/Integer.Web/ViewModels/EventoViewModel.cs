@@ -10,7 +10,7 @@ namespace Integer.Web.ViewModels
 {
     public class EventoViewModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]
         [StringLength(50, ErrorMessage = "máximo 50 caracteres")]
@@ -34,17 +34,7 @@ namespace Integer.Web.ViewModels
         [Required(ErrorMessage = "Seleção obrigatória.")]
         public int Tipo { get; set; }
 
-        // TODO exibir conflitos
-        //public IList<ConflitoViewModel> ConflitosComEventosMaisPrioritarios { get; set; }
-        //public IList<ConflitoViewModel> ConflitosComEventosMenosPrioritarios { get; set; }
-
         [Required(ErrorMessage = "É necessário reservar locais para o evento.")]
         public IList<ReservaDeLocalViewModel> Reservas { get; set; }
-
-        public string NomeGrupo { get; set; }
-
-        public IList<GrupoViewModel> Grupos { get; set;}
-        public IList<ItemViewModel> TiposDeEvento { get; set; }
-        public bool podeAlterarConflitos { get; set; }
     }
 }
