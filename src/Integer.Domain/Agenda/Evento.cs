@@ -193,7 +193,7 @@ namespace Integer.Domain.Agenda
             this.Nome = nome;
             this.Descricao = descricao;
             this.Grupo = grupo;
-            this.Tipo = tipo;
+            this.Tipo = tipo; // TODO: disparar DomainEvent de tipo alterado (se o tipo diminuiu a prioridade, o handler deverá remover os conflitos dos eventos menos prioritários até então)
         }
 
         public void AlterarReservasDeLocais(IEnumerable<Reserva> reservasNovas) 

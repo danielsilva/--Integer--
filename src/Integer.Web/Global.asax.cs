@@ -92,7 +92,9 @@ namespace Integer
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<ReservaDeLocalCanceladaEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeEventoAlteradoEvent>>();
-            
+
+            builder.Register<AgendaEventoService>(c => new AgendaEventoService(c.Resolve<Eventos>()));
+
             // TODO EmailWrapper per HttpRequest
             //var emailWrapper = new EmailWrapper();
             //builder.RegisterInstance<EmailWrapper>(emailWrapper).InstancePerHttpRequest();

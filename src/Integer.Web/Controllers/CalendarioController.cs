@@ -7,22 +7,25 @@ using Integer.Domain.Agenda;
 using Integer.Web.ViewModels;
 using Integer.Web.Helpers;
 using Integer.Domain.Paroquia;
+using Integer.Domain.Services;
 
 namespace Integer.Web.Controllers
 {
     public class CalendarioController : ControllerBase
     {
         private readonly Eventos eventos;
-        private readonly Grupos grupos;
+        private readonly AgendaEventoService agenda;
 
-        public CalendarioController(Eventos eventos, Grupos grupos)
+        public CalendarioController(Eventos eventos, AgendaEventoService agenda)
         {
             this.eventos = eventos;
-            this.grupos = grupos;
+            this.agenda = agenda;
         }
 
         public ActionResult Index()
         {
+            ViewBag.Tipos = MvcApplication.CurrentSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
+
             return View("Calendario");
         }
 
@@ -137,16 +140,11 @@ namespace Integer.Web.Controllers
             return calendario;
         }
 
-        [HttpGet]
-        public JsonResult ObterGrupos()
-        {
-            var listaGrupos = new GrupoHelper(grupos).CriarListaGrupos();
-            return Json(listaGrupos, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public ActionResult Save(EventoViewModel evento) 
         {
+            ViewBag.Tipos = MvcApplication.CurrentSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
+
             if (!ModelState.IsValid)
                 return View("Calendario", evento);
 

@@ -22,7 +22,7 @@ namespace Integer.Domain.Services
         {
             VerificaSeConflitaComEventoParoquial(novoEvento);
             if (novoEvento.Tipo == TipoEventoEnum.Paroquial)
-                DesmarcaEventosNaoParoquiaisQueExistiremNaMesmaData(novoEvento);
+                DesmarcaEventosNaoParoquiaisDaMesmaData(novoEvento);
             
             VerificaDisponibilidadeDeLocais(novoEvento);
 
@@ -37,7 +37,7 @@ namespace Integer.Domain.Services
                 throw new EventoParoquialExistenteException(eventosParoquiaisEmConflito);
         }
 
-        private void DesmarcaEventosNaoParoquiaisQueExistiremNaMesmaData(Evento novoEvento)
+        private void DesmarcaEventosNaoParoquiaisDaMesmaData(Evento novoEvento)
         {
             var eventosNaoParoquiaisEmConflito = eventos.Todos(e => e.Tipo != TipoEventoEnum.Paroquial && e.PossuiConflitoDeHorarioCom(novoEvento));
             foreach (Evento eventoNaoParoquial in eventosNaoParoquiaisEmConflito)

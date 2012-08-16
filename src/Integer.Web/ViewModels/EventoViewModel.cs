@@ -23,16 +23,13 @@ namespace Integer.Web.ViewModels
         public DateTime? DataInicio { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]
-        [GreaterThan("DataInicio", ErrorMessage = "deve ser posterior à data inicial.")]
+        [GreaterThan("DataInicio", ErrorMessage = "deve ser posterior ao início")]
         public DateTime? DataFim { get; set; }
 
         public DateTime? DataCadastro { get; set; }
 
-        [Required(ErrorMessage = "Seleção obrigatória.")]
-        public int Grupo { get; set; }
-
-        [Required(ErrorMessage = "Seleção obrigatória.")]
-        public int Tipo { get; set; }
+        [Required(ErrorMessage = "obrigatório")]
+        public string Tipo { get; set; }
 
         [Required(ErrorMessage = "É necessário reservar locais para o evento.")]
         public IList<ReservaDeLocalViewModel> Reservas { get; set; }

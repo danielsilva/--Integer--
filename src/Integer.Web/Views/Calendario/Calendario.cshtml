@@ -40,6 +40,9 @@
             $('#btnSchedule').click(function () {
                 $('#divFormEvent').modal('show');
             });
+
+            setDateTimePicker($('#txtDateBegin'));
+            setDateTimePicker($('#txtDateEnd'));
         });
 
         Ext.onReady(function () {
@@ -98,6 +101,17 @@
             $("#calendarTitle").html(Ext.Date.format(date, 'F'));
         }
 
+        function setDateTimePicker(element) {
+            element.datetimepicker({
+                hourMin: 7,
+                hourMax: 22,
+                hourGrid: 2,
+	            minuteGrid: 10,
+                prevText: '',
+                nextText: ''
+            });
+        }
+
         $('#timeMorning').tooltip({ placement: 'bottom' });
         $('#timeAfternoon').tooltip({ placement: 'bottom' });
         $('#timeEvening').tooltip({ placement: 'bottom' });
@@ -118,30 +132,29 @@
                 @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
                 
                 <label>Descrição</label>@Html.ValidationMessageFor(m => m.Descricao)
-                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
+                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", style="height:79px;", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
             </div>
             <div class="span3">
                 <label>Tipo</label>@Html.ValidationMessageFor(m => m.Tipo)
-                @Html.DropDownListFor(m => m.Tipo, new SelectList(new List<string> { "a", "b"}), new { @class = "span3" })
-                                
-                <p></p>
-                <label>Dia&nbsp;</label>
-                <div class="input-append">
-                    <input class="span2" id="txtDate" size="16" type="text" style="float:left;" /><button class="btn" type="button"><i class="icon-calendar"></i></button>
+                @Html.DropDownListFor(m => m.Tipo, new SelectList(ViewBag.Tipos, "Id", "Nome"), "Selecione", new { @class = "span3" })
+                <div class="row">
+                    <label>Começa em</label>@Html.ValidationMessageFor(m => m.DataInicio)
+                    <div class="span3" style="margin:0px;">
+                        @Html.TextBoxFor(m => m.DataInicio, new { id= "txtDateBegin", size = 16, @class = "span2" })
+                    </div>
                 </div>
-                
-                <label>Horário</label>
-                <div class="btn-group pull-left" style="float:left;" data-toggle="buttons-checkbox">
-                    <button id="timeMorning" title='6h às 12h' class="btn">Manhã</button>
-                    <button id="timeAfternoon" title='12h às 18h' class="btn">Tarde</button>
-                    <button id="timeEvening" title='18h às 22h' class="btn">Noite</button>
+                <div class="row">
+                    <label>Termina em</label>@Html.ValidationMessageFor(m => m.DataFim)
+                    <div class="span3" style="margin:0px;">
+                        @Html.TextBoxFor(m => m.DataFim, new { id = "txtDateEnd", size = 16, @class = "span2" })
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="modal-footer">
                 <a href="#" data-dismiss="modal">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="submit" class="btn btn-primary" style="margin-left:20px;">Salvar</button>
             </div>
         </div>
     }
