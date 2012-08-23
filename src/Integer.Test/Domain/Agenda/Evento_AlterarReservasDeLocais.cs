@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
 using DbC;
 using Integer.Infrastructure.Events;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_AlterarReservasDeLocais
     {
         Local local;
         DateTime dataInicioEvento, dataFimEvento;
 
-        [Test]
+        [Fact]
         public void QuandoNaoMudaNada_ReservasPermanecemInalteradas()
         {
             Evento evento = CriarEventoComReserva();
@@ -25,12 +24,12 @@ namespace Integer.UnitTests.Domain.Agenda
             var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
-            Assert.AreEqual(1, evento.Reservas.Count());
+            Assert.Equal(1, evento.Reservas.Count());
             var reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento);
-            Assert.AreEqual(reservaEsperada, evento.Reservas.First());
+            Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
-        [Test]
+        [Fact]
         public void QuandoAlteraDatas_ReservaFicaComNovasDatas() 
         {
             Evento evento = CriarEventoComReserva();
@@ -38,12 +37,12 @@ namespace Integer.UnitTests.Domain.Agenda
             var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
-            Assert.AreEqual(1, evento.Reservas.Count());
+            Assert.Equal(1, evento.Reservas.Count());
             var reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1));
-            Assert.AreEqual(reservaEsperada, evento.Reservas.First());
+            Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
-        [Test]
+        [Fact]
         public void QuandoAlteraDatas_DisparaEventoDeAlteracaoDeReserva() 
         {
             HorarioDeReservaDeLocalAlteradoEvent eventoDisparado = null;
@@ -54,8 +53,8 @@ namespace Integer.UnitTests.Domain.Agenda
             var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
-            Assert.AreEqual(evento, eventoDisparado.Evento);
-            Assert.AreEqual(evento.Reservas, eventoDisparado.ReservasAlteradas);
+            Assert.Equal(evento, eventoDisparado.Evento);
+            Assert.Equal(evento.Reservas, eventoDisparado.ReservasAlteradas);
         }
 
         private Evento CriarEventoComReserva()

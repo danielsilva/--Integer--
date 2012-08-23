@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using DbC;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class HorarioTest
     {
-        [Test]
-        [ExpectedException(typeof(DbCException))]
+        [Fact]
         public void Construtor_VerificaSeDataInicioEhMenorQueDataFim_DisparandoExcecao() 
         {
             var dataInicio = DateTime.Now;
             var dataFim = dataInicio.AddHours(-1);
 
-            new Horario(dataInicio, dataFim);
+            Assert.Throws<DbCException>(() => new Horario(dataInicio, dataFim));
         }
         
-        [Test]
+        [Fact]
         public void ToString_QuandoComecaETerminaNoMesmoDia_SeparaSomenteAHora() 
         {
             var dataInicio = new DateTime(2011, 2, 1, 8, 0, 0);
@@ -29,10 +27,10 @@ namespace Integer.UnitTests.Domain.Agenda
 
             var horario = new Horario(dataInicio, dataFim);
 
-            Assert.AreEqual("01/02/2011 08:00 até 10:00", horario.ToString());
+            Assert.Equal("01/02/2011 08:00 até 10:00", horario.ToString());
         }
 
-        [Test]
+        [Fact]
         public void ToString_QuandoTerminaEmOutroDia_SeparaDiaEHora() 
         {
             var dataInicio = new DateTime(2011, 2, 1, 8, 0, 0);
@@ -40,10 +38,10 @@ namespace Integer.UnitTests.Domain.Agenda
 
             var horario = new Horario(dataInicio, dataFim);
 
-            Assert.AreEqual("01/02/2011 08:00 até 02/02/2011 08:00", horario.ToString());
+            Assert.Equal("01/02/2011 08:00 até 02/02/2011 08:00", horario.ToString());
         }
 
-        [Test]
+        [Fact]
         public void VerificarConcorrencia_QuandoHorarioSobrepoe_RetornaTrue() 
         {
             var dataInicio = DateTime.Now;
@@ -52,10 +50,10 @@ namespace Integer.UnitTests.Domain.Agenda
             var horarioPrincipal = new Horario(dataInicio, dataFim);
             var outroHorario = new Horario(dataInicio.AddMinutes(10), dataFim.AddMinutes(10));
 
-            Assert.IsTrue(horarioPrincipal.VerificarConcorrencia(outroHorario));
+            Assert.True(horarioPrincipal.VerificarConcorrencia(outroHorario));
         }
 
-        [Test]
+        [Fact]
         public void VerificarConcorrencia_QuandoHorarioNaoSobrepoe_RetornaFalse() 
         {
             var dataInicio = DateTime.Now;
@@ -64,7 +62,7 @@ namespace Integer.UnitTests.Domain.Agenda
             var horarioPrincipal = new Horario(dataInicio, dataFim);
             var outroHorario = new Horario(dataFim.AddHours(1), dataFim.AddHours(2));
 
-            Assert.IsFalse(horarioPrincipal.VerificarConcorrencia(outroHorario));
+            Assert.False(horarioPrincipal.VerificarConcorrencia(outroHorario));
         }
     }
 }

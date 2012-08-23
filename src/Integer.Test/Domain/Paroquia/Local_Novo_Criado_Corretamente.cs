@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Paroquia;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Paroquia
 {
-    [TestFixture]
     public class Local_Novo_Criado_Corretamente
     {
         Local local;
 
-        [TestFixtureSetUp]
-        public void Setup() 
+        public Local_Novo_Criado_Corretamente() 
         {
             string nome = "Um Local";
             local = new Local(nome);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Nome() 
         {
-            Assert.AreEqual("Um Local", local.Nome);
+            Assert.Equal("Um Local", local.Nome);
         }
     }
 }

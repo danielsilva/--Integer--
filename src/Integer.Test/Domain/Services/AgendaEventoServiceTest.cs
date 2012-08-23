@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Rhino.Mocks;
 using Integer.Domain.Paroquia;
 using Integer.Domain.Services;
 using Integer.Infrastructure.Repository;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class AgendaEventoServiceTest : InMemoryDataBaseTest
     {
-        [Test]
+        [Fact]
         public void AgendaComSucesso() 
         {
             Eventos eventos = new EventoRepository(DataBaseSession);
@@ -24,7 +23,7 @@ namespace Integer.UnitTests.Domain.Services
             agendaService.Agendar(novoEvento);
             DataBaseSession.SaveChanges();
             
-            Assert.AreEqual(1, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(1, DataBaseSession.Query<Evento>().Count());
         }
 
         private Evento CriarEvento()

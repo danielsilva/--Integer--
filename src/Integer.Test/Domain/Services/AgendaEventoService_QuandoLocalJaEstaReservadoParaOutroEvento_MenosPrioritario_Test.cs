@@ -8,7 +8,7 @@ using Integer.Domain.Paroquia;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Repository;
 using Rhino.Mocks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
@@ -23,8 +23,7 @@ namespace Integer.UnitTests.Domain.Services
         DateTime dataInicioReservaExistente, dataFimReservaExistente;
         DateTime dataAtual;
 
-        [SetUp]
-        public void init() 
+        public AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test() 
         {
             CriarNovoBancoDeDados();
 
@@ -35,31 +34,31 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService = new AgendaEventoService(eventos);
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_SalvaEventoNovoComSucesso()
         {
             CriaReservaQueTerminaMenosDeUmaHoraAntes();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComEstadoNaoAgendado()
         {
             CriaReservaQueTerminaMenosDeUmaHoraAntes();
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
         {
             CriaReservaQueTerminaMenosDeUmaHoraAntes();
 
-            Assert.AreEqual(1, eventoExistente.Conflitos.Count());
+            Assert.Equal(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
+            Assert.Equal(eventoNovo.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 
         public void CriaReservaQueTerminaMenosDeUmaHoraAntes() 
@@ -75,31 +74,31 @@ namespace Integer.UnitTests.Domain.Services
             DataBaseSession.SaveChanges();
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_SalvaEventoNovoComSucesso()
         {
             CriaReservaQueComecaMenosDeUmaHoraDepois();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComEstadoNaoAgendado()
         {
             CriaReservaQueComecaMenosDeUmaHoraDepois();
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
         {
             CriaReservaQueComecaMenosDeUmaHoraDepois();
 
-            Assert.AreEqual(1, eventoExistente.Conflitos.Count());
+            Assert.Equal(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
+            Assert.Equal(eventoNovo.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 
         public void CriaReservaQueComecaMenosDeUmaHoraDepois()
@@ -115,31 +114,31 @@ namespace Integer.UnitTests.Domain.Services
             DataBaseSession.SaveChanges();
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_SobrepoeReservaExistente_SalvaEventoNovoComSucesso()
         {
             CriaReservaQueSobrepoe();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComEstadoNaoAgendado()
         {
             CriaReservaQueSobrepoe();
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
         {
             CriaReservaQueSobrepoe();
 
-            Assert.AreEqual(1, eventoExistente.Conflitos.Count());
+            Assert.Equal(1, eventoExistente.Conflitos.Count());
             var conflito = eventoExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovo.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
+            Assert.Equal(eventoNovo.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
         }
 
         public void CriaReservaQueSobrepoe()

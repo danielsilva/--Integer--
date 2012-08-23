@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Rhino.Mocks;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_RemoverConflito
     {
-        [Test]
+        [Fact]
         public void QuandoRemoveUltimoConflito_EventoFicaComEstadoAgendado() 
         {
             Evento evento = CriarEvento();
@@ -20,10 +19,10 @@ namespace Integer.UnitTests.Domain.Agenda
             evento.AdicionarConflito(outroEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
 
             evento.RemoverConflitoCom(outroEvento);
-            Assert.AreEqual(EstadoEventoEnum.Agendado, evento.Estado);
+            Assert.Equal(EstadoEventoEnum.Agendado, evento.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoRemoveConflito_E_AindaPossuiConflitos_EventoFicaComEstadoNaoAgendado()
         {
             Evento evento = CriarEvento();
@@ -35,7 +34,7 @@ namespace Integer.UnitTests.Domain.Agenda
             evento.AdicionarConflito(maisOutroEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
 
             evento.RemoverConflitoCom(outroEvento);
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, evento.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, evento.Estado);
         }
 
         private Evento CriarEvento()

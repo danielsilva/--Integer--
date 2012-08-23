@@ -2,47 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
 using DbC;
 using System.Threading;
 using Integer.Infrastructure.DateAndTime;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_PossuiPrioridadeSobre
     {
-        [Test]
+        [Fact]
         public void EventoParoquial_PossuiPrioridadeSobre_EventoSacramento() 
         {
             Evento eventoParoquial = CriarEvento(TipoEventoEnum.Paroquial);
             Evento eventoSacramento = CriarEvento(TipoEventoEnum.Sacramento);
 
-            Assert.IsTrue(eventoParoquial.PossuiPrioridadeSobre(eventoSacramento));
+            Assert.True(eventoParoquial.PossuiPrioridadeSobre(eventoSacramento));
         }
 
-        [Test]
+        [Fact]
         public void EventoSacramento_PossuiPrioridadeSobre_EventoGrandeNumeroDePessoas()
         {
             Evento eventoSacramento = CriarEvento(TipoEventoEnum.Sacramento);
             Evento eventoGrande = CriarEvento(TipoEventoEnum.GrandeMovimentoDePessoas);
 
-            Assert.IsTrue(eventoSacramento.PossuiPrioridadeSobre(eventoGrande));
+            Assert.True(eventoSacramento.PossuiPrioridadeSobre(eventoGrande));
         }
 
-        [Test]
+        [Fact]
         public void EventoGrande_PossuiPrioridadeSobre_EventoComum() 
         {
             Evento eventoGrande = CriarEvento(TipoEventoEnum.GrandeMovimentoDePessoas);
             Evento eventoComum = CriarEvento(TipoEventoEnum.Comum);
 
-            Assert.IsTrue(eventoGrande.PossuiPrioridadeSobre(eventoComum));
+            Assert.True(eventoGrande.PossuiPrioridadeSobre(eventoComum));
         }
 
-        [Test]
+        [Fact]
         public void EventoDeMesmoTipo_CadastradoAntes_PossuiPrioridade() 
         {
             var random = new Random();
@@ -56,7 +55,7 @@ namespace Integer.UnitTests.Domain.Agenda
             SystemTime.Now = () => dataAtual.AddMinutes(1);
             Evento segundoEvento = CriarEvento((TipoEventoEnum)idTipoEvento);
 
-            Assert.IsTrue(primeiroEvento.PossuiPrioridadeSobre(segundoEvento));
+            Assert.True(primeiroEvento.PossuiPrioridadeSobre(segundoEvento));
         }
 
         private Evento CriarEvento(TipoEventoEnum tipoEvento)

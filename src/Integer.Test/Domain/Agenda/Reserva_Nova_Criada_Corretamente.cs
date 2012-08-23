@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Domain.Agenda;
 using Integer.Infrastructure.DateAndTime;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Reserva_Nova_Criada_Corretamente
     {
         Reserva reserva;
         Local local;
         DateTime dataInicio, dataFim;
 
-        [TestFixtureSetUp]
-        public void Setup() 
+        public Reserva_Nova_Criada_Corretamente() 
         {
             local = new Local("Um Local");
             dataInicio = DateTime.Now;
@@ -26,29 +24,29 @@ namespace Integer.UnitTests.Domain.Agenda
             reserva = new Reserva(local, dataInicio, dataFim);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Local() 
         {
-            Assert.AreEqual(local.Id, reserva.Local.Id);
+            Assert.Equal(local.Id, reserva.Local.Id);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_DataInicio()
         {
-            Assert.AreEqual(dataInicio, reserva.DataInicio);
+            Assert.Equal(dataInicio, reserva.DataInicio);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_DataFim()
         {
-            Assert.AreEqual(dataFim, reserva.DataFim);
+            Assert.Equal(dataFim, reserva.DataFim);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Horario() 
         {
             var horarioEsperado = new Horario(dataInicio, dataFim);
-            Assert.AreEqual(horarioEsperado, reserva.Horario);
+            Assert.Equal(horarioEsperado, reserva.Horario);
         }
     }
 }

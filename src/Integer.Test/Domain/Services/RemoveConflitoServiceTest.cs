@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class RemoveConflitoServiceTest : InMemoryDataBaseTest
     {
-        [Test]
+        [Fact]
         public void a() 
         {
             Evento evento = CriarEvento();

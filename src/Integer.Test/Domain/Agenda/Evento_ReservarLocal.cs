@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
 using DbC;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_ReservarLocal
     {
-        [Test]
+        [Fact]
         public void AoReservarComSucesso_ReservaEstahAssociadoAEvento() 
         {
             Local local = MockRepository.GenerateStub<Local>();
@@ -23,13 +22,12 @@ namespace Integer.UnitTests.Domain.Agenda
             Evento evento = CriarEvento(dataInicioEvento, dataFimEvento);
             evento.Reservar(local, dataInicioEvento, dataFimEvento);
 
-            Assert.AreEqual(1, evento.Reservas.Count());
+            Assert.Equal(1, evento.Reservas.Count());
             Reserva reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento);
-            Assert.AreEqual(reservaEsperada, evento.Reservas.First());
+            Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
-        [Test]
-        [ExpectedException(typeof(DbCException))]
+        [Fact]
         public void QuandoJaExisteReservaDeUmLocalParaOutroHorarioParecido_DisparaExcecao() 
         {
             Local local = MockRepository.GenerateStub<Local>();
@@ -39,7 +37,7 @@ namespace Integer.UnitTests.Domain.Agenda
             Evento evento = CriarEvento(dataInicioEvento, dataFimEvento);
 
             evento.Reservar(local, dataInicioEvento, dataFimEvento);
-            evento.Reservar(local, dataInicioEvento, dataFimEvento.AddHours(1));
+            Assert.Throws<DbCException>(() => evento.Reservar(local, dataInicioEvento, dataFimEvento.AddHours(1)));
         }
 
         private Evento CriarEvento(DateTime dataInicio, DateTime dataFim)

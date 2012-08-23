@@ -2,41 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Document;
 
 namespace Integer.UnitTests
 {
-    public abstract class InMemoryDataBaseTest
+    public abstract class InMemoryDataBaseTest : IDisposable
     {
         IDocumentStore dataBase;
         protected IDocumentSession DataBaseSession { get; private set; }
 
-        [TestFixtureSetUp]
-        public void init() 
+        public InMemoryDataBaseTest() 
         {
             CriarNovoBancoDeDados();
-        }
-
-        [SetUp]
-        public void TestSetUp() 
-        {
             DataBaseSession = dataBase.OpenSession();
         }
 
-        [TearDown]
-        public void TestTearDown() 
+        public void Dispose() 
         {
             DataBaseSession.Dispose();
             DataBaseSession = null;
-        }
 
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown() 
-        {
-            LimparBancoDeDados();
+            dataBase.Dispose();
         }
 
         protected void CriarNovoBancoDeDados() 
@@ -48,11 +36,6 @@ namespace Integer.UnitTests
             };
             dataBase.Conventions.DefaultQueryingConsistency = ConsistencyOptions.QueryYourWrites;
             dataBase.Initialize();
-        }
-
-        protected void LimparBancoDeDados() 
-        {
-            dataBase.Dispose();
         }
     }
 }

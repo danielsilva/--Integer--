@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Repository;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test : InMemoryDataBaseTest
     {
         Evento eventoExistente, eventoNovo;
@@ -24,11 +23,8 @@ namespace Integer.UnitTests.Domain.Services
         DateTime dataInicioReservaExistente, dataFimReservaExistente;
         DateTime dataAtual;
 
-        [SetUp]
-        public void init() 
+        public AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test() 
         {
-            CriarNovoBancoDeDados();
-
             dataAtual = DateTime.Now;
             SystemTime.Now = () => dataAtual;
 
@@ -36,8 +32,7 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService = new AgendaEventoService(eventos);
         }
 
-        [Test]
-        [ExpectedException(typeof(LocalReservadoException))]
+        [Fact]
         public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_DisparaExcecao() 
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
@@ -47,11 +42,10 @@ namespace Integer.UnitTests.Domain.Services
             var dataInicioNovaReserva = dataFimNovaReserva.AddHours(-2);
             eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
-            agendaEventoService.Agendar(eventoNovo);
+            Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(eventoNovo));
         }
 
-        [Test]
-        [ExpectedException(typeof(LocalReservadoException))]
+        [Fact]
         public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_DisparaExcecao()
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
@@ -61,11 +55,10 @@ namespace Integer.UnitTests.Domain.Services
             var dataFimNovaReserva = dataInicioNovaReserva.AddHours(2);
             outroEvento.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
-            agendaEventoService.Agendar(outroEvento);
+            Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(outroEvento));
         }
 
-        [Test]
-        [ExpectedException(typeof(LocalReservadoException))]
+        [Fact]
         public void QuandoAReservaNova_SobrepoeReservaExistente_DisparaExcecao()
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
@@ -75,7 +68,7 @@ namespace Integer.UnitTests.Domain.Services
             var dataFimNovaReserva = dataFimReservaExistente.AddMinutes(1);
             outroEvento.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
 
-            agendaEventoService.Agendar(outroEvento);
+            Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(outroEvento));
         }
 
         private void CriarEventoExistenteQueReservouLocal(TipoEventoEnum tipoEvento) 

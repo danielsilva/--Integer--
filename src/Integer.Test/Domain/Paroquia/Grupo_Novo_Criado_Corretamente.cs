@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Paroquia
 {
-    [TestFixture]
     public class Grupo_Novo_Criado_Corretamente
     {
         Grupo grupo, grupoPai;
 
-        [TestFixtureSetUp]
-        public void Setup() 
+        public Grupo_Novo_Criado_Corretamente() 
         {
             string nome = "Grupo";
             string email = "grupo@Paroquia.com.br";
@@ -24,40 +22,40 @@ namespace Integer.UnitTests.Domain.Paroquia
             grupo = new Grupo(nome, email, grupoPai, cor);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Nome() 
         {
-            Assert.AreEqual("Grupo", grupo.Nome);
+            Assert.Equal("Grupo", grupo.Nome);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Email()
         {
-            Assert.AreEqual("grupo@Paroquia.com.br", grupo.Email);
+            Assert.Equal("grupo@Paroquia.com.br", grupo.Email);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_GrupoPai() 
         {
-            Assert.AreEqual(grupoPai.Id, grupo.GrupoPai.Id);
+            Assert.Equal(grupoPai.Id, grupo.GrupoPai.Id);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Cor() 
         {
-            Assert.AreEqual("cor", grupo.CorNoCalendario);
+            Assert.Equal("cor", grupo.CorNoCalendario);
         }
 
-        [Test]
+        [Fact]
         public void PrecisaTrocarSenha() 
         {
-            Assert.IsTrue(grupo.PrecisaTrocarSenha);
+            Assert.True(grupo.PrecisaTrocarSenha);
         }
 
-        [Test]
+        [Fact]
         public void Senha_EhPadrao_calendario2012() 
         {
-            Assert.AreEqual("calendario2012", grupo.SenhaDescriptografada);
+            Assert.Equal("calendario2012", grupo.SenhaDescriptografada);
         }
     }
 }

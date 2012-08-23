@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_AdicionarConflito
     {
         Evento evento, outroEvento;
 
-        [TestFixtureSetUp]
-        public void init() 
+        public Evento_AdicionarConflito() 
         {
             evento = MockRepository.GenerateStub<Evento>();
             outroEvento = MockRepository.GenerateStub<Evento>();
@@ -23,17 +21,17 @@ namespace Integer.UnitTests.Domain.Agenda
             evento.AdicionarConflito(outroEvento, MotivoConflitoEnum.ExisteEventoParoquialNaData);
         }
 
-        [Test]
+        [Fact]
         public void EventoPossuiEstado_NaoAgendado() 
         {
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, evento.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, evento.Estado);
         }
 
-        [Test]
+        [Fact]
         public void EventoPossuiUmConflitoReferenteAoOutroEvento() 
         {
-            Assert.AreEqual(1, evento.Conflitos.Count());
-            Assert.AreEqual(outroEvento.Id, evento.Conflitos.Single().Evento.Id);
+            Assert.Equal(1, evento.Conflitos.Count());
+            Assert.Equal(outroEvento.Id, evento.Conflitos.Single().Evento.Id);
         }
     }
 }

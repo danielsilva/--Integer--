@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
 using Integer.Infrastructure.Events;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class Evento_CancelarAgendamento
     {
-        [Test]
+        [Fact]
         public void QuandoCancelaAgendamento_EventoFicaComEstadoCancelado() 
         {
             var evento = CriarEvento();
             evento.CancelarAgendamento();
 
-            Assert.AreEqual(EstadoEventoEnum.Cancelado, evento.Estado);
+            Assert.Equal(EstadoEventoEnum.Cancelado, evento.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoCancelaAgendamento_DisparaEventoDeDominioQueContemEventoCancelado()
         {
             Evento eventoDisparado = null;
@@ -31,7 +30,7 @@ namespace Integer.UnitTests.Domain.Agenda
             var eventoCancelado = CriarEvento();
             eventoCancelado.CancelarAgendamento();
 
-            Assert.AreEqual(eventoCancelado, eventoDisparado);
+            Assert.Equal(eventoCancelado, eventoDisparado);
         }
 
         private Evento CriarEvento() 

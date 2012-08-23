@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Integer.Domain.Agenda;
-using NUnit.Framework;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Validation;
 using DbC;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Paroquia
 {
-    [TestFixture]
     public class Grupo_Novo_Validacoes
     {
         string nome;
@@ -19,8 +18,7 @@ namespace Integer.UnitTests.Domain.Paroquia
         Grupo grupo, grupoPai;
         string cor;
 
-        [SetUp]
-        public void Setup()
+        public Grupo_Novo_Validacoes()
         {
             nome = "Grupo";
             email = "email@email.com";
@@ -28,39 +26,28 @@ namespace Integer.UnitTests.Domain.Paroquia
             cor = "cor";
         }
 
-        [Test]
-        [ExpectedException(typeof(DbCException))]
+        [Fact]
         public void QuandoNomeEhNulo_DisparaExcecao()
         {
             nome = null;
-            Cria_Grupo();
+            Assert.Throws<DbCException>(() => Cria_Grupo());
         }
 
-        [Test]
-        [ExpectedException(typeof(DbCException))]
+        [Fact]
         public void QuandoNomeEhVazio_DisparaExcecao()
         {
             nome = " ";
-            Cria_Grupo();
+            Assert.Throws<DbCException>(() => Cria_Grupo());
         }
 
-        [Test]
-        [ExpectedException(typeof(DbCException))]
+        [Fact]
         public void QuandoNomeTemMaisDe50Caracteres_DisparaExcecao()
         {
             var nomeMaiorQue50 = new StringBuilder();
             nomeMaiorQue50.Length = 51;
             nome = nomeMaiorQue50.ToString();
 
-            Cria_Grupo();
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void QuandoGrupoPaiEhNulo_DisparaExcecao() 
-        {
-            grupoPai = null;
-            Cria_Grupo();
+            Assert.Throws<DbCException>(() => Cria_Grupo());
         }
 
         private void Cria_Grupo()

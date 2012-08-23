@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Rhino.Mocks;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Repository;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test : InMemoryDataBaseTest
     {
         AgendaEventoService agendaEventoService;
         Evento eventoParoquialExistente;
 
-        [SetUp]
-        public void Init()
+        public AgendaEventoService_QuandoEventoNovoNaoParoquialConflitaComEventoParoquialExistente_Test()
         {
             CriarNovoBancoDeDados();
             CriarEventoParoquialPreExistente();
@@ -27,7 +25,7 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService = new AgendaEventoService(eventos);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoNaoParoquial_AconteceMenosDeUmaHoraDepoisDoEventoParoquial_DisparaExcecao() 
         {
             DateTime dataInicioEvento = eventoParoquialExistente.DataFim.AddMinutes(59);
@@ -37,7 +35,7 @@ namespace Integer.UnitTests.Domain.Services
             Assert.Throws<EventoParoquialExistenteException>(() => agendaEventoService.Agendar(eventoNovoNaoParoquial));
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoNaoParoquial_AconteceUmaHoraDepoisDoEventoParoquial_CadastraComSucesso()
         {
             DateTime dataInicioEvento = eventoParoquialExistente.DataFim.AddMinutes(60);
@@ -47,10 +45,10 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService.Agendar(eventoNovoNaoParoquial);
             DataBaseSession.SaveChanges();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoNaoParoquial_AconteceMenosDeUmaHoraAntesDoEventoParoquial_DisparaExcecao()
         {
             DateTime dataFimEvento = eventoParoquialExistente.DataInicio.AddMinutes(-59);
@@ -60,7 +58,7 @@ namespace Integer.UnitTests.Domain.Services
             Assert.Throws<EventoParoquialExistenteException>(() => agendaEventoService.Agendar(eventoNovoNaoParoquial));
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoNaoParoquial_AconteceUmaHoraAntesDoEventoParoquial_CadastraComSucesso()
         {
             DateTime dataFimEvento = eventoParoquialExistente.DataInicio.AddMinutes(-60);
@@ -70,10 +68,10 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService.Agendar(eventoNovoNaoParoquial);
             DataBaseSession.SaveChanges();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoNaoParoquial_SobrepoeEventoParoquial_DisparaExcecao() 
         {
             DateTime dataInicioEvento = eventoParoquialExistente.DataInicio.AddMinutes(-1);

@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Agenda;
 using Rhino.Mocks;
 using Integer.Infrastructure.DateAndTime;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Agenda
 {
-    [TestFixture]
     public class ConflitoTest
     {
         Conflito conflito;
         Evento evento;
         DateTime dataAtual;
 
-        [TestFixtureSetUp]
-        public void init() 
+        public ConflitoTest() 
         {
             evento = MockRepository.GenerateStub<Evento>();
 
@@ -26,22 +24,22 @@ namespace Integer.UnitTests.Domain.Agenda
             conflito = new Conflito(evento, MotivoConflitoEnum.ExisteEventoParoquialNaData);
         }
 
-        [Test]
+        [Fact]
         public void Possui_Data_Igual_A_Data_Atual() 
         {
-            Assert.AreEqual(SystemTime.Now(), conflito.Data);
+            Assert.Equal(SystemTime.Now(), conflito.Data);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Evento() 
         {
-            Assert.AreEqual(evento.Id, conflito.Evento.Id);
+            Assert.Equal(evento.Id, conflito.Evento.Id);
         }
 
-        [Test]
+        [Fact]
         public void Mapeia_Motivo() 
         {
-            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
+            Assert.Equal(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
     }
 }

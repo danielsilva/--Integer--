@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
 using Integer.Domain.Services;
 using Integer.Infrastructure.Repository;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Rhino.Mocks;
+using Xunit;
 
 namespace Integer.UnitTests.Domain.Services
 {
-    [TestFixture]
     public class AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test : InMemoryDataBaseTest
     {
         AgendaEventoService agendaEventoService;
@@ -19,8 +18,7 @@ namespace Integer.UnitTests.Domain.Services
 
         Evento eventoNaoParoquialExistente, eventoNovoParoquial;
 
-        [SetUp]
-        public void Init() 
+        public AgendaEventoService_QuandoEventoNovoParoquialConflitaComEventoNaoParoquialExistente_Test() 
         {
             CriarNovoBancoDeDados();
             CriarEventoNaoParoquialPreExistente();
@@ -29,48 +27,48 @@ namespace Integer.UnitTests.Domain.Services
             agendaEventoService = new AgendaEventoService(eventos);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado() 
         {
             CriarEventoNovoParoquialQueAconteceDepois(59);
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial()
         {
             CriarEventoNovoParoquialQueAconteceDepois(59);
 
-            Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
+            Assert.Equal(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
+            Assert.Equal(eventoNovoParoquial.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraDepois_CadastraComSucesso()
         {
             CriarEventoNovoParoquialQueAconteceDepois(59);
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceUmaHoraDepois_EventoNaoParoquialExistentePermaneceAgendadoESemConflitos()
         {
             CriarEventoNovoParoquialQueAconteceDepois(60);
 
-            Assert.AreEqual(EstadoEventoEnum.Agendado, eventoNaoParoquialExistente.Estado);
-            Assert.AreEqual(0, eventoNaoParoquialExistente.Conflitos.Count());
+            Assert.Equal(EstadoEventoEnum.Agendado, eventoNaoParoquialExistente.Estado);
+            Assert.Equal(0, eventoNaoParoquialExistente.Conflitos.Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceUmaHoraDepois_CadastraComSucesso()
         {
             CriarEventoNovoParoquialQueAconteceDepois(60);
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
         private void CriarEventoNovoParoquialQueAconteceDepois(int tempoEmMinutos) 
@@ -83,48 +81,48 @@ namespace Integer.UnitTests.Domain.Services
             DataBaseSession.SaveChanges();
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado()
         {
             CriarEventoNovoParoquialQueAconteceAntes(59);
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial()
         {
             CriarEventoNovoParoquialQueAconteceAntes(59);
 
-            Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
+            Assert.Equal(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
+            Assert.Equal(eventoNovoParoquial.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceMenosDeUmaHoraAntes_CadastraComSucesso()
         {
             CriarEventoNovoParoquialQueAconteceAntes(59);
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceUmaHoraAntes_EventoNaoParoquialExistentePermaneceAgendadoESemConflitos()
         {
             CriarEventoNovoParoquialQueAconteceAntes(60);
 
-            Assert.AreEqual(EstadoEventoEnum.Agendado, eventoNaoParoquialExistente.Estado);
-            Assert.AreEqual(0, eventoNaoParoquialExistente.Conflitos.Count());
+            Assert.Equal(EstadoEventoEnum.Agendado, eventoNaoParoquialExistente.Estado);
+            Assert.Equal(0, eventoNaoParoquialExistente.Conflitos.Count());
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_AconteceUmaHoraAntes_CadastraComSucesso()
         {
             CriarEventoNovoParoquialQueAconteceAntes(60);
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
         private void CriarEventoNovoParoquialQueAconteceAntes(int tempoEmMinutos)
@@ -137,31 +135,31 @@ namespace Integer.UnitTests.Domain.Services
             DataBaseSession.SaveChanges();
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComEstadoNaoAgendado()
         {
             CriarEventoNovoParoquialQueSobrepoe();
 
-            Assert.AreEqual(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
+            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoNaoParoquialExistente.Estado);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_Sobrepoe_EventoNaoParoquialExistenteFicaComConflitoReferenteAoEventoParoquial()
         {
             CriarEventoNovoParoquialQueSobrepoe();
 
-            Assert.AreEqual(1, eventoNaoParoquialExistente.Conflitos.Count());
+            Assert.Equal(1, eventoNaoParoquialExistente.Conflitos.Count());
             var conflito = eventoNaoParoquialExistente.Conflitos.First();
-            Assert.AreEqual(eventoNovoParoquial.Id, conflito.Evento.Id);
-            Assert.AreEqual(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
+            Assert.Equal(eventoNovoParoquial.Id, conflito.Evento.Id);
+            Assert.Equal(MotivoConflitoEnum.ExisteEventoParoquialNaData, conflito.Motivo);
         }
 
-        [Test]
+        [Fact]
         public void QuandoEventoNovoParoquial_Sobrepoe_CadastraComSucesso()
         {
             CriarEventoNovoParoquialQueSobrepoe();
 
-            Assert.AreEqual(2, DataBaseSession.Query<Evento>().Count());
+            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
         }
 
         private void CriarEventoNovoParoquialQueSobrepoe()
