@@ -32,7 +32,7 @@
         var indice = parseInt($("#hiddenIndiceReserva").val());
         $.ajax({
             async: false, // comentado por causa do blockUI plugin
-            url: "/integer2/Calendario/AdicionarReserva",
+            url: "/Calendario/AdicionarReserva",
             type: "GET",
             data: { IndiceReserva: indice,
                 DataInicio: $("#Evento_DataInicio").val(),
@@ -52,7 +52,7 @@
             async: false,
             data: $("form").serialize(),
             type: $("form").attr('method'),
-            url: "/integer2/Calendario/SalvarEvento",
+            url: "/Calendario/SalvarEvento",
             complete: function (XMLHttpRequest, textStatus) {
                 if (XMLHttpRequest.status == 200) {
                     var erro = (XMLHttpRequest.getResponseHeader("ERRO") != null && XMLHttpRequest.getResponseHeader("ERRO") != "") ? XMLHttpRequest.getResponseHeader("ERRO") : "";
@@ -136,7 +136,7 @@ function CancelarEvento() {
     ExibeConfirmacao("Deseja cancelar o evento?", null, function(confirma) {
         if (confirma) {
             $.ajax({
-                url: "/integer2/Calendario/CancelarEvento",
+                url: "/Calendario/CancelarEvento",
                 type: "POST",
                 data: { idEvento: $("#hddIdEvento").val() },
                 complete: function(XMLHttpRequest, textStatus) {
@@ -155,7 +155,7 @@ function CancelarEvento() {
 }
 
 function EditarEvento(idEvento) {
-    $('#divEvento').load("/integer2/Calendario/EditarEvento?id=" + idEvento).queue(function() {
+    $('#divEvento').load("/Calendario/EditarEvento?id=" + idEvento).queue(function() {
         $(this).dialog("open");
         $(this).dequeue();
     });

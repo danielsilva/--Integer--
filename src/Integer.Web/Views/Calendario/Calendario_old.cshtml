@@ -162,7 +162,7 @@
                 ViewCmdhandler: View,
                 onWeekOrMonthToDay: wtd,
                 autoload: false, 
-                url: "/integer2/Calendario/ObterEventos",
+                url: "/Calendario/ObterEventos",
                 method: "get",
                 quickAddHandler: function (param) {
                     AbriFormCadastroEvento(param);
@@ -203,7 +203,7 @@
         
         function View(data) {
             var id = data[0];
-            var url = encodeURI("/integer2/Calendario/EditarEvento?id=" + id);
+            var url = encodeURI("/Calendario/EditarEvento?id=" + id);
 
             var divEvento = $('#divEvento');
             divEvento.html("");
@@ -335,7 +335,7 @@
                 dataInicio = param[1].value;
                 dataFim = param[2].value;
             }
-            var url = encodeURI("/integer2/Calendario/CriarEvento?Nome=" + nome + "&DataInicio=" + dataInicio + "&DataFim=" + dataFim);
+            var url = encodeURI("/Calendario/CriarEvento?Nome=" + nome + "&DataInicio=" + dataInicio + "&DataFim=" + dataFim);
 
             var divEvento = $('#divEvento');
             divEvento.html("");
@@ -379,7 +379,7 @@
         {
             $.ajax({
                 type: "GET",
-                url: "/integer2/Calendario/ObterGrupos",
+                url: "/Calendario/ObterGrupos",
                 dataType: "json",
                 success: function(data) {
                     var listaDeGrupos = data;

@@ -24,6 +24,7 @@
     </SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -511,6 +512,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Content\ttbootstrap\css\bootstrap.css" />
     <Content Include="Content\ttbootstrap\css\bootstrap.min.css" />
     <Content Include="Content\ttbootstrap\img\glyphicons-halflings-white.png" />
@@ -693,7 +696,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5628</DevelopmentServerPort>
-          <DevelopmentServerVPath>/integer2</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -58,7 +58,7 @@ namespace Integer.Web.Helpers
             TagBuilder imgBuilder = new TagBuilder("img");
             imgBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
             imgBuilder.MergeAttribute("id", idValidationImage);
-            imgBuilder.MergeAttribute("src", "/integer2/Content/images/exclamacao.png");
+            imgBuilder.MergeAttribute("src", "/Content/images/exclamacao.png");
             imgBuilder.MergeAttribute("class", "jTip");
 
             return MvcHtmlString.Create(javaScript + imgBuilder.ToString(TagRenderMode.SelfClosing));

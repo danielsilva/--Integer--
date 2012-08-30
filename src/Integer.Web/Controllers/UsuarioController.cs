@@ -51,7 +51,7 @@ namespace Integer.Web.Controllers
                     else
                     {
                         FormsAuthentication.SetAuthCookie(login, false);
-                        Response.AddHeader("Location", "/integer2/Calendario");
+                        Response.AddHeader("Location", "/Calendario");
                     }
                 }
             }
@@ -80,7 +80,7 @@ namespace Integer.Web.Controllers
                     {
                         grupo.TrocarSenha(novaSenha);
                         FormsAuthentication.SetAuthCookie(grupo.Email, false);
-                        Response.AddHeader("Location", "/integer2/Calendario");
+                        Response.AddHeader("Location", "/Calendario");
                     }
                 }
             }
@@ -93,7 +93,7 @@ namespace Integer.Web.Controllers
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
-            Response.AddHeader("Location", "/integer2");
+            Response.AddHeader("Location", "/");
             return View("Login");
         }
     }
