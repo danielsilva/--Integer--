@@ -9,3 +9,13 @@
     margin-right: auto !important;
     width:90%;
 }
+
+.datetime 
+{
+    width: 115px !important;
+}
+
+.date
+{
+    width: 75px !important;
+}
