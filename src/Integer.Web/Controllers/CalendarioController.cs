@@ -152,27 +152,3 @@ namespace Integer.Web.Controllers
         }
     }
 }
-
-
-
-
-
-
-public class Event 
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public EventType Type { get; set; }
-
-    public bool HasPriorityOver(Event otherEvent) 
-    {
-        return this.Type.Priority < otherEvent.Type.Priority;
-    }
-}
-
-public class EventType 
-{
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public int Priority { get; set; }
-}

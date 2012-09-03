@@ -10,12 +10,12 @@
     width:90%;
 }
 
-.datetime 
+.datetimeField
 {
     width: 115px !important;
 }
 
-.date
+.dateField
 {
     width: 75px !important;
 }

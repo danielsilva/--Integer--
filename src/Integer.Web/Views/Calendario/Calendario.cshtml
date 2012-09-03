@@ -7,7 +7,7 @@
     <link href="@Url.Content("~/Content/extCalendar/css/extensible-all.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/extCalendar/css/calendar.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />   
-    <style type="text/css">
+    <style type="text/css" rel="stylesheet">
         .ext-cal-evt
         {
             padding: 1px 1px 1px 5px !important;
@@ -35,14 +35,15 @@
     <script src="@Url.Content("~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js")" type="text/javascript"></script>
     <script type="text/javascript">
         $().ready(function () {
-            $('.btn-group').button();
-
             $('#btnSchedule').click(function () {
                 $('#divFormEvent').modal('show');
             });
 
-            setDateTimePicker($('#txtDateBegin'));
-            setDateTimePicker($('#txtDateEnd'));
+            setDateTimePicker();
+
+            $('#timeMorning').tooltip({ placement: 'top', title: '6h às 12h' });
+            $('#timeAfternoon').tooltip({ placement: 'top', title: '12h às 18h' });
+            $('#timeEvening').tooltip({ placement: 'top', title: '18h às 22h' });
         });
 
         Ext.onReady(function () {
@@ -101,21 +102,24 @@
             $("#calendarTitle").html(Ext.Date.format(date, 'F'));
         }
 
-        function setDateTimePicker(element) {
-            element.datetimepicker({
-                hourMin: 7,
-                hourMax: 22,
-                hourGrid: 2,
-	            minuteGrid: 10,
-                prevText: '',
-                nextText: ''
+        function setDateTimePicker() {
+            $.each($(".dateField"), function () {
+                $(this).datepicker({
+                    prevText: '',
+                    nextText: ''
+                });
+            });
+            $.each($(".datetimeField"), function() {
+                $(this).datetimepicker({
+                    hourMin: 7,
+                    hourMax: 22,
+                    hourGrid: 2,
+                    minuteGrid: 10,
+                    prevText: '',
+                    nextText: ''
+                });
             });
         }
-
-        $('#timeMorning').tooltip({ placement: 'bottom' });
-        $('#timeAfternoon').tooltip({ placement: 'bottom' });
-        $('#timeEvening').tooltip({ placement: 'bottom' });
-
     </script>
 }
 
@@ -128,24 +132,24 @@
     @using (Html.BeginForm("Save", "Calendario", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
         <div class="row">
             <div class="span3">
-                <label>Nome</label>@Html.ValidationMessageFor(m => m.Nome)
+                <label>Nome @Html.ValidationMessageFor(m => m.Nome)</label>
                 @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
                 
-                <label>Descrição</label>@Html.ValidationMessageFor(m => m.Descricao)
+                <label>Descrição @Html.ValidationMessageFor(m => m.Descricao)</label>
                 @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", style="height:84px;", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
             </div>
             <div class="span3">
-                <label>Tipo</label>@Html.ValidationMessageFor(m => m.Tipo)
+                <label>Tipo @Html.ValidationMessageFor(m => m.Tipo)</label>
                 @Html.DropDownListFor(m => m.Tipo, new SelectList(ViewBag.Tipos, "Id", "Nome"), "Selecione", new { @class = "span3" })
                 
-                <label>Começa em</label>@Html.ValidationMessageFor(m => m.DataInicio)
+                <label>Começa em @Html.ValidationMessageFor(m => m.DataInicio)</label>
                 <div class="span3" style="margin:0px;">
-                    @Html.TextBoxFor(m => m.DataInicio, new { id = "txtDateBegin", size = 16, @class = "datetime span2" })
+                    @Html.TextBoxFor(m => m.DataInicio, new { id = "txtDateBegin", size = 16, @class = "datetimeField span2" })
                 </div>
                 
-                <label>Termina em</label>@Html.ValidationMessageFor(m => m.DataFim)
+                <label>Termina em @Html.ValidationMessageFor(m => m.DataFim)</label>
                 <div class="span3" style="margin:0px;">
-                    @Html.TextBoxFor(m => m.DataFim, new { id = "txtDateEnd", size = 16, @class = "datetime span2" })
+                    @Html.TextBoxFor(m => m.DataFim, new { id = "txtDateEnd", size = 16, @class = "datetimeField span2" })
                 </div>
             </div>
         </div>
@@ -157,26 +161,26 @@
         <div class="row">
             <button class="close">&times;</button>
             <div class="span3">
-                <label>Local</label>@Html.ValidationMessageFor(m => m.Nome)
-                @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
+                <label>Local @Html.ValidationMessageFor(m => m.Nome)</label>
+                <input type=text class="span3" />
             </div>
-            <div class="span1 date" style="width:90px;">
-                <label style="width:100%;">Dia</label>@Html.ValidationMessageFor(m => m.Nome)
-                @Html.TextBoxFor(m => m.Nome, new { @class = "date span1" })
+            <div class="span1" style="width:95px;">
+                <label>Dia @Html.ValidationMessageFor(m => m.Nome)</label>
+                <input type="text" name="reserveDate" class="dateField span1" />
             </div>
             <div class="span2">
-                <label style="width:100%;">&nbsp;</label>@Html.ValidationMessageFor(m => m.Nome)
-                <div class="btn-group clearfix">
-                  <button id="timeMorning" class="btn btn-small">Manhã</button>
-                  <button id="timeAfternoon" class="btn btn-small">Tarde</button>
-                  <button id="timeEvening" class="btn btn-small">Noite</button>
+                <label style="width:100%;font-size:12px;">&nbsp;@Html.ValidationMessageFor(m => m.Nome)</label>
+                <div class="btn-group clearfix" data-toggle="buttons-checkbox">
+                  <button type="button" id="timeMorning" class="btn btn-small">Manhã</button>
+                  <button type="button" id="timeAfternoon" class="btn btn-small">Tarde</button>
+                  <button type="button" id="timeEvening" class="btn btn-small">Noite</button>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:20px;">
             <div class="modal-footer">
                 <a href="#" data-dismiss="modal">Cancelar</a>
-                <button type="submit" class="btn btn-primary" style="margin-left:20px;">Salvar</button>
+                <button type="submit" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;">Salvar</button>
             </div>
         </div>
     }
