@@ -260,10 +260,15 @@
     <Content Include="Content\extCalendar\images\default\ext\page-next.gif" />
     <Content Include="Content\extCalendar\images\default\ext\page-prev.gif" />
     <Content Include="Content\extCalendar\images\default\ext\toolbar-bg.gif" />
+    <Content Include="Content\extCalendar\images\default\recur-edit-options.png" />
     <Content Include="Content\extCalendar\images\default\silk\calendar_edit.png" />
     <Content Include="Content\extCalendar\images\default\silk\calendar_view_month.png" />
     <Content Include="Content\extCalendar\images\default\silk\cross.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_add.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_copy.png" />
     <Content Include="Content\extCalendar\images\default\silk\date_go.png" />
+    <Content Include="Content\extCalendar\images\default\silk\silk-readme.txt" />
     <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-add.gif" />
     <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-no.gif" />
     <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-yes.gif" />
@@ -564,6 +569,8 @@
     <Content Include="Scripts\Plugins\extCalendar\extensible-core-debug.js" />
     <Content Include="Scripts\Plugins\extCalendar\extensible-core.js" />
     <Content Include="Scripts\Plugins\extCalendar\locale\ext-lang-pt_BR.js" />
+    <Content Include="Scripts\Plugins\extCalendar\recurrence-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\recurrence.js" />
     <Content Include="Scripts\Plugins\ExtJS\bootstrap.js" />
     <Content Include="Scripts\Plugins\ExtJS\ext-all-debug.js" />
     <Content Include="Content\ExtJS\style\css\ext-all-scoped.css" />
