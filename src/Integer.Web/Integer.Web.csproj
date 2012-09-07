@@ -523,6 +523,7 @@
     <Content Include="Content\ttbootstrap\css\bootstrap.min.css" />
     <Content Include="Content\ttbootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\ttbootstrap\img\glyphicons-halflings.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -538,7 +539,9 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Scripts\Calendario\EventoForm.js" />
+    <Content Include="Scripts\CalendarView\calendar.js" />
+    <Content Include="Scripts\CalendarView\event.js" />
+    <Content Include="Scripts\CalendarView\EventoForm.js" />
     <Content Include="Scripts\Grupo\Cadastro.js" />
     <Content Include="Scripts\Login\login.js" />
     <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
