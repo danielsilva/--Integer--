@@ -3,12 +3,14 @@
 }
 @model Integer.Web.ViewModels.EventoViewModel
 
+@using SquishIt.Framework;
+
 <div id="divCalendar" style="margin-left:auto; margin-right:auto;">
     <button id="btnSchedule" class="btn btn-info btn-large" data-toggle="modal" data-target="#divFormEvent">Agendar evento</button>
     <h3 id="calendarTitle" style="text-align:center; margin-left:auto; margin-right:auto;"></h3>
 </div>
 
-<div id="divFormEvent" class="modal hide" style="width:750px;">
+<div id="divFormEvent" class="modal hide" style="width:750px;position:absolute;">
     @using (Html.BeginForm("Save", "Calendario", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
         <div class="row">
             <div class="span3">
@@ -38,7 +40,7 @@
                 <button type="button" id="btnReserveLocal" class="btn btn-info dropdown-toggle"><i class="icon-plus-sign icon-white"></i> Reservar Local</button>
             </div>
         </div>
-        <div id="reservedLocals">
+        <div id="reservedLocals" style="max-height:192px; overflow-y:auto;">
             
         </div>
         
@@ -52,8 +54,11 @@
 </div>
 
 @section Styles {
-    <link href="@Url.Content("~/Content/extCalendar/css/extensible-all.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />   
+    @MvcHtmlString.Create(Bundle.Css()
+        .Add("~/Content/extCalendar/css/extensible-all.css")
+        .Add("~/Content/Event.css")
+        .ForceRelease()
+        .Render("~/Content/calendar_squished_#.css"))
     <style type="text/css" rel="stylesheet">
         .ext-cal-evt
         {
@@ -81,12 +86,15 @@
 }
     
 @section Scripts {    
-    <script src="@Url.Content("~/Scripts/Plugins/extCalendar/extensible-core.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/Plugins/extCalendar/recurrence-debug.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/Plugins/extCalendar/calendar-debug.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/CalendarView/calendar.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/CalendarView/event.js")" type="text/javascript"></script>
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Plugins/extCalendar/extensible-core.js")
+        .Add("~/Scripts/Plugins/extCalendar/recurrence-debug.js")
+        .Add("~/Scripts/Plugins/extCalendar/calendar-debug.js")
+        .Add("~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js")
+        .Add("~/Scripts/CalendarView/calendar.js")
+        .Add("~/Scripts/CalendarView/event.js")
+        .ForceRelease()
+        .Render("~/Scripts/calendar_squished_#.js"))
     <script type="text/javascript">
         $.getJSON('@Url.Action("Eventos", "Calendario")').success(function (events) {
             initCalendar(events);

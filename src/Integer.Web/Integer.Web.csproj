@@ -44,17 +44,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
+    </Reference>
     <Reference Include="AsyncCtpLibrary">
       <HintPath>..\..\..\..\..\Users\Daniel\Downloads\RavenDB-Build-888\EmbeddedClient\AsyncCtpLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.2.6.2.859\lib\NET40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\packages\Autofac.2.6.2.859\lib\NET40\Autofac.Configuration.dll</HintPath>
+    <Reference Include="Autofac.Configuration, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\packages\Autofac.Mvc3.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=2.1.267.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
@@ -67,6 +73,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\DbC.dll</HintPath>
     </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.3.0.5\lib\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
     <Reference Include="Esent.Interop, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8dd49bbdae3f61af, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Users\Daniel\Downloads\RavenDB-Build-888\EmbeddedClient\Esent.Interop.dll</HintPath>
@@ -74,6 +86,9 @@
     <Reference Include="ICSharpCode.NRefactory, Version=3.0.0.3800, Culture=neutral, PublicKeyToken=efe927acf176eea2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Users\Daniel\Downloads\RavenDB-Build-888\EmbeddedClient\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Jurassic">
+      <HintPath>..\packages\Jurassic.2.1.1\lib\Jurassic.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net, Version=2.9.4.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,6 +152,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Users\Daniel\Downloads\RavenDB-Build-888\EmbeddedClient\Raven.Storage.Managed.dll</HintPath>
     </Reference>
+    <Reference Include="SquishIt.Framework">
+      <HintPath>..\packages\SquishIt.0.8.7.2\lib\SquishIt.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -182,6 +200,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CalendarioController.cs" />
@@ -485,36 +506,66 @@
     <Content Include="Content\images\validation\warning.gif" />
     <Content Include="Content\images\_main_background.png" />
     <Content Include="Content\jQueryUITimePicker\jquery-ui-timepicker-addon.css" />
-    <Content Include="Content\jQueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_flat_55_fbec88_40x100.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_glass_75_d0e5f5_1x400.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_glass_85_dfeffc_1x400.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
-    <Content Include="Content\jQueryUI\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_217bc0_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_469bdd_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_6da8d5_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Content\jQueryUI\images\ui-icons_f9bd01_256x240.png" />
-    <Content Include="Content\jQueryUI\jquery.ui.accordion.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.all.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.autocomplete.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.base.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.button.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.core.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.datepicker.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.dialog.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.progressbar.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.resizable.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.selectable.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.slider.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.tabs.css" />
-    <Content Include="Content\jQueryUI\jquery.ui.theme.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui-1.8.23.custom.css" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
     <Content Include="Content\ttbootstrap\css\bootstrap-responsive.css" />
@@ -525,24 +576,20 @@
     <Content Include="Content\ttbootstrap\img\glyphicons-halflings.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\CalendarView\calendar.js" />
     <Content Include="Scripts\CalendarView\event.js" />
     <Content Include="Scripts\CalendarView\EventoForm.js" />
     <Content Include="Scripts\Grupo\Cadastro.js" />
+    <Content Include="Scripts\jquery-1.8.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.8.1.js" />
+    <Content Include="Scripts\jquery-1.8.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
     <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
     <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
@@ -614,31 +661,15 @@
     <Content Include="Scripts\Grupo\Login.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
-    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -705,7 +736,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5628</DevelopmentServerPort>
+          <DevelopmentServerPort>20401</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
