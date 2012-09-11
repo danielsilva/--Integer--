@@ -58,7 +58,7 @@
         .Add("~/Content/extCalendar/css/extensible-all.css")
         .Add("~/Content/Event.css")
         .ForceRelease()
-        .Render("~/Content/calendar_squished_#.css"))
+        .Render("~/Content/squished_calendar_#.css"))
     <style type="text/css" rel="stylesheet">
         .ext-cal-evt
         {
@@ -94,7 +94,7 @@
         .Add("~/Scripts/CalendarView/calendar.js")
         .Add("~/Scripts/CalendarView/event.js")
         .ForceRelease()
-        .Render("~/Scripts/calendar_squished_#.js"))
+        .Render("~/Scripts/squished_calendar_#.js"))
     <script type="text/javascript">
         $.getJSON('@Url.Action("Eventos", "Calendario")').success(function (events) {
             initCalendar(events);

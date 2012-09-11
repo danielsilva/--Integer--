@@ -552,7 +552,7 @@
     <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\themes\base\minified\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Content\themes\base\minified\images\ui-icons_f9bd01_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui-1.8.23.custom.css" />
+    <Content Include="Content\themes\jquery-ui-redmond.min.css" />
     <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
@@ -566,6 +566,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\jquery-ui-redmond.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
     <Content Include="Content\ttbootstrap\css\bootstrap-responsive.css" />
@@ -736,7 +737,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>20401</DevelopmentServerPort>
+          <DevelopmentServerPort>5260</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

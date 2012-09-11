@@ -8,6 +8,8 @@ packages/
 
 *.suo
 *.user
+squished*.css
+squished*.js
 
 
 
