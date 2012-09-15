@@ -5,9 +5,9 @@
     });
 
     $("#btnReserveLocal").click(function () {
-        $("#reservedLocals")
+        $("#reservedLocals .mCSB_container")
                 .append('<div class="row" style="position:relative;"> \
-                    <a class="icon-remove-circle icon-large pull-left removeLocal" style="cursor:pointer; position:absolute; top:50%;" title="Remover reserva"></a> \
+                    <span class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label>Local</label> \
                         <select class="span3"> </select> \
@@ -29,6 +29,7 @@
         $(".removeLocal").click(function () {
             $(this).effect("highlight", {}, 3000);
             $(this).closest("div").remove();
+            $('#reservedLocals').mCustomScrollbar("update");
         });
         $.each($(".dateField"), function () {
             $(this).datepicker({
@@ -39,6 +40,9 @@
         $('button[name="timeMorning"]').tooltip({ placement: 'top', title: '6h às 12h' });
         $('button[name="timeAfternoon"]').tooltip({ placement: 'top', title: '12h às 18h' });
         $('button[name="timeEvening"]').tooltip({ placement: 'top', title: '18h às 22h' });
+
+        $('#reservedLocals').mCustomScrollbar("update");
+        $("#reservedLocals").mCustomScrollbar("scrollTo", "bottom");
     });
 
     setDateTimePicker();

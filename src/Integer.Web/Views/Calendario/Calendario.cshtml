@@ -96,8 +96,10 @@
         .ForceRelease()
         .Render("~/Scripts/squished_calendar_#.js"))
     <script type="text/javascript">
-        $.getJSON('@Url.Action("Eventos", "Calendario")').success(function (events) {
-            initCalendar(events);
+        $().ready(function() {
+            $.getJSON('@Url.Action("Eventos", "Calendario")').success(function (events) {
+                initCalendar(events);
+            });
         });
     </script>
 }

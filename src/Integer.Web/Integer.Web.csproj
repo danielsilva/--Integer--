@@ -422,6 +422,8 @@
     <Content Include="Content\ExtJS\resources\themes\images\default\tree\loading.gif" />
     <Content Include="Content\ExtJS\resources\themes\images\default\tree\s.gif" />
     <Content Include="Content\ExtJS\style\css\ext-all.css" />
+    <Content Include="Content\fonts\icomoon.svg" />
+    <Content Include="Content\fonts\lte-ie7.js" />
     <Content Include="Content\FormPrincipal.css" />
     <Content Include="Content\images\amarelo.gif" />
     <Content Include="Content\images\azul.gif" />
@@ -505,6 +507,8 @@
     <Content Include="Content\images\validation\tooltop.gif" />
     <Content Include="Content\images\validation\warning.gif" />
     <Content Include="Content\images\_main_background.png" />
+    <Content Include="Content\jQueryScrollBar\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\jQueryScrollBar\mCSB_buttons.png" />
     <Content Include="Content\jQueryUITimePicker\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -629,6 +633,9 @@
     <Content Include="Content\ExtJS\style\css\ext-ie-scoped.css" />
     <Content Include="Scripts\Plugins\ExtJS\locale\ext-lang-pt_BR.js" />
     <Content Include="Scripts\Plugins\foolproof\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mCustomScrollbar.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mousewheel.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mousewheel.min.js" />
     <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-sliderAccess.js" />
     <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-timepicker-pt-BR.js" />
@@ -719,6 +726,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\fonts\icomoon.eot" />
+    <None Include="Content\fonts\icomoon.ttf" />
+    <None Include="Content\fonts\icomoon.woff" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
