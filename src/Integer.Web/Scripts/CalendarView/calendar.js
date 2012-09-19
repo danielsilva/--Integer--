@@ -1,13 +1,4 @@
-﻿$().ready(function () {
-    var reservedLocals = $('#reservedLocals');
-    reservedLocals
-        .mCustomScrollbar({ scrollButtons: { enable: true} })
-        .css({ "height": reservedLocals.css("max-height") })
-        .mCustomScrollbar("update");
-});
-
-
-function initCalendar(events) {
+﻿function initCalendar(events) {
     Ext.onReady(function () {
         var calendarWidth = 810;
         var startDate = new Date();

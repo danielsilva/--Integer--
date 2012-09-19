@@ -40,11 +40,8 @@
                 <button type="button" id="btnReserveLocal" class="btn btn-info dropdown-toggle"><i class="icon-plus-sign icon-white"></i> Reservar Local</button>
             </div>
         </div>
-        <div id="reservedLocals" style="max-height:192px; overflow-y:auto;">
-            
-        </div>
-        
-        <div class="row" style="margin-top:20px;">
+        <div id="reservedLocals" style="overflow-y:auto;"></div>
+        <div class="row reserved-local">
             <div class="modal-footer">
                 <a href="#" data-dismiss="modal">Cancelar</a>
                 <button type="submit" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;">Salvar</button>
@@ -81,6 +78,10 @@
         .ext-evt-block
         {
             display: block !important;
+            }
+        .reserved-local
+        {
+            margin: 20px 0px 0px 0px !important;
             }
     </style>
 }

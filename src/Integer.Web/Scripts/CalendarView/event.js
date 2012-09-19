@@ -4,9 +4,14 @@
         backdrop: 'static'
     });
 
+    var reservedLocals = $('#reservedLocals');
+    reservedLocals
+    .mCustomScrollbar({ scrollButtons: { enable: true} })
+    //.css({ "height": reservedLocals.css("max-height") })
+    .mCustomScrollbar("update");
+
     $("#btnReserveLocal").click(function () {
-        $("#reservedLocals .mCSB_container")
-                .append('<div class="row" style="position:relative;"> \
+        $('#reservedLocals .mCSB_container').append('<div class="row reserved-local" style="position:relative;"> \
                     <span class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label>Local</label> \
@@ -29,7 +34,7 @@
         $(".removeLocal").click(function () {
             $(this).effect("highlight", {}, 3000);
             $(this).closest("div").remove();
-            $('#reservedLocals').mCustomScrollbar("update");
+            configureReservedLocalsScrollBar();
         });
         $.each($(".dateField"), function () {
             $(this).datepicker({
@@ -41,8 +46,7 @@
         $('button[name="timeAfternoon"]').tooltip({ placement: 'top', title: '12h às 18h' });
         $('button[name="timeEvening"]').tooltip({ placement: 'top', title: '18h às 22h' });
 
-        $('#reservedLocals').mCustomScrollbar("update");
-        $("#reservedLocals").mCustomScrollbar("scrollTo", "bottom");
+        configureReservedLocalsScrollBar();
     });
 
     setDateTimePicker();
@@ -59,4 +63,16 @@ function setDateTimePicker() {
             nextText: ''
         });
     });
+}
+
+function configureReservedLocalsScrollBar() {
+    var reservedLocalsCount = $('#reservedLocals .mCSB_container').children().length;
+    if (reservedLocalsCount >= 3) {
+        $('#reservedLocals').height(190);
+    }
+    else {
+        $('#reservedLocals').css({ "height": '' });
+    }
+    $('#reservedLocals').mCustomScrollbar("update");
+    $('#reservedLocals').mCustomScrollbar("scrollTo", "bottom");
 }
