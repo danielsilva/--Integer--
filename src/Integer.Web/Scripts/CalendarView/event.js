@@ -6,8 +6,13 @@
 
     var reservedLocals = $('#reservedLocals');
     reservedLocals
-    .mCustomScrollbar({ scrollButtons: { enable: true} })
-    //.css({ "height": reservedLocals.css("max-height") })
+    .mCustomScrollbar({
+        scrollButtons: {
+            enable: true, 
+            scrollType: 'pixels',
+            scrollAmount: 80
+        } 
+    })
     .mCustomScrollbar("update");
 
     $("#btnReserveLocal").click(function () {
