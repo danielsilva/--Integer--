@@ -1,23 +1,20 @@
 ﻿$().ready(function () {
-    $('#divFormEvent').modal({
-        show: false,
-        backdrop: 'static'
-    });
+    configureEventFormModal();
 
     var reservedLocals = $('#reservedLocals');
     reservedLocals
     .mCustomScrollbar({
         scrollButtons: {
-            enable: true, 
+            enable: true,
             scrollType: 'pixels',
             scrollAmount: 80
-        } 
+        }
     })
     .mCustomScrollbar("update");
 
     $("#btnReserveLocal").click(function () {
         $('#reservedLocals .mCSB_container').append('<div class="row reserved-local" style="position:relative;"> \
-                    <span class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
+                    <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label>Local</label> \
                         <select class="span3"> </select> \
@@ -67,6 +64,20 @@ function setDateTimePicker() {
             prevText: '',
             nextText: ''
         });
+    });
+}
+
+function configureEventFormModal() {
+    $('#divFormEvent').modal({
+        show: false,
+        backdrop: 'static'
+    });
+    $('#divFormEvent').on('shown', function (e) {
+        var modal = $(this);
+
+        modal.css('margin-left', (modal.outerWidth() / 2) * -1);
+
+        return this;
     });
 }
 
