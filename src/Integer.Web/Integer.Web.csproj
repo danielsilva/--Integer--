@@ -208,6 +208,7 @@
     <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
+    <Compile Include="Controllers\ParoquiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Enums\VisualizacaoCalendarioEnum.cs" />
     <Compile Include="Global.asax.cs">
