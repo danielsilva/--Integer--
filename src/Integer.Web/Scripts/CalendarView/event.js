@@ -34,13 +34,16 @@ function configureEventFormModal() {
 }
 
 function configureEventForm() {
-
     $("#frmEvent").submit(function(e) {
         e.preventDefault();
+
         if ($("#frmEvent").valid()) {
             $('#btnSave').button('loading');​
             $.post("/Calendario/Salvar", $("#frmEvent").serialize())
-                .success(function(){ $('#btnSave').button('reset') });
+                .success(function(){ 
+                    $('#btnSave').button('reset');
+                    $("#msgSuccess").css("visibility", "visible");
+                });
         }
     });
 }
@@ -63,11 +66,11 @@ function configureReservedLocals() {
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label>Local</label> \
-                        <select name="local[' + reservedLocalsCount + ']" class="span3"> </select> \
+                        <select name="reservedLocal[' + reservedLocalsCount + '].LocalId" class="span3 localId"> </select> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
                         <label>Dia</label> \
-                        <input type="text" name="reserveDate" class="dateField span1" /> \
+                        <input type="text" name="reservedLocal[' + reservedLocalsCount + '].Date" class="dateField span1 localDate" /> \
                     </div> \
                     <div class="span2" style="margin-left:10px;width:130px;"> \
                         <label style="width:100%;font-size:12px;">&nbsp;</label> \
@@ -97,8 +100,21 @@ function configureReservedLocals() {
         $('button[name="timeAfternoon"]').tooltip({ placement: 'top', title: '12h às 18h' });
         $('button[name="timeEvening"]').tooltip({ placement: 'top', title: '18h às 22h' });
 
+        configureReservedLocalsValidation();
         configureReservedLocalsScrollBar();
         reservedLocalsCount++;
+    });
+}
+
+function configureReservedLocalsValidation()
+{
+    $(".localId").each(function() {
+        $(this).rules('add', {
+            required: true,
+            messages: {
+                required: "obrigatório"
+            }
+        })
     });
 }
 

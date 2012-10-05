@@ -13,6 +13,11 @@
 <div id="divFormEvent" class="modal hide" style="width:710px;position:absolute;">
     @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
         <div class="row">
+            <div id="msgSuccess" class="alert alert-success" style="visibility:hidden;">
+                Evento agendado com sucesso!
+            </div>
+        </div>
+        <div class="row">
             <div class="span3">
                 <label>Nome @Html.ValidationMessageFor(m => m.Nome)</label>
                 @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
@@ -44,7 +49,7 @@
         <div class="row reserved-local">
             <div class="modal-footer">
                 <a href="#" data-dismiss="modal">Cancelar</a>
-                <input type="submit" id="btnSave" name="btnSave" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;" value="Salvar" />
+                <input type="submit" id="btnSave" name="btnSave" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;width:100px;" value="Salvar" />
             </div>
         </div>
     }
