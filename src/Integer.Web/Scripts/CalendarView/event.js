@@ -1,5 +1,6 @@
 ﻿$().ready(function () {
     configureEventFormModal();
+    configureEventForm();
     configureReservedLocals();
     setDateTimePicker();
     getExistingLocals();
@@ -32,6 +33,18 @@ function configureEventFormModal() {
     });
 }
 
+function configureEventForm() {
+
+    $("#frmEvent").submit(function(e) {
+        e.preventDefault();
+        if ($("#frmEvent").valid()) {
+            $('#btnSave').button('loading');​
+            $.post("/Calendario/Salvar", $("#frmEvent").serialize())
+                .success(function(){ $('#btnSave').button('reset') });
+        }
+    });
+}
+
 function configureReservedLocals() {
     var reservedLocals = $('#reservedLocals');
     reservedLocals
@@ -56,7 +69,7 @@ function configureReservedLocals() {
                         <label>Dia</label> \
                         <input type="text" name="reserveDate" class="dateField span1" /> \
                     </div> \
-                    <div class="span2"> \
+                    <div class="span2" style="margin-left:10px;width:130px;"> \
                         <label style="width:100%;font-size:12px;">&nbsp;</label> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
                             <button type="button" name="timeMorning" class="btn btn-small">Manhã</button> \

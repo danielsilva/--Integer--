@@ -141,7 +141,7 @@ namespace Integer.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(EventoViewModel evento) 
+        public ActionResult Salvar(EventoViewModel evento) 
         {
             ViewBag.Tipos = MvcApplication.CurrentSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
 
