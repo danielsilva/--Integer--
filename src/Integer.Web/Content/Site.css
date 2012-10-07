@@ -68,7 +68,7 @@ a.simplemodal-close:hover {color:#9bb3b3;}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
+.field-validation-error, .error {
     color: #ff0000;
     margin-left: 10px;
     font-size: 12px;

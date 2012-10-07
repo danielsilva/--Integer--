@@ -34,18 +34,56 @@ function configureEventFormModal() {
 }
 
 function configureEventForm() {
-    $("#frmEvent").submit(function(e) {
-        e.preventDefault();
-
-        if ($("#frmEvent").valid()) {
+    $("#frmEvent").removeAttr("novalidate");
+    
+    jQuery.validator.setDefaults({
+        errorElement: "span",
+        errorPlacement: function(error, element) {
+               error.appendTo(element.prev());
+        }
+    });
+    $("#frmEvent").validate({
+        ignore: [],
+        rules: {
+            Nome: {
+                required: true
+            }
+        },
+        submitHandler: function(form) {
             $('#btnSave').button('loading');​
-            $.post("/Calendario/Salvar", $("#frmEvent").serialize())
+            $.post("/Calendario/Salvar", form.serialize())
                 .success(function(){ 
                     $('#btnSave').button('reset');
                     $("#msgSuccess").css("visibility", "visible");
                 });
         }
     });
+
+
+
+//    var validatorSettings = $.data($("#frmEvent")[0], 'validator').settings;
+//    validatorSettings.ignore = [];
+//    var baseErrorPlacement = validatorSettings.errorPlacement;
+//    validatorSettings.errorPlacement = function(error, element) {
+//        baseErrorPlacement(error, element);
+//        //error.appendTo(element.prev());
+//        //offset = element.offset();
+//        error.insert(element.prev())
+//        error.addClass('field-validation-error');  // add a class to the wrapper
+//        //error.css('position', 'absolute');
+//        //error.css('left', offset.left + element.outerWidth());
+//        //error.css('top', offset.top);        
+//    };
+//    var baseSubmitHandler = validatorSettings.submitHandler;
+//    validatorSettings.submitHandler = function(form) {
+//        $('#btnSave').button('loading');​
+//        $.post("/Calendario/Salvar", form.serialize())
+//            .success(function(){ 
+//                $('#btnSave').button('reset');
+//                $("#msgSuccess").css("visibility", "visible");
+//            });
+//            //baseSubmitHanlder(form);
+//    };
 }
 
 function configureReservedLocals() {
@@ -74,6 +112,7 @@ function configureReservedLocals() {
                     </div> \
                     <div class="span2" style="margin-left:10px;width:130px;"> \
                         <label style="width:100%;font-size:12px;">&nbsp;</label> \
+                        <input type="hidden" class="timeSelection" value="" /> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
                             <button type="button" name="timeMorning" class="btn btn-small">Manhã</button> \
                             <button type="button" name="timeAfternoon" class="btn btn-small">Tarde</button> \
@@ -83,7 +122,7 @@ function configureReservedLocals() {
                 </div>')
                 .show('slow');
 
-        $("select[name^='local']").html(existingLocals.join(''));
+        $("select[name='reservedLocal[" + reservedLocalsCount + "].LocalId']").html(existingLocals.join(''));
 
         $(".removeLocal").click(function () {
             $(this).effect("highlight", {}, 3000);
@@ -99,6 +138,11 @@ function configureReservedLocals() {
         $('button[name="timeMorning"]').tooltip({ placement: 'top', title: '6h às 12h' });
         $('button[name="timeAfternoon"]').tooltip({ placement: 'top', title: '12h às 18h' });
         $('button[name="timeEvening"]').tooltip({ placement: 'top', title: '18h às 22h' });
+        $('button[name^=time]').each(function() {
+            $(this).focusout(function(){ 
+                setTimeReserved($(this));
+            });
+        });
 
         configureReservedLocalsValidation();
         configureReservedLocalsScrollBar();
@@ -108,7 +152,7 @@ function configureReservedLocals() {
 
 function configureReservedLocalsValidation()
 {
-    $(".localId").each(function() {
+    $(".localId, .localDate, .timeSelection").each(function() {
         $(this).rules('add', {
             required: true,
             messages: {
@@ -133,9 +177,13 @@ function configureReservedLocalsScrollBar() {
 var existingLocals = [];
 function getExistingLocals() {
     $.getJSON("/Paroquia/Locals", function (data) {
-        existingLocals.push('<option value="-1">Selecione</option>');
+        existingLocals.push('<option value="">Selecione</option>');
         $.each(data, function (index, item) {
             existingLocals.push('<option value="' + item.Id + '">' + item.Name + '</option>');
         });
     });
+}
+
+function setTimeReserved(element) {
+    alert(element.attr("class"));
 }

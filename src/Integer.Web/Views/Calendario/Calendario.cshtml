@@ -11,7 +11,7 @@
 </div>
 
 <div id="divFormEvent" class="modal hide" style="width:710px;position:absolute;">
-    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmEvent", @class = "well" })) { 
+    <form id="frmEvent" class="well">
         <div class="row">
             <div id="msgSuccess" class="alert alert-success" style="visibility:hidden;">
                 Evento agendado com sucesso!
@@ -23,7 +23,7 @@
                 @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
                 
                 <label>Descrição @Html.ValidationMessageFor(m => m.Descricao)</label>
-                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", style="height:84px;", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
+                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", style = "height:84px;", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
             </div>
             <div class="span3">
                 <label>Tipo @Html.ValidationMessageFor(m => m.Tipo)</label>
@@ -52,7 +52,7 @@
                 <input type="submit" id="btnSave" name="btnSave" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;width:100px;" value="Salvar" />
             </div>
         </div>
-    }
+    </form>
 </div>
 
 @section Styles {
