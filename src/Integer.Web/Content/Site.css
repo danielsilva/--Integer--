@@ -68,7 +68,7 @@ a.simplemodal-close:hover {color:#9bb3b3;}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error, .error {
+.field-validation-error {
     color: #ff0000;
     margin-left: 10px;
     font-size: 12px;
@@ -77,6 +77,8 @@ a.simplemodal-close:hover {color:#9bb3b3;}
 .field-validation-valid {
     display: none;
 }
+
+.input-validation-success { }
 
 .input-validation-error {
     border: 1px solid #ff0000 !important;

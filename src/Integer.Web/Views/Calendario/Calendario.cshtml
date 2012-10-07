@@ -19,30 +19,30 @@
         </div>
         <div class="row">
             <div class="span3">
-                <label>Nome @Html.ValidationMessageFor(m => m.Nome)</label>
-                @Html.TextBoxFor(m => m.Nome, new { @class = "span3" })
+                <label for="txtNome">Nome</label>
+                <input type="text" id="txtNome" name="Nome" class="span3" />
                 
-                <label>Descrição @Html.ValidationMessageFor(m => m.Descricao)</label>
-                @Html.TextAreaFor(m => m.Descricao, new { @class = "input-xlarge span3", style = "height:84px;", rows = 4, placeholder = "ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" })
+                <label for="txtDescricao">Descrição</label>
+                <textarea id="txtDescricao" name="Descricao" class="input-xlarge span3" style="height:84px;" rows="4" placeHolder="ex.: 'telefones p/ contato', 'venha com a blusa do grupo', 'endereço' etc" ></textarea>
             </div>
             <div class="span3">
-                <label>Tipo @Html.ValidationMessageFor(m => m.Tipo)</label>
-                @Html.DropDownListFor(m => m.Tipo, new SelectList(ViewBag.Tipos, "Id", "Nome"), "Selecione", new { @class = "span3" })
+                <label for="ddlTipo">Tipo</label>
+                @Html.DropDownListFor(m => m.Tipo, new SelectList(ViewBag.Tipos, "Id", "Nome"), "Selecione", new { @id = "ddlTipo", @class = "span3" })
                 
-                <label>Começa em @Html.ValidationMessageFor(m => m.DataInicio)</label>
+                <label for="txtDateBegin">Começa em</label>
                 <div class="span3" style="margin:0px;">
-                    @Html.TextBoxFor(m => m.DataInicio, new { id = "txtDateBegin", size = 16, @class = "datetimeField span2" })
+                    <input type="text" id="txtDateBegin" name="DataInicio" size="16" class="datetimeField span2" />
                 </div>
                 
-                <label>Termina em @Html.ValidationMessageFor(m => m.DataFim)</label>
+                <label for="txtDateEnd">Termina em</label>
                 <div class="span3" style="margin:0px;">
-                    @Html.TextBoxFor(m => m.DataFim, new { id = "txtDateEnd", size = 16, @class = "datetimeField span2" })
+                    <input type="text" id="txtDateEnd" name="DataFim" size="16" class="datetimeField span2" />
                 </div>
             </div>
         </div>
         <div class="row" style="margin: 10px 0px 10px 0px;">
             <div class="span3">
-                <button type="button" id="btnReserveLocal" class="btn btn-info dropdown-toggle"><i class="icon-plus-sign icon-white"></i> Reservar Local</button>
+                <button type="button" id="btnReserveLocal" class="btn btn-info dropdown-toggle pull-left"><i class="icon-plus-sign icon-white"></i> Reservar Local</button>
             </div>
         </div>
         <div id="reservedLocals" style="overflow-y:auto;"></div>

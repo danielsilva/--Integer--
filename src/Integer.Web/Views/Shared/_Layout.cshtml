@@ -93,12 +93,27 @@
         .ForceRelease()
         .Render("~/Scripts/squished_login_#.js"))
 
-    @RenderSection("Scripts", required: false)    
-
     <script type="text/javascript">
         $().ready(function () {
+            var customErrorClass = 'input-validation-error';
+
             jQuery.extend(jQuery.validator.messages, {
                 required: "obrigatório"
+            });
+            jQuery.validator.setDefaults({
+                errorElement: "span",
+                validClass: 'input-validation-success',
+                errorPlacement: function (error, element) {
+                    error.appendTo($(element.closest('form')).find("label[for=" + element.attr('id') + "]"));
+                    error.addClass('field-validation-error');
+                    element.addClass('input-validation-error');
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass(customErrorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass(customErrorClass).addClass(validClass);
+                }
             });
         });
 
@@ -191,6 +206,8 @@
         }       
 
     </script>
+
+    @RenderSection("Scripts", required: false)    
 
     <script type="text/javascript">
         var uvOptions = {};
