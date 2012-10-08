@@ -95,9 +95,9 @@ function configureReservedLocals() {
                         <label for="hddTime' + reservedLocalsCount + '" style="width:100%;font-size:12px;">&nbsp;</label> \
                         <input id="hddTime' + reservedLocalsCount + '" type="hidden" class="timeSelection" value="" /> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
-                            <button type="button" id="timeSelectMorning' + reservedLocalsCount + '" class="btn btn-small">Manhã</button> \
-                            <button type="button" id="timeSelectAfternoon' + reservedLocalsCount + '" class="btn btn-small">Tarde</button> \
-                            <button type="button" id="timeSelectEvening' + reservedLocalsCount + '" class="btn btn-small">Noite</button> \
+                            <button type="button" id="timeSelectMorning' + reservedLocalsCount + '" onclick="setTimeReserved(1, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Manhã</button> \
+                            <button type="button" id="timeSelectAfternoon' + reservedLocalsCount + '" onclick="setTimeReserved(2, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Tarde</button> \
+                            <button type="button" id="timeSelectEvening' + reservedLocalsCount + '" onclick="setTimeReserved(3, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Noite</button> \
                         </div> \
                     </div> \
                 </div>')
@@ -116,15 +116,9 @@ function configureReservedLocals() {
                 nextText: ''
             });
         });
-        $('#timeSelectMorning' + reservedLocalsCount)
-            .tooltip({ placement: 'top', title: '6h às 12h' })
-            .click(function(){ setTimeReserved($(this)); });
-        $('#timeSelectAfternoon' + reservedLocalsCount)
-            .tooltip({ placement: 'top', title: '12h às 18h' })
-            .click(function(){ setTimeReserved($(this)); });
-        $('#timeSelectEvening' + reservedLocalsCount)
-            .tooltip({ placement: 'top', title: '18h às 22h' })
-            .click(function(){ setTimeReserved($(this)); });
+        $('#timeSelectMorning' + reservedLocalsCount).tooltip({ placement: 'top', title: '6h às 12h' });
+        $('#timeSelectAfternoon' + reservedLocalsCount).tooltip({ placement: 'top', title: '12h às 18h' });
+        $('#timeSelectEvening' + reservedLocalsCount).tooltip({ placement: 'top', title: '18h às 22h' });
 
         configureReservedLocalsValidation();
         configureReservedLocalsScrollBar();
@@ -163,8 +157,16 @@ function getExistingLocals() {
     });
 }
 
-function setTimeReserved(element) {
-    alert(element.attr("class"));
+function setTimeReserved(timeId, timeField) {
+    var timesSelected = $("#" + timeField).val().split(",");
+    var index = timesSelected.indexOf(timeId.toString());console.log(timesSelected);
+    if (index != -1) {
+        timesSelected.splice(index, 1);
+    }
+    else {
+        timesSelected.push(timeId.toString());
+    }
+    $("#" + timeField).val(timesSelected.join(","));
 }
 
 function validateReservedLocalsCount() { 
