@@ -10,6 +10,11 @@ namespace Integer.Web.ViewModels
 {
     public class EventoViewModel
     {
+        public EventoViewModel()
+        {
+            DataCadastro = DateTime.Now;
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]

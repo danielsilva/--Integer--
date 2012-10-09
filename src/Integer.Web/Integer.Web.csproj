@@ -225,6 +225,7 @@
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
     <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
+    <Compile Include="ViewModels\HoraReservaEnum.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\GrupoViewModel.cs" />
     <Compile Include="ViewModels\ReservaDeLocalViewModel.cs" />

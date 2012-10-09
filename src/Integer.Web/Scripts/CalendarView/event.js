@@ -85,15 +85,15 @@ function configureReservedLocals() {
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label for="ddlLocal' + reservedLocalsCount + '">Local</label> \
-                        <select id="ddlLocal' + reservedLocalsCount + '" name="reservedLocal[' + reservedLocalsCount + '].LocalId" class="span3 localId"> </select> \
+                        <select id="ddlLocal' + reservedLocalsCount + '" name="Reservas[' + reservedLocalsCount + '].LocalId" class="span3 localId"> </select> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
                         <label for="txtDate' + reservedLocalsCount + '">Dia</label> \
-                        <input id="txtDate' + reservedLocalsCount + '" type="text" name="reservedLocal[' + reservedLocalsCount + '].Date" class="dateField span1 localDate" /> \
+                        <input id="txtDate' + reservedLocalsCount + '" type="text" name="Reservas[' + reservedLocalsCount + '].Data" class="dateField span1 localDate" /> \
                     </div> \
                     <div class="span2" style="margin-left:10px;width:130px;"> \
                         <label for="hddTime' + reservedLocalsCount + '" style="width:100%;font-size:12px;">&nbsp;</label> \
-                        <input id="hddTime' + reservedLocalsCount + '" type="hidden" class="timeSelection" value="" /> \
+                        <input id="hddTime' + reservedLocalsCount + '" type="hidden" name="Reservas[' + reservedLocalsCount + '].Hora" class="timeSelection" value="" /> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
                             <button type="button" id="timeSelectMorning' + reservedLocalsCount + '" onclick="setTimeReserved(1, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Manhã</button> \
                             <button type="button" id="timeSelectAfternoon' + reservedLocalsCount + '" onclick="setTimeReserved(2, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Tarde</button> \
@@ -103,7 +103,7 @@ function configureReservedLocals() {
                 </div>')
                 .show('slow');
         validateReservedLocalsCount();
-        $("select[name='reservedLocal[" + reservedLocalsCount + "].LocalId']").html(existingLocals.join(''));
+        $("select[id='ddlLocal" + reservedLocalsCount + "']").html(existingLocals.join(''));
 
         $(".removeLocal").click(function () {
             $(this).effect("highlight", {}, 3000);
@@ -158,15 +158,21 @@ function getExistingLocals() {
 }
 
 function setTimeReserved(timeId, timeField) {
-    var timesSelected = $("#" + timeField).val().split(",");
-    var index = timesSelected.indexOf(timeId.toString());console.log(timesSelected);
+    var timesSelected = []; 
+
+    var timeFieldValue = $("#" + timeField).val();
+    if (timeFieldValue != "") 
+        timesSelected = timeFieldValue.split(",");
+        
+    var index = timesSelected.indexOf(timeId.toString());
     if (index != -1) {
         timesSelected.splice(index, 1);
     }
     else {
         timesSelected.push(timeId.toString());
     }
-    $("#" + timeField).val(timesSelected.join(","));
+    console.log(timesSelected);
+    $("#" + timeField).val(timesSelected.length > 1 ? timesSelected.join(",") : timesSelected);
 }
 
 function validateReservedLocalsCount() { 
