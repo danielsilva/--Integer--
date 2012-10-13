@@ -52,12 +52,13 @@ function configureEventForm() {
         },
         submitHandler: function(form) {
             if (validateReservedLocalsCount()) {
-                $('#btnSave').button('loading');​
+                $('#btnSave').button('loading');
+
                 $.post("/Calendario/Salvar", $(form).serialize())
-                    .success(function(){ 
-                        $('#btnSave').button('reset');
-                        $("#msgSuccess").css("visibility", "visible");
-                    });
+                .success(function(){ 
+                    $('#btnSave').button('reset');
+                    $("#msgSuccess").css("visibility", "visible");
+                });
             }
         }
     });
@@ -78,37 +79,41 @@ function configureReservedLocals() {
     })
     .mCustomScrollbar("update");
 
-    var reservedLocalsCount = 0;
+    var i = 0;
     $("#btnReserveLocal").click(function () {
         $('#reservedLocals .mCSB_container')
             .append('<div class="row reserved-local" style="position:relative;"> \
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
-                        <label for="ddlLocal' + reservedLocalsCount + '">Local</label> \
-                        <select id="ddlLocal' + reservedLocalsCount + '" name="Reservas[' + reservedLocalsCount + '].LocalId" class="span3 localId"> </select> \
+                        <label for="ddlLocal' + i + '">Local</label> \
+                        <select id="ddlLocal' + i + '" name="Reservas[].LocalId" class="span3 localId"> </select> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
-                        <label for="txtDate' + reservedLocalsCount + '">Dia</label> \
-                        <input id="txtDate' + reservedLocalsCount + '" type="text" name="Reservas[' + reservedLocalsCount + '].Data" class="dateField span1 localDate" /> \
+                        <label for="txtDate' + i + '">Dia</label> \
+                        <input id="txtDate' + i + '" type="text" name="Reservas[].Data" class="dateField span1 localDate" /> \
                     </div> \
-                    <div class="span2" style="margin-left:10px;width:130px;"> \
-                        <label for="hddTime' + reservedLocalsCount + '" style="width:100%;font-size:12px;">&nbsp;</label> \
-                        <input id="hddTime' + reservedLocalsCount + '" type="hidden" name="Reservas[' + reservedLocalsCount + '].Hora" class="timeSelection" value="" /> \
+                    <div id="timeContainer" class="span2" style="margin-left:10px;width:130px;"> \
+                        <label for="ddlTime' + i + '" style="width:100%;font-size:12px;">&nbsp;</label> \
+                        <select id="ddlTime' + i + '" name="Reservas[].Hora" class="timeSelection" multiple="multiple" style="display:none;" > \
+                            <option value="1"></option> \
+                            <option value="2"></option> \
+                            <option value="3"></option> \
+                        </select> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
-                            <button type="button" id="timeSelectMorning' + reservedLocalsCount + '" onclick="setTimeReserved(1, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Manhã</button> \
-                            <button type="button" id="timeSelectAfternoon' + reservedLocalsCount + '" onclick="setTimeReserved(2, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Tarde</button> \
-                            <button type="button" id="timeSelectEvening' + reservedLocalsCount + '" onclick="setTimeReserved(3, \'hddTime' + reservedLocalsCount + '\');" class="btn btn-small">Noite</button> \
+                            <button type="button" id="timeSelectMorning' + i + '" data-timeSelect="1" class="btn btn-small">Manhã</button> \
+                            <button type="button" id="timeSelectAfternoon' + i + '" data-timeSelect="2" class="btn btn-small">Tarde</button> \
+                            <button type="button" id="timeSelectEvening' + i + '" data-timeSelect="3" class="btn btn-small">Noite</button> \
                         </div> \
                     </div> \
                 </div>')
                 .show('slow');
         validateReservedLocalsCount();
-        $("select[id='ddlLocal" + reservedLocalsCount + "']").html(existingLocals.join(''));
+        $("select[id='ddlLocal" + i + "']").html(existingLocals.join(''));
 
         $(".removeLocal").click(function () {
-            $(this).effect("highlight", {}, 3000);
             $(this).closest("div").remove();
             configureReservedLocalsScrollBar();
+            configureReservedLocalsIndexes();
         });
         $.each($(".dateField"), function () {
             $(this).datepicker({
@@ -116,22 +121,48 @@ function configureReservedLocals() {
                 nextText: ''
             });
         });
-        $('#timeSelectMorning' + reservedLocalsCount).tooltip({ placement: 'top', title: '6h às 12h' });
-        $('#timeSelectAfternoon' + reservedLocalsCount).tooltip({ placement: 'top', title: '12h às 18h' });
-        $('#timeSelectEvening' + reservedLocalsCount).tooltip({ placement: 'top', title: '18h às 22h' });
+        $('#timeSelectMorning' + i).tooltip({ placement: 'top', title: '6h às 12h' });
+        $('#timeSelectAfternoon' + i).tooltip({ placement: 'top', title: '12h às 18h' });
+        $('#timeSelectEvening' + i).tooltip({ placement: 'top', title: '18h às 22h' });
+        $('button[id^="timeSelect"]').each(function () {
+            $(this).click(function () {
+                var time = $(this).attr("data-timeSelect");
+                var timeSelectField = $(this).closest("#timeContainer").find('select[id^="ddlTime"]');
+                setTimeReserved(time, timeSelectField);
+            });
+        });
 
         configureReservedLocalsValidation();
         configureReservedLocalsScrollBar();
-        reservedLocalsCount++;
+        configureReservedLocalsIndexes();
+        i++;
     });
 }
 
-function configureReservedLocalsValidation()
-{
+function configureReservedLocalsValidation() {
     $(".localId, .localDate, .timeSelection").each(function() {
         $(this).rules('add', {
             required: true
         })
+    });
+}
+
+function configureReservedLocalsIndexes() {
+    var i = 0;
+    $.each($("div.reserved-local"), function () {
+        $(this).find("label[for^=ddlLocal]").attr("for", "ddlLocal" + i);
+        $(this).find("select[id^=ddlLocal]").attr("id", "ddlLocal" + i).attr("name", "Reservas[" + i + "].LocalId");
+
+        $(this).find("label[for^=txtDate]").attr("for", "txtDate" + i);
+        $(this).find("input[id^=txtDate]").attr("id", "txtDate" + i).attr("name", "Reservas[" + i + "].Data");
+
+        $(this).find("label[for^=ddlTime]").attr("for", "ddlTime" + i);
+        $(this).find("select[id^=ddlTime]").attr("id", "ddlTime" + i).attr("name", "Reservas[" + i + "].Hora");
+
+        $(this).find("button[id^=timeSelectMorning]").attr("id", "timeSelectMorning" + i);
+        $(this).find("button[id^=timeSelectAfternoon]").attr("id", "timeSelectAfternoon" + i);
+        $(this).find("button[id^=timeSelectEvening]").attr("id", "timeSelectEvening" + i);
+        i++;
     });
 }
 
@@ -158,12 +189,8 @@ function getExistingLocals() {
 }
 
 function setTimeReserved(timeId, timeField) {
-    var timesSelected = []; 
+    var timesSelected = timeField.val() || [];
 
-    var timeFieldValue = $("#" + timeField).val();
-    if (timeFieldValue != "") 
-        timesSelected = timeFieldValue.split(",");
-        
     var index = timesSelected.indexOf(timeId.toString());
     if (index != -1) {
         timesSelected.splice(index, 1);
@@ -171,8 +198,7 @@ function setTimeReserved(timeId, timeField) {
     else {
         timesSelected.push(timeId.toString());
     }
-    console.log(timesSelected);
-    $("#" + timeField).val(timesSelected.length > 1 ? timesSelected.join(",") : timesSelected);
+    timeField.val(timesSelected);
 }
 
 function validateReservedLocalsCount() { 
@@ -182,7 +208,9 @@ function validateReservedLocalsCount() {
         return true;
     }
     else {
-        $('<label id="reservedLocalsError" class="field-validation-error">&nbsp;&nbsp;obrigatório</label>').insertAfter("#btnReserveLocal");
+        if ($("#reservedLocalsError").length == 0)
+            $('<label id="reservedLocalsError" class="field-validation-error">&nbsp;&nbsp;obrigatório</label>').insertAfter("#btnReserveLocal");
+
         return false;
     }
 }
