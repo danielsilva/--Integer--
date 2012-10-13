@@ -86,15 +86,15 @@ function configureReservedLocals() {
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label for="ddlLocal' + i + '">Local</label> \
-                        <select id="ddlLocal' + i + '" name="Reservas[].LocalId" class="span3 localId"> </select> \
+                        <select id="ddlLocal' + i + '" class="span3 localId"> </select> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
                         <label for="txtDate' + i + '">Dia</label> \
-                        <input id="txtDate' + i + '" type="text" name="Reservas[].Data" class="dateField span1 localDate" /> \
+                        <input id="txtDate' + i + '" type="text" class="dateField span1 localDate" /> \
                     </div> \
                     <div id="timeContainer" class="span2" style="margin-left:10px;width:130px;"> \
                         <label for="ddlTime' + i + '" style="width:100%;font-size:12px;">&nbsp;</label> \
-                        <select id="ddlTime' + i + '" name="Reservas[].Hora" class="timeSelection" multiple="multiple" style="display:none;" > \
+                        <select id="ddlTime' + i + '" class="timeSelection" multiple="multiple" style="display:none;" > \
                             <option value="1"></option> \
                             <option value="2"></option> \
                             <option value="3"></option> \
@@ -113,56 +113,72 @@ function configureReservedLocals() {
         $(".removeLocal").click(function () {
             $(this).closest("div").remove();
             configureReservedLocalsScrollBar();
-            configureReservedLocalsIndexes();
-        });
-        $.each($(".dateField"), function () {
-            $(this).datepicker({
-                prevText: '',
-                nextText: ''
-            });
-        });
-        $('#timeSelectMorning' + i).tooltip({ placement: 'top', title: '6h às 12h' });
-        $('#timeSelectAfternoon' + i).tooltip({ placement: 'top', title: '12h às 18h' });
-        $('#timeSelectEvening' + i).tooltip({ placement: 'top', title: '18h às 22h' });
-        $('button[id^="timeSelect"]').each(function () {
-            $(this).click(function () {
-                var time = $(this).attr("data-timeSelect");
-                var timeSelectField = $(this).closest("#timeContainer").find('select[id^="ddlTime"]');
-                setTimeReserved(time, timeSelectField);
-            });
+            configureReservedLocalsFields();
         });
 
+        configureReservedLocalsFields();
         configureReservedLocalsValidation();
         configureReservedLocalsScrollBar();
-        configureReservedLocalsIndexes();
+        
         i++;
     });
 }
 
 function configureReservedLocalsValidation() {
-    $(".localId, .localDate, .timeSelection").each(function() {
+    $(".localId, .localDate").each(function() {
         $(this).rules('add', {
             required: true
         })
     });
+    $(".timeSelection").each(function () {
+        $(this).rules('add', {
+            required: true,
+            minlength: 1
+        })
+        
+    });
 }
 
-function configureReservedLocalsIndexes() {
+function configureReservedLocalsFields() {
     var i = 0;
     $.each($("div.reserved-local"), function () {
         $(this).find("label[for^=ddlLocal]").attr("for", "ddlLocal" + i);
+        $(this).find("span[for^=ddlLocal]").attr("for", "ddlLocal" + i);
         $(this).find("select[id^=ddlLocal]").attr("id", "ddlLocal" + i).attr("name", "Reservas[" + i + "].LocalId");
 
         $(this).find("label[for^=txtDate]").attr("for", "txtDate" + i);
-        $(this).find("input[id^=txtDate]").attr("id", "txtDate" + i).attr("name", "Reservas[" + i + "].Data");
+        $(this).find("span[for^=txtDate]").attr("for", "txtDate" + i);
+        $(this).find("input[id^=txtDate]")
+            .attr("id", "txtDate" + i)
+            .attr("name", "Reservas[" + i + "].Data")
+            .datepicker({
+                prevText: '',
+                nextText: ''
+            });
 
         $(this).find("label[for^=ddlTime]").attr("for", "ddlTime" + i);
+        $(this).find("span[for^=ddlTime]").attr("for", "ddlTime" + i);
         $(this).find("select[id^=ddlTime]").attr("id", "ddlTime" + i).attr("name", "Reservas[" + i + "].Hora");
 
-        $(this).find("button[id^=timeSelectMorning]").attr("id", "timeSelectMorning" + i);
-        $(this).find("button[id^=timeSelectAfternoon]").attr("id", "timeSelectAfternoon" + i);
-        $(this).find("button[id^=timeSelectEvening]").attr("id", "timeSelectEvening" + i);
+        $(this).find("button[id^=timeSelectMorning]")
+            .attr("id", "timeSelectMorning" + i)
+            .unbind()
+            .tooltip({ placement: 'top', title: '6h às 12h' });
+        $(this).find("button[id^=timeSelectAfternoon]")
+            .attr("id", "timeSelectAfternoon" + i)
+            .unbind()
+            .tooltip({ placement: 'top', title: '12h às 18h' });
+        $(this).find("button[id^=timeSelectEvening]")
+            .attr("id", "timeSelectEvening" + i)
+            .unbind()
+            .tooltip({ placement: 'top', title: '18h às 22h' });
         i++;
+    });
+
+    $('button[id^="timeSelect"]').each(function () {
+        $(this).unbind().click(function () {
+            setTimeReserved($(this));
+        });
     });
 }
 
@@ -188,8 +204,11 @@ function getExistingLocals() {
     });
 }
 
-function setTimeReserved(timeId, timeField) {
-    var timesSelected = timeField.val() || [];
+function setTimeReserved(buttonTime) {
+    var timeId = buttonTime.attr("data-timeSelect");
+    var timeSelectField = buttonTime.closest("#timeContainer").find('select[id^="ddlTime"]');
+
+    var timesSelected = timeSelectField.val() || [];
 
     var index = timesSelected.indexOf(timeId.toString());
     if (index != -1) {
@@ -198,7 +217,7 @@ function setTimeReserved(timeId, timeField) {
     else {
         timesSelected.push(timeId.toString());
     }
-    timeField.val(timesSelected);
+    timeSelectField.val(timesSelected);
 }
 
 function validateReservedLocalsCount() { 

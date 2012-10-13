@@ -98,7 +98,8 @@
             var customErrorClass = 'input-validation-error';
 
             jQuery.extend(jQuery.validator.messages, {
-                required: "obrigatório"
+                required: "obrigatório",
+                minlength: "selecione"
             });
             jQuery.validator.setDefaults({
                 errorElement: "span",
