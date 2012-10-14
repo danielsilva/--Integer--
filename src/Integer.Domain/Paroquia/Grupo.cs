@@ -81,7 +81,7 @@ namespace Integer.Domain.Paroquia
 
         private void CriarSenhaPadrao()
         {
-            this.Senha = Encryptor.Encrypt("calendario2012");
+            this.Senha = Encryptor.Encrypt("calendario2013");
             PrecisaTrocarSenha = true;
         }
 

@@ -7,6 +7,8 @@ using System.Web.Mvc.Ajax;
 using Integer.Infrastructure.IoC;
 using DbC;
 using Integer.Domain.Paroquia;
+using Raven.Client;
+using Integer.Web.Infra.Raven;
 
 namespace Integer.Web.Controllers
 {
@@ -21,26 +23,23 @@ namespace Integer.Web.Controllers
             }
         }
 
-        private Grupo grupo;
-        protected Grupo GrupoLogado
+        protected Grupo GrupoLogado 
         {
             get 
             {
-                if (UsuarioEstaLogado) 
-                {
-                    grupo = DependencyResolver.Current.GetService<Grupos>().Com(g => g.Email == HttpContext.User.Identity.Name);
-                }
-                return grupo;
-            }
-        }
+                if (!HttpContext.Request.IsAuthenticated)
+				    return null;
 
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            base.OnActionExecuted(filterContext);
-            if (!ModelState.IsValid)
-            {
-                filterContext.HttpContext.Response.StatusCode = 201;
+			    var email = HttpContext.User.Identity.Name;
+                return RavenSession.ObterGrupoPorEmail(email);
             }
+        } 
+
+        public IDocumentSession RavenSession { get; set; }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            RavenSession = (IDocumentSession)HttpContext.Items["CurrentRequestRavenSession"];
         }
 
         protected override void OnException(ExceptionContext filterContext)

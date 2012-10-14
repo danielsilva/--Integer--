@@ -25,37 +25,28 @@ namespace Integer.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string login, string senha)
+        public void Login(string email, string senha, bool? lembrar)
         {
-            if (String.IsNullOrEmpty(login))
-                ModelState.AddModelError("login", "Preenchimento obrigatório.");
-
-            if (String.IsNullOrEmpty(senha))
-                ModelState.AddModelError("senha", "Preenchimento obrigatório.");
-
-            if (ModelState.IsValid)
+            Grupo grupo = grupos.Com(g => g.Email == email);
+            if (grupo == null || !grupo.ValidarSenha(senha))
             {
-                Grupo grupo = grupos.Com(g => g.Email == login);
-                if (grupo == null || !grupo.ValidarSenha(senha))
+                ModelState.AddModelError("formAcesso", "Senha inválida ou grupo não cadastrado.");
+            }
+            else
+            {
+                if (grupo.PrecisaTrocarSenha)
                 {
-                    ModelState.AddModelError("formAcesso", "Senha inválida ou grupo não cadastrado.");
+                    dynamic usuarioDinamico = new ExpandoObject();
+                    usuarioDinamico.login = grupo.Email;
+                    // TODO: redirect to Trocar Senha
+                    //return PartialView("TrocaSenha", usuarioDinamico);
                 }
                 else
                 {
-                    if (grupo.PrecisaTrocarSenha)
-                    {
-                        dynamic usuarioDinamico = new ExpandoObject();
-                        usuarioDinamico.login = grupo.Email;
-                        return PartialView("TrocaSenha", usuarioDinamico);
-                    }
-                    else
-                    {
-                        FormsAuthentication.SetAuthCookie(login, false);
-                        Response.AddHeader("Location", "/Calendario");
-                    }
+                    FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
+                    Response.AddHeader("Location", "/Calendario");
                 }
             }
-            return PartialView("LoginForm");
         }
 
         [HttpPost]
@@ -89,12 +80,11 @@ namespace Integer.Web.Controllers
             return PartialView("TrocaSenha", usuarioDinamico);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
-            Response.AddHeader("Location", "/");
-            return View("Login");
+            return Redirect("/");
         }
     }
 }

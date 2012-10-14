@@ -106,20 +106,22 @@ namespace Integer
         protected void Application_BeginRequest(object sender, EventArgs e) 
         {
             CurrentSession = DocumentStoreHolder.DocumentStore.OpenSession();
+            HttpContext.Current.Items["CurrentRequestRavenSession"] = CurrentSession;
         }
 
         protected void Application_EndRequest(object sender, EventArgs e) 
         {
-            var context = ((MvcApplication)sender).Context;
-            if (context.Error == null)
+            using (var session = CurrentSession)
             {
-                CurrentSession.SaveChanges();
-                // TODO enviar emails agendados
-                //var email = DependencyResolver.Current.GetService<EmailWrapper>();
-                //email.EnviarEmailsAgendados();
-            }
+                if (session == null)
+                    return;
 
-            CurrentSession.Dispose();
+                if (Server.GetLastError() != null)
+                    return;
+
+                session.SaveChanges();
+            }
+            // TODO: TaskExecutor.StartExecuting();
         }
 
         protected void Application_Error(object sender, EventArgs e)

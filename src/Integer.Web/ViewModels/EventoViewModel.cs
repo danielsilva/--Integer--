@@ -34,7 +34,7 @@ namespace Integer.Web.ViewModels
         public DateTime? DataCadastro { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]
-        public string Tipo { get; set; }
+        public int Tipo { get; set; }
 
         [Required(ErrorMessage = "É necessário reservar locais para o evento.")]
         public IList<ReservaDeLocalViewModel> Reservas { get; set; }

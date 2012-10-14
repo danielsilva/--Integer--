@@ -8,6 +8,7 @@ using Integer.Web.ViewModels;
 using Integer.Web.Helpers;
 using Integer.Domain.Paroquia;
 using Integer.Domain.Services;
+using Integer.Web.Infra.AutoMapper;
 
 namespace Integer.Web.Controllers
 {
@@ -24,7 +25,7 @@ namespace Integer.Web.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Tipos = MvcApplication.CurrentSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
+            ViewBag.Tipos = RavenSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
 
             return View("Calendario");
         }
@@ -141,14 +142,13 @@ namespace Integer.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Salvar(EventoViewModel evento) 
-        {
-            ViewBag.Tipos = MvcApplication.CurrentSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
+        public void Salvar(EventoViewModel input) 
+        {            
+            //TODO: parei na hora de pegar o grupo logado
 
-            if (!ModelState.IsValid)
-                return View("Calendario", evento);
-
-            return null;
+            var evento = RavenSession.Load<Evento>(input.Id) 
+                ?? new Evento(input.Nome, input.Descricao, input.DataInicio.GetValueOrDefault(), input.DataFim.GetValueOrDefault(), GrupoLogado, ((TipoEventoEnum)input.Tipo));
+            agenda.Agendar(evento);
         }
     }
 }

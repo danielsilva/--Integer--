@@ -98,6 +98,7 @@
     <Compile Include="Paroquia\Grupos.cs" />
     <Compile Include="Paroquia\Local.cs" />
     <Compile Include="Paroquia\Grupo.cs" />
+    <Compile Include="Paroquia\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AgendaEventoService.cs" />
     <Compile Include="Services\RemoveConflitoService.cs" />

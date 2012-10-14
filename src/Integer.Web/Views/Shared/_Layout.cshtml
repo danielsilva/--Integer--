@@ -35,23 +35,31 @@
     <div class="navbar navbar-fixed-top" style="background-color:#066EAE;">
         <div class="container-fluid">       
             <a class="brand" style="padding:3px 0 2px 12px" href="#"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>     
-            <div class="loginmenu">
+            
+            <div id="notLoggedIn" class="loginmenu">
                 <div class="btn-group">
-                    <button id="btnlogin" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    Login
-                    <span class="caret"></span>
-                    </button>
+                    <button id="btnlogin" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Login&nbsp;<span class="caret"></span></button>
                 </div>
                 <form id="loginform" class="well" style="display:none;">
                     <p></p>
-                    <input type="text" class="span2" placeholder="E-mail" style="width:190px;" /> 
-                    <input type="text" class="span2" placeholder="Senha" style="width:190px;" />                      
+                    <input type="text" class="span2" name="email" placeholder="E-mail" style="width:190px;" /> 
+                    <input type="password" class="span2" name="senha" placeholder="Senha" style="width:190px;" />                      
                     <label class="checkbox">
-                        <input type="checkbox" /> Mantenha-me conectado
+                        <input type="checkbox" name="lembrar" value="true" /> Mantenha-me conectado
                     </label>
-                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <button id="btnDoLogin" type="submit" data-loading-text="Logando..." class="btn btn-primary">Entrar</button>
                 </form>
             </div>
+            <div id="loggedInProfile" class="loginmenu" style="display:none;">
+                <div class="btn-group">
+                    <button id="btnProfile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Perfil&nbsp;<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="@Url.Action("Sair", "Usuario")">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul id="navMenu" class="nav pull-right"></ul>
+            
         </div>
     </div>
     <div class="container">
@@ -88,18 +96,14 @@
     <!--TTBootstrap-->
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
 
-    @MvcHtmlString.Create(Bundle.JavaScript()
-        .Add("~/Scripts/Login/login.js")
-        .ForceRelease()
-        .Render("~/Scripts/squished_login_#.js"))
-
     <script type="text/javascript">
         $().ready(function () {
             var customErrorClass = 'input-validation-error';
 
             jQuery.extend(jQuery.validator.messages, {
                 required: "obrigatório",
-                minlength: "selecione"
+                minlength: "selecione",
+                date: "inválida"
             });
             jQuery.validator.setDefaults({
                 errorElement: "span",
@@ -116,8 +120,24 @@
                     $(element).removeClass(customErrorClass).addClass(validClass);
                 }
             });
-        });
+            jQuery.validator.addMethod("greaterThan",
+                function (value, element, params) {
+                    if (!/Invalid|NaN/.test(new Date(value))) {
+                        return new Date(value) > new Date($(params).val());
+                    }
 
+                    return isNaN(value) && isNaN($(params).val())
+                        || (Number(value) > Number($(params).val()));
+                }, 'deve ser maior que início');
+        });
+    </script>
+
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Login/login.js")
+        .ForceRelease()
+        .Render("~/Scripts/squished_login_#.js"))
+
+    <script type="text/javascript">
         function ExibirBloqueioBrowser() {
             jInfo("<p>O navegador de internet que você utiliza não suporta as funcionalidades deste sistema. Sugerimos que atualize seu Internet Explorer para a versão 8.0.</p> <p>Outras opções disponíveis são: '<a href=\"http://www.google.com/chrome?hl=pt-BR\"><u>Google Chrome</u></a>' ou '<a href=\"http://br.mozdev.org/\"><u>Mozilla Firefox</u></a>'.</p><p>(Caso tenha curiosidade, você pode testar a qualidade do seu navegador através <a href=\"http://acid3.acidtests.org/\"><u>deste teste</u></a>. A página de teste deve abrir corretamente em um navegador de qualidade, que deve alcançar 100 pontos.)</p>", "Lamentamos o inconveniente.");
         }

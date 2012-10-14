@@ -47,7 +47,8 @@ function configureEventForm() {
                 required: true
             },
             DataFim: {
-                required: true
+                required: true,
+                greaterThan: "#DataInicio"
             }
         },
         submitHandler: function(form) {
@@ -125,9 +126,15 @@ function configureReservedLocals() {
 }
 
 function configureReservedLocalsValidation() {
-    $(".localId, .localDate").each(function() {
+    $(".localId").each(function() {
         $(this).rules('add', {
             required: true
+        })
+    });
+    $(".localDate").each(function () {
+        $(this).rules('add', {
+            required: true,
+            date: true
         })
     });
     $(".timeSelection").each(function () {
@@ -150,11 +157,11 @@ function configureReservedLocalsFields() {
         $(this).find("span[for^=txtDate]").attr("for", "txtDate" + i);
         $(this).find("input[id^=txtDate]")
             .attr("id", "txtDate" + i)
-            .attr("name", "Reservas[" + i + "].Data")
-            .datepicker({
-                prevText: '',
-                nextText: ''
-            });
+            .attr("name", "Reservas[" + i + "].Data");
+        $(this).find("input[id^=txtDate]").datepicker({
+            prevText: '',
+            nextText: ''
+        });
 
         $(this).find("label[for^=ddlTime]").attr("for", "ddlTime" + i);
         $(this).find("span[for^=ddlTime]").attr("for", "ddlTime" + i);
