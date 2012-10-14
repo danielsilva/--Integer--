@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Integer.Domain.Paroquia;
 using System.Dynamic;
 using System.Web.Security;
+using Integer.Web.Infra.Raven;
+using System.Net;
+using Integer.Web.ViewModels;
 
 namespace Integer.Web.Controllers
 {
@@ -25,28 +28,49 @@ namespace Integer.Web.Controllers
         }
 
         [HttpPost]
-        public void Login(string email, string senha, bool? lembrar)
+        public ActionResult Login(string email, string senha, bool? lembrar)
         {
             Grupo grupo = grupos.Com(g => g.Email == email);
-            if (grupo == null || !grupo.ValidarSenha(senha))
+            if (grupo != null && grupo.ValidarSenha(senha))
             {
-                ModelState.AddModelError("formAcesso", "Senha inválida ou grupo não cadastrado.");
-            }
-            else
-            {
-                if (grupo.PrecisaTrocarSenha)
+                if (grupo.PrecisaCriarUsuario)
                 {
-                    dynamic usuarioDinamico = new ExpandoObject();
-                    usuarioDinamico.login = grupo.Email;
-                    // TODO: redirect to Trocar Senha
-                    //return PartialView("TrocaSenha", usuarioDinamico);
+                    TempData["GrupoId"] = grupo.Id;
+                    return RedirectToAction("Criar");
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
-                    Response.AddHeader("Location", "/Calendario");
+                    if (RavenSession.ValidaUsuario(email, senha))
+                    {
+                        FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
+                    }
                 }
             }
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult Criar() 
+        {
+            string grupoId = "";
+            if (TempData["GrupoId"] != null)
+                grupoId = TempData["GrupoId"].ToString();
+
+            return View(new UsuarioCriarViewModel { GrupoId = grupoId });
+        }
+
+        [HttpPost]
+        public ActionResult Criar(UsuarioCriarViewModel usuarioInput) 
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return PartialView("CriarForm", usuarioInput);
+            }
+
+            //RavenSession.Store(usuarioInput.MapTo(usuario));
+            return null;
         }
 
         [HttpPost]

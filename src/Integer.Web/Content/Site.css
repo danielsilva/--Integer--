@@ -65,34 +65,6 @@ a.simplemodal-close:hover {color:#9bb3b3;}
     color: Red;
 }
 
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error {
-    color: #ff0000;
-    margin-left: 10px;
-    font-size: 12px;
-}
-
-.field-validation-valid {
-    display: none;
-}
-
-.input-validation-success { }
-
-.input-validation-error {
-    border: 1px solid #ff0000 !important;
-    background-color: #ffeeee !important;
-}
-
-.validation-summary-errors {
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.validation-summary-valid {
-    display: none;
-}
-
 /* Styles for icons
 -----------------------------------------------------------*/
 

@@ -7,8 +7,9 @@
     <title>Integer</title>
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/Site.css")
+        .Add("~/Content/Validation.css")
         .ForceRelease()
-        .Render("~/Content/squished_#.css"))
+        .Render("~/Content/squished_site_#.css"))
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 
     <!--ExtJS-->
@@ -96,46 +97,12 @@
     <!--TTBootstrap-->
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $().ready(function () {
-            var customErrorClass = 'input-validation-error';
-
-            jQuery.extend(jQuery.validator.messages, {
-                required: "obrigatório",
-                minlength: "selecione",
-                date: "inválida"
-            });
-            jQuery.validator.setDefaults({
-                errorElement: "span",
-                validClass: 'input-validation-success',
-                errorPlacement: function (error, element) {
-                    error.appendTo($(element.closest('form')).find("label[for=" + element.attr('id') + "]"));
-                    error.addClass('field-validation-error');
-                    element.addClass('input-validation-error');
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass(customErrorClass).removeClass(validClass);
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass(customErrorClass).addClass(validClass);
-                }
-            });
-            jQuery.validator.addMethod("greaterThan",
-                function (value, element, params) {
-                    if (!/Invalid|NaN/.test(new Date(value))) {
-                        return new Date(value) > new Date($(params).val());
-                    }
-
-                    return isNaN(value) && isNaN($(params).val())
-                        || (Number(value) > Number($(params).val()));
-                }, 'deve ser maior que início');
-        });
-    </script>
 
     @MvcHtmlString.Create(Bundle.JavaScript()
-        .Add("~/Scripts/Login/login.js")
+        .Add("~/Scripts/Shared/jquery.validation.js")
+        .Add("~/Scripts/Usuario/login.js")
         .ForceRelease()
-        .Render("~/Scripts/squished_login_#.js"))
+        .Render("~/Scripts/squished_master_#.js"))
 
     <script type="text/javascript">
         function ExibirBloqueioBrowser() {

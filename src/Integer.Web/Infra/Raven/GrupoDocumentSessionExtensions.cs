@@ -7,7 +7,7 @@ using Integer.Domain.Paroquia;
 
 namespace Integer.Web.Infra.Raven
 {
-    public static class DocumentSessionExtensions
+    public static class GrupoDocumentSessionExtensions
     {
         public static Grupo ObterGrupoPorEmail(this IDocumentSession session, string email)
         {

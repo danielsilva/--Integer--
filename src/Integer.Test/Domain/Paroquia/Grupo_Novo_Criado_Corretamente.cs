@@ -49,7 +49,7 @@ namespace Integer.UnitTests.Domain.Paroquia
         [Fact]
         public void PrecisaTrocarSenha() 
         {
-            Assert.True(grupo.PrecisaTrocarSenha);
+            Assert.True(grupo.PrecisaCriarUsuario);
         }
 
         [Fact]

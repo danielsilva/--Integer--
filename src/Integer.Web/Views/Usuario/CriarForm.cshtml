@@ -1,0 +1,21 @@
+﻿@model Integer.Web.ViewModels.UsuarioCriarViewModel
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmUser", style="padding-bottom:20px;" })) {
+    <legend>Criar Usuário @Html.ValidationMessageFor(m => m.GrupoId)</legend>
+    @Html.HiddenFor(m => m.GrupoId)
+    
+    <label for="txtEmail">E-mail @Html.ValidationMessageFor(m => m.Email)</label>
+    @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", name = "email" })
+    
+    <label for="txtPass">Senha @Html.ValidationMessageFor(m => m.Senha)</label>
+    @Html.PasswordFor(m => m.Senha, new { id = "txtPass", name = "senha" })
+    
+    <label for="txtConfirmPass">Confirmar senha @Html.ValidationMessageFor(m => m.ConfirmacaoSenha)</label>
+    @Html.PasswordFor(m => m.ConfirmacaoSenha, new { id = "txtConfirmPass", name = "confirmaSenha" })    
+    
+    <div class="control-group" style="padding-top:10px;">
+        <div class="controls">
+            <button id="btnCreateUser" type="button" class="btn btn-primary pull-left" data-loading-text="Criando...">Criar</button>
+        </div>
+    </div>    
+}
