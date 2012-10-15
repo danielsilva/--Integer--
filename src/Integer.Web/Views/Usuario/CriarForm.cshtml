@@ -5,6 +5,11 @@
     @Html.HiddenFor(m => m.GrupoId)
     @Html.HiddenFor(m => m.Email)
     
+    <div class="alert alert-error" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <span id="message"></span>
+    </div>
+    
     <label for="txtEmail">E-mail: <b>@Model.Email</b></label>
     
     <label for="txtPass">Senha @Html.ValidationMessageFor(m => m.Senha)</label>

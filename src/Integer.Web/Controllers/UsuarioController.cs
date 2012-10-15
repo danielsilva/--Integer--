@@ -87,7 +87,7 @@ namespace Integer.Web.Controllers
             catch (UsuarioExistenteException ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return Json(new { Erro = ex.Message });
+                return Json(new { ErrorMessage = ex.Message });
             }            
             return null;
         }

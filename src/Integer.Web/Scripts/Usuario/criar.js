@@ -8,10 +8,14 @@
                 window.location = "/";
             })
             .error(function (data) {
-                if (data.Error)
-                    $("#frmUser").parent().html(data.responseText);
-                else
-                    $("#frmUser").parent().html(data.responseText);
+                var responseMessage = data.responseText;
+                try {
+                    errorMessage = JSON.parse(responseMessage).ErrorMessage;
+                    $("#message").text(errorMessage);
+                    $(".alert").show();
+                } catch (e) {
+                    $("#frmUser").parent().html(responseMessage);
+                }
             })
             .complete(function () {
                 $('#btnCreateUser').button('reset');
