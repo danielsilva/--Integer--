@@ -1,11 +1,12 @@
 ﻿$().ready(function () {
-    $("#btnlogin").click(function () {
+    $("#btnlogin").click(function () {        
         var loginform = $("#loginform");
 
         if (loginform.is(':visible'))
             loginform.fadeOut('fast');
-        else
+        else {
             loginform.fadeIn('fast');
+        }
 
         $('body').append("<div id='mask'></div>");
         $('#mask').css({
@@ -36,8 +37,15 @@
             $('#btnDoLogin').button('loading');
 
             $.post("/Usuario/Login", $(form).serialize())
-            .success(function () {
-                configureNavBarLoggedIn();
+            .success(function (response, textStatus, xhr) {
+                if (response) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
+                else {
+                    configureNavBarLoggedIn();
+                }
             })
             .complete(function () {
                 $('#btnDoLogin').button('reset');

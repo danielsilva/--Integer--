@@ -220,6 +220,7 @@
     <Compile Include="Helpers\ValidationExtensions.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
     <Compile Include="Infra\EmailAttribute.cs" />
     <Compile Include="Infra\Raven\UsuarioDocumentSessionExtensions.cs" />

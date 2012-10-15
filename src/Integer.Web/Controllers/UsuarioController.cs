@@ -9,6 +9,7 @@ using System.Web.Security;
 using Integer.Web.Infra.Raven;
 using System.Net;
 using Integer.Web.ViewModels;
+using Integer.Infra.AutoMapper;
 
 namespace Integer.Web.Controllers
 {
@@ -31,33 +32,40 @@ namespace Integer.Web.Controllers
         public ActionResult Login(string email, string senha, bool? lembrar)
         {
             Grupo grupo = grupos.Com(g => g.Email == email);
-            if (grupo != null && grupo.ValidarSenha(senha))
+            if (grupo != null && grupo.PrecisaCriarUsuario)
             {
-                if (grupo.PrecisaCriarUsuario)
+                if (grupo.ValidarSenha(senha))
                 {
                     TempData["GrupoId"] = grupo.Id;
+                    TempData["GrupoEmail"] = grupo.Email;
                     return RedirectToAction("Criar");
                 }
-                else
+                else 
                 {
-                    if (RavenSession.ValidaUsuario(email, senha))
-                    {
-                        FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
-                    }
+                    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 }
             }
-            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            else if (RavenSession.ValidaUsuario(email, senha))
+            {
+                FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
+            }
+            else 
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            }
             return null;
         }
 
         [HttpGet]
         public ActionResult Criar() 
         {
-            string grupoId = "";
-            if (TempData["GrupoId"] != null)
+            string grupoId = "", grupoEmail = "";
+            if (TempData["GrupoId"] != null && TempData["GrupoEmail"] != null)
+            {
                 grupoId = TempData["GrupoId"].ToString();
-
-            return View(new UsuarioCriarViewModel { GrupoId = grupoId });
+                grupoEmail = TempData["GrupoEmail"].ToString();
+            }
+            return View(new UsuarioCriarViewModel { GrupoId = grupoId, Email = grupoEmail });
         }
 
         [HttpPost]
@@ -68,40 +76,20 @@ namespace Integer.Web.Controllers
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return PartialView("CriarForm", usuarioInput);
             }
-
-            //RavenSession.Store(usuarioInput.MapTo(usuario));
-            return null;
-        }
-
-        [HttpPost]
-        public ActionResult TrocarSenha(string login, string novaSenha, string novaSenhaRepetida)
-        {
-            if (String.IsNullOrEmpty(novaSenha))
-                ModelState.AddModelError("novaSenha", "Preenchimento obrigatório.");
-
-            if (String.IsNullOrEmpty(novaSenhaRepetida))
-                ModelState.AddModelError("novaSenhaRepetida", "Preenchimento obrigatório.");
-
-            if (ModelState.IsValid)
+            try
             {
-                if (!novaSenha.Equals(novaSenhaRepetida))
-                {
-                    ModelState.AddModelError("formSenha", "Os conteúdos informados precisam ser iguais.");
-                }
-                else
-                {
-                    Grupo grupo = grupos.Com(g => g.Email == login);
-                    if (grupo != null)
-                    {
-                        grupo.TrocarSenha(novaSenha);
-                        FormsAuthentication.SetAuthCookie(grupo.Email, false);
-                        Response.AddHeader("Location", "/Calendario");
-                    }
-                }
+                var usuario = usuarioInput.MapTo<Usuario>();
+                var grupo = RavenSession.Query<Grupo>().FirstOrDefault(g => g.Email == usuarioInput.Email);
+                
+                RavenSession.CriarUsuario(usuario, grupo);
+                FormsAuthentication.SetAuthCookie(usuarioInput.Email, false);
             }
-            dynamic usuarioDinamico = new ExpandoObject();
-            usuarioDinamico.login = login;
-            return PartialView("TrocaSenha", usuarioDinamico);
+            catch (UsuarioExistenteException ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json(new { Erro = ex.Message });
+            }            
+            return null;
         }
 
         [HttpGet]

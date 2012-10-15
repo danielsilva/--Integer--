@@ -8,7 +8,10 @@
                 window.location = "/";
             })
             .error(function (data) {
-                $("#frmUser").parent().html(data.responseText);
+                if (data.Error)
+                    $("#frmUser").parent().html(data.responseText);
+                else
+                    $("#frmUser").parent().html(data.responseText);
             })
             .complete(function () {
                 $('#btnCreateUser').button('reset');

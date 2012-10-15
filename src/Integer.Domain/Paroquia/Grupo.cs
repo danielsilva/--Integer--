@@ -18,7 +18,7 @@ namespace Integer.Domain.Paroquia
         public virtual string Nome { get; set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
-        public bool PrecisaCriarUsuario { get; private set; }
+        public bool PrecisaCriarUsuario { get; set; }
         public string CorNoCalendario { get; private set; }
         public DenormalizedReference<Grupo> GrupoPai { get; private set; }
         public IEnumerable<DenormalizedReference<Grupo>> GruposFilhos { get; private set; }

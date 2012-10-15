@@ -37,13 +37,13 @@
         <div class="container-fluid">       
             <a class="brand" style="padding:3px 0 2px 12px" href="#"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>     
             
-            <div id="notLoggedIn" class="loginmenu">
+            <div id="notLoggedIn" class="loginmenu" @if (Request.IsAuthenticated) { <text>style="display:none;"</text> }>
                 <div class="btn-group">
                     <button id="btnlogin" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Login&nbsp;<span class="caret"></span></button>
                 </div>
                 <form id="loginform" class="well" style="display:none;">
                     <p></p>
-                    <input type="text" class="span2" name="email" placeholder="E-mail" style="width:190px;" /> 
+                    <input id="txtEmail" type="text" class="span2" name="email" placeholder="E-mail" style="width:190px;" /> 
                     <input type="password" class="span2" name="senha" placeholder="Senha" style="width:190px;" />                      
                     <label class="checkbox">
                         <input type="checkbox" name="lembrar" value="true" /> Mantenha-me conectado
@@ -51,7 +51,7 @@
                     <button id="btnDoLogin" type="submit" data-loading-text="Logando..." class="btn btn-primary">Entrar</button>
                 </form>
             </div>
-            <div id="loggedInProfile" class="loginmenu" style="display:none;">
+            <div id="loggedInProfile" class="loginmenu" @if (!Request.IsAuthenticated) { <text>style="display:none;"</text> }>
                 <div class="btn-group">
                     <button id="btnProfile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Perfil&nbsp;<span class="caret"></span></button>
                     <ul class="dropdown-menu">

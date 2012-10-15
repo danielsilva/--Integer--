@@ -19,5 +19,15 @@ namespace Integer.Web.Infra.Raven
             var usuario = session.Query<Usuario>().FirstOrDefault(u => u.Email == email);
             return (usuario != null && usuario.ValidaSenha(senha));
         }
+
+        public static void CriarUsuario(this IDocumentSession session, Usuario usuario, Grupo grupo)         
+        {
+            var usuarioExistente = session.Query<Usuario>().FirstOrDefault(u => u.Email == usuario.Email);
+            if (usuarioExistente != null)
+                throw new UsuarioExistenteException(usuarioExistente);
+
+            grupo.PrecisaCriarUsuario = false;
+            session.Store(usuario);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Integer.Web.Infra.AutoMapper
         public static void Configure()
         {
             Mapper.AddProfile(new GrupoProfile());
+            Mapper.AddProfile(new UsuarioProfile());
         }
     }
 }
