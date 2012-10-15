@@ -48,7 +48,7 @@ function configureEventForm() {
             },
             DataFim: {
                 required: true,
-                greaterThan: "#DataInicio"
+                greaterThan: "#txtDateBegin"
             }
         },
         submitHandler: function(form) {
@@ -134,7 +134,7 @@ function configureReservedLocalsValidation() {
     $(".localDate").each(function () {
         $(this).rules('add', {
             required: true,
-            date: true
+            dateBR: true
         })
     });
     $(".timeSelection").each(function () {
