@@ -60,7 +60,11 @@
                     </ul>
                 </div>
             </div>
-            <ul id="navMenu" class="nav pull-right"></ul>
+            <div id="navMenu" class="nav pull-right">
+                @if (Request.IsAuthenticated) {
+                    @Html.Partial("Menu");
+                }
+            </div>
             
         </div>
     </div>

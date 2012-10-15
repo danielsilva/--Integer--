@@ -98,5 +98,12 @@ namespace Integer.Web.Controllers
             FormsAuthentication.SignOut();
             return Redirect("/");
         }
+
+        [HttpGet]
+        public ActionResult Menu() 
+        {
+            // TODO: get menu for current user
+            return PartialView("Menu");
+        }
     }
 }
