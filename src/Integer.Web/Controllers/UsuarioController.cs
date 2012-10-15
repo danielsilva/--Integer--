@@ -42,7 +42,7 @@ namespace Integer.Web.Controllers
                 }
                 else 
                 {
-                    HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 }
             }
             else if (RavenSession.ValidaUsuario(email, senha))
@@ -51,7 +51,7 @@ namespace Integer.Web.Controllers
             }
             else 
             {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             return null;
         }

@@ -8,6 +8,8 @@ namespace Integer.Domain.Paroquia
 {
     public class Usuario
     {
+        protected Usuario() { }
+
         public Usuario(string email, string senha)
         {
             this.Email = email;

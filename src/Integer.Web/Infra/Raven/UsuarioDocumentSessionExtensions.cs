@@ -16,7 +16,7 @@ namespace Integer.Web.Infra.Raven
 
         public static bool ValidaUsuario(this IDocumentSession session, string email, string senha) 
         {
-            var usuario = session.Query<Usuario>().FirstOrDefault(u => u.Email == email);
+            var usuario = session.Query<Usuario>().FirstOrDefault(u => u.Email == email && u.Ativo);
             return (usuario != null && usuario.ValidaSenha(senha));
         }
 

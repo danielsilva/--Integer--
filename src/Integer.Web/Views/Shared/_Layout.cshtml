@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-fixed-top" style="background-color:#066EAE;">
+    <div class="navbar navbar-fixed-top">
         <div class="container-fluid">       
             <a class="brand" style="padding:3px 0 2px 12px" href="#"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>     
             
@@ -43,6 +43,7 @@
                 </div>
                 <form id="loginform" class="well" style="display:none;">
                     <p></p>
+                    <label id="errorMsg" class="field-validation-error"></label>
                     <input id="txtEmail" type="text" class="span2" name="email" placeholder="E-mail" style="width:190px;" /> 
                     <input type="password" class="span2" name="senha" placeholder="Senha" style="width:190px;" />                      
                     <label class="checkbox">
@@ -54,7 +55,7 @@
             <div id="loggedInProfile" class="loginmenu" @if (!Request.IsAuthenticated) { <text>style="display:none;"</text> }>
                 <div class="btn-group">
                     <button id="btnProfile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Perfil&nbsp;<span class="caret"></span></button>
-                    <ul class="dropdown-menu">
+                    <ul class="profileMenu dropdown-menu">
                       <li><a href="@Url.Action("Sair", "Usuario")">Sair</a></li>
                     </ul>
                 </div>
@@ -103,97 +104,6 @@
         .Add("~/Scripts/Usuario/login.js")
         .ForceRelease()
         .Render("~/Scripts/squished_master_#.js"))
-
-    <script type="text/javascript">
-        function ExibirBloqueioBrowser() {
-            jInfo("<p>O navegador de internet que você utiliza não suporta as funcionalidades deste sistema. Sugerimos que atualize seu Internet Explorer para a versão 8.0.</p> <p>Outras opções disponíveis são: '<a href=\"http://www.google.com/chrome?hl=pt-BR\"><u>Google Chrome</u></a>' ou '<a href=\"http://br.mozdev.org/\"><u>Mozilla Firefox</u></a>'.</p><p>(Caso tenha curiosidade, você pode testar a qualidade do seu navegador através <a href=\"http://acid3.acidtests.org/\"><u>deste teste</u></a>. A página de teste deve abrir corretamente em um navegador de qualidade, que deve alcançar 100 pontos.)</p>", "Lamentamos o inconveniente.");
-        }
-
-        $(document).ready(function () {
-            if ($.browser.msie && $.browser.version.substr(0, 3) != "8.0" && $.browser.version.substr(0, 3) != "9.0") {
-                ExibirBloqueioBrowser();
-            }
-
-            $("#lnkSair").live("click", function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/Usuario/Sair",
-                    complete: function (XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.getResponseHeader("Location") != null
-                        && XMLHttpRequest.getResponseHeader("Location") != "") {
-                            window.location = XMLHttpRequest.getResponseHeader("Location");
-                        }
-                    }
-                });
-            });
-        });
-
-        function BlockUI() {
-            $.blockUI({
-                overlayCSS: {
-                    opacity: 0.5
-                },
-                css: {
-                    padding: 0,
-                    margin: 0,
-                    height: '35px',
-                    width: '35px',
-                    top: '40%',
-                    left: '47%',
-                    textAlign: 'center',
-                    color: '#000',
-                    border: '3px solid #aaa',
-                    backgroundColor: '#fff',
-                    cursor: 'wait'
-                },
-                message: '<img src="/Content/images/busy.gif" style="margin-top:9px;" />',
-                baseZ: 2000
-            });
-        }
-
-        // TODO retornar blockUI
-        //$(document).ajaxStart(BlockUI).ajaxStop($.unblockUI);
-
-        $(document).ajaxError(function () {
-            ExibeMensagemErroInesperado();
-        });
-
-        $(document).ajaxSuccess(function (event, XMLHttpRequest) {
-            var erro = (XMLHttpRequest.getResponseHeader("ERRO") != null && XMLHttpRequest.getResponseHeader("ERRO") != "") ? XMLHttpRequest.getResponseHeader("ERRO") : "";
-            if (erro != "") {
-                ExibeAlerta("Ops!", erro);
-            }
-        });
-
-        function ExibeHelpTip(jQueryObject, msg) {
-            $("#divTips").queue(function () {
-                $("#divTips").empty();
-                $("#divTips").append(msg);
-                jQueryObject.bt({
-                    contentSelector: $("#divTips"),
-                    fill: 'rgba(255, 255, 255, 1)',
-                    strokeWidth: 2,
-                    strokeStyle: '#274EBD',
-                    trigger: ['mousemove', 'mouseout']
-                });
-                $("#divTips").dequeue();
-            });
-        }
-
-        function ExibeMensagemErroInesperado() {
-            ExibeAlerta("Houve uma falha no sistema", "Uma falha foi identificada nesta funcionalidade. \nO administrador do sistema já foi notificado sobre o ocorrido.\n Em breve, o tratamento será implementado.");
-        }
-
-        function ExibeAlerta(titulo, msg, callback) {
-            jAlert(msg, titulo, callback);
-        }
-
-        function ExibeConfirmacao(msg, titulo, callback) {
-            if (titulo == null) titulo = "Confirme";
-            jConfirm(msg, titulo, callback);
-        }       
-
-    </script>
 
     @RenderSection("Scripts", required: false)    
 

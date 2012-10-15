@@ -13,6 +13,8 @@ namespace Integer.Web.Infra.AutoMapper.Profiles
         protected override void Configure()
         {
             Mapper.CreateMap<UsuarioCriarViewModel, Usuario>()
+                .ForMember(x => x.Email, o => o.Ignore())
+                .ForMember(x => x.Senha, o => o.Ignore())
                 .ConstructUsing(m => new Usuario(m.Email, m.Senha));
         }
     }

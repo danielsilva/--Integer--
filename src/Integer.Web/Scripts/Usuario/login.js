@@ -1,5 +1,5 @@
 ﻿$().ready(function () {
-    $("#btnlogin").click(function () {        
+    $("#btnlogin").click(function () {
         var loginform = $("#loginform");
 
         if (loginform.is(':visible'))
@@ -46,6 +46,9 @@
                 else {
                     configureNavBarLoggedIn();
                 }
+            })
+            .error(function () {
+                $("#errorMsg").text('E-mail ou senha incorreto');
             })
             .complete(function () {
                 $('#btnDoLogin').button('reset');
