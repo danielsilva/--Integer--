@@ -10,38 +10,15 @@ namespace Integer.Domain.Agenda
 {
     public class Reserva : IEquatable<Reserva>
     {
-        public DateTime DataInicio { get; private set; }
-        public DateTime DataFim { get; private set; }
+        public DateTime Data { get; set; }
+        public IList<HoraReservaEnum> Hora { get; set; }
         public DenormalizedReference<Local> Local { get; private set; }
-        public Horario Horario 
-        { 
-            get 
-            {
-                return new Horario(this.DataInicio, this.DataFim);
-            }
-            private set 
-            {
-                this.DataInicio = value.Inicio;
-                this.DataFim = value.Fim;
-            }
-        }
 
-        private string NomeLocal 
-        {
-            get 
-            {
-                string identificacaoLocal = "";
-                if (Local != null && !String.IsNullOrEmpty(Local.Nome))
-                    identificacaoLocal = String.Format(" do local {0} ", Local.Nome);
-
-                return identificacaoLocal;
-            }
-        }
-
-        public Reserva(Local local, DateTime dataInicio, DateTime dataFim)
+        public Reserva(Local local, DateTime data, IList<HoraReservaEnum> hora)
         {
             PreencherLocal(local);
-            PreencherDatas(dataInicio, dataFim);
+            Data = data;
+            Hora = hora;
         }
 
         private void PreencherLocal(Local local)
@@ -56,35 +33,17 @@ namespace Integer.Domain.Agenda
             this.Local = local;
         }
 
-        private void PreencherDatas(DateTime dataInicio, DateTime dataFim)
+        public void AlterarHorario(DateTime data, IList<HoraReservaEnum> hora)
         {
-            #region pré-condição
-
-            Assertion dataInicioEhValida = Assertion.That(dataInicio != default(DateTime)).WhenNot(String.Format("Data Início da reserva {0} precisa ser informada.", NomeLocal));
-            Assertion dataFimEhValida = Assertion.That(dataFim != default(DateTime)).WhenNot(String.Format("Data Fim da reserva {0} precisa ser informada.", NomeLocal));
-            Assertion dataInicioEhAnteriorADataFim = Assertion.That(dataInicio < dataFim).WhenNot(String.Format("Data Fim da reserva {0} deve ser posterior à Data Início.", NomeLocal));
-
-            #endregion
-            ((dataInicioEhValida & dataFimEhValida) & dataInicioEhAnteriorADataFim).Validate();
-
-            this.DataInicio = dataInicio;
-            this.DataFim = dataFim;
-        }
-
-        public void AlterarHorario(Horario novoHorario)
-        {
-            this.Horario = novoHorario;
+            this.Data = data;
+            this.Hora = hora;
         }
 
         public bool PossuiConflitoCom(Reserva reserva) 
         {
-            var dataInicioOutraReserva = reserva.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
-            var dataFimOutraReserva = reserva.DataFim.AddMinutes(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS.Minutes);
-
-            return this.Local.Equals(reserva.Local)
-                                    && ((this.DataInicio <= dataInicioOutraReserva && dataInicioOutraReserva <= this.DataFim)
-                                        || (this.DataInicio <= dataFimOutraReserva && dataFimOutraReserva <= this.DataFim)
-                                        || (dataInicioOutraReserva <= this.DataInicio && this.DataFim <= dataFimOutraReserva));
+            return this.Local.Equals(reserva.Local) 
+                && (this.Data == reserva.Data) 
+                && (this.Hora.Intersect(reserva.Hora).Count() > 0);
         }
 
         public bool Equals(Reserva outraReserva)
@@ -93,8 +52,7 @@ namespace Integer.Domain.Agenda
                 return false;
 
             return (this.Local.Equals(outraReserva.Local)
-                    && this.DataInicio.Equals(outraReserva.DataInicio)
-                    && this.DataFim.Equals(outraReserva.DataFim));
+                    && this.Hora.Intersect(outraReserva.Hora).Count() > 0);
         }
 
         public override bool Equals(object obj)
@@ -109,8 +67,7 @@ namespace Integer.Domain.Agenda
         public override int GetHashCode()
         {
             return (Local.GetHashCode() 
-                        ^ DataInicio.GetHashCode()
-                        ^ DataFim.GetHashCode());
+                        ^ Hora.GetHashCode());
         }
     }
 }

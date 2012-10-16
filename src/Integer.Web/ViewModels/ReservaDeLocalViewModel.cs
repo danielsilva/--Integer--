@@ -6,6 +6,7 @@ using Integer.Domain.Paroquia;
 using System.Web.Mvc;
 using Foolproof;
 using System.ComponentModel.DataAnnotations;
+using Integer.Domain.Agenda;
 
 namespace Integer.Web.ViewModels
 {
@@ -18,6 +19,6 @@ namespace Integer.Web.ViewModels
         public DateTime? Data { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]
-        public IEnumerable<HoraReservaEnum> Hora { get; set; }
+        public IList<HoraReservaEnum> Hora { get; set; }
     }
 }

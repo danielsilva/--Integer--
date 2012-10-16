@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Integer.Domain.Paroquia;
+using Integer.Infra.AutoMapper;
+using Integer.Web.ViewModels;
+using Integer.Web.Infra.Raven;
 
 namespace Integer.Web.Controllers
 {
-    public class ParoquiaController : Controller
+    public class ParoquiaController : ControllerBase
     {
         [HttpGet]
-        public JsonResult Locals()
+        public JsonResult Locais()
         {
-            // TODO get from database
-            return Json(new List<object> { new { Id = 1, Name = "Templo" }, new { Id = 2, Name = "Salão A" } }, JsonRequestBehavior.AllowGet);
+            var locais = RavenSession.ObterLocais();
+            return Json(locais.MapTo<ItemViewModel>(), JsonRequestBehavior.AllowGet);
         }
     }
 }

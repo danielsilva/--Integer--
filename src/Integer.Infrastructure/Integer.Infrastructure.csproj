@@ -53,6 +53,7 @@
     <Compile Include="DocumentModelling\DenormalizedReference.cs" />
     <Compile Include="DocumentModelling\INamedDocument.cs" />
     <Compile Include="Email\EmailWrapper.cs" />
+    <Compile Include="Enums\EnumExtensions.cs" />
     <Compile Include="Events\DomainEvents.cs" />
     <Compile Include="Events\DomainEvent.cs" />
     <Compile Include="Events\DomainEventHandler.cs" />

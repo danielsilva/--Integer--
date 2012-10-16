@@ -15,7 +15,7 @@ namespace Integer.Web.ViewModels
             DataCadastro = DateTime.Now;
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "obrigatório")]
         [StringLength(50, ErrorMessage = "máximo 50 caracteres")]

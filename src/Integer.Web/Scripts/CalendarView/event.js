@@ -33,7 +33,7 @@ function configureEventFormModal() {
 
 function configureEventForm() {
     $("#frmEvent").removeAttr("novalidate");
-    
+
     $("#frmEvent").validate({
         ignore: [],
         rules: {
@@ -51,20 +51,45 @@ function configureEventForm() {
                 greaterThan: "#txtDateBegin"
             }
         },
-        submitHandler: function(form) {
+        submitHandler: function (form) {
             if (validateReservedLocalsCount()) {
                 $('#btnSave').button('loading');
 
                 $.post("/Calendario/Salvar", $(form).serialize())
-                .success(function(){ 
+                .success(function () {
+                    $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
+                                            <h4 class="alert-heading">Evento agendado com sucesso!</h4> \
+                                            <p></p> \
+                                            <p> \
+                                                <button type="button" id="btnScheduleOther" class="btn btn-info">Agendar outro</button> \
+                                                <button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Fechar</button> \
+                                            </p> \
+                                        </div>');
+                    $("#btnScheduleOther, #btnCloseScheduler").click(function () {
+                        clearFormEvent();
+                    });
+
+                })
+                .error(function (data) {
+                    var responseMessage = data.responseText;
+                    errorMessage = JSON.parse(responseMessage).ErrorMessage;
+                    $("#msgPanel").html('<div id="msgAlert" class="alert"> \
+                                            <button type="button" class="close" data-dismiss="alert">×</button> \
+                                            <h4 class="alert-heading">Atenção!</h4> \
+                                            <p>' + errorMessage + '</p> \
+                                        </div>');
+                })
+                .complete(function () {
                     $('#btnSave').button('reset');
-                    $("#msgSuccess").css("visibility", "visible");
                 });
             }
         }
     });
     $("#btnSave").click(function() { 
         validateReservedLocalsCount();
+    });
+    $("#btnCancelSchedule").click(function () {
+        clearFormEvent();
     });
 }
 
@@ -203,10 +228,10 @@ function configureReservedLocalsScrollBar() {
 
 var existingLocals = [];
 function getExistingLocals() {
-    $.getJSON("/Paroquia/Locals", function (data) {
+    $.getJSON("/Paroquia/Locais", function (data) {
         existingLocals.push('<option value="">Selecione</option>');
         $.each(data, function (index, item) {
-            existingLocals.push('<option value="' + item.Id + '">' + item.Name + '</option>');
+            existingLocals.push('<option value="' + item.Id + '">' + item.Nome + '</option>');
         });
     });
 }
@@ -239,4 +264,17 @@ function validateReservedLocalsCount() {
 
         return false;
     }
+}
+
+function clearFormEvent() {
+    $("#frmEvent").find(':input').each(function () {
+        switch(this.type) {
+            case 'select-one':
+            case 'text':
+            case 'textarea':
+                $(this).val('');
+        }
+    });
+    $(".reserved-local").remove();
+    $("#msgPanel").html('');
 }

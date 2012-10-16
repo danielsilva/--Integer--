@@ -15,33 +15,23 @@ namespace Integer.UnitTests.Domain.Agenda
     {
         Reserva reserva;
         Local local;
-        DateTime dataInicio, dataFim;
+        DateTime data;
 
         public Reserva_AlterarHorario() 
         {
             local = MockRepository.GenerateStub<Local>();
-            dataInicio = DateTime.Now;
-            dataFim = dataInicio.AddHours(2);
+            data = DateTime.Now.Date;
 
-            reserva = new Reserva(local, dataInicio, dataFim);
+            reserva = new Reserva(local, data, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
         }
 
         [Fact]
-        public void QuandoAlteraDataInicio_MapeiaCorretamente() 
+        public void QuandoAlteraHora_MapeiaCorretamente() 
         {
-            var novaDataInicio = dataInicio.AddMinutes(10);
-            reserva.AlterarHorario(new Horario(novaDataInicio, dataFim));
+            reserva.AlterarHorario(data.AddDays(1), new List<HoraReservaEnum> { HoraReservaEnum.Tarde });
 
-            Assert.Equal(novaDataInicio, reserva.DataInicio);
-        }
-
-        [Fact]
-        public void QuandoAlteraDataFim_MapeiaCorretamente()
-        {
-            var novaDataFim = dataFim.AddMinutes(10);
-            reserva.AlterarHorario(new Horario(dataInicio, novaDataFim));
-
-            Assert.Equal(novaDataFim, reserva.DataFim);
+            Assert.Equal(data.AddDays(1), reserva.Data);
+            Assert.Equal(HoraReservaEnum.Tarde, reserva.Hora.Single());
         }
     }
 }

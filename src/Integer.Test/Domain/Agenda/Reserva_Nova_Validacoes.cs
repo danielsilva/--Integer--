@@ -15,52 +15,23 @@ namespace Integer.UnitTests.Domain.Agenda
     {
         Reserva reserva;
         Local local;
-        DateTime dataInicio, dataFim;
+        DateTime data;
 
         public Reserva_Nova_Validacoes() 
         {
             local = MockRepository.GenerateStub<Local>();
-            dataInicio = DateTime.Now;
-            dataFim = dataInicio.AddHours(2);
+            data = DateTime.Now.Date;
         }
 
         private void Cria_Reserva() 
         {
-            reserva = new Reserva(local, dataInicio, dataFim);
+            reserva = new Reserva(local, data, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
         }
 
         [Fact]
         public void QuandoLocalEhNulo_DisparaExcecao()
         {
             local = null;
-            Assert.Throws<DbCException>(() => Cria_Reserva());
-        }
-
-        [Fact]
-        public void QuandoDataInicioNaoExiste_DisparaExcecao() 
-        {
-            dataInicio = default(DateTime);
-            Assert.Throws<DbCException>(() => Cria_Reserva());
-        }
-
-        [Fact]
-        public void QuandoDataFimNaoExiste_DisparaExcecao()
-        {
-            dataFim = default(DateTime);
-            Assert.Throws<DbCException>(() => Cria_Reserva());
-        }
-
-        [Fact]
-        public void QuandoDataInicioEhPosteriorADataFim_DisparaExcecao() 
-        {
-            dataInicio = dataFim.AddHours(1);
-            Assert.Throws<DbCException>(() => Cria_Reserva());
-        }
-
-        [Fact]
-        public void QuandoDataInicioEhIgualADataFim_DisparaExcecao()
-        {
-            dataInicio = dataFim;
             Assert.Throws<DbCException>(() => Cria_Reserva());
         }
     }

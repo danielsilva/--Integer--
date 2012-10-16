@@ -34,6 +34,7 @@ namespace Integer.Infrastructure.Repository
                 UseEmbeddedHttpServer = true,
                 Configuration = { Port = 8090 }
             };
+            store.Conventions.SaveEnumsAsIntegers = true;
             store.Initialize();
 
             return store;

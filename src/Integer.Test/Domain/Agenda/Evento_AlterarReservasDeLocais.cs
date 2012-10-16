@@ -21,24 +21,24 @@ namespace Integer.UnitTests.Domain.Agenda
         {
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento) };
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha }) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.Equal(1, evento.Reservas.Count());
-            var reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento);
+            var reservaEsperada = new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
             Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
         [Fact]
-        public void QuandoAlteraDatas_ReservaFicaComNovasDatas() 
+        public void QuandoAlteraHorario_ReservaFicaComNovoHorario() 
         {
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Tarde }) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.Equal(1, evento.Reservas.Count());
-            var reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1));
+            var reservaEsperada = new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Tarde });
             Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
@@ -50,7 +50,7 @@ namespace Integer.UnitTests.Domain.Agenda
 
             Evento evento = CriarEventoComReserva();
 
-            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento, dataFimEvento.AddHours(-1)) };
+            var reservasAlteradas = new List<Reserva> { new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Tarde }) };
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.Equal(evento, eventoDisparado.Evento);
@@ -67,7 +67,7 @@ namespace Integer.UnitTests.Domain.Agenda
             local = new Local("Local");
             local.Id = "1";
 
-            evento.Reservar(local, dataInicioEvento, dataFimEvento);
+            evento.Reservar(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
 
             return evento;
         }

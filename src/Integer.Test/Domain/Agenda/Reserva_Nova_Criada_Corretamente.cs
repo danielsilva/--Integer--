@@ -13,15 +13,14 @@ namespace Integer.UnitTests.Domain.Agenda
     {
         Reserva reserva;
         Local local;
-        DateTime dataInicio, dataFim;
+        DateTime data;
 
         public Reserva_Nova_Criada_Corretamente() 
         {
             local = new Local("Um Local");
-            dataInicio = DateTime.Now;
-            dataFim = dataInicio.AddHours(2);
+            data = DateTime.Now.Date;
 
-            reserva = new Reserva(local, dataInicio, dataFim);
+            reserva = new Reserva(local, data, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
         }
 
         [Fact]
@@ -31,22 +30,15 @@ namespace Integer.UnitTests.Domain.Agenda
         }
 
         [Fact]
-        public void Mapeia_DataInicio()
+        public void Mapeia_Data() 
         {
-            Assert.Equal(dataInicio, reserva.DataInicio);
-        }
-
-        [Fact]
-        public void Mapeia_DataFim()
-        {
-            Assert.Equal(dataFim, reserva.DataFim);
+            Assert.Equal(data, reserva.Data);
         }
 
         [Fact]
         public void Mapeia_Horario() 
         {
-            var horarioEsperado = new Horario(dataInicio, dataFim);
-            Assert.Equal(horarioEsperado, reserva.Horario);
+            Assert.Equal(HoraReservaEnum.Manha, reserva.Hora.Single());
         }
     }
 }

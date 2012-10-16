@@ -20,7 +20,7 @@ namespace Integer.UnitTests.Domain.Services
         TimeSpan intervaloMinimoEntreReservas = TimeSpan.FromMinutes(59);
 
         Local localDesejado;
-        DateTime dataInicioReservaExistente, dataFimReservaExistente;
+        DateTime dataReservaExistente;
         DateTime dataAtual;
 
         public AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MenosPrioritario_Test() 
@@ -35,87 +35,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Fact]
-        public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_SalvaEventoNovoComSucesso()
-        {
-            CriaReservaQueTerminaMenosDeUmaHoraAntes();
-
-            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComEstadoNaoAgendado()
-        {
-            CriaReservaQueTerminaMenosDeUmaHoraAntes();
-
-            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
-        {
-            CriaReservaQueTerminaMenosDeUmaHoraAntes();
-
-            Assert.Equal(1, eventoExistente.Conflitos.Count());
-            var conflito = eventoExistente.Conflitos.First();
-            Assert.Equal(eventoNovo.Id, conflito.Evento.Id);
-            Assert.Equal(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
-        }
-
-        public void CriaReservaQueTerminaMenosDeUmaHoraAntes() 
-        {
-            CriarEventoExistenteQueReservouLocal(TipoEventoEnum.Comum);
-
-            eventoNovo = CriarEvento(TipoEventoEnum.GrandeMovimentoDePessoas, dataAtual, dataAtual.AddHours(4));
-            var dataFimNovaReserva = dataInicioReservaExistente.AddMinutes(-59);
-            var dataInicioNovaReserva = dataFimNovaReserva.AddHours(-2);
-            eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
-
-            agendaEventoService.Agendar(eventoNovo);
-            DataBaseSession.SaveChanges();
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_SalvaEventoNovoComSucesso()
-        {
-            CriaReservaQueComecaMenosDeUmaHoraDepois();
-
-            Assert.Equal(2, DataBaseSession.Query<Evento>().Count());
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComEstadoNaoAgendado()
-        {
-            CriaReservaQueComecaMenosDeUmaHoraDepois();
-
-            Assert.Equal(EstadoEventoEnum.NaoAgendado, eventoExistente.Estado);
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
-        {
-            CriaReservaQueComecaMenosDeUmaHoraDepois();
-
-            Assert.Equal(1, eventoExistente.Conflitos.Count());
-            var conflito = eventoExistente.Conflitos.First();
-            Assert.Equal(eventoNovo.Id, conflito.Evento.Id);
-            Assert.Equal(MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade, conflito.Motivo);
-        }
-
-        public void CriaReservaQueComecaMenosDeUmaHoraDepois()
-        {
-            CriarEventoExistenteQueReservouLocal(TipoEventoEnum.Comum);
-
-            eventoNovo = CriarEvento(TipoEventoEnum.GrandeMovimentoDePessoas, dataAtual, dataAtual.AddHours(4));
-            var dataInicioNovaReserva = dataFimReservaExistente.AddMinutes(59);
-            var dataFimNovaReserva = dataInicioNovaReserva.AddHours(2);
-            eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
-
-            agendaEventoService.Agendar(eventoNovo);
-            DataBaseSession.SaveChanges();
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_SobrepoeReservaExistente_SalvaEventoNovoComSucesso()
+        public void Salva_Evento_Novo_Com_Sucesso()
         {
             CriaReservaQueSobrepoe();
 
@@ -123,7 +43,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Fact]
-        public void QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComEstadoNaoAgendado()
+        public void Evento_Existente_Fica_Com_Estado_Nao_Agendado()
         {
             CriaReservaQueSobrepoe();
 
@@ -131,7 +51,7 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Fact]
-        public void QuandoAReservaNova_SobrepoeReservaExistente_EventoExistenteFicaComConflitoReferenteAoEventoNovo()
+        public void Evento_Existente_Fica_Com_Conflito_Referente_Ao_Evento_Novo()
         {
             CriaReservaQueSobrepoe();
 
@@ -146,9 +66,9 @@ namespace Integer.UnitTests.Domain.Services
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.Comum);
 
             eventoNovo = CriarEvento(TipoEventoEnum.GrandeMovimentoDePessoas, dataAtual, dataAtual.AddHours(4));
-            var dataInicioNovaReserva = dataInicioReservaExistente.AddMinutes(-1);
-            var dataFimNovaReserva = dataFimReservaExistente.AddMinutes(1);
-            eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
+            var dataNovaReserva = dataReservaExistente;
+
+            eventoNovo.Reservar(localDesejado, dataNovaReserva, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
 
             agendaEventoService.Agendar(eventoNovo);
             DataBaseSession.SaveChanges();
@@ -159,9 +79,9 @@ namespace Integer.UnitTests.Domain.Services
             eventoExistente = CriarEvento(tipoEvento, dataAtual, dataAtual.AddHours(4));
 
             localDesejado = new Local("Um Local");
-            dataInicioReservaExistente = dataAtual;
-            dataFimReservaExistente = dataInicioReservaExistente.AddHours(1);
-            eventoExistente.Reservar(localDesejado, dataInicioReservaExistente, dataFimReservaExistente);
+            dataReservaExistente = dataAtual;
+
+            eventoExistente.Reservar(localDesejado, dataReservaExistente, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
 
             DataBaseSession.Store(eventoExistente);
             DataBaseSession.SaveChanges();

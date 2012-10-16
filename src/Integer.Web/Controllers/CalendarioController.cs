@@ -9,6 +9,9 @@ using Integer.Web.Helpers;
 using Integer.Domain.Paroquia;
 using Integer.Domain.Services;
 using Integer.Web.Infra.AutoMapper;
+using DbC;
+using System.Net;
+using Integer.Web.Infra.Raven;
 
 namespace Integer.Web.Controllers
 {
@@ -25,7 +28,7 @@ namespace Integer.Web.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Tipos = RavenSession.Query<TipoEvento>().OrderBy(t => t.Nome).ToList();
+            ViewBag.Tipos = RavenSession.ObterTiposDeEvento();
 
             return View("Calendario");
         }
@@ -142,13 +145,66 @@ namespace Integer.Web.Controllers
         }
 
         [HttpPost]
-        public void Salvar(EventoViewModel input) 
-        {            
-            //TODO: parei na hora de pegar o grupo logado
-
-            var evento = RavenSession.Load<Evento>(input.Id) 
-                ?? new Evento(input.Nome, input.Descricao, input.DataInicio.GetValueOrDefault(), input.DataFim.GetValueOrDefault(), GrupoLogado, ((TipoEventoEnum)input.Tipo));
-            agenda.Agendar(evento);
+        public JsonResult Salvar(EventoViewModel input) 
+        {
+            Evento evento;
+            try
+            {
+                evento = GerarEvento(input);
+                agenda.Agendar(evento);
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbCException
+                    || ex is LocalReservadoException
+                    || ex is EventoParoquialExistenteException)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json(new { ErrorMessage = ex.Message.Replace(Environment.NewLine, "<br/>") });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return Json(evento);
         }
+
+        private Evento GerarEvento(EventoViewModel input) 
+        {
+            Evento evento;
+
+            if (!string.IsNullOrEmpty(input.Id))
+            {
+                evento = RavenSession.Load<Evento>(input.Id);
+                evento.Alterar(input.Nome, input.Descricao, input.DataInicio.GetValueOrDefault(), input.DataFim.GetValueOrDefault(), GrupoLogado, ((TipoEventoEnum)input.Tipo));
+                var reservas = new List<Reserva>();
+                foreach (var reserva in input.Reservas)
+                {
+                    var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
+                    reservas.Add(new Reserva(local, reserva.Data.GetValueOrDefault(), reserva.Hora));
+                }
+                evento.AlterarReservasDeLocais(reservas);
+            }
+            else
+            {
+                evento = new Evento(
+                    input.Nome,
+                    input.Descricao,
+                    input.DataInicio.GetValueOrDefault(),
+                    input.DataFim.GetValueOrDefault(),
+                    GrupoLogado,
+                    ((TipoEventoEnum)input.Tipo)
+                );
+                foreach (var reserva in input.Reservas)
+                {
+                    var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
+                    evento.Reservar(local, reserva.Data.GetValueOrDefault(), reserva.Hora);
+                }
+            }
+            return evento;
+        }
+
+        private void Agendar(Evento evento) { }
     }
 }

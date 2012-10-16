@@ -20,10 +20,10 @@ namespace Integer.UnitTests.Domain.Agenda
             DateTime dataInicioEvento = DateTime.Now;
             DateTime dataFimEvento = dataInicioEvento.AddHours(4);
             Evento evento = CriarEvento(dataInicioEvento, dataFimEvento);
-            evento.Reservar(local, dataInicioEvento, dataFimEvento);
+            evento.Reservar(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
 
             Assert.Equal(1, evento.Reservas.Count());
-            Reserva reservaEsperada = new Reserva(local, dataInicioEvento, dataFimEvento);
+            Reserva reservaEsperada = new Reserva(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
             Assert.Equal(reservaEsperada, evento.Reservas.First());
         }
 
@@ -36,8 +36,8 @@ namespace Integer.UnitTests.Domain.Agenda
             DateTime dataFimEvento = dataInicioEvento.AddHours(4);
             Evento evento = CriarEvento(dataInicioEvento, dataFimEvento);
 
-            evento.Reservar(local, dataInicioEvento, dataFimEvento);
-            Assert.Throws<DbCException>(() => evento.Reservar(local, dataInicioEvento, dataFimEvento.AddHours(1)));
+            evento.Reservar(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha });
+            Assert.Throws<DbCException>(() => evento.Reservar(local, dataInicioEvento.Date, new List<HoraReservaEnum> { HoraReservaEnum.Manha }));
         }
 
         private Evento CriarEvento(DateTime dataInicio, DateTime dataFim)

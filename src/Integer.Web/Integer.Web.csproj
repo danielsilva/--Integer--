@@ -220,9 +220,12 @@
     <Compile Include="Helpers\ValidationExtensions.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="Infra\AutoMapper\Profiles\LocalProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
     <Compile Include="Infra\EmailAttribute.cs" />
+    <Compile Include="Infra\Raven\TipoEventoDocumentSessionExtensions.cs" />
+    <Compile Include="Infra\Raven\LocalDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\UsuarioDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\GrupoDocumentSessionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,7 +233,6 @@
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
     <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
-    <Compile Include="ViewModels\HoraReservaEnum.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\GrupoViewModel.cs" />
     <Compile Include="ViewModels\ReservaDeLocalViewModel.cs" />
@@ -755,6 +757,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Menu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\squished\" />
+    <Folder Include="Scripts\squished\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -53,9 +53,9 @@ namespace Integer.UnitTests.Domain.Paroquia
         }
 
         [Fact]
-        public void Senha_EhPadrao_calendario2012() 
+        public void Senha_EhPadrao_calendario2013() 
         {
-            Assert.Equal("calendario2012", grupo.SenhaDescriptografada);
+            Assert.Equal("calendario2013", grupo.SenhaDescriptografada);
         }
     }
 }

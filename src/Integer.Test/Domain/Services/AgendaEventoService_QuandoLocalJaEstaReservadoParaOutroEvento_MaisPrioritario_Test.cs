@@ -20,7 +20,7 @@ namespace Integer.UnitTests.Domain.Services
         TimeSpan intervaloMinimoEntreReservas = TimeSpan.FromMinutes(59);
 
         Local localDesejado;
-        DateTime dataInicioReservaExistente, dataFimReservaExistente;
+        DateTime dataReservaExistente;
         DateTime dataAtual;
 
         public AgendaEventoService_QuandoLocalJaEstaReservadoParaOutroEvento_MaisPrioritario_Test() 
@@ -33,42 +33,16 @@ namespace Integer.UnitTests.Domain.Services
         }
 
         [Fact]
-        public void QuandoAReservaNova_TerminaMenosDeUmaHoraAntes_DisparaExcecao() 
+        public void QuandoAReservaNova_ConflitaComHorarioDaReservaDoEventoPrioritarioExistente_DisparaExcecao() 
         {
             CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
 
             eventoNovo = CriarEvento(TipoEventoEnum.Comum, dataAtual, dataAtual.AddHours(4));
-            var dataFimNovaReserva = dataInicioReservaExistente.AddMinutes(-59);
-            var dataInicioNovaReserva = dataFimNovaReserva.AddHours(-2);
-            eventoNovo.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
+            var dataNovaReserva = dataReservaExistente;
+            
+            eventoNovo.Reservar(localDesejado, dataNovaReserva, new List<HoraReservaEnum> { HoraReservaEnum.Tarde });
 
             Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(eventoNovo));
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_ComecaMenosDeUmaHoraDepois_DisparaExcecao()
-        {
-            CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
-
-            Evento outroEvento = CriarEvento(TipoEventoEnum.Comum, dataAtual, dataAtual.AddHours(4));
-            var dataInicioNovaReserva = dataFimReservaExistente.AddMinutes(59);
-            var dataFimNovaReserva = dataInicioNovaReserva.AddHours(2);
-            outroEvento.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
-
-            Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(outroEvento));
-        }
-
-        [Fact]
-        public void QuandoAReservaNova_SobrepoeReservaExistente_DisparaExcecao()
-        {
-            CriarEventoExistenteQueReservouLocal(TipoEventoEnum.GrandeMovimentoDePessoas);
-
-            Evento outroEvento = CriarEvento(TipoEventoEnum.Comum, dataAtual, dataAtual.AddHours(4));
-            var dataInicioNovaReserva = dataInicioReservaExistente.AddMinutes(-1);
-            var dataFimNovaReserva = dataFimReservaExistente.AddMinutes(1);
-            outroEvento.Reservar(localDesejado, dataInicioNovaReserva, dataFimNovaReserva);
-
-            Assert.Throws<LocalReservadoException>(() => agendaEventoService.Agendar(outroEvento));
         }
 
         private void CriarEventoExistenteQueReservouLocal(TipoEventoEnum tipoEvento) 
@@ -76,9 +50,8 @@ namespace Integer.UnitTests.Domain.Services
             eventoExistente = CriarEvento(tipoEvento, dataAtual, dataAtual.AddHours(4));
 
             localDesejado = new Local("Um Local");
-            dataInicioReservaExistente = dataAtual;
-            dataFimReservaExistente = dataInicioReservaExistente.AddHours(1);
-            eventoExistente.Reservar(localDesejado, dataInicioReservaExistente, dataFimReservaExistente);
+            dataReservaExistente = dataAtual;
+            eventoExistente.Reservar(localDesejado, dataReservaExistente, new List<HoraReservaEnum> { HoraReservaEnum.Tarde });
 
             DataBaseSession.Store(eventoExistente);
             DataBaseSession.SaveChanges();

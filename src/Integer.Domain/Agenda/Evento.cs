@@ -10,6 +10,7 @@ using Integer.Infrastructure.Events;
 using System.Collections;
 using Integer.Infrastructure.DocumentModelling;
 using Integer.Infrastructure.Email;
+using Integer.Infrastructure.Enums;
 
 namespace Integer.Domain.Agenda
 {
@@ -94,11 +95,11 @@ namespace Integer.Domain.Agenda
         {
             #region pré-condição
             var dataInicioFoiInformada = Assertion.That(dataInicio != default(DateTime))
-                                                  .WhenNot("Necessário informar a <Data Início> do evento.");
+                                                  .WhenNot("Necessário informar a data de início do evento.");
             var dataFimFoiInformada = Assertion.That(dataFim != default(DateTime))
-                                                  .WhenNot("Necessário informar a <Data Fim> do evento.");
+                                                  .WhenNot("Necessário informar a data de término do evento.");
             var dataInicioPrecisaSerAnteriorADataFim = Assertion.That(dataInicio < dataFim)
-                                                                .WhenNot("A <Data Fim> do evento deve ser posterior à data de início.");
+                                                                .WhenNot("A data de término do evento deve ser posterior à data de início.");
             #endregion
             ((dataInicioFoiInformada & dataFimFoiInformada) & dataInicioPrecisaSerAnteriorADataFim).Validate();            
             
@@ -156,23 +157,23 @@ namespace Integer.Domain.Agenda
             aumentouAQuantidadeDeConflitos.Validate();
         }
 
-        public void Reservar(Local local, DateTime dataInicio, DateTime dataFim)
+        public void Reservar(Local local, DateTime data, IList<HoraReservaEnum> horario)
         {
             #region pré-condição
 
-            var horarioDesejado = new Horario(dataInicio, dataFim);
             var reservaComMesmoHorarioParaOLocal = Reservas.FirstOrDefault(r => r.Local.Equals(local)
-                                                                                && r.Horario.VerificarConcorrencia(horarioDesejado));
+                                                                                && r.Data.Equals(data)
+                                                                                && r.Hora.Intersect(horario).Count() > 0);
 
             var naoExisteReservaSemelhante = Assertion.That(reservaComMesmoHorarioParaOLocal == null)
                                                       .WhenNot(String.Format(@"O local '{0}' foi reservado mais de uma vez para um mesmo horário. 
-                                                                                Verifique se o horário {1} está coincidindo com outra reserva para este local neste evento.", 
-                                                                                local.Nome, horarioDesejado.ToString()));
+                                                                                Verifique se o horário '{1} ({2})' está coincidindo com outra reserva para este local neste evento.", 
+                                                                                local.Nome, data.ToString("dd/MM/yyyy"), horario.ToHoraReservaString()));
             
             #endregion
             naoExisteReservaSemelhante.Validate();
 
-            var reserva = new Reserva(local, dataInicio, dataFim);
+            var reserva = new Reserva(local, data, horario);
 
             var reservasAux = Reservas.ToList();
             reservasAux.Add(reserva);
@@ -207,9 +208,10 @@ namespace Integer.Domain.Agenda
                 if (reservaDoEventoFoiAlterada)
                 {
                     Reserva reservaAlterada = reservasNovas.First(r => r.Local.Equals(reservaDoEvento.Local));
-                    if (reservaAlterada.Horario != reservaDoEvento.Horario)
+                    if (reservaAlterada.Data != reservaDoEvento.Data
+                        || reservaAlterada.Hora != reservaDoEvento.Hora)
                     {
-                        reservaDoEvento.AlterarHorario(reservaAlterada.Horario);
+                        reservaDoEvento.AlterarHorario(reservaAlterada.Data, reservaAlterada.Hora);
                         reservasAlteradas.Add(reservaDoEvento);
                     }
                 }
