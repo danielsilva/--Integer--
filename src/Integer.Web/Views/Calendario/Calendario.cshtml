@@ -70,13 +70,6 @@
         .Add("~/Scripts/CalendarView/event.js")
         .ForceRelease()
         .Render("~/Scripts/squished/squished_calendar_#.js"))
-    <script type="text/javascript">
-        $().ready(function() {
-            $.getJSON('@Url.Action("Eventos", "Calendario")').success(function (events) {
-                initCalendar(events);
-            });
-        });
-    </script>
 }
 
 

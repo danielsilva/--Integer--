@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AutoMapper;
 
-namespace Integer.Infra.AutoMapper
+namespace Integer.Web.Infra.AutoMapper
 {
     public static class AutoMapperExtensions
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Integer.Domain.Paroquia;
-using Integer.Infra.AutoMapper;
+using Integer.Web.Infra.AutoMapper;
 using Integer.Web.ViewModels;
 using Integer.Web.Infra.Raven;
 

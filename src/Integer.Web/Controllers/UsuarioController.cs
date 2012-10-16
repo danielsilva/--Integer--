@@ -9,7 +9,7 @@ using System.Web.Security;
 using Integer.Web.Infra.Raven;
 using System.Net;
 using Integer.Web.ViewModels;
-using Integer.Infra.AutoMapper;
+using Integer.Web.Infra.AutoMapper;
 
 namespace Integer.Web.Controllers
 {

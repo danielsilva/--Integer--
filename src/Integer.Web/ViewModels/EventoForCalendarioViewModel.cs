@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Integer.Web.ViewModels
 {
-    public class EventoCalendarioViewModel
+    public class EventoForCalendarioViewModel
     {
         public string id { get; set; }
         //public string cid { get; set; }

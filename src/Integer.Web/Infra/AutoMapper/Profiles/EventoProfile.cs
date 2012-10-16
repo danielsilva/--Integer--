@@ -12,7 +12,7 @@ namespace Integer.Web.Infra.AutoMapper.Profiles
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Evento, EventoCalendarioViewModel>()
+            Mapper.CreateMap<Evento, EventoForCalendarioViewModel>()
                 .ForMember(x => x.id, o => o.MapFrom(m => m.Id))
                 .ForMember(x => x.title, o => o.MapFrom(m => m.Nome))
                 .ForMember(x => x.start, o => o.MapFrom(m => m.DataInicio.ToUniversalTime().ToString("o")))

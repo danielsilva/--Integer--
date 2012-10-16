@@ -12,6 +12,7 @@ using Integer.Web.Infra.AutoMapper;
 using DbC;
 using System.Net;
 using Integer.Web.Infra.Raven;
+using Integer.Web.Infra.AutoMapper;
 
 namespace Integer.Web.Controllers
 {
@@ -34,117 +35,16 @@ namespace Integer.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eventos() 
+        public JsonResult Eventos(DateTime startDate, DateTime endDate) 
         {
-            
+            var eventos = RavenSession.Query<Evento>().Where(e => e.Estado == EstadoEventoEnum.Agendado
+                                                                    && (startDate <= e.DataInicio || startDate <= e.DataFim
+                                                                        || endDate >= e.DataInicio || endDate >= e.DataFim)).ToList();
 
-            return Json(new List<dynamic>(){
-                new
-                {
-                    id = 1001,
-                    cid = 1,
-                    title = "Vacation",
-                    start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
-                    notes = "Have fun"
-                },
-                new
-                {
-                    id = 1002,
-                    cid = 1,
-                    title = "Vacation",
-                    start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddDays(20).ToString("o"),
-                    notes = "Have fun"
-                },
-                new
-                {
-                    id = 1003,
-                    cid = 1,
-                    title = "Vacation",
-                    start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
-                    notes = "Have fun"
-                },
-                new
-                {
-                    id = 1004,
-                    cid = 1,
-                    title = "Vacation",
-                    start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
-                    notes = "Have fun"
-                },
-                new
-                {
-                    id = 1005,
-                    cid = 1,
-                    title = "Vacation",
-                    start = DateTime.UtcNow.ToString("o"),
-                    end = DateTime.UtcNow.AddHours(1).ToString("o"),
-                    notes = "Have fun"
-                }
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { Eventos = eventos.MapTo<EventoForCalendarioViewModel>() }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public JsonResult ObterEventos(DateTime showDate, VisualizacaoCalendarioEnum viewType, string idGrupo)
-        {
-            IEnumerable<Evento> eventos = FiltrarEventos(showDate, viewType, idGrupo);
-            CalendarioViewModel calendario = MontarCalendario(eventos);
-
-            return Json(calendario, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<Evento> FiltrarEventos(DateTime dataReferencia, VisualizacaoCalendarioEnum tipoVisualizacao, string idGrupo)
-        {
-            IEnumerable<Evento> eventosExistentes;
-
-            switch (tipoVisualizacao)
-            {
-                case VisualizacaoCalendarioEnum.day:
-                    if (UsuarioEstaLogado)
-                        eventosExistentes = eventos.ObterEventosAgendadosDoDia(dataReferencia, idGrupo);
-                    else
-                        eventosExistentes = eventos.ObterTodosEventosDoDia(dataReferencia, idGrupo);
-                    
-                    break;
-
-                case VisualizacaoCalendarioEnum.week:
-                    var primeiroDiaDaSemana = dataReferencia.AddDays((int)DayOfWeek.Sunday - (int)dataReferencia.DayOfWeek);
-                    var ultimoDiaDaSemana = dataReferencia.AddDays(7 - ((int)dataReferencia.DayOfWeek + 1));
-                    
-                    if (UsuarioEstaLogado)
-                        eventosExistentes = eventos.ObterTodosEventosDaSemana(primeiroDiaDaSemana, ultimoDiaDaSemana, idGrupo);
-                    else
-                        eventosExistentes = eventos.ObterEventosAgendadosDaSemana(primeiroDiaDaSemana, ultimoDiaDaSemana, idGrupo);
-
-                    break;
-
-                case VisualizacaoCalendarioEnum.month:
-                    if (UsuarioEstaLogado)
-                        eventosExistentes = eventos.ObterTodosEventosDoMes(dataReferencia, idGrupo);
-                    else
-                        eventosExistentes = eventos.ObterEventosAgendadosDoMes(dataReferencia, idGrupo);
-                    break;
-
-                default:
-                    throw new NotImplementedException(String.Format("Tipo de visualização não implementado: {0}.", tipoVisualizacao));
-            }
-
-            return eventosExistentes;
-        }
-
-        private CalendarioViewModel MontarCalendario(IEnumerable<Evento> eventos)
-        {
-            CalendarioViewModel calendario;
-            if (eventos != null)
-                calendario = CalendarioHelper.ContruirCalendario(eventos);
-            else
-                calendario = new CalendarioViewModel();
-
-            return calendario;
-        }
+        
 
         [HttpPost]
         public JsonResult Salvar(EventoViewModel input) 
@@ -206,7 +106,5 @@ namespace Integer.Web.Controllers
             }
             return evento;
         }
-
-        private void Agendar(Evento evento) { }
     }
 }
