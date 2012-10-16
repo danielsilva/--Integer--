@@ -220,6 +220,7 @@
     <Compile Include="Helpers\ValidationExtensions.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infra\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="Infra\AutoMapper\Profiles\EventoProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\LocalProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationHelpers\ValidationHelper.cs" />
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
+    <Compile Include="ViewModels\EventoCalendarioViewModel.cs" />
     <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />

@@ -36,6 +36,8 @@ namespace Integer.Web.Controllers
         [HttpGet]
         public JsonResult Eventos() 
         {
+            
+
             return Json(new List<dynamic>(){
                 new
                 {
