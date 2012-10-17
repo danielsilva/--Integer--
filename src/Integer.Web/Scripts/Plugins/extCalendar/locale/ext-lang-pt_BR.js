@@ -88,7 +88,7 @@ Ext.onReady(function(){
            "Quarta",
            "Quinta",
            "Sexta",
-           "S&aacute;bado"
+           "Sabado"
         ];
     }
     

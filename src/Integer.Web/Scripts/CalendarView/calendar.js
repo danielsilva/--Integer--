@@ -1,4 +1,6 @@
-﻿Ext.onReady(function () {
+﻿var calendarPanel;
+
+Ext.onReady(function () {
     var calendarWidth = 810;
     var startDate = new Date();
 
@@ -22,7 +24,7 @@
         }
     });
 
-    Ext.create('Extensible.calendar.CalendarPanel', {
+    calendarPanel = Ext.create('Extensible.calendar.CalendarPanel', {
         eventStore: eventStore,
         startDate: startDate,
         renderTo: 'divCalendar',
@@ -40,6 +42,12 @@
         dayText: 'Dia',
         weekText: 'Semana',
         monthText: 'Mês',
+        
+        monthViewCfg: {
+            getMoreText: function (eventCount) {
+                return 'mais {0}';
+            }
+        },
 
         listeners: {
             'datechange': {
@@ -67,4 +75,8 @@
 
 function setCalendarTitle(date) {
     $("#calendarTitle").html(Ext.Date.format(date, 'F'));
+}
+
+function reloadCalendar() {
+    calendarPanel.getActiveView().refresh()
 }

@@ -68,7 +68,7 @@ function configureEventForm() {
                     $("#btnScheduleOther, #btnCloseScheduler").click(function () {
                         clearFormEvent();
                     });
-
+                    reloadCalendar();
                 })
                 .error(function (data) {
                     var responseMessage = data.responseText;
