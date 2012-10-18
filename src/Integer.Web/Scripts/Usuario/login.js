@@ -45,6 +45,7 @@
                 }
                 else {
                     configureNavBarLoggedIn();
+                    configureCalendarReadOnly(false);
                 }
             })
             .error(function () {

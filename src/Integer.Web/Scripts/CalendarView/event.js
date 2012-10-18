@@ -278,3 +278,7 @@ function clearFormEvent() {
     $(".reserved-local").remove();
     $("#msgPanel").html('');
 }
+
+function showFormEvent() {
+    $('#divFormEvent').modal('show');
+}

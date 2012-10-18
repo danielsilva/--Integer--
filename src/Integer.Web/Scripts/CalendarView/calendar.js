@@ -31,7 +31,7 @@ Ext.onReady(function () {
         width: calendarWidth,
         height: 520,
 
-        readOnly: false,
+        readOnly: true,
 
         showMultiWeekView: false,
         showNavJump: true,
@@ -42,7 +42,7 @@ Ext.onReady(function () {
         dayText: 'Dia',
         weekText: 'Semana',
         monthText: 'Mês',
-        
+
         monthViewCfg: {
             getMoreText: function (eventCount) {
                 return 'mais {0}';
@@ -58,13 +58,24 @@ Ext.onReady(function () {
             },
             'dayclick': {
                 fn: function (panel, date, allDay, el) {
-                    showFormEvent(date, el);
+                    if (!calendarPanel.readOnly)
+                        showFormEvent();
+                    return false;
+                },
+                scope: this
+            },
+            'eventclick': {
+                fn: function (cal, ev, el) {
+                    if (!calendarPanel.readOnly)
+                        showFormEvent();
+                    else
+                        console.log('popover: ' + ev.id);
                     return false;
                 },
                 scope: this
             }
         }
-    });
+    }); 
 
     $("#calendarTitle").width(calendarWidth);
     $("#divCalendar").width(calendarWidth);
@@ -79,4 +90,9 @@ function setCalendarTitle(date) {
 
 function reloadCalendar() {
     calendarPanel.getActiveView().refresh()
+}
+
+function configureCalendarReadOnly(readOnly) {
+    if (calendarPanel) 
+        calendarPanel.readOnly = readOnly;
 }
