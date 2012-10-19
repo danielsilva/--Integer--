@@ -16,14 +16,12 @@ namespace Integer.UnitTests.Domain.Paroquia
         string nome;
         string email;
         Grupo grupo, grupoPai;
-        string cor;
 
         public Grupo_Novo_Validacoes()
         {
             nome = "Grupo";
             email = "email@email.com";
             grupoPai = MockRepository.GenerateStub<Grupo>();
-            cor = "cor";
         }
 
         [Fact]
@@ -52,7 +50,7 @@ namespace Integer.UnitTests.Domain.Paroquia
 
         private void Cria_Grupo()
         {
-            grupo = new Grupo(nome, email, grupoPai, cor);
+            grupo = new Grupo(nome, email, grupoPai);
         }
     }
 }

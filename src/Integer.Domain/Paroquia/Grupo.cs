@@ -19,7 +19,6 @@ namespace Integer.Domain.Paroquia
         public string Email { get; private set; }
         public string Senha { get; private set; }
         public bool PrecisaCriarUsuario { get; set; }
-        public string CorNoCalendario { get; private set; }
         public DenormalizedReference<Grupo> GrupoPai { get; private set; }
         public IEnumerable<DenormalizedReference<Grupo>> GruposFilhos { get; private set; }
 
@@ -41,11 +40,10 @@ namespace Integer.Domain.Paroquia
             this.GruposFilhos = new List<DenormalizedReference<Grupo>>();
         }
 
-        public Grupo(string nome, string email, Grupo grupoPai, string corNoCalendario)
+        public Grupo(string nome, string email, Grupo grupoPai)
         {
             PreencherNome(nome);
             PreencherGrupoPai(grupoPai);
-            PreencherCor(corNoCalendario);
 
             // TODO validar email
             this.Email = email;
@@ -70,13 +68,6 @@ namespace Integer.Domain.Paroquia
         private void PreencherGrupoPai(Grupo grupo)
         {
             this.GrupoPai = grupo;
-            if (grupo != null)
-                this.CorNoCalendario = grupo.CorNoCalendario;
-        }
-
-        private void PreencherCor(string cor) 
-        {
-            this.CorNoCalendario = cor;
         }
 
         private void CriarSenhaPadrao()
@@ -113,27 +104,26 @@ namespace Integer.Domain.Paroquia
             return SenhaDescriptografada == senha;
         }
 
-        public void Alterar(string nome, string email, Grupo grupoPai, string cor)
+        public void Alterar(string nome, string email, Grupo grupoPai)
         {
             PreencherNome(nome);
             PreencherGrupoPai(grupoPai);
-            PreencherCor(cor);
             this.Email = email;
         }
 
-        public string ObterMensagemBoasVindas()
-        {
-            return @"Informamos que seu acesso ao calendário está disponível.<br/><br/>
-                     Seus dados para acesso são:<br/>
-                    
-                    <b>Login: </b>" + this.Email + @"<br/>
-                    <b>Senha: </b>" + this.SenhaDescriptografada + @"<br/><br/>
-
-                    As informações de acesso são sigilosas.<br/>
-                    Portanto, ressaltamos a importância de não compartilhar pessoas que não sejam agentes de seu grupo/pastoral.<br/><br/>
-
-                    Atenciosamente,<br/>
-                    Pastoral da Comunicação";
-        }
+//        public string ObterMensagemBoasVindas()
+//        {
+//            return @"Informamos que seu acesso ao calendário está disponível.<br/><br/>
+//                     Seus dados para acesso são:<br/>
+//                    
+//                    <b>Login: </b>" + this.Email + @"<br/>
+//                    <b>Senha: </b>" + this.SenhaDescriptografada + @"<br/><br/>
+//
+//                    As informações de acesso são sigilosas.<br/>
+//                    Portanto, ressaltamos a importância de não compartilhar pessoas que não sejam agentes de seu grupo/pastoral.<br/><br/>
+//
+//                    Atenciosamente,<br/>
+//                    Pastoral da Comunicação";
+//        }
     }
 }

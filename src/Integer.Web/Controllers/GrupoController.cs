@@ -49,11 +49,10 @@ namespace Integer.Web.Controllers
             if (ModelState.IsValid)
             {
                 Grupo grupoPai = grupos.Com(g => g.Id == grupoForm.GrupoPai);
-                string cor = grupoForm.CorNoCalendario;
 
                 if (String.IsNullOrEmpty(grupoForm.Id))
                 {
-                    Grupo grupo = new Grupo(grupoForm.Nome, grupoForm.Email, grupoPai, cor);
+                    Grupo grupo = new Grupo(grupoForm.Nome, grupoForm.Email, grupoPai);
                     grupos.Salvar(grupo);
                     // TODO enviar email
                     //Email.AgendarEmail(grupo.Email, "{ Integer } Acesso ao calendário", grupo.ObterMensagemBoasVindas());
@@ -61,7 +60,7 @@ namespace Integer.Web.Controllers
                 else
                 {
                     Grupo grupo = grupos.Com(g => g.Id == grupoForm.Id);
-                    grupo.Alterar(grupoForm.Nome, grupoForm.Email, grupoPai, cor);
+                    grupo.Alterar(grupoForm.Nome, grupoForm.Email, grupoPai);
                 }
             }
             return PartialView("GrupoForm", grupoForm);

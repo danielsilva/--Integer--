@@ -17,9 +17,8 @@ namespace Integer.UnitTests.Domain.Paroquia
             string nome = "Grupo";
             string email = "grupo@Paroquia.com.br";
             grupoPai = MockRepository.GenerateStub<Grupo>();
-            string cor = "cor";
 
-            grupo = new Grupo(nome, email, grupoPai, cor);
+            grupo = new Grupo(nome, email, grupoPai);
         }
 
         [Fact]
@@ -38,12 +37,6 @@ namespace Integer.UnitTests.Domain.Paroquia
         public void Mapeia_GrupoPai() 
         {
             Assert.Equal(grupoPai.Id, grupo.GrupoPai.Id);
-        }
-
-        [Fact]
-        public void Mapeia_Cor() 
-        {
-            Assert.Equal("cor", grupo.CorNoCalendario);
         }
 
         [Fact]

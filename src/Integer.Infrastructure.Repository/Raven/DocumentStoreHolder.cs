@@ -32,7 +32,8 @@ namespace Integer.Infrastructure.Repository
             {
                 DataDirectory = "App_Data",
                 UseEmbeddedHttpServer = true,
-                Configuration = { Port = 8090 }
+                Configuration = { Port = 8888 } // import
+                //Configuration = { Port = 8090 } // dev
             };
             store.Conventions.SaveEnumsAsIntegers = true;
             store.Initialize();
