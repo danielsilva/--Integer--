@@ -80,8 +80,8 @@ namespace Integer.Domain.Services
             IEnumerable<Evento> eventosComConflito = eventos.QuePossuemConflitoCom(eventoAlterado, MotivoConflitoEnum.ExisteEventoParoquialNaData);
             foreach (Evento evento in eventosComConflito)
             {
-                bool possuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
-                if (!possuiConflito)
+                bool aindaPossuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
+                if (!aindaPossuiConflito)
                     evento.RemoverConflitoCom(eventoAlterado);
             }
         }
@@ -96,8 +96,8 @@ namespace Integer.Domain.Services
 
                 foreach (Evento evento in eventosParoquiais)
                 {
-                    bool possuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
-                    if (!possuiConflito)
+                    bool aindaPossuiConflito = evento.PossuiConflitoDeHorarioCom(eventoAlterado);
+                    if (!aindaPossuiConflito)
                         eventoAlterado.RemoverConflitoCom(evento);
                 }
             }

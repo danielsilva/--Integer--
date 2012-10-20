@@ -20,10 +20,11 @@ namespace Integer.Infrastructure.Repository
 
         public IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao)
         {
-            var filtro = condicao.And(e => e.Estado != EstadoEventoEnum.Cancelado)
-                                 .Compile();
+            var filtro = condicao.And(e => e.Estado != EstadoEventoEnum.Cancelado);
 
-            return documentSession.Query<Evento>().Where(filtro);
+            var ev = documentSession.Query<Evento>().Where(filtro).ToList();
+
+            return ev;
         }
 
         public void Salvar(Evento evento)

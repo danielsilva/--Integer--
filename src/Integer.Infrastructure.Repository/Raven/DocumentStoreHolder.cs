@@ -31,7 +31,7 @@ namespace Integer.Infrastructure.Repository
             var store = new EmbeddableDocumentStore
             {
                 DataDirectory = "App_Data",
-                //UseEmbeddedHttpServer = true,
+                UseEmbeddedHttpServer = true,
                 //Configuration = { Port = 8888 } // import
                 //Configuration = { Port = 8090 } // dev
             };

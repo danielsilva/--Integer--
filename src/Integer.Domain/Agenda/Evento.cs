@@ -11,6 +11,7 @@ using System.Collections;
 using Integer.Infrastructure.DocumentModelling;
 using Integer.Infrastructure.Email;
 using Integer.Infrastructure.Enums;
+using System.Linq.Expressions;
 
 namespace Integer.Domain.Agenda
 {
@@ -269,16 +270,17 @@ namespace Integer.Domain.Agenda
 
         public bool PossuiConflitoDeHorarioCom(Evento outroEvento)
         {
-            DateTime dataInicioComIntervaloMinimo = outroEvento.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
-            DateTime dataFimComIntervaloMinimo = outroEvento.DataFim.Add(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            return Evento.MontarVerificacaoDeConflitoDeHorario().Compile()(this, outroEvento.DataInicio, outroEvento.DataFim);
+        }
 
-            bool dataInicioComIntervaloFicaDentroDoEvento = (this.DataInicio <= dataInicioComIntervaloMinimo && dataInicioComIntervaloMinimo <= this.DataFim);
-            bool dataFimComIntervaloFicaDentroDoEvento = (this.DataInicio <= dataFimComIntervaloMinimo && dataFimComIntervaloMinimo <= this.DataFim);
-            bool comecaAntesETerminaDepoisDoEvento = (dataInicioComIntervaloMinimo <= this.DataInicio && this.DataFim <= dataFimComIntervaloMinimo);
+        public static Expression<Func<Evento, DateTime, DateTime, bool>> MontarVerificacaoDeConflitoDeHorario() 
+        {
+            //DateTime dataInicioComIntervaloMinimo = this.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            //DateTime dataFimComIntervaloMinimo = this.DataFim.Add(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
 
-            return dataInicioComIntervaloFicaDentroDoEvento
-                    || dataFimComIntervaloFicaDentroDoEvento
-                    || comecaAntesETerminaDepoisDoEvento;
+            return ((e, inicio, fim) => (e.DataInicio <= inicio && inicio <= e.DataFim)
+                        || (e.DataInicio <= fim && fim <= e.DataFim)
+                        || (inicio <= e.DataInicio && e.DataFim <= fim));
         }
 
         public bool VerificarSeReservasPossuemConflito(IEnumerable<Reserva> outrasReservas)
