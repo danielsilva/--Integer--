@@ -10,7 +10,7 @@ namespace Integer.Infrastructure.Criptografia
     public class Encryptor
     {
 
-        public const string PASSWORD = "plabeno";
+        public const string PASSWORD = "znS887db";
 
         // Encrypt a byte array into a byte array using a key and an IV 
         public static byte[] Encrypt(byte[] clearData, byte[] Key, byte[] IV)

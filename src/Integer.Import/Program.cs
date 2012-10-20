@@ -22,6 +22,7 @@ namespace Integer.Import
                 ImportarPara(store);
             }
             Console.WriteLine("Fim da importação.");
+            Console.ReadKey();
         }
 
         private static void ImportarPara(IDocumentStore store)
@@ -33,22 +34,22 @@ namespace Integer.Import
                 Console.WriteLine("Começando...");
 
                 #region Locais
-                //Console.WriteLine("Importando Locais...");
-                //IEnumerable<Local> locais = agenda.Local.ToList();
-                //Console.WriteLine("Carregar Locais demorou: {0:#,#} ms", sp.ElapsedMilliseconds);
+                Console.WriteLine("Importando Locais...");
+                IEnumerable<Local> locais = agenda.Local.ToList();
+                Console.WriteLine("Carregar Locais demorou: {0:#,#} ms", sp.ElapsedMilliseconds);
 
-                //var locaisRaven = new List<NovaVersaoParoquia.Local>();
-                //using (IDocumentSession s = store.OpenSession())
-                //{
-                //    foreach (Local l in locais)
-                //    {
-                //        var local = new NovaVersaoParoquia.Local(l.Nome);
-                //        s.Store(local);
-                //        locaisRaven.Add(local);
-                //    }
-                //    s.SaveChanges();
-                //}
-                //Console.WriteLine(sp.Elapsed);
+                var locaisRaven = new List<NovaVersaoParoquia.Local>();
+                using (IDocumentSession s = store.OpenSession())
+                {
+                    foreach (Local l in locais)
+                    {
+                        var local = new NovaVersaoParoquia.Local(l.Nome);
+                        s.Store(local);
+                        locaisRaven.Add(local);
+                    }
+                    s.SaveChanges();
+                }
+                Console.WriteLine("Locais: " + locaisRaven.Count); 
                 #endregion
 
                 #region Grupos
@@ -70,28 +71,69 @@ namespace Integer.Import
 
                     s.SaveChanges();
                 }
-                Console.WriteLine(sp.Elapsed);
+                Console.WriteLine("Grupos: " + gruposRaven.Count);
                 #endregion
 
-                //Console.WriteLine("Importando Eventos...");
-                //IEnumerable<Evento> eventos = agenda.Evento
-                //    .Include("Grupo")
-                //    .Include("ListaInternaConflitos")
-                //    .Include("ListaInternaReservasDeLocais")
-                //    .OrderBy(e => e.DataInicio).ToList();
+                #region TiposEvento
+                Console.WriteLine("Inserindo Tipos...");
+                using (IDocumentSession s = store.OpenSession())
+                {
+                    s.Store(new NovaVersaoAgenda.TipoEvento { Id = ((int)NovaVersaoAgenda.TipoEventoEnum.Paroquial).ToString(), Nome = "Paroquial" });
+                    s.Store(new NovaVersaoAgenda.TipoEvento { Id = ((int)NovaVersaoAgenda.TipoEventoEnum.Sacramento).ToString(), Nome = "Sacramento" });
+                    s.Store(new NovaVersaoAgenda.TipoEvento { Id = ((int)NovaVersaoAgenda.TipoEventoEnum.GrandeMovimentoDePessoas).ToString(), Nome = "Grande movimento de pessoas" });
+                    s.Store(new NovaVersaoAgenda.TipoEvento { Id = ((int)NovaVersaoAgenda.TipoEventoEnum.Comum).ToString(), Nome = "Comum" });
+                    s.SaveChanges();
+                }
+                #endregion
 
-                //Console.WriteLine("Para carregar eventos, demorou: {0:#,#} ms", sp.ElapsedMilliseconds);
+                #region Eventos
+                Console.WriteLine("Importando Eventos...");
+                IEnumerable<Evento> eventos = agenda.Evento
+                    .Include("Grupo")
+                    .Include("ListaInternaConflitos")
+                    .Include("ListaInternaReservasDeLocais")
+                    .OrderBy(e => e.DataInicio).ToList();
 
-                //using (IDocumentSession s = store.OpenSession())
-                //{
-                //    foreach (Evento ev in eventos)
-                //    {
-                //        //var evento = new NovaVersaoAgenda.Evento(ev.Nome, ev.DataInicio, ev.DataFim, ev.Gru
-                //    }
-                //    s.SaveChanges();
-                //}
+                Console.WriteLine("Para carregar eventos, demorou: {0:#,#} ms", sp.ElapsedMilliseconds);
+
+                var eventosRaven = new List<NovaVersaoAgenda.Evento>();
+                using (IDocumentSession s = store.OpenSession())
+                {
+                    foreach (Evento ev in eventos)
+                    {
+                        var grupo = gruposRaven.Where(g => g.Nome == ev.Grupo.Nome).Single();
+                        string descricao = ev.Descricao;
+                        if (descricao != null && descricao.Length > 150) 
+                            descricao = descricao.Substring(0, 150);
+
+                        var evento = new NovaVersaoAgenda.Evento(
+                            ev.Nome, 
+                            descricao, 
+                            ev.DataInicio, 
+                            ev.DataFim, 
+                            grupo, 
+                            DeParaTipoEvento(ev.Tipo));
+                        s.Store(evento);
+                        eventosRaven.Add(evento);
+                    }
+                    s.SaveChanges();
+                }
+                Console.WriteLine("Eventos: " + eventos.Count());
+                #endregion
             }
-            Console.WriteLine(sp.Elapsed);
+            
+        }
+
+        private static NovaVersaoAgenda.TipoEventoEnum DeParaTipoEvento(int idTipo)
+        {
+            var dePara = new Dictionary<int, NovaVersaoAgenda.TipoEventoEnum> { 
+                {1, NovaVersaoAgenda.TipoEventoEnum.Comum},
+                {2, NovaVersaoAgenda.TipoEventoEnum.Paroquial},
+                {3, NovaVersaoAgenda.TipoEventoEnum.Sacramento},
+                {4, NovaVersaoAgenda.TipoEventoEnum.GrandeMovimentoDePessoas},
+                {5, NovaVersaoAgenda.TipoEventoEnum.Comum},
+            };
+            return dePara[idTipo];
         }
 
         private static string DeParaGrupoEmail(short gID)

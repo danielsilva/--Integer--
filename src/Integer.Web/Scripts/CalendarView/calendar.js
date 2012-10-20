@@ -4,6 +4,28 @@ Ext.onReady(function () {
     var calendarWidth = 810;
     var startDate = new Date();
 
+//    Extensible.calendar.data.EventMappings = {
+//        EventId: { name: 'id', mapping: 'Id', type: 'int' },
+//        CalendarId: { name:    'CalendarId', mapping: 'cid', type:    'string' },
+//        Title: { name: 'nomeEvento', mapping: 'Nome' },
+//        StartDate: { name: 'start', mapping: 'DataInicio', type: 'date', dateFormat: 'c' },
+//        EndDate: { name: 'end', mapping: 'DataFim', type: 'date', dateFormat: 'c' },
+//        RRule:  { name: 'RecurRule', mapping: 'recur_rule'},
+//        Location: { name: 'locaisReservados', mapping: 'Locais' },
+//        Notes: { name: 'desc', mapping: 'Descricao' },
+//        Url: { name: 'LinkUrl', mapping: 'link_url'},
+//        IsAllDay: { name: 'AllDay', mapping: 'all_day', type: 'boolean'},
+//        Reminder: { name: 'Reminder', mapping: 'reminder'},
+//        
+//        Group: { name: 'grupo', mapping: 'Grupo' }
+//    };
+//    Extensible.calendar.data.EventModel.reconfigure();
+
+    Extensible.calendar.data.EventMappings.Description = { name: 'Description', mapping: 'description', type: 'string' };
+    Extensible.calendar.data.EventMappings.Location = { name: 'Location', mapping: 'location', type: 'string' };
+    Extensible.calendar.data.EventMappings.Group = { name: 'Group', mapping: 'group', type: 'string' };
+    Extensible.calendar.data.EventModel.reconfigure();
+
     var eventStore = Ext.create('Extensible.calendar.data.EventStore', {
         autoLoad: true,
         proxy: {
@@ -73,9 +95,34 @@ Ext.onReady(function () {
                     return false;
                 },
                 scope: this
+            },
+            'eventover': {
+                fn: function (cal, ev, el) {
+                    var jEl = $(el.dom);
+
+                    var elPos = jEl.offset().left;
+                    var windowCenter = ($(window).width() - jEl.outerWidth()) / 2;
+                    var overCenter = elPos > windowCenter;
+                    var popoverPos = overCenter ? 'left' : 'right';
+                    
+                    jEl.popover({
+                        title: ev.data.Title,
+                        content: getPopoverContent(ev.data),
+                        placement: popoverPos,
+                        selector: el.id
+                    });
+                    jEl.popover('show');
+                },
+                scope: this
+            },
+            'eventout': {
+                fn: function (cal, ev, el) {
+                    $(el.dom).popover('hide');
+                },
+                scope: this
             }
         }
-    }); 
+    });
 
     $("#calendarTitle").width(calendarWidth);
     $("#divCalendar").width(calendarWidth);
@@ -95,4 +142,25 @@ function reloadCalendar() {
 function configureCalendarReadOnly(readOnly) {
     if (calendarPanel) 
         calendarPanel.readOnly = readOnly;
+}
+
+function getPopoverContent(event) {
+    var start = event.StartDate.getHours() + ":" + (event.StartDate.getMinutes() < 10 ? ('0' + event.StartDate.getMinutes()) : event.StartDate.getMinutes());
+    var end = event.EndDate.getHours() + ":" + (event.EndDate.getMinutes() < 10 ? ('0' + event.EndDate.getMinutes()) : event.EndDate.getMinutes());
+
+    var dateString = start + ' até ' + end;
+
+    var oneDay = 1000 * 60 * 60 * 24;
+    var longDaysEvent = Math.ceil((event.EndDate.getTime() - event.StartDate.getTime()) / (oneDay)) > 1;
+
+    if (longDaysEvent) {
+        start = $.datepicker.formatDate('dd/mm/yy ', event.StartDate) + start;
+        end = $.datepicker.formatDate('dd/mm/yy ', event.EndDate) + end;
+        dateString = start + ' até <br/>' + end;
+    }
+
+    return '<label><b>' + dateString + '</b></label> \
+            <label>' + event.Description + '</label> \
+            <br/> \
+            <label><i>' + event.Group + '</i></label>';
 }

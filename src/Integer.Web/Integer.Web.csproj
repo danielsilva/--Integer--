@@ -225,6 +225,7 @@
     <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
     <Compile Include="Infra\EmailAttribute.cs" />
+    <Compile Include="Infra\Raven\EventoDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\TipoEventoDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\LocalDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\UsuarioDocumentSessionExtensions.cs" />

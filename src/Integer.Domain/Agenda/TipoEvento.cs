@@ -9,6 +9,6 @@ namespace Integer.Domain.Agenda
     {
         public string Id { get; set; }
         public string Nome { get; set; }
-        public int NivelPrioridade { get; set; }
+        //public int NivelPrioridade { get; set; }
     }
 }

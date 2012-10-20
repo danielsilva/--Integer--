@@ -37,10 +37,7 @@ namespace Integer.Web.Controllers
         [HttpGet]
         public JsonResult Eventos(DateTime startDate, DateTime endDate) 
         {
-            var eventos = RavenSession.Query<Evento>().Where(e => e.Estado == EstadoEventoEnum.Agendado
-                                                                    && (startDate <= e.DataInicio || startDate <= e.DataFim
-                                                                        || endDate >= e.DataInicio || endDate >= e.DataFim)).ToList();
-
+            var eventos = RavenSession.ObterEventos(startDate, endDate);
             return Json(new { Eventos = eventos.MapTo<EventoForCalendarioViewModel>() }, JsonRequestBehavior.AllowGet);
         }
 

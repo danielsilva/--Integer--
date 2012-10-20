@@ -15,6 +15,8 @@ namespace Integer.Web.Infra.AutoMapper.Profiles
             Mapper.CreateMap<Evento, EventoForCalendarioViewModel>()
                 .ForMember(x => x.id, o => o.MapFrom(m => m.Id))
                 .ForMember(x => x.title, o => o.MapFrom(m => m.Nome))
+                .ForMember(x => x.description, o => o.MapFrom(m => m.Descricao))
+                .ForMember(x => x.group, o => o.MapFrom(m => m.Grupo.Nome))
                 .ForMember(x => x.start, o => o.MapFrom(m => m.DataInicio.ToUniversalTime().ToString("o")))
                 .ForMember(x => x.end, o => o.MapFrom(m => m.DataFim.ToUniversalTime().ToString("o")));
         }
