@@ -20,9 +20,9 @@ namespace Integer.Infrastructure.Repository
 
         public IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao)
         {
-            var filtro = condicao.And(e => e.Estado != EstadoEventoEnum.Cancelado);
-
-            var ev = documentSession.Query<Evento>().Where(filtro).ToList();
+            var ev = documentSession.Query<Evento>()
+                .Where(e => e.Estado != EstadoEventoEnum.Cancelado)
+                .Where(condicao).ToList();
 
             return ev;
         }

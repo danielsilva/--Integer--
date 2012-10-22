@@ -270,17 +270,17 @@ namespace Integer.Domain.Agenda
 
         public bool PossuiConflitoDeHorarioCom(Evento outroEvento)
         {
-            return Evento.MontarVerificacaoDeConflitoDeHorario().Compile()(this, outroEvento.DataInicio, outroEvento.DataFim);
+            return Evento.MontarVerificacaoDeConflitoDeHorario(outroEvento.DataInicio, outroEvento.DataFim).Compile()(this);
         }
 
-        public static Expression<Func<Evento, DateTime, DateTime, bool>> MontarVerificacaoDeConflitoDeHorario() 
+        public static Expression<Func<Evento, bool>> MontarVerificacaoDeConflitoDeHorario(DateTime inicio, DateTime fim) 
         {
-            //DateTime dataInicioComIntervaloMinimo = this.DataInicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
-            //DateTime dataFimComIntervaloMinimo = this.DataFim.Add(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            DateTime inicioComIntervaloMinimo = inicio.Subtract(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
+            DateTime fimComIntervaloMinimo = fim.Add(Horario.INTERVALO_MINIMO_ENTRE_EVENTOS_E_RESERVAS);
 
-            return ((e, inicio, fim) => (e.DataInicio <= inicio && inicio <= e.DataFim)
-                        || (e.DataInicio <= fim && fim <= e.DataFim)
-                        || (inicio <= e.DataInicio && e.DataFim <= fim));
+            return ((e) => (e.DataInicio <= inicioComIntervaloMinimo && inicioComIntervaloMinimo <= e.DataFim)
+                        || (e.DataInicio <= fimComIntervaloMinimo && fimComIntervaloMinimo <= e.DataFim)
+                        || (inicioComIntervaloMinimo <= e.DataInicio && e.DataFim <= fimComIntervaloMinimo));
         }
 
         public bool VerificarSeReservasPossuemConflito(IEnumerable<Reserva> outrasReservas)
