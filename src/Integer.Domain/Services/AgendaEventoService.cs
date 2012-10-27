@@ -31,10 +31,8 @@ namespace Integer.Domain.Services
 
         private void VerificaSeConflitaComEventoParoquial(Evento novoEvento)
         {
-            IEnumerable<Evento> eventosParoquiaisEmConflito 
-                = eventos.Todos(
-                Evento.MontarVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim)
-                .And(e => e.Tipo == TipoEventoEnum.Paroquial));
+            IEnumerable<Evento> eventosParoquiaisEmConflito = eventos.Todos(Evento.MontarVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim))
+                .Where(e => e.Tipo == TipoEventoEnum.Paroquial).ToList();
 
             if (eventosParoquiaisEmConflito.Count() > 0)
                 throw new EventoParoquialExistenteException(eventosParoquiaisEmConflito);
@@ -42,10 +40,8 @@ namespace Integer.Domain.Services
 
         private void DesmarcaEventosNaoParoquiaisDaMesmaData(Evento novoEvento)
         {
-            var eventosNaoParoquiaisEmConflito = eventos.Todos(e => e.Tipo != TipoEventoEnum.Paroquial
-                && (e.DataInicio <= novoEvento.DataInicio && novoEvento.DataInicio <= e.DataFim)
-                        || (e.DataInicio <= novoEvento.DataFim && novoEvento.DataFim <= e.DataFim)
-                        || (novoEvento.DataInicio <= e.DataInicio && e.DataFim <= novoEvento.DataFim));
+            var eventosNaoParoquiaisEmConflito = eventos.Todos(Evento.MontarVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim))
+                .Where(e => e.Tipo != TipoEventoEnum.Paroquial).ToList();
             foreach (Evento eventoNaoParoquial in eventosNaoParoquiaisEmConflito)
             {
                 eventoNaoParoquial.AdicionarConflito(novoEvento, MotivoConflitoEnum.ExisteEventoParoquialNaData);
@@ -54,20 +50,19 @@ namespace Integer.Domain.Services
 
         private void VerificaDisponibilidadeDeLocais(Evento novoEvento)
         {
-            //Func<Evento, bool> verificaQueReservouLocalNoMesmoHorario = CriarCondicaoParaVerificarReservaDeLocal(novoEvento);
-            //IEnumerable<Evento> eventosQueReservaramLocalNoMesmoHorario = eventos.Todos(e => verificaQueReservouLocalNoMesmoHorario(e));
+            IEnumerable<Evento> eventosQueReservaramLocalNoMesmoHorario = eventos.QueReservaramOMesmoLocal(novoEvento);
 
-            //IList<Evento> eventosPrioritarios = new List<Evento>();
-            //foreach (Evento eventoQueReservouLocal in eventosQueReservaramLocalNoMesmoHorario)
-            //{
-            //    if (eventoQueReservouLocal.PossuiPrioridadeSobre(novoEvento)) 
-            //        eventosPrioritarios.Add(eventoQueReservouLocal);
-            //    else
-            //        eventoQueReservouLocal.AdicionarConflito(novoEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
-            //}
+            IList<Evento> eventosPrioritarios = new List<Evento>();
+            foreach (Evento eventoQueReservouLocal in eventosQueReservaramLocalNoMesmoHorario)
+            {
+                if (eventoQueReservouLocal.PossuiPrioridadeSobre(novoEvento))
+                    eventosPrioritarios.Add(eventoQueReservouLocal);
+                else
+                    eventoQueReservouLocal.AdicionarConflito(novoEvento, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
+            }
 
-            //if (eventosPrioritarios.Count > 0)
-            //    throw new LocalReservadoException(eventosPrioritarios);
+            if (eventosPrioritarios.Count > 0)
+                throw new LocalReservadoException(eventosPrioritarios);
         }
 
         private Func<Evento, bool> CriarCondicaoParaVerificarReservaDeLocal(Evento novoEvento) 

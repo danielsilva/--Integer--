@@ -72,12 +72,16 @@ function configureEventForm() {
                 })
                 .error(function (data) {
                     var responseMessage = data.responseText;
-                    errorMessage = JSON.parse(responseMessage).ErrorMessage;
+                    try {
+                        errorMessage = JSON.parse(responseMessage).ErrorMessage;
+                    } catch (err) {
+                        errorMessage = 'Ocorreu um erro inesperado.';
+                    }
                     $("#msgPanel").html('<div id="msgAlert" class="alert"> \
-                                            <button type="button" class="close" data-dismiss="alert">×</button> \
-                                            <h4 class="alert-heading">Atenção!</h4> \
-                                            <p>' + errorMessage + '</p> \
-                                        </div>');
+                                                <button type="button" class="close" data-dismiss="alert">×</button> \
+                                                <h4 class="alert-heading">Não foi possível agendar o evento</h4> \
+                                                <p>' + errorMessage + '</p> \
+                                            </div>');
                 })
                 .complete(function () {
                     $('#btnSave').button('reset');

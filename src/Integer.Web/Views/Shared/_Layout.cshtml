@@ -74,7 +74,10 @@
 
     <div id="divErro"></div>    
 
-    <link href="Content/jQueryScrollBar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    @MvcHtmlString.Create(Bundle.Css()
+        .Add("~/Content/jQueryScrollBar/jquery.mCustomScrollbar.css")
+        .ForceRelease()
+        .Render("~/Content/squished/squished_jmCustomScrollBar_#.css"))
 
     @RenderSection("Styles", required: false)
     
@@ -85,9 +88,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
     <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="Scripts/jquery-ui-1.8.23.min.js"%3E%3C/script%3E'))</script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/i18n/jquery.ui.datepicker-pt-BR.js" type="text/javascript"></script>
-    
-    <script src="Scripts/Plugins/jQueryScrollBar/jquery.mousewheel.js"></script>
-    <script src="Scripts/Plugins/jQueryScrollBar/jquery.mCustomScrollbar.js"></script>
+
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Plugins/jQueryScrollBar/jquery.mousewheel.js")
+        .Add("~/Scripts/Plugins/jQueryScrollBar/jquery.mCustomScrollbar.js")
+        .ForceRelease()
+        .Render("~/Scripts/squished/squished_jmCustomScrollBar_#.js"))
 
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Plugins/jQueryUITimePicker/jquery-ui-sliderAccess.js")

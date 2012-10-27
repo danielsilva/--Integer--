@@ -7,6 +7,7 @@ using Raven.Client.Document;
 using Raven.Client.Indexes;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
+using Integer.Infrastructure.Repository.Indexes;
 
 namespace Integer.Infrastructure.Repository
 {
@@ -37,6 +38,8 @@ namespace Integer.Infrastructure.Repository
             };
             store.Conventions.SaveEnumsAsIntegers = true;
             store.Initialize();
+
+            IndexCreation.CreateIndexes(typeof(ReservasMap).Assembly, store);
 
             return store;
         }

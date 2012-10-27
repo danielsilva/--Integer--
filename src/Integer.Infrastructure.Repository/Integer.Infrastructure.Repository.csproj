@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indexes\ReservasMap.cs" />
     <Compile Include="LocalRepository.cs" />
     <Compile Include="GrupoRepository.cs" />
     <Compile Include="EventoRepository.cs" />
@@ -115,9 +116,7 @@
       <Name>Integer.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Indexes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

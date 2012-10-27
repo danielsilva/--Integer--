@@ -11,16 +11,8 @@ namespace Integer.Domain.Agenda
         IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao);
         IEnumerable<Evento> QuePossuemConflitosCom(Evento evento);
         IEnumerable<Evento> QuePossuemConflitoCom(Evento evento, MotivoConflitoEnum motivoConflitoEnum);
+        IEnumerable<Evento> QueReservaramOMesmoLocal(Evento evento);
 
         void Salvar(Evento evento);
-
-        IEnumerable<Evento> ObterEventosAgendadosDoDia(DateTime dataReferencia, string idGrupo);
-        IEnumerable<Evento> ObterTodosEventosDoDia(DateTime dataReferencia, string idGrupo);
-
-        IEnumerable<Evento> ObterTodosEventosDaSemana(DateTime primeiroDiaDaSemana, DateTime ultimoDiaDaSemana, string idGrupo);
-        IEnumerable<Evento> ObterEventosAgendadosDaSemana(DateTime primeiroDiaDaSemana, DateTime ultimoDiaDaSemana, string idGrupo);
-
-        IEnumerable<Evento> ObterTodosEventosDoMes(DateTime dataReferencia, string idGrupo);
-        IEnumerable<Evento> ObterEventosAgendadosDoMes(DateTime dataReferencia, string idGrupo);
     }
 }

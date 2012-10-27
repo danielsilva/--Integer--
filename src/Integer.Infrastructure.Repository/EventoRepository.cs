@@ -42,53 +42,32 @@ namespace Integer.Infrastructure.Repository
             return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Equals(evento) && c.Motivo == motivo));
         }
 
-        public IEnumerable<Evento> ObterTodosEventosDoMes(DateTime data, string idGrupo)
+        public IEnumerable<Evento> QueReservaramOMesmoLocal(Evento evento)
         {
-            Expression<Func<Evento, bool>> predicate = PredicateBuilder.InitializeWithTrue<Evento>();
-            if (!String.IsNullOrEmpty(idGrupo))
+            var query = documentSession.Advanced.LuceneQuery<Evento>("ReservasMap");
+
+            query = query.OpenSubclause();
+            for (int i = 0; i < evento.Reservas.Count(); i++)
             {
-                predicate = predicate.And(e => e.Grupo.Id == idGrupo);
+                var reserva = evento.Reservas.ToList()[i];
+                query = query
+                    .WhereEquals("IdLocal", reserva.Local.Id)
+                    .AndAlso().WhereEquals("Data", reserva.Data)
+                    .AndAlso().OpenSubclause();
+
+                for (int j = 0; j < reserva.Hora.Count; j++)
+                {
+                    query = query.WhereEquals("Hora", (int)reserva.Hora[j]);
+                    if (j + 1 < reserva.Hora.Count)
+                        query = query.OrElse();
+                }
+                query = query.CloseSubclause().CloseSubclause();
+
+                if (i + 1 < evento.Reservas.Count())
+                    query = query.OrElse().OpenSubclause();
             }
-            return documentSession.Query<Evento>().Where(predicate.And(e => e.Estado != EstadoEventoEnum.Cancelado
-                                                                            && (e.DataInicio.Month == data.Month || e.DataFim.Month == data.Month))).ToList();
-        }
 
-        public IEnumerable<Evento> ObterTodosEventosDaSemana(DateTime dataInicio, DateTime dataFim, string idGrupo)
-        {
-            Expression<Func<Evento, bool>> predicate = PredicateBuilder.InitializeWithTrue<Evento>();
-            if (!String.IsNullOrEmpty(idGrupo))
-            {
-                predicate = predicate.And(e => e.Grupo.Id == idGrupo);
-            }
-            return documentSession.Query<Evento>().Where(predicate.And(e => e.Estado != EstadoEventoEnum.Cancelado
-                                                                            && (dataInicio < e.DataInicio || dataInicio < e.DataFim
-                                                                                || e.DataInicio < dataFim || e.DataFim < dataFim)));
-        }
-
-        public IEnumerable<Evento> ObterTodosEventosDoDia(DateTime data, string idGrupo)
-        {
-            Expression<Func<Evento, bool>> predicate = PredicateBuilder.InitializeWithTrue<Evento>();
-            if (!String.IsNullOrEmpty(idGrupo))
-            {
-                predicate = predicate.And(e => e.Grupo.Id == idGrupo);
-            }
-            return documentSession.Query<Evento>().Where(predicate.And(e => e.Estado != EstadoEventoEnum.Cancelado
-                                                                        && (e.DataInicio.Day == data.Day || e.DataFim.Day == data.Day)));
-        }
-
-        public IEnumerable<Evento> ObterEventosAgendadosDoMes(DateTime data, string idGrupo)
-        {
-            return ObterTodosEventosDoMes(data, idGrupo).Where(e => e.Estado == EstadoEventoEnum.Agendado);
-        }
-
-        public IEnumerable<Evento> ObterEventosAgendadosDaSemana(DateTime dataInicio, DateTime dataFim, string idGrupo)
-        {
-            return ObterTodosEventosDaSemana(dataInicio, dataFim, idGrupo).Where(e => e.Estado == EstadoEventoEnum.Agendado);
-        }
-
-        public IEnumerable<Evento> ObterEventosAgendadosDoDia(DateTime data, string idGrupo)
-        {
-            return ObterTodosEventosDoDia(data, idGrupo).Where(e => e.Estado == EstadoEventoEnum.Agendado);
+            return query.ToList();
         }
     }
 }
