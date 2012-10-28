@@ -39,9 +39,7 @@ namespace Integer.Web.Controllers
         {
             var eventos = RavenSession.ObterEventos(startDate, endDate);
             return Json(new { Eventos = eventos.MapTo<EventoForCalendarioViewModel>() }, JsonRequestBehavior.AllowGet);
-        }
-
-        
+        }        
 
         [HttpPost]
         public JsonResult Salvar(EventoViewModel input) 

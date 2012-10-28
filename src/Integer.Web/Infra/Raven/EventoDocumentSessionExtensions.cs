@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raven.Client;
-using Integer.Domain.Paroquia;
+using Integer.Domain.Agenda;
 
 namespace Integer.Web.Infra.Raven
 {
-    public static class GrupoDocumentSessionExtensions
+    public static class EventoDocumentSessionExtensions
     {
-        public static Grupo ObterGrupoPorEmail(this IDocumentSession session, string email)
+        public static IEnumerable<Evento> ObterEventos(this IDocumentSession session, DateTime inicio, DateTime fim)
         {
-            return session.Query<Grupo>().FirstOrDefault(g => g.Email == email);
+            var eventos = new List<Evento>();
+            eventos = session.Query<Evento>().Where(e => e.Estado == EstadoEventoEnum.Agendado
+                                                                && ((inicio <= e.DataInicio && e.DataInicio <= fim)
+                                                                    || (inicio <= e.DataFim && e.DataFim <= fim))).ToList();
+            return eventos;
         }
     }
 }

@@ -56,18 +56,28 @@ function configureEventForm() {
                 $('#btnSave').button('loading');
 
                 $.post("/Calendario/Salvar", $(form).serialize())
-                .success(function () {
-                    $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
-                                            <h4 class="alert-heading">Evento agendado com sucesso!</h4> \
-                                            <p></p> \
-                                            <p> \
-                                                <button type="button" id="btnScheduleOther" class="btn btn-info">Agendar outro</button> \
-                                                <button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Fechar</button> \
-                                            </p> \
-                                        </div>');
+                .success(function (response) {
+                    var txtId = $("#txtIdEvento");
+                    if (txtId.val() == "") {
+                        $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
+                                                <h4 class="alert-heading">Evento agendado com sucesso!</h4> \
+                                                <p></p> \
+                                                <p> \
+                                                    <button type="button" id="btnScheduleOther" class="btn btn-info">Agendar outro</button> \
+                                                    <button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Fechar</button> \
+                                                </p> \
+                                            </div>');
+                    }
+                    else {
+                        $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
+                                                <h4 class="alert-heading">Evento alterado com sucesso!</h4> \
+                                            </div>');
+                    }
+
                     $("#btnScheduleOther, #btnCloseScheduler").click(function () {
                         clearFormEvent();
                     });
+                    txtId.val(response.Id);
                     reloadCalendar();
                 })
                 .error(function (data) {
