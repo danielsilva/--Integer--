@@ -5,7 +5,7 @@ Ext.onReady(function () {
     var startDate = new Date();
 
     Extensible.calendar.data.EventMappings = {
-        EventId: { name: 'ID', mapping: 'Id' },
+        EventId: { name: 'Id', mapping: 'Id' },
         CalendarId: { name: 'CalID', mapping: 'cal_id', type: 'int' },
         Title: { name: 'Nome', mapping: 'Nome' },
         StartDate: { name: 'DataInicio', mapping: 'DataInicio', type: 'date', dateFormat: 'c' },

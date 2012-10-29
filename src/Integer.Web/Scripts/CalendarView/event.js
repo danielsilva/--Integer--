@@ -125,12 +125,20 @@ function configureReservedLocals() {
 }
 
 function addReservedLocalItem(reserve) {
+    var selectLocal = $('<select id="ddlLocal" class="span3 localId">' + existingLocals.join('') + '</select>');
+    selectLocal.val(reserve.LocalId);
+
+    var selectLocalWrapper = $('<p></p>');    
+    selectLocalWrapper.html(selectLocal);
+
+    console.log(reserve);
+
     $('#reservedLocals .mCSB_container')
             .append('<div class="row reserved-local" style="position:relative;"> \
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
                         <label for="ddlLocal">Local</label> \
-                        <select id="ddlLocal" class="span3 localId">' + existingLocals.join('') + '</select> \
+                        <div>' + selectLocalWrapper.html() + '</div> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
                         <label for="txtDate">Dia</label> \
@@ -297,7 +305,7 @@ function showFormEvent(event) {
     $('#divFormEvent').modal('show');
     if (event !== undefined) {
         $.each(event.data, function (key, value) {
-            var element = $("#frmEvent").find("[name='" + key + "']");
+            var element = $("#frmEvent").find("[name='" + key + "']"); 
             if (element.hasClass('datetimeField'))
                 element.datetimepicker('setDate', value);
             else
