@@ -4,26 +4,25 @@ Ext.onReady(function () {
     var calendarWidth = 810;
     var startDate = new Date();
 
-//    Extensible.calendar.data.EventMappings = {
-//        EventId: { name: 'id', mapping: 'Id', type: 'int' },
-//        CalendarId: { name:    'CalendarId', mapping: 'cid', type:    'string' },
-//        Title: { name: 'nomeEvento', mapping: 'Nome' },
-//        StartDate: { name: 'start', mapping: 'DataInicio', type: 'date', dateFormat: 'c' },
-//        EndDate: { name: 'end', mapping: 'DataFim', type: 'date', dateFormat: 'c' },
-//        RRule:  { name: 'RecurRule', mapping: 'recur_rule'},
-//        Location: { name: 'locaisReservados', mapping: 'Locais' },
-//        Notes: { name: 'desc', mapping: 'Descricao' },
-//        Url: { name: 'LinkUrl', mapping: 'link_url'},
-//        IsAllDay: { name: 'AllDay', mapping: 'all_day', type: 'boolean'},
-//        Reminder: { name: 'Reminder', mapping: 'reminder'},
-//        
-//        Group: { name: 'grupo', mapping: 'Grupo' }
-//    };
-//    Extensible.calendar.data.EventModel.reconfigure();
+    Extensible.calendar.data.EventMappings = {
+        EventId: { name: 'ID', mapping: 'Id' },
+        CalendarId: { name: 'CalID', mapping: 'cal_id', type: 'int' },
+        Title: { name: 'Nome', mapping: 'Nome' },
+        StartDate: { name: 'DataInicio', mapping: 'DataInicio', type: 'date', dateFormat: 'c' },
+        EndDate: { name: 'DataFim', mapping: 'DataFim', type: 'date', dateFormat: 'c' },
+        RRule: { name: 'RecurRule', mapping: 'recur_rule' },
+        Location: { name: 'Locais', mapping: 'Locais' },
+        Notes: { name: 'Desc', mapping: 'full_desc' },
+        Url: { name: 'LinkUrl', mapping: 'link_url' },
+        IsAllDay: { name: 'AllDay', mapping: 'all_day', type: 'boolean' },
+        Reminder: { name: 'Reminder', mapping: 'reminder' },
 
-    Extensible.calendar.data.EventMappings.Description = { name: 'Description', mapping: 'description', type: 'string' };
-    Extensible.calendar.data.EventMappings.Location = { name: 'Location', mapping: 'location', type: 'string' };
-    Extensible.calendar.data.EventMappings.Group = { name: 'Group', mapping: 'group', type: 'string' };
+        Description: { name: 'Descricao', mapping: 'Descricao' },
+        Group: { name: 'Grupo', mapping: 'Grupo' },
+        GroupId: { name: 'GrupoId', mapping: 'GrupoId' },
+        TypeId: { name: 'Tipo', mapping: 'TipoId' },
+        Reserves: { name: 'Reservas', mapping: 'Reservas' }
+    };
     Extensible.calendar.data.EventModel.reconfigure();
 
     var eventStore = Ext.create('Extensible.calendar.data.EventStore', {
@@ -89,9 +88,7 @@ Ext.onReady(function () {
             'eventclick': {
                 fn: function (cal, ev, el) {
                     if (!calendarPanel.readOnly)
-                        showFormEvent();
-                    else
-                        console.log('popover: ' + ev.id);
+                        showFormEvent(ev);
                     return false;
                 },
                 scope: this
@@ -104,9 +101,8 @@ Ext.onReady(function () {
                     var windowCenter = ($(window).width() - jEl.outerWidth()) / 2;
                     var overCenter = elPos > windowCenter;
                     var popoverPos = overCenter ? 'left' : 'right';
-                    
                     jEl.popover({
-                        title: ev.data.Title,
+                        title: ev.data.Nome,
                         content: getPopoverContent(ev.data),
                         placement: popoverPos,
                         selector: el.id
@@ -145,22 +141,23 @@ function configureCalendarReadOnly(readOnly) {
 }
 
 function getPopoverContent(event) {
-    var start = event.StartDate.getHours() + ":" + (event.StartDate.getMinutes() < 10 ? ('0' + event.StartDate.getMinutes()) : event.StartDate.getMinutes());
-    var end = event.EndDate.getHours() + ":" + (event.EndDate.getMinutes() < 10 ? ('0' + event.EndDate.getMinutes()) : event.EndDate.getMinutes());
+    var start = event.DataInicio.getHours() + ":" + (event.DataInicio.getMinutes() < 10 ? ('0' + event.DataInicio.getMinutes()) : event.DataInicio.getMinutes());
+    var end = event.DataFim.getHours() + ":" + (event.DataFim.getMinutes() < 10 ? ('0' + event.DataFim.getMinutes()) : event.DataFim.getMinutes());
 
     var dateString = start + ' até ' + end;
 
     var oneDay = 1000 * 60 * 60 * 24;
-    var longDaysEvent = Math.ceil((event.EndDate.getTime() - event.StartDate.getTime()) / (oneDay)) > 1;
+    var longDaysEvent = Math.ceil((event.DataFim.getTime() - event.DataInicio.getTime()) / (oneDay)) > 1;
 
     if (longDaysEvent) {
-        start = $.datepicker.formatDate('dd/mm/yy ', event.StartDate) + start;
-        end = $.datepicker.formatDate('dd/mm/yy ', event.EndDate) + end;
+        start = $.datepicker.formatDate('dd/mm/yy ', event.DataInicio) + start;
+        end = $.datepicker.formatDate('dd/mm/yy ', event.DataFim) + end;
         dateString = start + ' até <br/>' + end;
     }
 
     return '<label><b>' + dateString + '</b></label> \
-            <label>' + event.Description + '</label> \
+            <label>' + (event.Descricao != null ? event.Descricao : '') + '</label> \
+            <label>' + (event.Locais != '' ? '<br/>Local: ' + event.Locais : '') + '</label> \
             <br/> \
-            <label><i>' + event.Group + '</i></label>';
+            <label><i>' + event.Grupo + '</i></label>';
 }

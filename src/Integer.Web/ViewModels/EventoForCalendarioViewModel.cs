@@ -7,12 +7,15 @@ namespace Integer.Web.ViewModels
 {
     public class EventoForCalendarioViewModel
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public string group { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
-        public string notes { get; set; }
+        public string Id { get; set; }
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public string GrupoId { get; set; }
+        public string Grupo { get; set; }
+        public string DataInicio { get; set; }
+        public string DataFim { get; set; }
+        public string Locais { get; set; }
+        public string TipoId { get; set; }
+        public IEnumerable<ReservaDeLocalViewModel> Reservas { get; set; }
     }
 }

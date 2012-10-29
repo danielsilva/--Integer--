@@ -119,49 +119,49 @@ function configureReservedLocals() {
     })
     .mCustomScrollbar("update");
 
-    var i = 0;
     $("#btnReserveLocal").click(function () {
-        $('#reservedLocals .mCSB_container')
+        addReservedLocalItem();
+    });
+}
+
+function addReservedLocalItem(reserve) {
+    $('#reservedLocals .mCSB_container')
             .append('<div class="row reserved-local" style="position:relative;"> \
                     <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
                     <div class="span3"> \
-                        <label for="ddlLocal' + i + '">Local</label> \
-                        <select id="ddlLocal' + i + '" class="span3 localId"> </select> \
+                        <label for="ddlLocal">Local</label> \
+                        <select id="ddlLocal" class="span3 localId">' + existingLocals.join('') + '</select> \
                     </div> \
                     <div class="span1" style="width:95px;"> \
-                        <label for="txtDate' + i + '">Dia</label> \
-                        <input id="txtDate' + i + '" type="text" class="dateField span1 localDate" /> \
+                        <label for="txtDate">Dia</label> \
+                        <input id="txtDate" type="text" class="dateField span1 localDate" /> \
                     </div> \
                     <div id="timeContainer" class="span2" style="margin-left:10px;width:130px;"> \
-                        <label for="ddlTime' + i + '" style="width:100%;font-size:12px;">&nbsp;</label> \
-                        <select id="ddlTime' + i + '" class="timeSelection" multiple="multiple" style="display:none;" > \
+                        <label for="ddlTime" style="width:100%;font-size:12px;">&nbsp;</label> \
+                        <select id="ddlTime" class="timeSelection" multiple="multiple" style="display:none;" > \
                             <option value="1"></option> \
                             <option value="2"></option> \
                             <option value="3"></option> \
                         </select> \
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
-                            <button type="button" id="timeSelectMorning' + i + '" data-timeSelect="1" class="btn btn-small">Manhã</button> \
-                            <button type="button" id="timeSelectAfternoon' + i + '" data-timeSelect="2" class="btn btn-small">Tarde</button> \
-                            <button type="button" id="timeSelectEvening' + i + '" data-timeSelect="3" class="btn btn-small">Noite</button> \
+                            <button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small">Manhã</button> \
+                            <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small">Tarde</button> \
+                            <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</button> \
                         </div> \
                     </div> \
                 </div>')
                 .show('slow');
-        validateReservedLocalsCount();
-        $("select[id='ddlLocal" + i + "']").html(existingLocals.join(''));
+    validateReservedLocalsCount();
 
-        $(".removeLocal").click(function () {
-            $(this).closest("div").remove();
-            configureReservedLocalsScrollBar();
-            configureReservedLocalsFields();
-        });
-
-        configureReservedLocalsFields();
-        configureReservedLocalsValidation();
+    $(".removeLocal").click(function () {
+        $(this).closest("div").remove();
         configureReservedLocalsScrollBar();
-        
-        i++;
+        configureReservedLocalsFields();
     });
+
+    configureReservedLocalsFields();
+    configureReservedLocalsValidation();
+    configureReservedLocalsScrollBar();
 }
 
 function configureReservedLocalsValidation() {
@@ -293,6 +293,18 @@ function clearFormEvent() {
     $("#msgPanel").html('');
 }
 
-function showFormEvent() {
+function showFormEvent(event) {
     $('#divFormEvent').modal('show');
+    if (event !== undefined) {
+        $.each(event.data, function (key, value) {
+            var element = $("#frmEvent").find("[name='" + key + "']");
+            if (element.hasClass('datetimeField'))
+                element.datetimepicker('setDate', value);
+            else
+                element.val(value);
+        });
+        $.each(event.data.Reservas, function (i, reserve) {
+            addReservedLocalItem(reserve);
+        });
+    }
 }

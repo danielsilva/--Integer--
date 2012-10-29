@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using Integer.Web.ViewModels;
 using Integer.Domain.Agenda;
+using System.Text;
 
 namespace Integer.Web.Infra.AutoMapper.Profiles
 {
@@ -13,12 +14,38 @@ namespace Integer.Web.Infra.AutoMapper.Profiles
         protected override void Configure()
         {
             Mapper.CreateMap<Evento, EventoForCalendarioViewModel>()
-                .ForMember(x => x.id, o => o.MapFrom(m => m.Id))
-                .ForMember(x => x.title, o => o.MapFrom(m => m.Nome))
-                .ForMember(x => x.description, o => o.MapFrom(m => m.Descricao))
-                .ForMember(x => x.group, o => o.MapFrom(m => m.Grupo.Nome))
-                .ForMember(x => x.start, o => o.MapFrom(m => m.DataInicio.ToUniversalTime().ToString("o")))
-                .ForMember(x => x.end, o => o.MapFrom(m => m.DataFim.ToUniversalTime().ToString("o")));
+                .ForMember(x => x.TipoId, o => o.MapFrom(m => (int)m.Tipo))
+                .ForMember(x => x.DataInicio, o => o.MapFrom(m => m.DataInicio.ToUniversalTime().ToString("o")))
+                .ForMember(x => x.DataFim, o => o.MapFrom(m => m.DataFim.ToUniversalTime().ToString("o")))
+                .ForMember(x => x.Locais, o => o.MapFrom(m => ExtrairLocaisDasReservas(m)))
+                .ForMember(x => x.GrupoId, o => o.MapFrom(m => m.Grupo.Id))
+                .ForMember(x => x.Grupo, o => o.MapFrom(m => m.Grupo.Nome))
+                .ForMember(x => x.Reservas, o => o.MapFrom(m => ExtrairReservas(m.Reservas)));
+        }
+
+        private string ExtrairLocaisDasReservas(Evento evento) 
+        {
+            StringBuilder locais = new StringBuilder();
+            foreach (var reserva in evento.Reservas)
+            {
+                var separador = (locais.Length > 0 ? ", " : "");
+                locais.Append(separador + reserva.Local.Nome);
+            }
+            return locais.ToString();
+        }
+
+        private IEnumerable<ReservaDeLocalViewModel> ExtrairReservas(IEnumerable<Reserva> reservas)
+        {
+            var reservasModel = new List<ReservaDeLocalViewModel>();
+            foreach (var reserva in reservas)
+            {
+                reservasModel.Add(new ReservaDeLocalViewModel { 
+                    LocalId = reserva.Local.Id,
+                    Data = reserva.Data,
+                    Hora = reserva.Hora
+                });
+            }
+            return reservasModel;
         }
     }
 }
