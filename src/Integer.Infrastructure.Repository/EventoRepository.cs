@@ -34,12 +34,12 @@ namespace Integer.Infrastructure.Repository
         
         public IEnumerable<Evento> QuePossuemConflitosCom(Evento evento)
         {
-            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Equals(evento)));
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Id.Equals(evento.Id)));
         }
 
         public IEnumerable<Evento> QuePossuemConflitoCom(Evento evento, MotivoConflitoEnum motivo)
         {
-            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Equals(evento) && c.Motivo == motivo));
+            return documentSession.Query<Evento>().Where(e => e.Conflitos.Any(c => c.Evento.Id.Equals(evento.Id) && c.Motivo == motivo));
         }
 
         public IEnumerable<Evento> QueReservaramOMesmoLocal(Evento evento)
@@ -51,6 +51,7 @@ namespace Integer.Infrastructure.Repository
             {
                 var reserva = evento.Reservas.ToList()[i];
                 query = query
+                    .Not.WhereEquals("Id", evento.Id)
                     .WhereEquals("IdLocal", reserva.Local.Id)
                     .AndAlso().WhereEquals("Data", reserva.Data)
                     .AndAlso().OpenSubclause();

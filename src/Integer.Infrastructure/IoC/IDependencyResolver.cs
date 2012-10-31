@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Integer.Infrastructure.IoC
 {
-    public interface IDependencyResolver
-    {
-        T Resolve<T>();
-        T Resolve<T>(string name);
-        IEnumerable<T> ResolveAll<T>();
-    }
+    //public interface IDependencyResolver
+    //{
+    //    T Resolve<T>();
+    //    T Resolve<T>(string name);
+    //    IEnumerable<T> ResolveAll<T>();
+    //}
 }

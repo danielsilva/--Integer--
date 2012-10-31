@@ -70,7 +70,7 @@ function configureEventForm() {
                     }
                     else {
                         $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
-                                                <h4 class="alert-heading">Evento alterado com sucesso!</h4> \
+                                                <h4 class="alert-heading pull-left">Evento alterado com sucesso!</h4>&nbsp;<button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Ok</button> \
                                             </div>');
                     }
 
@@ -125,13 +125,30 @@ function configureReservedLocals() {
 }
 
 function addReservedLocalItem(reserve) {
+    
     var selectLocal = $('<select id="ddlLocal" class="span3 localId">' + existingLocals.join('') + '</select>');
-    selectLocal.val(reserve.LocalId);
+    var date = $('<input id="txtDate" type="text" class="dateField span1 localDate" />');
+    var time = $('<p><button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small">Manhã</button> \
+                 <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small">Tarde</button> \
+                 <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</p>');
+    var ddlTime = $('<select id="ddlTime" class="timeSelection" multiple="multiple" style="display:none;" > \
+                        <option value="1"></option> \
+                        <option value="2"></option> \
+                        <option value="3"></option> \
+                    </select>');
 
-    var selectLocalWrapper = $('<p></p>');    
-    selectLocalWrapper.html(selectLocal);
-
-    console.log(reserve);
+    if (reserve) {
+        selectLocal.find("option[value='" + reserve.LocalId + "']").attr("selected", "selected");
+        date = $('<input id="txtDate" type="text" class="dateField span1 localDate" value="' + reserve.DataUtc + '" />');
+        $.each(reserve.Hora, function (i, hora) {
+            time.find("[data-timeSelect=" + hora + "]").addClass("active");
+            ddlTime.find('option[value=' + hora + ']').attr('selected', 'selected');
+        });
+    }
+    
+    var selectLocalWrapper = $('<p></p>').html(selectLocal);
+    var dateWrapper = $('<p></p>').html(date);
+    var ddlTimeWrapper = $('<p></p>').html(ddlTime);
 
     $('#reservedLocals .mCSB_container')
             .append('<div class="row reserved-local" style="position:relative;"> \
@@ -142,23 +159,16 @@ function addReservedLocalItem(reserve) {
                     </div> \
                     <div class="span1" style="width:95px;"> \
                         <label for="txtDate">Dia</label> \
-                        <input id="txtDate" type="text" class="dateField span1 localDate" /> \
+                        <div>' + dateWrapper.html() + '</div> \
                     </div> \
                     <div id="timeContainer" class="span2" style="margin-left:10px;width:130px;"> \
                         <label for="ddlTime" style="width:100%;font-size:12px;">&nbsp;</label> \
-                        <select id="ddlTime" class="timeSelection" multiple="multiple" style="display:none;" > \
-                            <option value="1"></option> \
-                            <option value="2"></option> \
-                            <option value="3"></option> \
-                        </select> \
-                        <div class="btn-group clearfix" data-toggle="buttons-checkbox"> \
-                            <button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small">Manhã</button> \
-                            <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small">Tarde</button> \
-                            <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</button> \
-                        </div> \
+                        <div>' + ddlTimeWrapper.html() + '</div> \
+                        <div class="btn-group clearfix" data-toggle="buttons-checkbox">' + time.html() + '</div> \
                     </div> \
                 </div>')
                 .show('slow');
+
     validateReservedLocalsCount();
 
     $(".removeLocal").click(function () {
@@ -181,7 +191,7 @@ function configureReservedLocalsValidation() {
     $(".localDate").each(function () {
         $(this).rules('add', {
             required: true,
-            dateBR: true
+            //dateBR: true
         })
     });
     $(".timeSelection").each(function () {
@@ -294,6 +304,7 @@ function clearFormEvent() {
             case 'select-one':
             case 'text':
             case 'textarea':
+            case 'hidden':
                 $(this).val('');
         }
     });

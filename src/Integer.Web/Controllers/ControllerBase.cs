@@ -39,7 +39,7 @@ namespace Integer.Web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            RavenSession = (IDocumentSession)HttpContext.Items["CurrentRequestRavenSession"];
+            RavenSession = MvcApplication.CurrentSession;
         }
 
         protected override void OnException(ExceptionContext filterContext)

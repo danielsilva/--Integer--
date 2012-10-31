@@ -14,14 +14,14 @@ namespace Integer.Domain.Agenda
         public IList<HoraReservaEnum> Hora { get; set; }
         public DenormalizedReference<Local> Local { get; private set; }
 
-        public Reserva(Local local, DateTime data, IList<HoraReservaEnum> hora)
+        public Reserva(DenormalizedReference<Local> local, DateTime data, IList<HoraReservaEnum> hora)
         {
             PreencherLocal(local);
             Data = data;
             Hora = hora;
         }
 
-        private void PreencherLocal(Local local)
+        private void PreencherLocal(DenormalizedReference<Local> local)
         {
             #region pré-condição
 

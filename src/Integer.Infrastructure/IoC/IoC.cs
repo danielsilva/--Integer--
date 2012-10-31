@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace Integer.Infrastructure.IoC
 {
@@ -24,17 +25,12 @@ namespace Integer.Infrastructure.IoC
 
         public static T Resolve<T>()
         {
-            return resolver.Resolve<T>();
-        }
-
-        public static T Resolve<T>(string name)
-        {
-            return resolver.Resolve<T>(name);
+            return resolver.GetService<T>();
         }
 
         public static IEnumerable<T> ResolveAll<T>()
         {
-            return resolver.ResolveAll<T>();
+            return resolver.GetServices<T>();
         }
     }
 }

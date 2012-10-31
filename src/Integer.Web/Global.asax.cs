@@ -17,6 +17,7 @@ using Raven.Database.Server;
 using Integer.Web.Infra.AutoMapper;
 using Integer.Infrastructure.Email;
 using System.Text;
+using Integer.Infrastructure.IoC;
 
 namespace Integer
 {
@@ -100,13 +101,14 @@ namespace Integer
             //builder.RegisterInstance<EmailWrapper>(emailWrapper).InstancePerHttpRequest();
 
             var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            var resolver = new AutofacDependencyResolver(container);
+            DependencyResolver.SetResolver(resolver);
+            IoCWorker.Initialize(resolver);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e) 
         {
             CurrentSession = DocumentStoreHolder.DocumentStore.OpenSession();
-            HttpContext.Current.Items["CurrentRequestRavenSession"] = CurrentSession;
         }
 
         protected void Application_EndRequest(object sender, EventArgs e) 

@@ -32,7 +32,7 @@ namespace Integer.Domain.Services
         private void VerificaSeConflitaComEventoParoquial(Evento novoEvento)
         {
             IEnumerable<Evento> eventosParoquiaisEmConflito = eventos.Todos(Evento.MontarVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim))
-                .Where(e => e.Tipo == TipoEventoEnum.Paroquial).ToList();
+                .Where(e => e.Tipo == TipoEventoEnum.Paroquial && e.Id != novoEvento.Id).ToList();
 
             if (eventosParoquiaisEmConflito.Count() > 0)
                 throw new EventoParoquialExistenteException(eventosParoquiaisEmConflito);
@@ -41,7 +41,7 @@ namespace Integer.Domain.Services
         private void DesmarcaEventosNaoParoquiaisDaMesmaData(Evento novoEvento)
         {
             var eventosNaoParoquiaisEmConflito = eventos.Todos(Evento.MontarVerificacaoDeConflitoDeHorario(novoEvento.DataInicio, novoEvento.DataFim))
-                .Where(e => e.Tipo != TipoEventoEnum.Paroquial).ToList();
+                .Where(e => e.Tipo != TipoEventoEnum.Paroquial && e.Id != novoEvento.Id).ToList();
             foreach (Evento eventoNaoParoquial in eventosNaoParoquiaisEmConflito)
             {
                 eventoNaoParoquial.AdicionarConflito(novoEvento, MotivoConflitoEnum.ExisteEventoParoquialNaData);

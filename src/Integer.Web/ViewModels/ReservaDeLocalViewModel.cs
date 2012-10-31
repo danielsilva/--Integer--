@@ -20,5 +20,16 @@ namespace Integer.Web.ViewModels
 
         [Required(ErrorMessage = "obrigatório")]
         public IList<HoraReservaEnum> Hora { get; set; }
+
+        public string DataUtc 
+        {
+            get 
+            {
+                if (Data.HasValue)
+                    return Data.Value.ToUniversalTime().ToString();
+                else
+                    return "";
+            }
+        }
     }
 }

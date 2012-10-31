@@ -160,21 +160,26 @@ namespace Integer.Domain.Agenda
 
         public void Reservar(Local local, DateTime data, IList<HoraReservaEnum> horario)
         {
+            this.Reservar(local, data, horario);
+        }
+
+        private void Reservar(DenormalizedReference<Local> local, DateTime data, IList<HoraReservaEnum> hora)
+        {
             #region pré-condição
 
             var reservaComMesmoHorarioParaOLocal = Reservas.FirstOrDefault(r => r.Local.Equals(local)
                                                                                 && r.Data.Equals(data)
-                                                                                && r.Hora.Intersect(horario).Count() > 0);
+                                                                                && r.Hora.Intersect(hora).Count() > 0);
 
             var naoExisteReservaSemelhante = Assertion.That(reservaComMesmoHorarioParaOLocal == null)
                                                       .WhenNot(String.Format(@"O local '{0}' foi reservado mais de uma vez para um mesmo horário. 
-                                                                                Verifique se o horário '{1} ({2})' está coincidindo com outra reserva para este local neste evento.", 
-                                                                                local.Nome, data.ToString("dd/MM/yyyy"), horario.ToHoraReservaString()));
-            
+                                                                                Verifique se o horário '{1} ({2})' está coincidindo com outra reserva para este local neste evento.",
+                                                                                local.Nome, data.ToString("dd/MM/yyyy"), hora.ToHoraReservaString()));
+
             #endregion
             naoExisteReservaSemelhante.Validate();
 
-            var reserva = new Reserva(local, data, horario);
+            var reserva = new Reserva(local, data, hora);
 
             var reservasAux = Reservas.ToList();
             reservasAux.Add(reserva);
@@ -210,7 +215,7 @@ namespace Integer.Domain.Agenda
                 {
                     Reserva reservaAlterada = reservasNovas.First(r => r.Local.Equals(reservaDoEvento.Local));
                     if (reservaAlterada.Data != reservaDoEvento.Data
-                        || reservaAlterada.Hora != reservaDoEvento.Hora)
+                        || reservaAlterada.Hora.Except(reservaDoEvento.Hora).Count() > 0)
                     {
                         reservaDoEvento.AlterarHorario(reservaAlterada.Data, reservaAlterada.Hora);
                         reservasAlteradas.Add(reservaDoEvento);
@@ -220,6 +225,18 @@ namespace Integer.Domain.Agenda
                 {
                     reservasCanceladas.Add(reservaDoEvento);
                 }
+            }
+            var reservasAux = this.Reservas.ToList();
+            foreach (var reservaCancelada in reservasCanceladas)
+	        {
+                reservasAux.Remove(reservaCancelada);
+	        }
+            this.Reservas = reservasAux;
+            foreach (var reservaNova in reservasNovas)
+            {
+                var reserva = this.Reservas.SingleOrDefault(r => r.Local == reservaNova.Local);
+                if (reserva == null)
+                    this.Reservar(reservaNova.Local, reservaNova.Data, reservaNova.Hora);
             }
 
             if (reservasAlteradas.Count > 0)
