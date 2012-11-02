@@ -27,15 +27,18 @@
                 <label for="ddlTipo">Tipo</label>
                 @Html.DropDownListFor(m => m.Tipo, new SelectList(ViewBag.Tipos, "Id", "Nome"), "Selecione", new { @id = "ddlTipo", @class = "span3" })
                 
-                <label for="txtDateBegin">Começa em</label>
-                <div class="span3" style="margin:0px;">
+                <div class="span2" style="margin-left:0px;">
+                    <label for="txtDateBegin">Começa em</label>
                     <input type="text" id="txtDateBegin" name="DataInicio" size="16" class="datetimeField span2" />
-                </div>
-                
-                <label for="txtDateEnd">Termina em</label>
-                <div class="span3" style="margin:0px;">
+                </div>    
+                <div class="span2" style="margin-left:0px;">
+                    <label for="txtDateEnd">Termina em</label>
                     <input type="text" id="txtDateEnd" name="DataFim" size="16" class="datetimeField span2" />
                 </div>
+                <div class="span1" style="margin:0px;">
+                    <label>&nbsp;</label>
+                    <button type="button" id="btnCopy" class="btn" style="display:none;">Copiar</button>
+                </div>  
             </div>
         </div>
         <div class="row" style="margin: 10px 0px 10px 0px;">

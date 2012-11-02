@@ -15,12 +15,13 @@ namespace Integer.Web.Infra.AutoMapper.Profiles
         {
             Mapper.CreateMap<Evento, EventoForCalendarioViewModel>()
                 .ForMember(x => x.TipoId, o => o.MapFrom(m => (int)m.Tipo))
-                .ForMember(x => x.DataInicio, o => o.MapFrom(m => m.DataInicio.ToUniversalTime().ToString("o")))
-                .ForMember(x => x.DataFim, o => o.MapFrom(m => m.DataFim.ToUniversalTime().ToString("o")))
+                .ForMember(x => x.DataInicio, o => o.MapFrom(m => m.DataInicio.ToString("yyyy-MM-dd HH:mm:ss")))
+                .ForMember(x => x.DataFim, o => o.MapFrom(m => m.DataFim.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ForMember(x => x.Locais, o => o.MapFrom(m => ExtrairLocaisDasReservas(m)))
                 .ForMember(x => x.GrupoId, o => o.MapFrom(m => m.Grupo.Id))
                 .ForMember(x => x.Grupo, o => o.MapFrom(m => m.Grupo.Nome))
-                .ForMember(x => x.Reservas, o => o.MapFrom(m => ExtrairReservas(m.Reservas)));
+                .ForMember(x => x.Reservas, o => o.MapFrom(m => ExtrairReservas(m.Reservas)))
+                .ForMember(x => x.AgendaId, o => o.MapFrom(m => (int)m.Estado));
         }
 
         private string ExtrairLocaisDasReservas(Evento evento) 

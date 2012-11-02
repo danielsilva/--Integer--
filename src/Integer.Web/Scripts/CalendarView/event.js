@@ -99,11 +99,21 @@ function configureEventForm() {
             }
         }
     });
-    $("#btnSave").click(function() { 
+    $("#btnSave").click(function () { 
         validateReservedLocalsCount();
     });
     $("#btnCancelSchedule").click(function () {
         clearFormEvent();
+    });
+    $("#btnCopy").click(function (){
+        $("#txtIdEvento").val('');
+        $.each($(".dateField"), function(){
+            $(this).val('');
+        });
+        $.each($(".datetimeField"), function(){
+            $(this).val('');
+        });
+        $(this).hide();
     });
 }
 
@@ -130,7 +140,7 @@ function addReservedLocalItem(reserve) {
     var date = $('<input id="txtDate" type="text" class="dateField span1 localDate" />');
     var time = $('<p><button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small">Manhã</button> \
                  <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small">Tarde</button> \
-                 <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</p>');
+                 <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</button></p>');
     var ddlTime = $('<select id="ddlTime" class="timeSelection" multiple="multiple" style="display:none;" > \
                         <option value="1"></option> \
                         <option value="2"></option> \
@@ -152,7 +162,9 @@ function addReservedLocalItem(reserve) {
 
     $('#reservedLocals .mCSB_container')
             .append('<div class="row reserved-local" style="position:relative;"> \
-                    <span title="Remover" class="pull-left removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
+                    <div class="pull-left"> \
+                        <span title="Remover" class="removeLocal" aria-hidden="true" data-icon="&#x2612;" style="cursor:pointer; position:absolute; top:50%; font-size:2em; color:rgba(191, 64, 64, 1);"></span> \
+                    </div> \
                     <div class="span3"> \
                         <label for="ddlLocal">Local</label> \
                         <div>' + selectLocalWrapper.html() + '</div> \
@@ -315,6 +327,7 @@ function clearFormEvent() {
 function showFormEvent(event) {
     $('#divFormEvent').modal('show');
     if (event !== undefined) {
+        $("#btnCopy").show();
         $.each(event.data, function (key, value) {
             var element = $("#frmEvent").find("[name='" + key + "']"); 
             if (element.hasClass('datetimeField'))

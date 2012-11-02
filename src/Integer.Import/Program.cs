@@ -92,6 +92,7 @@ namespace Integer.Import
                     .Include("Grupo")
                     .Include("ListaInternaConflitos")
                     .Include("ListaInternaReservasDeLocais")
+                    .Where(e => e.DataInicio.Year >= 2012)
                     .OrderBy(e => e.DataInicio).ToList();
 
                 Console.WriteLine("Para carregar eventos, demorou: {0:#,#} ms", sp.ElapsedMilliseconds);

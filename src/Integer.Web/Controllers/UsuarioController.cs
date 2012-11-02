@@ -48,6 +48,12 @@ namespace Integer.Web.Controllers
             else if (RavenSession.ValidaUsuario(email, senha))
             {
                 FormsAuthentication.SetAuthCookie(email, lembrar.GetValueOrDefault());
+
+                var grupoIdCrypt = FormsAuthentication.HashPasswordForStoringInConfigFile(grupo.Id, "MD5");
+                var grupoIdCookie = new HttpCookie("gid", grupoIdCrypt);
+                grupoIdCookie.Expires = DateTime.MaxValue;
+                grupoIdCookie.HttpOnly = false;
+                Response.Cookies.Add(grupoIdCookie);
             }
             else 
             {

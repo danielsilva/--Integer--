@@ -12,7 +12,6 @@ using Integer.Infrastructure.Events;
 using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Raven.Client;
-using Raven.Client.Embedded;
 using Raven.Database.Server;
 using Integer.Web.Infra.AutoMapper;
 using Integer.Infrastructure.Email;

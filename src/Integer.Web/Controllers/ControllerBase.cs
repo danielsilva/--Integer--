@@ -40,6 +40,11 @@ namespace Integer.Web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             RavenSession = MvcApplication.CurrentSession;
+            
+            if (Request.Headers["Origin"] != null 
+                && (Request.Headers["Origin"].Contains(".calendarioparoquial.com.br")
+                    || Request.Headers["Origin"].Contains("localhost"))) 
+                Response.AppendHeader("Access-Control-Allow-Origin", Request.Headers["Origin"]);
         }
 
         protected override void OnException(ExceptionContext filterContext)

@@ -6,7 +6,7 @@ Ext.onReady(function () {
 
     Extensible.calendar.data.EventMappings = {
         EventId: { name: 'Id', mapping: 'Id' },
-        CalendarId: { name: 'CalID', mapping: 'cal_id', type: 'int' },
+        CalendarId: { name: 'AgendaId', mapping: 'AgendaId', type: 'int' },
         Title: { name: 'Nome', mapping: 'Nome' },
         StartDate: { name: 'DataInicio', mapping: 'DataInicio', type: 'date', dateFormat: 'c' },
         EndDate: { name: 'DataFim', mapping: 'DataFim', type: 'date', dateFormat: 'c' },
@@ -24,6 +24,28 @@ Ext.onReady(function () {
         Reserves: { name: 'Reservas', mapping: 'Reservas' }
     };
     Extensible.calendar.data.EventModel.reconfigure();
+
+    var calendarStore = new Ext.data.JsonStore({
+        storeId: 'calendarStore',
+        autoLoad: true,
+        proxy: {
+            type: 'rest',
+            url: 'Calendario/Agendas',
+            noCache: false,
+            reader: new Ext.data.JsonReader({
+                type: 'json',
+                root: 'Agendas',
+                fields: ['id', 'title', 'desc', 'color', 'hidden']
+            }),
+            listeners: {
+                exception: function (proxy, response, operation, options) {
+                    var msg = response.message ? response.message : Ext.decode(response.responseText).message;
+                    // ideally an app would provide a less intrusive message display
+                    Ext.Msg.alert('Server Error', msg);
+                }
+            }
+        }
+    });
 
     var eventStore = Ext.create('Extensible.calendar.data.EventStore', {
         autoLoad: true,
@@ -46,6 +68,7 @@ Ext.onReady(function () {
     });
 
     calendarPanel = Ext.create('Extensible.calendar.CalendarPanel', {
+        calendarStore: calendarStore,
         eventStore: eventStore,
         startDate: startDate,
         renderTo: 'divCalendar',
@@ -87,7 +110,7 @@ Ext.onReady(function () {
             },
             'eventclick': {
                 fn: function (cal, ev, el) {
-                    if (!calendarPanel.readOnly)
+                    if (!calendarPanel.readOnly && MD5(ev.data.GrupoId).toLowerCase() == $.cookies.get("gid").toLowerCase())
                         showFormEvent(ev);
                     return false;
                 },
@@ -132,7 +155,8 @@ function setCalendarTitle(date) {
 }
 
 function reloadCalendar() {
-    calendarPanel.getActiveView().refresh()
+    var reloadEvents = true;
+    calendarPanel.getActiveView().refresh(reloadEvents);
 }
 
 function configureCalendarReadOnly(readOnly) {

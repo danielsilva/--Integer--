@@ -28,13 +28,9 @@ namespace Integer.Infrastructure.Repository
 
     	private static IDocumentStore CreateDocumentStore()
         {
-            NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8090);
-            var store = new EmbeddableDocumentStore
+            var store = new DocumentStore
             {
-                DataDirectory = "App_Data",
-                UseEmbeddedHttpServer = true,
-                //Configuration = { Port = 8888 } // import
-                //Configuration = { Port = 8090 } // dev
+                ConnectionStringName = "Integer"
             };
             store.Conventions.SaveEnumsAsIntegers = true;
             store.Initialize();

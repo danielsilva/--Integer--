@@ -112,6 +112,8 @@
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Shared/jquery.validation.js")
         .Add("~/Scripts/Usuario/login.js")
+        .Add("~/Scripts/Plugins/jQueryCookie/jquery.cookies.2.2.0.js")
+        .Add("~/Scripts/shared/global.js")
         .ForceRelease()
         .Render("~/Scripts/squished/squished_master_#.js"))
 
@@ -123,7 +125,6 @@
             configureCalendarReadOnly(!isAuthenticated);
         });
     </script>
-
     <script type="text/javascript">
         var uvOptions = {};
         (function () {
@@ -131,7 +132,19 @@
             uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/ZkpCLR97DUhpAnpPV4wfQg.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
         })();
-</script>
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-31387531-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script type="text/javascript" src="//sawpf.com/1.0.js"></script>
 </body>
 </html>
 

@@ -160,7 +160,7 @@ namespace Integer.Domain.Agenda
 
         public void Reservar(Local local, DateTime data, IList<HoraReservaEnum> horario)
         {
-            this.Reservar(local, data, horario);
+            this.Reservar((DenormalizedReference<Local>)local, data, horario);
         }
 
         private void Reservar(DenormalizedReference<Local> local, DateTime data, IList<HoraReservaEnum> hora)

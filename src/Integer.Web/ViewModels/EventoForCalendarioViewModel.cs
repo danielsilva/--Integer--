@@ -16,6 +16,7 @@ namespace Integer.Web.ViewModels
         public string DataFim { get; set; }
         public string Locais { get; set; }
         public string TipoId { get; set; }
+        public string AgendaId { get; set; }
         public IEnumerable<ReservaDeLocalViewModel> Reservas { get; set; }
     }
 }
