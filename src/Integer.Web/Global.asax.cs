@@ -40,7 +40,6 @@ namespace Integer
         {
             BeginRequest += this.Application_BeginRequest;
             EndRequest += this.Application_EndRequest;
-            Error += this.Application_Error;
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -123,17 +122,6 @@ namespace Integer
                 session.SaveChanges();
             }
             // TODO: TaskExecutor.StartExecuting();
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            var context = ((MvcApplication)sender).Context;
-
-            StringBuilder mensagem = new StringBuilder();
-            mensagem.AppendLine(context.Error.Message);
-            mensagem.AppendLine(context.Error.StackTrace);
-
-            EmailWrapper.EnviarEmail("danielsilva.rj@gmail.com", "{ Integer } - ERRO", mensagem.ToString());
         }
     }
 }

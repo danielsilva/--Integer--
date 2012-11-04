@@ -9,10 +9,11 @@ using DbC;
 using Integer.Domain.Paroquia;
 using Raven.Client;
 using Integer.Web.Infra.Raven;
+using IntegerElmah = Integer.Web.Infra.Elmah;
 
 namespace Integer.Web.Controllers
 {
-    [HandleError]
+    [IntegerElmah.HandleError]
     public class ControllerBase : Controller
     {
         protected bool UsuarioEstaLogado 

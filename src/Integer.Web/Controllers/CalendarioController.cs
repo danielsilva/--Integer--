@@ -28,6 +28,7 @@ namespace Integer.Web.Controllers
             this.agenda = agenda;
         }
 
+        [OutputCache(Duration = 60)]
         public ActionResult Index()
         {
             ViewBag.Tipos = RavenSession.ObterTiposDeEvento();

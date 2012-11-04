@@ -94,6 +94,12 @@
     <Reference Include="EcmaScript.NET.modified">
       <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\EcmaScript.NET.modified.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.0.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Esent.Interop, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8dd49bbdae3f61af, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
@@ -225,6 +231,7 @@
     <Compile Include="Infra\AutoMapper\Profiles\LocalProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
     <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
+    <Compile Include="Infra\Elmah\HandleErrorAttribute.cs" />
     <Compile Include="Infra\EmailAttribute.cs" />
     <Compile Include="Infra\Raven\EventoDocumentSessionExtensions.cs" />
     <Compile Include="Infra\Raven\TipoEventoDocumentSessionExtensions.cs" />
@@ -243,6 +250,9 @@
     <Compile Include="ViewModels\UsuarioCriarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.SqlServer.sql" />
+    <Content Include="App_Readme\Elmah.SqlServer.txt" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\alerts\images\help.gif" />
     <Content Include="Content\alerts\images\important.gif" />
     <Content Include="Content\alerts\images\info.gif" />
