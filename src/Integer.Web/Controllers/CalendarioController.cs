@@ -117,5 +117,11 @@ namespace Integer.Web.Controllers
             }
             return evento;
         }
+
+        [HttpPost]
+        public void Cancelar(string id)
+        { 
+
+        }
     }
 }

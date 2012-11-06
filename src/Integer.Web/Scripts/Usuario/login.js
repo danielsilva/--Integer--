@@ -36,8 +36,7 @@
         submitHandler: function (form) {
             $('#btnDoLogin').button('loading');
 
-            $.post("/Usuario/Login", $(form).serialize())
-            .success(function (response, textStatus, xhr) {
+            $.post("/Usuario/Login", $(form).serialize(), function (response, textStatus, xhr) {
                 if (response) {
                     var newDoc = document.open("text/html", "replace");
                     newDoc.write(response);
@@ -47,7 +46,7 @@
                     configureNavBarLoggedIn();
                     configureCalendarReadOnly(false);
                 }
-            })
+            }, 'text')
             .error(function () {
                 $("#errorMsg").text('E-mail ou senha incorreto');
             })

@@ -5,14 +5,21 @@ using System.Text;
 using Raven.Client;
 using NLog;
 using Raven.Abstractions.Exceptions;
+using System.Web.Hosting;
 
 namespace Integer.Infrastructure.Tasks
 {
-    public abstract class BackgroundTask
+    public abstract class BackgroundTask : IRegisteredObject
     {
         protected IDocumentSession DocumentSession;
-
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly object shutDownLock = new object();
+        private bool shuttingDown;
+
+        public BackgroundTask()
+        {
+            HostingEnvironment.RegisterObject(this);
+        }
 
         protected virtual void Initialize(IDocumentSession session)
         {
@@ -25,6 +32,18 @@ namespace Integer.Infrastructure.Tasks
         }
 
         public bool? Run(IDocumentSession openSession)
+        {
+            lock (shutDownLock)
+            {
+                if (shuttingDown)
+                {
+                    return false;
+                }
+                return Work(openSession);
+            }            
+        }
+
+        private bool? Work(IDocumentSession openSession) 
         {
             Initialize(openSession);
             try
@@ -53,5 +72,14 @@ namespace Integer.Infrastructure.Tasks
         }
 
         public abstract void Execute();
+
+        public void Stop(bool immediate)
+        {
+            lock (shutDownLock)
+            {
+                shuttingDown = true;
+            }
+            HostingEnvironment.UnregisterObject(this); 
+        }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using Raven.Client;
 using System.Threading.Tasks;
+using System.Web.Hosting;
+using System.Web;
 
 namespace Integer.Infrastructure.Tasks
 {
@@ -44,13 +46,16 @@ namespace Integer.Infrastructure.Tasks
 
             if (copy.Length > 0)
             {
-                Task.Factory.StartNew(() =>
-                {
-                    foreach (var backgroundTask in copy)
-                    {
-                        ExecuteTask(backgroundTask);
-                    }
-                }, TaskCreationOptions.LongRunning)
+                Task.Factory
+                    .StartNew(state =>
+                        {
+                            foreach (var backgroundTask in copy)
+                            {
+                                ExecuteTask(backgroundTask);
+                            }
+                        },
+                        HttpContext.Current,
+                        TaskCreationOptions.LongRunning)
                     .ContinueWith(task =>
                     {
                         if (ExceptionHandler != null) ExceptionHandler(task.Exception);

@@ -12,6 +12,9 @@
 <div id="divFormEvent" class="modal hide" style="width:710px;position:absolute;">
     <form id="frmEvent" class="well">
         <div class="row">
+            <button id="btnModalClose" type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Fechar">&times;</button>
+        </div>
+        <div class="row">
             <div id="msgPanel"></div>
         </div>
         <div class="row">
@@ -34,10 +37,6 @@
                 <div class="span2" style="margin-left:0px;">
                     <label for="txtDateEnd">Termina em</label>
                     <input type="text" id="txtDateEnd" name="DataFim" size="16" class="datetimeField span2" />
-                </div>
-                <div class="span1" style="margin:0px;">
-                    <label>&nbsp;</label>
-                    <button type="button" id="btnCopy" class="btn" style="display:none;">Copiar</button>
                 </div>  
             </div>
         </div>
@@ -47,11 +46,12 @@
             </div>
         </div>
         <div id="reservedLocals" style="overflow-y:auto;"></div>
-        <div class="row" style="margin-top:20px;">
-            <div class="modal-footer">
-                <a id="btnCancelSchedule" href="#" data-dismiss="modal">Cancelar</a>
-                <input type="submit" id="btnSave" name="btnSave" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;width:100px;" value="Salvar" />
+        <div class="modal-footer" style="margin-top:20px;">
+            <div id="formEditTools" class="pull-left" style="display:none;">
+                <span title="Copiar" data-original-title="Copiar" rel="tooltip" id="btnCopy" aria-hidden="true" data-icon="&#xe000;" class="icon-edit-tool"></span>
+                <span title="Cancelar" data-original-title="Cancelar" rel="tooltip" id="btnCancelEvent" aria-hidden="true" data-icon="&#xe001;" class="icon-edit-tool"></span>
             </div>
+            <input type="submit" id="btnSave" name="btnSave" data-loading-text="Salvando..." class="btn btn-primary" style="margin-left:20px;width:100px;" value="Salvar" />
         </div>
     </form>
 </div>
@@ -60,7 +60,6 @@
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/extCalendar/css/extensible-all.css")
         .Add("~/Content/Event.css")
-        .ForceRelease()
         .Render("~/Content/squished/squished_calendar_#.css"))
 }
     
@@ -72,7 +71,6 @@
         .Add("~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js")
         .Add("~/Scripts/CalendarView/calendar.js")
         .Add("~/Scripts/CalendarView/event.js")
-        .ForceRelease()
         .Render("~/Scripts/squished/squished_calendar_#.js"))
 }
 

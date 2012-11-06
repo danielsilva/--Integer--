@@ -628,6 +628,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.js" />
     <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.min.js" />
+    <Content Include="Scripts\Shared\date.js" />
     <Content Include="Scripts\Shared\global.js" />
     <Content Include="Scripts\Shared\jquery.validation.js" />
     <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
@@ -722,9 +723,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Usuario\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Calendario\Calendario_old.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

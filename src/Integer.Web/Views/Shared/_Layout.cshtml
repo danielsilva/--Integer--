@@ -8,7 +8,6 @@
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/Site.css")
         .Add("~/Content/Validation.css")
-        .ForceRelease()
         .Render("~/Content/squished/squished_site_#.css"))
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 
@@ -23,11 +22,10 @@
     <link href="//cdn.sencha.io/ext-4.0.7-gpl/resources/css/ext-all-scoped.css" rel="stylesheet" type="text/css" /> 
 
     @MvcHtmlString.Create(Bundle.Css()
-            //jQueryUI
+        //jQueryUI
         .Add("~/Content/themes/base/jquery-ui-redmond.css")
         .Add("~/Content/themes/base/jquery.ui.datepicker.css")
         .Add("~/Content/themes/base/jquery.ui.slider.css")
-        .ForceRelease()
         .Render("~/Content/squished/squished_jUI_#.css"))
     
 </head>
@@ -79,7 +77,6 @@
 
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/jQueryScrollBar/jquery.mCustomScrollbar.css")
-        .ForceRelease()
         .Render("~/Content/squished/squished_jmCustomScrollBar_#.css"))
 
     @RenderSection("Styles", required: false)
@@ -95,14 +92,12 @@
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Plugins/jQueryScrollBar/jquery.mousewheel.js")
         .Add("~/Scripts/Plugins/jQueryScrollBar/jquery.mCustomScrollbar.js")
-        .ForceRelease()
         .Render("~/Scripts/squished/squished_jmCustomScrollBar_#.js"))
 
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Plugins/jQueryUITimePicker/jquery-ui-sliderAccess.js")
         .Add("~/Scripts/Plugins/jQueryUITimePicker/jquery-ui-timepicker-addon.js")
         .Add("~/Scripts/Plugins/jQueryUITimePicker/jquery-ui-timepicker-pt-BR.js")
-        .ForceRelease()
         .Render("~/Scripts/squished/squished_jUITimePicker_#.js"))
     
     <!--ExtJS-->    
@@ -117,7 +112,7 @@
         .Add("~/Scripts/Usuario/login.js")
         .Add("~/Scripts/Plugins/jQueryCookie/jquery.cookies.2.2.0.js")
         .Add("~/Scripts/shared/global.js")
-        .ForceRelease()
+        .Add("~/Scripts/shared/date.js")
         .Render("~/Scripts/squished/squished_master_#.js"))
 
     @RenderSection("Scripts", required: false)    
@@ -126,6 +121,11 @@
         Ext.onReady(function () {
             var isAuthenticated = @Request.IsAuthenticated.ToString().ToLower();
             configureCalendarReadOnly(!isAuthenticated);
+        });
+        $().ready(function(){
+            $('body').tooltip({
+                selector: '[rel=tooltip]'
+            });
         });
     </script>
     <script type="text/javascript">

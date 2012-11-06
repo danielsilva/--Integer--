@@ -26,6 +26,15 @@
     margin: 20px 0px 0px 0px !important;
 }
 
+.icon-edit-tool
+{
+    height:32px;
+    width:12px;
+    margin-right:20px;
+    cursor:pointer; 
+    font-size:2em;
+}
+
 .ext-cal-evt
 {
     padding: 1px 1px 1px 5px !important;

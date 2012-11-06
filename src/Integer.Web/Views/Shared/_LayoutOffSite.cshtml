@@ -9,17 +9,15 @@
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/OffSite.css")
         .Add("~/Content/Validation.css")
-        .ForceRelease()
         .Render("~/Content/squished/squished_offsite_#.css"))
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 
     @MvcHtmlString.Create(Bundle.Css()
-            //jQueryUI
+        //jQueryUI
         .Add("~/Content/themes/base/jquery-ui-redmond.css")
         .Add("~/Content/themes/base/jquery.ui.datepicker.css")
         .Add("~/Content/themes/base/jquery.ui.slider.css")
-        .ForceRelease()
-         .Render("~/Content/squished/squished_jUI_#.css"))
+        .Render("~/Content/squished/squished_jUI_#.css"))
 
     @RenderSection("Styles", required: false)
 </head>
@@ -46,7 +44,6 @@
 
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Shared/jquery.validation.js")
-        .ForceRelease()
         .Render("~/Scripts/squished/squished_master-offsite_#.js"))
 
     @RenderSection("Scripts", required: false)

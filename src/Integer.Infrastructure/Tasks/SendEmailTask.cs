@@ -71,8 +71,10 @@ namespace Integer.Infrastructure.Tasks
 
             mailMessage.ReplyToList.Add(new MailAddress(replyTo));
 
-            using (var smtpClient = new SmtpClient())
+            using (var smtpClient = new SmtpClient("mail.carnation.arvixe.com"))
             {
+                //var smtp = new SmtpClient("mail.carnation.arvixe.com");
+                smtpClient.Credentials = new NetworkCredential("nao-responda@calendarioparoquial.com.br", "lVONvMhaIH9v");
                 smtpClient.Send(mailMessage);
             }
 
@@ -103,7 +105,7 @@ namespace Integer.Infrastructure.Tasks
 
             public override HttpRequestBase Request
             {
-                get { return new HttpRequestWrapper(new HttpRequest("", HttpContext.Current.Request.Url.Host, "")); }
+                get { return new HttpRequestWrapper(new HttpRequest("", "", "")); }
             }
         }
 

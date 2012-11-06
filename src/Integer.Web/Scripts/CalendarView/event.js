@@ -31,8 +31,21 @@ function configureEventFormModal() {
     });
 }
 
+var lastDateFormEvent = '';
 function configureEventForm() {
     $("#frmEvent").removeAttr("novalidate");
+
+    $(".datetimeField").change(function(){
+        lastDateFormEvent = $(this).val();
+    });
+    $("#txtDateBegin").change(function(){
+        if ($("#txtDateEnd").val() == '')
+            $("#txtDateEnd").val($(this).val());
+    });
+    $("#txtDateEnd").change(function(){
+        if ($("#txtDateBegin").val() == '')
+            $("#txtDateBegin").val($(this).val());
+    });
 
     $("#frmEvent").validate({
         ignore: [],
@@ -58,6 +71,8 @@ function configureEventForm() {
                 $.post("/Calendario/Salvar", $(form).serialize())
                 .success(function (response) {
                     var txtId = $("#txtIdEvento");
+                    $("#formEditTools").fadeIn("slow");
+
                     if (txtId.val() == "") {
                         $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
                                                 <h4 class="alert-heading">Evento agendado com sucesso!</h4> \
@@ -88,7 +103,6 @@ function configureEventForm() {
                         errorMessage = 'Ocorreu um erro inesperado.';
                     }
                     $("#msgPanel").html('<div id="msgAlert" class="alert"> \
-                                                <button type="button" class="close" data-dismiss="alert">×</button> \
                                                 <h4 class="alert-heading">Não foi possível agendar o evento</h4> \
                                                 <p>' + errorMessage + '</p> \
                                             </div>');
@@ -102,19 +116,31 @@ function configureEventForm() {
     $("#btnSave").click(function () { 
         validateReservedLocalsCount();
     });
-    $("#btnCancelSchedule").click(function () {
+    $("#btnModalClose").click(function () {
         clearFormEvent();
     });
-    $("#btnCopy").click(function (){
-        $("#txtIdEvento").val('');
-        $.each($(".dateField"), function(){
-            $(this).val('');
+    $("#btnCopy")
+        .click(function (){
+            $("#txtIdEvento").val('');
+            $.each($(".dateField"), function(){
+                $(this).val('');
+            });
+            $.each($(".datetimeField"), function(){
+                $(this).val('');
+            });
+            $("#formEditTools").fadeOut("slow");
         });
-        $.each($(".datetimeField"), function(){
-            $(this).val('');
+    $('#btnCancelEvent')
+        .click(function(){
+            $.post("/Calendario/Cancelar", { id: $("#txtIdEvento").val() })
+                .success(function (response) {
+                    alert('evento cancelado');
+                    reloadCalendar();
+                })
+                .error(function (data) {
+                    alert('erro: evento cancelado');
+                });
         });
-        $(this).hide();
-    });
 }
 
 function configureReservedLocals() {
@@ -137,10 +163,12 @@ function configureReservedLocals() {
 function addReservedLocalItem(reserve) {
     
     var selectLocal = $('<select id="ddlLocal" class="span3 localId">' + existingLocals.join('') + '</select>');
+    
     var date = $('<input id="txtDate" type="text" class="dateField span1 localDate" />');
-    var time = $('<p><button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small">Manhã</button> \
-                 <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small">Tarde</button> \
-                 <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small">Noite</button></p>');
+    
+    var time = $('<p><button type="button" id="timeSelectMorning" data-timeSelect="1" class="btn btn-small" rel="tooltip" data-original-title="6h às 12h">Manhã</button> \
+                 <button type="button" id="timeSelectAfternoon" data-timeSelect="2" class="btn btn-small" rel="tooltip" data-original-title="12h às 18h">Tarde</button> \
+                 <button type="button" id="timeSelectEvening" data-timeSelect="3" class="btn btn-small" rel="tooltip" data-original-title="18h às 22h">Noite</button></p>');
     var ddlTime = $('<select id="ddlTime" class="timeSelection" multiple="multiple" style="display:none;" > \
                         <option value="1"></option> \
                         <option value="2"></option> \
@@ -179,12 +207,15 @@ function addReservedLocalItem(reserve) {
                         <div class="btn-group clearfix" data-toggle="buttons-checkbox">' + time.html() + '</div> \
                     </div> \
                 </div>')
-                .show('slow');
+                .show("slow");
 
     validateReservedLocalsCount();
 
     $(".removeLocal").click(function () {
-        $(this).closest("div").remove();
+        var divReservedLocal = $(this).closest("div.reserved-local");
+        divReservedLocal.fadeOut('fast', function() {
+            divReservedLocal.remove();
+        });
         configureReservedLocalsScrollBar();
         configureReservedLocalsFields();
     });
@@ -228,6 +259,7 @@ function configureReservedLocalsFields() {
             .attr("id", "txtDate" + i)
             .attr("name", "Reservas[" + i + "].Data");
         $(this).find("input[id^=txtDate]").datepicker({
+            defaultDate: lastDateFormEvent,
             prevText: '',
             nextText: ''
         });
@@ -235,19 +267,13 @@ function configureReservedLocalsFields() {
         $(this).find("label[for^=ddlTime]").attr("for", "ddlTime" + i);
         $(this).find("span[for^=ddlTime]").attr("for", "ddlTime" + i);
         $(this).find("select[id^=ddlTime]").attr("id", "ddlTime" + i).attr("name", "Reservas[" + i + "].Hora");
-
+        
         $(this).find("button[id^=timeSelectMorning]")
-            .attr("id", "timeSelectMorning" + i)
-            .unbind()
-            .tooltip({ placement: 'top', title: '6h às 12h' });
+            .attr("id", "timeSelectMorning" + i);
         $(this).find("button[id^=timeSelectAfternoon]")
-            .attr("id", "timeSelectAfternoon" + i)
-            .unbind()
-            .tooltip({ placement: 'top', title: '12h às 18h' });
+            .attr("id", "timeSelectAfternoon" + i);
         $(this).find("button[id^=timeSelectEvening]")
-            .attr("id", "timeSelectEvening" + i)
-            .unbind()
-            .tooltip({ placement: 'top', title: '18h às 22h' });
+            .attr("id", "timeSelectEvening" + i);
         i++;
     });
 
@@ -320,6 +346,7 @@ function clearFormEvent() {
                 $(this).val('');
         }
     });
+    $("#formEditTools").hide();
     $(".reserved-local").remove();
     $("#msgPanel").html('');
 }
@@ -327,7 +354,7 @@ function clearFormEvent() {
 function showFormEvent(event) {
     $('#divFormEvent').modal('show');
     if (event !== undefined) {
-        $("#btnCopy").show();
+        $("#formEditTools").show();
         $.each(event.data, function (key, value) {
             var element = $("#frmEvent").find("[name='" + key + "']"); 
             if (element.hasClass('datetimeField'))
