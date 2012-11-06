@@ -7,8 +7,9 @@ using Integer.Domain.Paroquia;
 using System.Linq.Expressions;
 using Integer.Infrastructure.LINQExpressions;
 using DbC;
+using Integer.Domain.Agenda.Exceptions;
 
-namespace Integer.Domain.Services
+namespace Integer.Domain.Agenda
 {
     public class AgendaEventoService
     {

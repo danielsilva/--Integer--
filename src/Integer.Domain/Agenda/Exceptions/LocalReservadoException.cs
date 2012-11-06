@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Integer.Infrastructure.Enums;
 
-namespace Integer.Domain.Agenda
+namespace Integer.Domain.Agenda.Exceptions
 {
     public class LocalReservadoException : Exception
     {

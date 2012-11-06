@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Integer.Infrastructure.Criptografia;
 
-namespace Integer.Domain.Paroquia
+namespace Integer.Domain.Acesso
 {
     public class Usuario
     {

@@ -5,7 +5,6 @@ using System.Text;
 using Integer.Domain.Agenda;
 using Rhino.Mocks;
 using Integer.Domain.Paroquia;
-using Integer.Domain.Services;
 using Integer.Infrastructure.Repository;
 using Xunit;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Integer.Domain.Paroquia
+namespace Integer.Domain.Acesso.Exceptions
 {
     public class UsuarioExistenteException : ApplicationException
     {

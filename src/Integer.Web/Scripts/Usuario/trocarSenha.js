@@ -1,13 +1,14 @@
 ﻿$().ready(function () {
-    $("#btnCreateUser").live("click", function () {
-        if ($("#frmUser").valid()) {
+    $("#btnSend").live("click", function () {
+        if ($("#frmEmail").valid()) {
             $(this).button('loading');
 
-            $.post("/Usuario/Criar", $("#frmUser").serialize())
+            $.post("/Usuario/TrocarSenha", $("#frmEmail").serialize())
             .success(function (data) {
                 window.location = "/";
             })
             .error(function (data) {
+                console.log(data);
                 var responseMessage = data.responseText;
                 try {
                     errorMessage = JSON.parse(responseMessage).ErrorMessage;
@@ -16,7 +17,7 @@
                 $(".alert").show();
             })
             .complete(function () {
-                $('#btnCreateUser').button('reset');
+                $('#btnSend').button('reset');
             });
         }
     });

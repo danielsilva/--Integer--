@@ -1,0 +1,18 @@
+﻿@using SquishIt.Framework;
+
+@model Integer.Web.ViewModels.UsuarioTrocarSenhaViewModel
+
+@{
+    ViewBag.Title = "Criar";
+    Layout = "~/Views/Shared/_LayoutOffSite.cshtml";
+    Html.EnableUnobtrusiveJavaScript(true);  
+}
+
+@Html.Partial("TrocarSenhaForm")
+
+@section Scripts {
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Usuario/trocarSenha.js")
+        .ForceRelease()
+        .Render("~/Scripts/squished/squished_usuario-trocarSenha_#.js"))
+}

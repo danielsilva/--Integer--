@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.DateAndTime;
 using Integer.Infrastructure.Repository;
 using Rhino.Mocks;
 using Xunit;
+using Integer.Domain.Agenda.Exceptions;
 
 namespace Integer.UnitTests.Domain.Services
 {

@@ -7,13 +7,13 @@ using Integer.Domain.Agenda;
 using Integer.Web.ViewModels;
 using Integer.Web.Helpers;
 using Integer.Domain.Paroquia;
-using Integer.Domain.Services;
 using Integer.Web.Infra.AutoMapper;
 using DbC;
 using System.Net;
 using Integer.Web.Infra.Raven;
-using Integer.Web.Infra.AutoMapper;
 using Integer.Infrastructure.Email;
+using System.Web.UI;
+using Integer.Domain.Agenda.Exceptions;
 
 namespace Integer.Web.Controllers
 {
@@ -28,7 +28,7 @@ namespace Integer.Web.Controllers
             this.agenda = agenda;
         }
 
-        [OutputCache(Duration = 60)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             ViewBag.Tipos = RavenSession.ObterTiposDeEvento();
@@ -47,16 +47,7 @@ namespace Integer.Web.Controllers
 
         [HttpGet]
         public JsonResult Eventos(DateTime startDate, DateTime endDate) 
-        {
-            var grupos = RavenSession.Query<Grupo>().ToList();
-            var emails = new System.Text.StringBuilder();
-            foreach (var grupo in grupos)
-            {
-                emails.Append(", " + grupo.Email);
-                //EnviarEmailAvisandoSenha(grupo);
-            }
-
-
+        {            
             IEnumerable<Evento> eventos;
             if (GrupoLogado == null)
                 eventos = RavenSession.ObterEventosAgendados(startDate, endDate);
@@ -64,23 +55,7 @@ namespace Integer.Web.Controllers
                 eventos = RavenSession.ObterEventos(startDate, endDate);
 
             return Json(new { Eventos = eventos.MapTo<EventoForCalendarioViewModel>() }, JsonRequestBehavior.AllowGet);
-        }
-
-        private void EnviarEmailAvisandoSenha(Grupo grupo)
-        {
-            if (grupo.Email == "conselho@paroquiadivinosalvador.com.br"
-                || grupo.Email == "sem email")
-                return;
-
-            var mensagem = new System.Text.StringBuilder();
-            mensagem.Append("<table><tr><td>Para agendar os eventos de 2013, acesse o calendário paroquial utilizando os seguintes dados:</td></tr>");
-            mensagem.Append("<tr><td></td></tr>");
-            mensagem.Append("<tr><td>E-mail: " + grupo.Email + "</td></tr>");
-            mensagem.Append("<tr><td>Senha: " + grupo.SenhaDescriptografada + "</td></tr></table>");
-
-            EmailWrapper.EnviarEmail(grupo.Email, "Calendário Paroquial 2013", mensagem.ToString());
-            EmailWrapper.EnviarEmail("danielsilva.rj@gmail.com", "Calendário Paroquial 2013", mensagem.ToString());
-        }        
+        }       
 
         [HttpPost]
         public JsonResult Salvar(EventoViewModel input) 

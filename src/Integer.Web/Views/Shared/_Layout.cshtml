@@ -50,6 +50,9 @@
                         <input type="checkbox" name="lembrar" value="true" /> Mantenha-me conectado
                     </label>
                     <button id="btnDoLogin" type="submit" data-loading-text="Logando..." class="btn btn-primary">Entrar</button>
+                    <label style="margin-top:16px;">
+                        <a href="Usuario/TrocarSenha">Esqueceu a senha?</a>
+                    </label>
                 </form>
             </div>
             <div id="loggedInProfile" class="loginmenu" @if (!Request.IsAuthenticated) { <text>style="display:none;"</text> }>

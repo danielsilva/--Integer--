@@ -10,16 +10,20 @@ using Integer.Web.Infra.Raven;
 using System.Net;
 using Integer.Web.ViewModels;
 using Integer.Web.Infra.AutoMapper;
+using Integer.Domain.Acesso;
+using Integer.Domain.Acesso.Exceptions;
 
 namespace Integer.Web.Controllers
 {
     public class UsuarioController : ControllerBase
     {
         private readonly Grupos grupos;
+        private readonly TrocaSenhaService lembraSenhaService;
 
-        public UsuarioController(Grupos grupos)
+        public UsuarioController(Grupos grupos, TrocaSenhaService lembraSenhaService)
         {
             this.grupos = grupos;
+            this.lembraSenhaService = lembraSenhaService;
         }
 
         [HttpGet]
@@ -110,6 +114,33 @@ namespace Integer.Web.Controllers
         {
             // TODO: get menu for current user
             return PartialView("Menu");
+        }
+
+        [HttpGet]
+        [OutputCache(Duration = 3600)]
+        public ActionResult TrocarSenha() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult TrocarSenha(UsuarioTrocarSenhaViewModel input) 
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return PartialView("TrocarSenhaForm", input);
+            }
+            try
+            {
+                lembraSenhaService.EnviarSenha(input.Email);
+            }
+            catch (UsuarioInexistenteException ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json(new { ErrorMessage = ex.Message });
+            }
+            return null;
         }
     }
 }

@@ -8,6 +8,7 @@ using Raven.Client.Indexes;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
 using Integer.Infrastructure.Repository.Indexes;
+using Integer.Infrastructure.Tasks;
 
 namespace Integer.Infrastructure.Repository
 {
@@ -24,6 +25,7 @@ namespace Integer.Infrastructure.Repository
         {
             documentStore = CreateDocumentStore();
             CreateIndexes();
+            TaskExecutor.DocumentStore = documentStore;
         }
 
     	private static IDocumentStore CreateDocumentStore()

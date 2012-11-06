@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.DateAndTime;

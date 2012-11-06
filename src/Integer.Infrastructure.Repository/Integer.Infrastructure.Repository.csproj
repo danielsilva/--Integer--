@@ -115,6 +115,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UsuarioTokensRepository.cs" />
+    <Compile Include="UsuarioRepository.cs" />
     <Compile Include="Indexes\ReservasMap.cs" />
     <Compile Include="LocalRepository.cs" />
     <Compile Include="GrupoRepository.cs" />
@@ -135,9 +137,6 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Raven.Studio.xap" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

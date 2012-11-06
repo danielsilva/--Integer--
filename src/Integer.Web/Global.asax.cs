@@ -9,7 +9,6 @@ using Autofac.Integration.Mvc;
 using Integer.Domain.Paroquia;
 using Integer.Infrastructure.Repository;
 using Integer.Infrastructure.Events;
-using Integer.Domain.Services;
 using Integer.Domain.Agenda;
 using Raven.Client;
 using Raven.Database.Server;
@@ -17,6 +16,8 @@ using Integer.Web.Infra.AutoMapper;
 using Integer.Infrastructure.Email;
 using System.Text;
 using Integer.Infrastructure.IoC;
+using Integer.Domain.Acesso;
+using Integer.Infrastructure.Tasks;
 
 namespace Integer
 {
@@ -86,6 +87,8 @@ namespace Integer
             builder.RegisterType<EventoRepository>().As<Eventos>();
             builder.RegisterType<GrupoRepository>().As<Grupos>();
             builder.RegisterType<LocalRepository>().As<Locais>();
+            builder.RegisterType<UsuarioRepository>().As<Usuarios>();
+            builder.RegisterType<UsuarioTokenRepository>().As<UsuarioTokens>();
 
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<EventoCanceladoEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<ReservaDeLocalCanceladaEvent>>();
@@ -93,10 +96,7 @@ namespace Integer
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeEventoAlteradoEvent>>();
 
             builder.Register<AgendaEventoService>(c => new AgendaEventoService(c.Resolve<Eventos>()));
-
-            // TODO EmailWrapper per HttpRequest
-            //var emailWrapper = new EmailWrapper();
-            //builder.RegisterInstance<EmailWrapper>(emailWrapper).InstancePerHttpRequest();
+            builder.Register<TrocaSenhaService>(c => new TrocaSenhaService(c.Resolve<Usuarios>(), c.Resolve<UsuarioTokens>()));
 
             var container = builder.Build();
             var resolver = new AutofacDependencyResolver(container);
@@ -121,7 +121,7 @@ namespace Integer
 
                 session.SaveChanges();
             }
-            // TODO: TaskExecutor.StartExecuting();
+            TaskExecutor.StartExecuting();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using Integer.Infrastructure.Events;
 using Integer.Domain.Agenda;
 
-namespace Integer.Domain.Services
+namespace Integer.Domain.Agenda
 {
     public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, 
                                          DomainEventHandler<ReservaDeLocalCanceladaEvent>,

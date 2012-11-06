@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Integer.Domain.Agenda
+namespace Integer.Domain.Agenda.Exceptions
 {
     public class EventoParoquialExistenteException : Exception
     {

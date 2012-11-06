@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using Integer.Domain.Paroquia;
 using Integer.Web.ViewModels;
+using Integer.Domain.Acesso;
 
 namespace Integer.Web.Infra.AutoMapper.Profiles
 {

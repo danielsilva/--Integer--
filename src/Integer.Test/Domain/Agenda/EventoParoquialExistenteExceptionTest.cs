@@ -6,6 +6,7 @@ using Integer.Domain.Paroquia;
 using Integer.Domain.Agenda;
 using Rhino.Mocks;
 using Xunit;
+using Integer.Domain.Agenda.Exceptions;
 
 namespace Integer.UnitTests.Domain.Agenda
 {

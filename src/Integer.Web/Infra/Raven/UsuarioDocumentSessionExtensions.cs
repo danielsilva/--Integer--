@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raven.Client;
+using Integer.Domain.Acesso;
+using Integer.Domain.Acesso.Exceptions;
 using Integer.Domain.Paroquia;
 
 namespace Integer.Web.Infra.Raven
@@ -28,6 +30,11 @@ namespace Integer.Web.Infra.Raven
 
             grupo.PrecisaCriarUsuario = false;
             session.Store(usuario);
+        }
+
+        public static void EnviarSenha(this IDocumentSession session, string email) 
+        {
+
         }
     }
 }
