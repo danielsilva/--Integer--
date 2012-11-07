@@ -48,6 +48,7 @@ namespace Integer.Web.Controllers
                 else 
                 {
                     HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return null;
                 }
             }
             else if (RavenSession.ValidaUsuario(email, senha))
@@ -63,8 +64,9 @@ namespace Integer.Web.Controllers
             else 
             {
                 HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return null;
             }
-            return null;
+            return RedirectPermanent("/");
         }
 
         [HttpGet]
