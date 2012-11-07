@@ -8,6 +8,10 @@ namespace Integer.Domain.Acesso
 {
     public class UsuarioToken
     {
+        protected UsuarioToken()
+        {
+        }
+
         public UsuarioToken(Usuario usuario)
         {
             this.UsuarioId = usuario.Id;
@@ -19,9 +23,17 @@ namespace Integer.Domain.Acesso
         public Guid Codigo { get; private set; }
         private DateTime Validade { get; set; }
 
-        public bool EstaValido() 
+        public bool EstaValido 
         {
-            return DateTime.Compare(DateTime.Now, Validade) > 0;
+            get 
+            {
+                return DateTime.Compare(DateTime.Now, Validade) < 0;
+            }
+        }
+
+        public void Desativar()
+        {
+            this.Validade = DateTime.MinValue;
         }
     }
 }

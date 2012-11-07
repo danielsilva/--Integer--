@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Integer.Domain.Acesso.Exceptions
 {
-    public class UsuarioInexistenteException : ApplicationException
+    public class UsuarioTokenExpiradoException : ApplicationException
     {
         public override string Message
         {
             get
             {
-                return "Usuário não encontrado";
+                return "Chave expirada. Solicite a troca de senha outra vez.";
             }
         }
     }

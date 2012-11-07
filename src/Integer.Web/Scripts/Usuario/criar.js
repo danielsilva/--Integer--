@@ -8,7 +8,7 @@
                 type: "POST",
                 dataType: "json",
                 data: $("#frmUser").serialize(),
-                success: function (data) {
+                success: function (data, status, xhr) {
                     window.location = "/";
                 },
                 error: function (data) {

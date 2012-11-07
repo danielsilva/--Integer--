@@ -43,12 +43,6 @@ namespace Integer.Infrastructure.Tasks
             this.sendTo = sendTo;
         }
 
-        static SendEmailTask()
-        {
-            // Fix: The remote certificate is invalid according to the validation procedure.
-            //ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
-        }
-
         public override void Execute()
         {
             var routeData = new RouteData();
@@ -64,8 +58,13 @@ namespace Integer.Infrastructure.Tasks
                 replyTo = ConfigurationManager.AppSettings["EmailSender"].ToString();
 
             var from = new MailAddress(replyTo, "Calendário Paroquial");
-            var to = new MailAddress(sendTo);
-            var mailMessage = new MailMessage(from, to)
+            #if (DEBUG)
+                var to = new MailAddress("danielsilva.rj@gmail.com");
+            #else
+                var to = new MailAddress(sendTo);
+            #endif
+
+                var mailMessage = new MailMessage(from, to)
                               {
                                   IsBodyHtml = true,
                                   Body = stringWriter.GetStringBuilder().ToString(),

@@ -1,15 +1,13 @@
-﻿@{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@using Integer.Web.Helpers
+﻿@using SquishIt.Framework;
 
-@section head{
-    <script src="@Url.Content("~/Scripts/Grupo/Login.js")" type="text/javascript"></script>        
+@{
+    Layout = "~/Views/Shared/_LayoutOffSite.cshtml";
 }
 
-<div id="formulario" class="formulario" style="width:280px;margin-top:50px;">
-    <div id="divFormulario">
-		    @Html.Partial("LoginForm")
-	</div>
-</div>
+@Html.Partial("LoginForm")
+
+@section Scripts {
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Usuario/login.js")
+        .Render("~/Content/squished/squished_login_#.js"))
+}

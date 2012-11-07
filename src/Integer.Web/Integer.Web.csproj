@@ -257,6 +257,7 @@
     <Compile Include="ValidationHelpers\ValidationHelper.cs" />
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
     <Compile Include="ViewModels\UsuarioTrocarSenhaViewModel.cs" />
+    <Compile Include="ViewModels\UsuarioEsqueceuSenhaViewModel.cs" />
     <Compile Include="ViewModels\EventoForCalendarioViewModel.cs" />
     <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
@@ -628,7 +629,6 @@
     <Content Include="Scripts\CalendarView\calendar.js" />
     <Content Include="Scripts\CalendarView\event.js" />
     <Content Include="Scripts\CalendarView\EventoForm.js" />
-    <Content Include="Scripts\Grupo\Cadastro.js" />
     <Content Include="Scripts\jquery-1.8.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.1.js" />
     <Content Include="Scripts\jquery-1.8.1.min.js" />
@@ -645,6 +645,7 @@
     <Content Include="Scripts\Shared\global.js" />
     <Content Include="Scripts\Shared\jquery.validation.js" />
     <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
+    <Content Include="Scripts\Usuario\trocarSenha.js" />
     <Content Include="Scripts\Usuario\esqueceuSenha.js" />
     <Content Include="Scripts\Usuario\criar.js" />
     <Content Include="Scripts\Usuario\login.js" />
@@ -718,7 +719,6 @@
     <Content Include="Scripts\Plugins\toolTip\excanvas.js" />
     <Content Include="Scripts\Plugins\toolTip\jquery.bt.js" />
     <Content Include="Scripts\Plugins\toolTip\jquery.bt.min.js" />
-    <Content Include="Scripts\Grupo\Login.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.min.js" />
     <Content Include="Web.config">
@@ -812,6 +812,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\MailTemplates\TrocarSenha.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Usuario\TrocarSenha.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Usuario\TrocarSenhaForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

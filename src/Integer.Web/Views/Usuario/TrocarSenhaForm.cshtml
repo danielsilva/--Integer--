@@ -1,0 +1,26 @@
+﻿@model Integer.Web.ViewModels.UsuarioTrocarSenhaViewModel
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmSenha", style="padding-bottom:20px;" })) {
+    <legend>Trocar senha</legend>
+    
+    <div class="alert" style="display:none;">
+        <span id="message">Ocorreu um erro inesperado.</span>
+    </div>
+    
+    @Html.HiddenFor(m => m.Id, new { id = "hddId" })
+    @Html.HiddenFor(m => m.Token, new { id = "hddToken" })
+    
+    <label>Nova senha: @Html.ValidationMessageFor(m => m.Senha)</label>
+    @Html.PasswordFor(m => m.Senha, new { id = "txtSenha" }) 
+    
+    
+    <label>Repita a nova senha: @Html.ValidationMessageFor(m => m.SenhaIgual)</label>
+    @Html.PasswordFor(m => m.SenhaIgual, new { id = "txtSenhaIgual" }) 
+    
+    
+    <div class="control-group" style="padding-top:10px;">
+        <div class="controls">
+            <button id="btnSend" type="button" class="btn btn-primary pull-left" data-loading-text="Enviando...">Enviar</button>
+        </div>
+    </div>
+}

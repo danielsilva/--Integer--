@@ -30,5 +30,10 @@ namespace Integer.Domain.Acesso
         {
             return Encryptor.Encrypt(senha) == this.Senha;
         }
+
+        public void TrocarSenha(string senha)
+        {
+            this.Senha = Encryptor.Encrypt(senha);
+        }
     }
 }

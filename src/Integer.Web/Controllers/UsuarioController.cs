@@ -12,18 +12,19 @@ using Integer.Web.ViewModels;
 using Integer.Web.Infra.AutoMapper;
 using Integer.Domain.Acesso;
 using Integer.Domain.Acesso.Exceptions;
+using Integer.Infrastructure.Criptografia;
 
 namespace Integer.Web.Controllers
 {
     public class UsuarioController : ControllerBase
     {
         private readonly Grupos grupos;
-        private readonly TrocaSenhaService lembraSenhaService;
+        private readonly TrocaSenhaService trocaSenhaService;
 
-        public UsuarioController(Grupos grupos, TrocaSenhaService lembraSenhaService)
+        public UsuarioController(Grupos grupos, TrocaSenhaService trocaSenhaService)
         {
             this.grupos = grupos;
-            this.lembraSenhaService = lembraSenhaService;
+            this.trocaSenhaService = trocaSenhaService;
         }
 
         [HttpGet]
@@ -128,14 +129,62 @@ namespace Integer.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                Response.StatusCode = (int)HttpStatusCode.PartialContent;
                 return PartialView("TrocarSenhaForm", input);
             }
             try
             {
-                lembraSenhaService.EnviarSenha(input.Email);
+                trocaSenhaService.EnviarSenha(input.Email);
             }
             catch (UsuarioInexistenteException ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json(new { ErrorMessage = ex.Message });
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult TrocarSenha(string id, Guid token, bool reset) 
+        {
+            try
+            {
+                var userId = Encryptor.Decrypt(id);
+                if (!reset)
+                {
+                    trocaSenhaService.DesativarToken(userId, token);
+                }
+                else if (trocaSenhaService.ValidarToken(userId, token))
+                {
+                    return View();
+                }
+            }
+            catch (Exception ex) 
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+            }
+            return Redirect("/");
+        }
+
+        [HttpPost]
+        public ActionResult TrocarSenha(UsuarioTrocarSenhaViewModel input) 
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.PartialContent;
+                return PartialView("TrocarSenhaForm", input);
+            }
+            try
+            {
+                var userId = Encryptor.Decrypt(input.Id);
+                trocaSenhaService.TrocarSenha(input.Token, userId, input.Senha);
+            }
+            catch (UsuarioInexistenteException ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json(new { ErrorMessage = ex.Message });
+            }
+            catch (UsuarioTokenExpiradoException ex) 
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return Json(new { ErrorMessage = ex.Message });

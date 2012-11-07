@@ -1,15 +1,18 @@
 ﻿$().ready(function () {
+    $("#hddId").val(getFromQueryString("id"));
+    $("#hddToken").val(getFromQueryString("token"));
+
     $("#btnSend").live("click", function () {
-        if ($("#frmEmail").valid()) {
+        if ($("#frmSenha").valid()) {
             $(this).button('loading');
 
-            $.post("/Usuario/EsqueceuSenha", $("#frmEmail").serialize())
+            $.post("/Usuario/TrocarSenha", $("#frmSenha").serialize())
             .success(function (data, status, xhr) {
                 if (xhr.status == 206) {
-                    $("#frmEmail").replaceWith(xhr.responseText);
+                    $("#frmSenha").replaceWith(xhr.responseText);
                 }
                 else {
-                    $("#message").text("Acabamos de lhe enviar um e-mail contendo as instruções para a troca de senha.");
+                    $("#message").html("Sua senha foi trocada com sucesso. <a href='/Usuario/Login'>Clique aqui para fazer o login</a>");
                     $(".alert").removeClass().addClass("alert alert-success").show();
                 }
             })

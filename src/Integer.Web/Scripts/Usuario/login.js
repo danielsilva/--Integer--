@@ -1,6 +1,6 @@
 ﻿$().ready(function () {
     $("#btnlogin").click(function () {
-        var loginform = $("#loginform");
+        var loginform = $("#loginForm");
 
         if (loginform.is(':visible'))
             loginform.fadeOut('fast');
@@ -20,11 +20,11 @@
 
         $('#mask').click(function () {
             $(this).remove();
-            $("#loginform").fadeOut('fast');
+            $("#loginForm").fadeOut('fast');
         });
     });
 
-    $("#loginform").validate({
+    $("#frmLogin").validate({
         rules: {
             email: {
                 required: true
@@ -53,7 +53,7 @@
                     }
                 },
                 error: function () {
-                    $("#errorMsg").text('E-mail ou senha incorreto');
+                    $("#errorMsg").text('E-mail e/ou senha incorretos');
                 },
                 complete: function () {
                     $('#btnDoLogin').button('reset');

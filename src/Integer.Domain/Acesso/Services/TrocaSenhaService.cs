@@ -30,7 +30,7 @@ namespace Integer.Domain.Acesso
         {
             var usuario = usuarios.Com(u => u.Email == email);
             if (usuario == null)
-                throw new UsuarioInexistenteException(email);
+                throw new UsuarioInexistenteException();
 
             return usuario;
         }
@@ -45,8 +45,33 @@ namespace Integer.Domain.Acesso
 
         private void EnviarEmail(Usuario usuario, string token)
         {
-            //TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", usuario.Email, new { UserId = usuario.Id, Token = token }));
-            TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", "danielsilva.rj@gmail.com", new TrocarSenhaModel { UserId = usuario.Id, Token = token }));
+            TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", usuario.Email, new TrocarSenhaModel { UserId = usuario.Id, Token = token }));
+        }
+
+        public bool ValidarToken(string usuarioId, Guid token) 
+        {
+            UsuarioToken usuarioToken = usuarioTokens.Com(u => u.UsuarioId == usuarioId && u.Codigo == token);
+            return usuarioToken.EstaValido;
+        }
+
+        public void DesativarToken(string usuarioId, Guid token)
+        {
+            UsuarioToken usuarioToken = usuarioTokens.Com(u => u.UsuarioId == usuarioId && u.Codigo == token);
+            usuarioToken.Desativar();
+        }
+
+        public void TrocarSenha(Guid token, string usuarioId, string senha)
+        {
+            UsuarioToken usuarioToken = usuarioTokens.Com(u => u.UsuarioId == usuarioId && u.Codigo == token);
+            if (!usuarioToken.EstaValido)
+                throw new UsuarioTokenExpiradoException();
+
+            var usuario = usuarios.Com(u => u.Id == usuarioId);
+            if (usuario == null)
+                throw new UsuarioInexistenteException();
+
+            usuario.TrocarSenha(senha);
+            usuarioToken.Desativar();
         }
     }
 }

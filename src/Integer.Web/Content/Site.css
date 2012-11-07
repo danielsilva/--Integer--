@@ -29,12 +29,11 @@ div.loginmenu{
 	position:relative;
 }
 
-#loginform  {
+#loginForm  {
     position: absolute;
-    /*display: none;*/
     top: 50px;
-    left: -180px;
-    width:200px !important;
+    left: -161px;
+    width:205px !important;
     z-index: 7;
     border: 2px solid #ccc;
     border: 2px solid rgba(0, 0, 0, .2);
@@ -43,6 +42,7 @@ div.loginmenu{
     max-height:250px;
     background: #fff;
     font-size:12px;
+    padding:15px;
 }
 
 .profileMenu{

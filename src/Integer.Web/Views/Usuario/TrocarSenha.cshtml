@@ -5,10 +5,11 @@
     Html.EnableUnobtrusiveJavaScript(true);  
 }
 
-@Html.Partial("EsqueceuSenhaForm")
+
+@Html.Partial("TrocarSenhaForm")
 
 @section Scripts {
     @MvcHtmlString.Create(Bundle.JavaScript()
-        .Add("~/Scripts/Usuario/esqueceuSenha.js")
-        .Render("~/Scripts/squished/squished_usuario-esqueceuSenha_#.js"))
+        .Add("~/Scripts/Usuario/trocarSenha.js")
+        .Render("~/Scripts/squished/squished_usuario-trocarSenha_#.js"))
 }

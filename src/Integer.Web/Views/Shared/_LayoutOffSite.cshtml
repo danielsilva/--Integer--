@@ -44,6 +44,7 @@
 
     @MvcHtmlString.Create(Bundle.JavaScript()
         .Add("~/Scripts/Shared/jquery.validation.js")
+        .Add("~/Scripts/Shared/global.js")
         .Render("~/Scripts/squished/squished_master-offsite_#.js"))
 
     @RenderSection("Scripts", required: false)

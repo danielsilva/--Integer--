@@ -40,19 +40,9 @@
                 <div class="btn-group">
                     <button id="btnlogin" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Login&nbsp;<span class="caret"></span></button>
                 </div>
-                <form id="loginform" class="well" style="display:none;">
-                    <p></p>
-                    <label id="errorMsg" class="field-validation-error"></label>
-                    <input id="txtEmail" type="text" class="span2" name="email" placeholder="E-mail" style="width:190px;" /> 
-                    <input type="password" class="span2" name="senha" placeholder="Senha" style="width:190px;" />                      
-                    <label class="checkbox">
-                        <input type="checkbox" name="lembrar" value="true" /> Mantenha-me conectado
-                    </label>
-                    <button id="btnDoLogin" type="submit" data-loading-text="Logando..." class="btn btn-primary">Entrar</button>
-                    <label style="margin-top:16px;">
-                        <a href="Usuario/EsqueceuSenha">Esqueceu a senha?</a>
-                    </label>
-                </form>
+                <div id="loginForm" style="display:none;">
+                    @Html.Partial("~/Views/Usuario/LoginForm.cshtml")
+                </div>
             </div>
             <div id="loggedInProfile" class="loginmenu" @if (!Request.IsAuthenticated) { <text>style="display:none;"</text> }>
                 <div class="btn-group">

@@ -8,9 +8,17 @@ using Integer.Web.Infra;
 
 namespace Integer.Web.ViewModels
 {
-    public class UsuarioEsqueceuSenhaViewModel
+    public class UsuarioTrocarSenhaViewModel
     {
+        public string Id { get; set; }
+        public Guid Token { get; set; }
+
         [Required(ErrorMessage="obrigatório")]
-        public string Email { get; set; }
+        [StringLength(8, MinimumLength = 6, ErrorMessage = "precisa ter entre 6 e 8 caracteres")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "obrigatório")]
+        [EqualTo("Senha", ErrorMessage="repita a senha")]
+        public string SenhaIgual { get; set; }
     }
 }
