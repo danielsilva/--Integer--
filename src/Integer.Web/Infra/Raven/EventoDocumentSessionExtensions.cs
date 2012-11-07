@@ -25,8 +25,8 @@ namespace Integer.Web.Infra.Raven
         {
             var eventos = new List<Evento>();
             eventos = session.Query<Evento>().Where(e => e.Estado != EstadoEventoEnum.Cancelado
-                                                            && (inicio <= e.DataInicio && e.DataInicio <= fim)
-                                                                || (inicio <= e.DataFim && e.DataFim <= fim)).ToList();
+                                                            && ((inicio <= e.DataInicio && e.DataInicio <= fim)
+                                                                || (inicio <= e.DataFim && e.DataFim <= fim))).ToList();
             return eventos;
         }
     }

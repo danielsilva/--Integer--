@@ -8,6 +8,7 @@
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/Site.css")
         .Add("~/Content/Validation.css")
+        .Add("~/Content/alerts/jquery.alerts.min.css")
         .Render("~/Content/squished/squished_site_#.css"))
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 
@@ -48,7 +49,7 @@
                         <input type="checkbox" name="lembrar" value="true" /> Mantenha-me conectado
                     </label>
                     <button id="btnDoLogin" type="submit" data-loading-text="Logando..." class="btn btn-primary">Entrar</button>
-                    <label style="margin-top:16px;">
+                    <label style="margin-top:16px;display:none;">
                         <a href="Usuario/TrocarSenha">Esqueceu a senha?</a>
                     </label>
                 </form>
@@ -111,6 +112,7 @@
         .Add("~/Scripts/Shared/jquery.validation.js")
         .Add("~/Scripts/Usuario/login.js")
         .Add("~/Scripts/Plugins/jQueryCookie/jquery.cookies.2.2.0.js")
+        .Add("~/Scripts/Plugins/alerts/jquery.alerts.min.js")
         .Add("~/Scripts/shared/global.js")
         .Add("~/Scripts/shared/date.js")
         .Render("~/Scripts/squished/squished_master_#.js"))

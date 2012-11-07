@@ -28,7 +28,6 @@ namespace Integer.Web.Controllers
             this.agenda = agenda;
         }
 
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             ViewBag.Tipos = RavenSession.ObterTiposDeEvento();
@@ -120,8 +119,10 @@ namespace Integer.Web.Controllers
 
         [HttpPost]
         public void Cancelar(string id)
-        { 
-
+        {
+            var evento = RavenSession.Load<Evento>(id);
+            if (evento != null)
+                evento.CancelarAgendamento();
         }
     }
 }

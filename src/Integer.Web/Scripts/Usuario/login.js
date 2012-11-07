@@ -36,22 +36,28 @@
         submitHandler: function (form) {
             $('#btnDoLogin').button('loading');
 
-            $.post("/Usuario/Login", $(form).serialize(), function (response, textStatus, xhr) {
-                if (response) {
-                    var newDoc = document.open("text/html", "replace");
-                    newDoc.write(response);
-                    newDoc.close();
+            $.ajax({
+                url: "/Usuario/Login",
+                type: 'POST',
+                dataType: 'text',
+                data: $(form).serialize(),
+                success: function (response, textStatus, xhr) {
+                    if (response) {
+                        var newDoc = document.open("text/html", "replace");
+                        newDoc.write(response);
+                        newDoc.close();
+                    }
+                    else {
+                        configureNavBarLoggedIn();
+                        configureCalendarReadOnly(false);
+                    }
+                },
+                error: function () {
+                    $("#errorMsg").text('E-mail ou senha incorreto');
+                },
+                complete: function () {
+                    $('#btnDoLogin').button('reset');
                 }
-                else {
-                    configureNavBarLoggedIn();
-                    configureCalendarReadOnly(false);
-                }
-            }, 'text')
-            .error(function () {
-                $("#errorMsg").text('E-mail ou senha incorreto');
-            })
-            .complete(function () {
-                $('#btnDoLogin').button('reset');
             });
         }
     });

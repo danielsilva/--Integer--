@@ -132,14 +132,21 @@ function configureEventForm() {
         });
     $('#btnCancelEvent')
         .click(function(){
-            $.post("/Calendario/Cancelar", { id: $("#txtIdEvento").val() })
-                .success(function (response) {
-                    alert('evento cancelado');
-                    reloadCalendar();
-                })
-                .error(function (data) {
-                    alert('erro: evento cancelado');
-                });
+            jConfirm("Deseja cancelar este evento?", "Cancelamento", function (confirm) {
+                if (confirm) {
+                    $.post("/Calendario/Cancelar", { id: $("#txtIdEvento").val() })
+                        .success(function (response) {
+                            jAlert("Evento cancelado!", "Sucesso", function () {
+                               reloadCalendar();
+                               closeEventModal();
+                            });
+                        })
+                        .error(function (data) {
+                            alert('erro: evento cancelado');
+                        });
+                    }
+                }
+            );
         });
 }
 
@@ -366,4 +373,9 @@ function showFormEvent(event) {
             addReservedLocalItem(reserve);
         });
     }
+}
+
+function closeEventModal() {
+    $('#divFormEvent').modal("hide");
+    clearFormEvent();
 }

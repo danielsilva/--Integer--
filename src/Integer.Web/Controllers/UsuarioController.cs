@@ -83,7 +83,7 @@ namespace Integer.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                Response.StatusCode = (int)HttpStatusCode.PartialContent;
                 return PartialView("CriarForm", usuarioInput);
             }
             try
