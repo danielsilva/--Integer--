@@ -1,0 +1,25 @@
+﻿@using Integer.Web.Helpers
+
+<h1>Acesso</h1>
+@using (Html.BeginForm()) {
+	<br/>
+	@Html.ValidationMessage("formAcesso")
+	<div class="linha">
+	    <div class="formItem">
+	    <label for="login" style="float:left;">E-mail</label>@Html.ValidationImage("login")
+	    @Html.TextBox("login", "", new { @id = "txtLogin", @class = "input-text" })
+	    </div>
+    </div>
+    <div class="linha">
+        <div class="formItem">
+	    <label for="senha" style="float:left;">Senha</label>@Html.ValidationImage("senha")
+	    @Html.Password("senha", "", new { @id = "txtSenha", @class = "input-text" })
+	    </div>
+	</div>
+	<!--<div class="linha" style="padding:5px 0px 0px 10px;min-height:0px;">
+	    <a href="#" id="lnkEsqueciSenha">Esqueci minha senha.</a>
+	</div>-->
+	<div class="spacer" style="text-align:center;">
+		<a href="#" id="lnkEnviar" class="botaoPrimario">Enviar</a>
+	</div>
+}

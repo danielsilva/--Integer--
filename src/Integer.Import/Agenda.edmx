@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
-    <EntitySet Name="Local" EntityType="Model.Store.Local" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Grupo" EntityType="Model.Store.Grupo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Evento" EntityType="Model.Store.Evento" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Reserva" EntityType="Model.Store.Reserva" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Conflito" EntityType="Model.Store.Conflito" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Usuario" EntityType="Model.Store.Usuario" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SolicitacaoAcesso" EntityType="Model.Store.SolicitacaoAcesso" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="AtuacaoNoGrupo" EntityType="Model.Store.AtuacaoNoGrupo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PublicoAlvo" EntityType="Model.Store.PublicoAlvo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EventoPublicoAlvo" EntityType="Model.Store.EventoPublicoAlvo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Local" EntityType="Model.Store.Local" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Grupo" EntityType="Model.Store.Grupo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Evento" EntityType="Model.Store.Evento" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Reserva" EntityType="Model.Store.Reserva" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Conflito" EntityType="Model.Store.Conflito" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Usuario" EntityType="Model.Store.Usuario" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="SolicitacaoAcesso" EntityType="Model.Store.SolicitacaoAcesso" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="AtuacaoNoGrupo" EntityType="Model.Store.AtuacaoNoGrupo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="PublicoAlvo" EntityType="Model.Store.PublicoAlvo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="EventoPublicoAlvo" EntityType="Model.Store.EventoPublicoAlvo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
     <AssociationSet Name="ReservaLocal" Association="Model.Store.ReservaLocal">
       <End Role="Reserva" EntitySet="Reserva" />
       <End Role="Local" EntitySet="Local" />
@@ -312,8 +312,8 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="AgendaContainer" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AgendaContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Local" EntityType="Model.Local" />
           <EntitySet Name="Grupo" EntityType="Model.Grupo" />
           <EntitySet Name="Evento" EntityType="Model.Evento" />
@@ -372,15 +372,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="Grupo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="ListaInternaGruposFilhos" Relationship="Model.GrupoGrupo" FromRole="Grupo" ToRole="Grupo1" />
           <NavigationProperty Name="GrupoPai" Relationship="Model.GrupoGrupo" FromRole="Grupo1" ToRole="Grupo" />
           </EntityType>
@@ -388,15 +388,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="String" Name="Descricao" Nullable="true" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="Int32" Name="idTipo" Nullable="false" cg:GetterAccess="Private" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataCadastro" Nullable="false" cg:SetterAccess="Private" />
-          <NavigationProperty Name="Grupo" Relationship="Model.EventoGrupo" FromRole="Evento" ToRole="Grupo" cg:SetterAccess="Private" />
-          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" />
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Descricao" Nullable="true" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Int32" Name="idTipo" Nullable="false" cg:GetterAccess="Private" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataCadastro" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Grupo" Relationship="Model.EventoGrupo" FromRole="Evento" ToRole="Grupo" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="ListaInternaConflitos" Relationship="Model.EventoConflito" FromRole="Evento" ToRole="Conflito" />
           <NavigationProperty Name="ListaInternaReservasdeLocais" Relationship="Model.EventoReserva" FromRole="Evento" ToRole="Reserva" />
           <NavigationProperty Name="ListaInternaPublicosAlvo" Relationship="Model.EventoPublicoAlvo" FromRole="Evento" ToRole="PublicoAlvo" />
@@ -405,10 +405,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Local" Relationship="Model.ReservaLocal" FromRole="Reserva" ToRole="Local" />
-          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="DateTime" Name="DataInicio" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataFim" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <Association Name="ReservaLocal">
           <End Type="Model.Reserva" Role="Reserva" Multiplicity="*" />
@@ -422,10 +422,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <NavigationProperty Name="Evento" Relationship="Model.ConflitoEvento" FromRole="Conflito" ToRole="Evento" cg:SetterAccess="Private" />
-          <Property Type="Int32" Name="idMotivo" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" />
-          <Property Type="DateTime" Name="Data" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Evento" Relationship="Model.ConflitoEvento" FromRole="Conflito" ToRole="Evento" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Int32" Name="idMotivo" Nullable="false" cg:SetterAccess="Private" cg:GetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="Data" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <Association Name="EventoConflito">
           <End Type="Model.Evento" Role="Evento" Multiplicity="1" />
@@ -436,37 +436,37 @@
           <End Type="Model.Evento" Role="Evento" Multiplicity="1" />
         </Association>
         <Association Name="EventoReserva">
-          <End Type="Model.Evento" Role="Evento" Multiplicity="1" >
+          <End Type="Model.Evento" Role="Evento" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Model.Reserva" Role="Reserva" Multiplicity="*" >
+          <End Type="Model.Reserva" Role="Reserva" Multiplicity="*">
           </End>
         </Association>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="String" Name="Email" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="String" Name="CPF" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="String" Name="Login" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="String" Name="Senha" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Nome" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Email" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="CPF" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Login" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Senha" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="ListaInternaSolicitacoesDeAcesso" Relationship="Model.UsuarioSolicitacaoAcesso" FromRole="Usuario" ToRole="SolicitacaoAcesso" />
           <NavigationProperty Name="ListaInternaAtuacoesNosGrupos" Relationship="Model.UsuarioAtuacaoNoGrupo" FromRole="Usuario" ToRole="AtuacaoNoGrupo" />
-          <Property Type="Boolean" Name="PrecisaTrocarSenha" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Boolean" Name="PrecisaTrocarSenha" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="SolicitacaoAcesso">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Grupo" Relationship="Model.SolicitacaoAcessoGrupo" FromRole="SolicitacaoAcesso" ToRole="Grupo" />
-          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataCriacao" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DataAvaliacao" cg:SetterAccess="Private" Nullable="true" />
-          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataCriacao" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="DateTime" Name="DataAvaliacao" cg:SetterAccess="Private" Nullable="true" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Int32" Name="idEstado" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <Association Name="SolicitacaoAcessoGrupo">
           <End Type="Model.SolicitacaoAcesso" Role="SolicitacaoAcesso" Multiplicity="*" />
@@ -480,9 +480,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" />
-          <NavigationProperty Name="Grupo" Relationship="Model.AtuacaoNoGrupoGrupo" FromRole="AtuacaoNoGrupo" ToRole="Grupo" cg:SetterAccess="Private" />
-          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Protected" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Grupo" Relationship="Model.AtuacaoNoGrupoGrupo" FromRole="AtuacaoNoGrupo" ToRole="Grupo" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Boolean" Name="EhCoordenador" Nullable="false" cg:SetterAccess="Private" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <Association Name="UsuarioAtuacaoNoGrupo">
           <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
@@ -500,7 +500,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Nome" Nullable="false" />
         </EntityType>
         <Association Name="EventoPublicoAlvo">
@@ -511,7 +511,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AgendaContainer">
     <EntitySetMapping Name="Local">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Local)">
@@ -695,14 +695,14 @@
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <edmx:Designer>
     <edmx:Connection>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </edmx:Connection>
     <edmx:Options>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
@@ -711,7 +711,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="Model" >
+      <Diagram Name="Model" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <EntityTypeShape EntityType="Model.Local" Width="1.5" PointX="5.5" PointY="5.625" Height="1.4033821614583326" />
         <EntityTypeShape EntityType="Model.Grupo" Width="1.5" PointX="3.625" PointY="0.625" Height="1.7879850260416665" />
         <EntityTypeShape EntityType="Model.Evento" Width="2.125" PointX="0.625" PointY="0.75" Height="3.1340950520833331" />

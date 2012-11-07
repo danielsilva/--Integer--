@@ -1,4 +1,7 @@
-﻿@model Integer.Web.ViewModels.MailTemplates.LembrarSenhaViewModel
+﻿@model Integer.Infrastructure.Email.TemplateModels.TrocarSenhaModel
+
+@using Integer.Web.Helpers;
+
 <table cellspacing="0" cellpadding="0" border="0" style="color: #333; background: #fff;
     padding: 0; margin: 0; width: 100%; font: 15px/19px 'Helvetica Neue',Arial,Helvetica">
     <tbody>
@@ -8,10 +11,10 @@
                     <tbody>
                         <tr width="100%" height="60">
                             <td valign="top" align="left" style="border-top-left-radius: 4px; border-top-right-radius: 4px;
-                                background: #27709b url(https://trello.com/images/gradient.png) bottom left repeat-x;
+                                background: #27709b bottom left repeat-x;
                                 padding: 10px 18px; text-align: center">
-                                <img height="40" width="125" src="https://d2k1ftgv7pobq7.cloudfront.net/images/0cbd8c2179dd0dea99a9051828956611/logo-s.png"
-                                    title="Trello" style="font-weight: bold; font-size: 18px; color: #fff; vertical-align: top">
+                                <img height="50" width="125" src="@Request.Url.FormatAbsoluteUrl("/Content/images/integer.png")"
+                                    title="Integer" style="font-weight: bold; font-size: 18px; color: #fff; vertical-align: top">
                             </td>
                         </tr>
                         <tr width="100%">
@@ -23,14 +26,14 @@
                                 </p>
                                 <p style="font: 15px/19px 'Helvetica Neue',Arial,Helvetica; margin-bottom: 0; text-align: center;
                                     color: #333">
-                                    <a href="@String.Format("{0}&{1}", Model.Link, "reset=true")"
+                                    <a href="@Request.Url.FormatAbsoluteUrl(String.Format("{0}&{1}", Model.Link, "reset=true"))"
                                         style="border-radius: 3px; background: #3aa54c; color: #fff; display: block;
                                         font-weight: 700; font-size: 16px; line-height: 20px; margin: 24px auto 24px;
                                         padding: 10px 18px; text-decoration: none; width: 180px; text-align: center"
                                         target="_blank">Criar nova senha </a>
                                 </p>
                                 <p style="font: 15px/19px 'Helvetica Neue',Arial,Helvetica; color: #939393; margin-bottom: 0">
-                                    Se você não solicitou a troca de senha, <a href="@String.Format("{0}&{1}", Model.Link, "reset=false")"
+                                    Se você não solicitou a troca de senha, <a href="@Request.Url.FormatAbsoluteUrl(String.Format("{0}&{1}", Model.Link, "reset=false"))"
                                         target="_blank">clique aqui</a> e nós esqueceremos que isso aconteceu.
                                 </p>
                             </td>

@@ -6,6 +6,7 @@ using Raven.Client;
 using NLog;
 using Raven.Abstractions.Exceptions;
 using System.Web.Hosting;
+using System.Web;
 
 namespace Integer.Infrastructure.Tasks
 {

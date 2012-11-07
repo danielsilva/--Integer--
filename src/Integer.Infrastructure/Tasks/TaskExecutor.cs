@@ -38,7 +38,7 @@ namespace Integer.Infrastructure.Tasks
             tasksToExecute.Value.Clear();
         }
 
-        public static void StartExecuting()
+        public async static void StartExecuting()
         {
             var value = tasksToExecute.Value;
             var copy = value.ToArray();
@@ -46,24 +46,14 @@ namespace Integer.Infrastructure.Tasks
 
             if (copy.Length > 0)
             {
-                Task.Factory
-                    .StartNew(state =>
-                        {
-                            foreach (var backgroundTask in copy)
-                            {
-                                ExecuteTask(backgroundTask);
-                            }
-                        },
-                        HttpContext.Current,
-                        TaskCreationOptions.LongRunning)
-                    .ContinueWith(task =>
-                    {
-                        if (ExceptionHandler != null) ExceptionHandler(task.Exception);
-                    }, TaskContinuationOptions.OnlyOnFaulted);
+                foreach (var backgroundTask in copy)
+                {
+                    await ExecuteTask(backgroundTask);
+                }
             }
         }
 
-        public static void ExecuteTask(BackgroundTask task)
+        public async static Task<bool> ExecuteTask(BackgroundTask task)
         {
             for (var i = 0; i < 10; i++)
             {
@@ -73,12 +63,13 @@ namespace Integer.Infrastructure.Tasks
                     {
                         case true:
                         case false:
-                            return;
+                            return true;
                         case null:
                             break;
                     }
                 }
             }
+            return false;
         }
     }
 }

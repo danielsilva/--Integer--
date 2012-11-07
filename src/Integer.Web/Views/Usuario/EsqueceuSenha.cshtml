@@ -1,0 +1,15 @@
+﻿@using SquishIt.Framework;
+
+@{
+    ViewBag.Title = "Criar";
+    Layout = "~/Views/Shared/_LayoutOffSite.cshtml";
+    Html.EnableUnobtrusiveJavaScript(true);  
+}
+
+@Html.Partial("EsqueceuSenhaForm")
+
+@section Scripts {
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Usuario/esqueceuSenha.js")
+        .Render("~/Scripts/squished/squished_usuario-esqueceuSenha_#.js"))
+}

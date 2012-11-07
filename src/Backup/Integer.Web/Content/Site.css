@@ -1,0 +1,96 @@
+﻿@charset "utf-8";
+
+
+body{
+	margin: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #EBF2F8 !important;
+	padding-top:70px;
+	padding-bottom:70px;
+}
+h2  
+{
+    font-size:12pt !important;
+    }
+    
+.navbar{
+    background-color:#066EAE;
+    height:45px;
+}
+
+/* Menu de Login */
+
+div.loginmenu{
+    float: right;
+	margin-right: 10px;
+	height: 100%;
+	font-size: 18px;
+	position:relative;
+}
+
+#loginform  {
+    position: absolute;
+    /*display: none;*/
+    top: 50px;
+    left: -180px;
+    width:200px !important;
+    z-index: 7;
+    border: 2px solid #ccc;
+    border: 2px solid rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    width: 230px;
+    max-height:250px;
+    background: #fff;
+    font-size:12px;
+}
+
+.profileMenu{
+    left: -88px !important;
+}
+
+#simplemodal-overlay
+{
+	background-color:#000;
+}
+a.simplemodal-close,
+a.simplemodal-close:link,
+a.simplemodal-close:active,
+a.simplemodal-close:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:4px; right:0px; color:#999; background:url(images/close.png) no-repeat; height:25px; width:25px; }
+a.simplemodal-close:hover {color:#9bb3b3;}
+
+/* MISC 
+------------------------------------------- */
+
+.error {
+    color: Red;
+}
+
+/* Styles for icons
+-----------------------------------------------------------*/
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.svg#icomoon') format('svg'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-alone {
+    display: inline-block; 
+}
+.screen-reader-text { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}

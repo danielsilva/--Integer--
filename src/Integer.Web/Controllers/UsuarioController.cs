@@ -118,13 +118,13 @@ namespace Integer.Web.Controllers
 
         [HttpGet]
         [OutputCache(Duration = 3600)]
-        public ActionResult TrocarSenha() 
+        public ActionResult EsqueceuSenha() 
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult TrocarSenha(UsuarioTrocarSenhaViewModel input) 
+        public ActionResult EsqueceuSenha(UsuarioEsqueceuSenhaViewModel input) 
         {
             if (!ModelState.IsValid)
             {

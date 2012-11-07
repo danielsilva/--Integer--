@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Integer.Web.Helpers
+
+@section head{
+    <script src="@Url.Content("~/Scripts/Grupo/Login.js")" type="text/javascript"></script>        
+}
+
+<div id="formulario" class="formulario" style="width:280px;margin-top:50px;">
+    <div id="divFormulario">
+		    @Html.Partial("LoginForm")
+	</div>
+</div>

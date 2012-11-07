@@ -1,0 +1,20 @@
+﻿@model Integer.Web.ViewModels.UsuarioEsqueceuSenhaViewModel
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmEmail", style="padding-bottom:20px;" })) {
+    <legend>Esqueceu sua senha?</legend>
+    
+    <div class="alert" style="display:none;">
+        <span id="message">Ocorreu um erro inesperado.</span>
+    </div>
+    
+    <label>Informe seu e-mail de cadastro e nós vamos lhe enviar as informações para que você crie outra senha.</label>
+    <p></p>    
+    @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", name = "email", placeholder = "E-mail" }) 
+    @Html.ValidationMessageFor(m => m.Email)
+    
+    <div class="control-group" style="padding-top:10px;">
+        <div class="controls">
+            <button id="btnSend" type="button" class="btn btn-primary pull-left" data-loading-text="Enviando...">Enviar</button>
+        </div>
+    </div>    
+}

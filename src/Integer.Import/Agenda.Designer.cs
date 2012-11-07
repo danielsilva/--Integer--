@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -225,6 +226,7 @@ namespace Integer.Import
         private ObjectSet<PublicoAlvo> _PublicoAlvo;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -300,11 +302,11 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -331,7 +333,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -350,7 +353,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -375,7 +378,7 @@ namespace Integer.Import
             {
                 OnEhCoordenadorChanging(value);
                 ReportPropertyChanging("EhCoordenador");
-                _EhCoordenador = StructuralObject.SetValidValue(value);
+                _EhCoordenador = StructuralObject.SetValidValue(value, "EhCoordenador");
                 ReportPropertyChanged("EhCoordenador");
                 OnEhCoordenadorChanged();
             }
@@ -385,7 +388,7 @@ namespace Integer.Import
         partial void OnEhCoordenadorChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -427,6 +430,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -453,7 +457,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -472,7 +477,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -497,7 +502,7 @@ namespace Integer.Import
             {
                 OnidMotivoChanging(value);
                 ReportPropertyChanging("idMotivo");
-                _idMotivo = StructuralObject.SetValidValue(value);
+                _idMotivo = StructuralObject.SetValidValue(value, "idMotivo");
                 ReportPropertyChanged("idMotivo");
                 OnidMotivoChanged();
             }
@@ -521,7 +526,7 @@ namespace Integer.Import
             {
                 OnDataChanging(value);
                 ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value);
+                _Data = StructuralObject.SetValidValue(value, "Data");
                 ReportPropertyChanged("Data");
                 OnDataChanged();
             }
@@ -531,7 +536,7 @@ namespace Integer.Import
         partial void OnDataChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -573,6 +578,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -605,7 +611,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -624,7 +631,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -649,7 +656,7 @@ namespace Integer.Import
             {
                 OnNomeChanging(value);
                 ReportPropertyChanging("Nome");
-                _Nome = StructuralObject.SetValidValue(value, false);
+                _Nome = StructuralObject.SetValidValue(value, false, "Nome");
                 ReportPropertyChanged("Nome");
                 OnNomeChanged();
             }
@@ -673,7 +680,7 @@ namespace Integer.Import
             {
                 OnDescricaoChanging(value);
                 ReportPropertyChanging("Descricao");
-                _Descricao = StructuralObject.SetValidValue(value, true);
+                _Descricao = StructuralObject.SetValidValue(value, true, "Descricao");
                 ReportPropertyChanged("Descricao");
                 OnDescricaoChanged();
             }
@@ -697,7 +704,7 @@ namespace Integer.Import
             {
                 OnDataInicioChanging(value);
                 ReportPropertyChanging("DataInicio");
-                _DataInicio = StructuralObject.SetValidValue(value);
+                _DataInicio = StructuralObject.SetValidValue(value, "DataInicio");
                 ReportPropertyChanged("DataInicio");
                 OnDataInicioChanged();
             }
@@ -721,7 +728,7 @@ namespace Integer.Import
             {
                 OnDataFimChanging(value);
                 ReportPropertyChanging("DataFim");
-                _DataFim = StructuralObject.SetValidValue(value);
+                _DataFim = StructuralObject.SetValidValue(value, "DataFim");
                 ReportPropertyChanged("DataFim");
                 OnDataFimChanged();
             }
@@ -745,7 +752,7 @@ namespace Integer.Import
             {
                 OnidTipoChanging(value);
                 ReportPropertyChanging("idTipo");
-                _idTipo = StructuralObject.SetValidValue(value);
+                _idTipo = StructuralObject.SetValidValue(value, "idTipo");
                 ReportPropertyChanged("idTipo");
                 OnidTipoChanged();
             }
@@ -769,7 +776,7 @@ namespace Integer.Import
             {
                 OnDataCadastroChanging(value);
                 ReportPropertyChanging("DataCadastro");
-                _DataCadastro = StructuralObject.SetValidValue(value);
+                _DataCadastro = StructuralObject.SetValidValue(value, "DataCadastro");
                 ReportPropertyChanged("DataCadastro");
                 OnDataCadastroChanged();
             }
@@ -793,7 +800,7 @@ namespace Integer.Import
             {
                 OnidEstadoChanging(value);
                 ReportPropertyChanging("idEstado");
-                _idEstado = StructuralObject.SetValidValue(value);
+                _idEstado = StructuralObject.SetValidValue(value, "idEstado");
                 ReportPropertyChanged("idEstado");
                 OnidEstadoChanged();
             }
@@ -803,7 +810,7 @@ namespace Integer.Import
         partial void OnidEstadoChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -911,6 +918,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -937,7 +945,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -956,7 +965,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -981,7 +990,7 @@ namespace Integer.Import
             {
                 OnNomeChanging(value);
                 ReportPropertyChanging("Nome");
-                _Nome = StructuralObject.SetValidValue(value, false);
+                _Nome = StructuralObject.SetValidValue(value, false, "Nome");
                 ReportPropertyChanged("Nome");
                 OnNomeChanged();
             }
@@ -991,7 +1000,7 @@ namespace Integer.Import
         partial void OnNomeChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1055,6 +1064,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1081,7 +1091,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1100,7 +1111,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1125,7 +1136,7 @@ namespace Integer.Import
             {
                 OnNomeChanging(value);
                 ReportPropertyChanging("Nome");
-                _Nome = StructuralObject.SetValidValue(value, false);
+                _Nome = StructuralObject.SetValidValue(value, false, "Nome");
                 ReportPropertyChanged("Nome");
                 OnNomeChanged();
             }
@@ -1135,7 +1146,7 @@ namespace Integer.Import
         partial void OnNomeChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -1162,7 +1173,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1181,7 +1193,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1206,7 +1218,7 @@ namespace Integer.Import
             {
                 OnNomeChanging(value);
                 ReportPropertyChanging("Nome");
-                _Nome = StructuralObject.SetValidValue(value, false);
+                _Nome = StructuralObject.SetValidValue(value, false, "Nome");
                 ReportPropertyChanged("Nome");
                 OnNomeChanged();
             }
@@ -1216,7 +1228,7 @@ namespace Integer.Import
         partial void OnNomeChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -1245,7 +1257,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1264,7 +1277,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1289,7 +1302,7 @@ namespace Integer.Import
             {
                 OnDataInicioChanging(value);
                 ReportPropertyChanging("DataInicio");
-                _DataInicio = StructuralObject.SetValidValue(value);
+                _DataInicio = StructuralObject.SetValidValue(value, "DataInicio");
                 ReportPropertyChanged("DataInicio");
                 OnDataInicioChanged();
             }
@@ -1313,7 +1326,7 @@ namespace Integer.Import
             {
                 OnDataFimChanging(value);
                 ReportPropertyChanging("DataFim");
-                _DataFim = StructuralObject.SetValidValue(value);
+                _DataFim = StructuralObject.SetValidValue(value, "DataFim");
                 ReportPropertyChanged("DataFim");
                 OnDataFimChanged();
             }
@@ -1323,7 +1336,7 @@ namespace Integer.Import
         partial void OnDataFimChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1365,6 +1378,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1395,7 +1409,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1414,7 +1429,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1439,7 +1454,7 @@ namespace Integer.Import
             {
                 OnEhCoordenadorChanging(value);
                 ReportPropertyChanging("EhCoordenador");
-                _EhCoordenador = StructuralObject.SetValidValue(value);
+                _EhCoordenador = StructuralObject.SetValidValue(value, "EhCoordenador");
                 ReportPropertyChanged("EhCoordenador");
                 OnEhCoordenadorChanged();
             }
@@ -1463,7 +1478,7 @@ namespace Integer.Import
             {
                 OnDataCriacaoChanging(value);
                 ReportPropertyChanging("DataCriacao");
-                _DataCriacao = StructuralObject.SetValidValue(value);
+                _DataCriacao = StructuralObject.SetValidValue(value, "DataCriacao");
                 ReportPropertyChanged("DataCriacao");
                 OnDataCriacaoChanged();
             }
@@ -1487,7 +1502,7 @@ namespace Integer.Import
             {
                 OnDataAvaliacaoChanging(value);
                 ReportPropertyChanging("DataAvaliacao");
-                _DataAvaliacao = StructuralObject.SetValidValue(value);
+                _DataAvaliacao = StructuralObject.SetValidValue(value, "DataAvaliacao");
                 ReportPropertyChanged("DataAvaliacao");
                 OnDataAvaliacaoChanged();
             }
@@ -1511,7 +1526,7 @@ namespace Integer.Import
             {
                 OnidEstadoChanging(value);
                 ReportPropertyChanging("idEstado");
-                _idEstado = StructuralObject.SetValidValue(value);
+                _idEstado = StructuralObject.SetValidValue(value, "idEstado");
                 ReportPropertyChanged("idEstado");
                 OnidEstadoChanged();
             }
@@ -1521,7 +1536,7 @@ namespace Integer.Import
         partial void OnidEstadoChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1563,6 +1578,7 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1601,7 +1617,8 @@ namespace Integer.Import
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1620,7 +1637,7 @@ namespace Integer.Import
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1645,7 +1662,7 @@ namespace Integer.Import
             {
                 OnNomeChanging(value);
                 ReportPropertyChanging("Nome");
-                _Nome = StructuralObject.SetValidValue(value, false);
+                _Nome = StructuralObject.SetValidValue(value, false, "Nome");
                 ReportPropertyChanged("Nome");
                 OnNomeChanged();
             }
@@ -1669,7 +1686,7 @@ namespace Integer.Import
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, false);
+                _Email = StructuralObject.SetValidValue(value, false, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -1693,7 +1710,7 @@ namespace Integer.Import
             {
                 OnCPFChanging(value);
                 ReportPropertyChanging("CPF");
-                _CPF = StructuralObject.SetValidValue(value, false);
+                _CPF = StructuralObject.SetValidValue(value, false, "CPF");
                 ReportPropertyChanged("CPF");
                 OnCPFChanged();
             }
@@ -1717,7 +1734,7 @@ namespace Integer.Import
             {
                 OnLoginChanging(value);
                 ReportPropertyChanging("Login");
-                _Login = StructuralObject.SetValidValue(value, false);
+                _Login = StructuralObject.SetValidValue(value, false, "Login");
                 ReportPropertyChanged("Login");
                 OnLoginChanged();
             }
@@ -1741,7 +1758,7 @@ namespace Integer.Import
             {
                 OnSenhaChanging(value);
                 ReportPropertyChanging("Senha");
-                _Senha = StructuralObject.SetValidValue(value, false);
+                _Senha = StructuralObject.SetValidValue(value, false, "Senha");
                 ReportPropertyChanged("Senha");
                 OnSenhaChanged();
             }
@@ -1765,7 +1782,7 @@ namespace Integer.Import
             {
                 OnidEstadoChanging(value);
                 ReportPropertyChanging("idEstado");
-                _idEstado = StructuralObject.SetValidValue(value);
+                _idEstado = StructuralObject.SetValidValue(value, "idEstado");
                 ReportPropertyChanged("idEstado");
                 OnidEstadoChanged();
             }
@@ -1789,7 +1806,7 @@ namespace Integer.Import
             {
                 OnPrecisaTrocarSenhaChanging(value);
                 ReportPropertyChanging("PrecisaTrocarSenha");
-                _PrecisaTrocarSenha = StructuralObject.SetValidValue(value);
+                _PrecisaTrocarSenha = StructuralObject.SetValidValue(value, "PrecisaTrocarSenha");
                 ReportPropertyChanged("PrecisaTrocarSenha");
                 OnPrecisaTrocarSenhaChanged();
             }
@@ -1799,7 +1816,7 @@ namespace Integer.Import
         partial void OnPrecisaTrocarSenhaChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1847,8 +1864,9 @@ namespace Integer.Import
         }
 
         #endregion
+
     }
 
     #endregion
-    
+
 }

@@ -8,7 +8,7 @@ using Integer.Web.Infra;
 
 namespace Integer.Web.ViewModels
 {
-    public class UsuarioTrocarSenhaViewModel
+    public class UsuarioEsqueceuSenhaViewModel
     {
         [Required(ErrorMessage="obrigatório")]
         public string Email { get; set; }

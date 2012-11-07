@@ -1,0 +1,17 @@
+﻿@using SquishIt.Framework;
+
+@model Integer.Web.ViewModels.UsuarioCriarViewModel
+
+@{
+    ViewBag.Title = "Criar";
+    Layout = "~/Views/Shared/_LayoutOffSite.cshtml";
+    Html.EnableUnobtrusiveJavaScript(true);  
+}
+
+@Html.Partial("CriarForm")
+
+@section Scripts {
+    @MvcHtmlString.Create(Bundle.JavaScript()
+        .Add("~/Scripts/Usuario/criar.js")
+        .Render("~/Scripts/squished/squished_usuario-criar_#.js"))
+}

@@ -53,31 +53,30 @@ namespace Integer.Infrastructure.Tasks
         {
             var routeData = new RouteData();
             routeData.Values.Add("controller", "MailTemplates");
-            var controllerContext = new ControllerContext(new MailHttpContext(), routeData, new MailController());
+            var controllerContext = new ControllerContext(new HttpContextWrapper(HttpContext.Current), routeData, new MailController());
             var viewEngineResult = ViewEngines.Engines.FindView(controllerContext, view, "_Layout");
             var stringWriter = new StringWriter();
             viewEngineResult.View.Render(
                 new ViewContext(controllerContext, viewEngineResult.View, new ViewDataDictionary(model), new TempDataDictionary(),
                                 stringWriter), stringWriter);
 
-            var mailMessage = new MailMessage
-                              {
-                                  IsBodyHtml = true,
-                                  Body = stringWriter.GetStringBuilder().ToString(),
-                                  Subject = subject,
-                              };
             if (string.IsNullOrEmpty(replyTo))
                 replyTo = ConfigurationManager.AppSettings["EmailSender"].ToString();
 
-            mailMessage.ReplyToList.Add(new MailAddress(replyTo));
+            var from = new MailAddress(replyTo, "Calendário Paroquial");
+            var to = new MailAddress(sendTo);
+            var mailMessage = new MailMessage(from, to)
+                              {
+                                  IsBodyHtml = true,
+                                  Body = stringWriter.GetStringBuilder().ToString(),
+                                  Subject = subject
+                              };            
 
             using (var smtpClient = new SmtpClient("mail.carnation.arvixe.com"))
             {
-                //var smtp = new SmtpClient("mail.carnation.arvixe.com");
                 smtpClient.Credentials = new NetworkCredential("nao-responda@calendarioparoquial.com.br", "lVONvMhaIH9v");
                 smtpClient.Send(mailMessage);
             }
-
         }
 
         public class MailController : Controller
@@ -105,7 +104,7 @@ namespace Integer.Infrastructure.Tasks
 
             public override HttpRequestBase Request
             {
-                get { return new HttpRequestWrapper(new HttpRequest("", "", "")); }
+                get { return new HttpRequestWrapper(new HttpRequest("", HttpContext.Current.Request.Url.Host, "")); }
             }
         }
 

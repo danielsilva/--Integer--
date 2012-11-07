@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Integer.Domain.Acesso.Exceptions;
+using Integer.Infrastructure.Email.TemplateModels;
 using Integer.Infrastructure.Tasks;
 
 namespace Integer.Domain.Acesso
@@ -45,7 +46,7 @@ namespace Integer.Domain.Acesso
         private void EnviarEmail(Usuario usuario, string token)
         {
             //TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", usuario.Email, new { UserId = usuario.Id, Token = token }));
-            TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", "danielsilva.rj@gmail.com", new { UserId = usuario.Id, Token = token }));
+            TaskExecutor.ExcuteLater(new SendEmailTask("Trocar senha", "TrocarSenha", "danielsilva.rj@gmail.com", new TrocarSenhaModel { UserId = usuario.Id, Token = token }));
         }
     }
 }
