@@ -68,7 +68,8 @@
 
     @MvcHtmlString.Create(Bundle.Css()
         .Add("~/Content/jQueryScrollBar/jquery.mCustomScrollbar.css")
-        .Render("~/Content/squished/squished_jmCustomScrollBar_#.css"))
+        .Add("~/Content/jQueryUITimePicker/jquery-ui-timepicker-addon.css")
+        .Render("~/Content/squished/squished_jPlugins-master_#.css"))
 
     @RenderSection("Styles", required: false)
     

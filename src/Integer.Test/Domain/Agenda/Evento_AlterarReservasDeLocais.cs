@@ -45,8 +45,8 @@ namespace Integer.UnitTests.Domain.Agenda
         [Fact]
         public void QuandoAlteraDatas_DisparaEventoDeAlteracaoDeReserva() 
         {
-            HorarioDeReservaDeLocalAlteradoEvent eventoDisparado = null;
-            DomainEvents.Register<HorarioDeReservaDeLocalAlteradoEvent>(e => eventoDisparado = e);
+            ReservaDeLocalAlteradaEvent eventoDisparado = null;
+            DomainEvents.Register<ReservaDeLocalAlteradaEvent>(e => eventoDisparado = e);
 
             Evento evento = CriarEventoComReserva();
 
@@ -54,7 +54,6 @@ namespace Integer.UnitTests.Domain.Agenda
             evento.AlterarReservasDeLocais(reservasAlteradas);
 
             Assert.Equal(evento, eventoDisparado.Evento);
-            Assert.Equal(evento.Reservas, eventoDisparado.ReservasAlteradas);
         }
 
         private Evento CriarEventoComReserva()

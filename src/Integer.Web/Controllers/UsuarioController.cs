@@ -66,7 +66,7 @@ namespace Integer.Web.Controllers
                 HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return null;
             }
-            return RedirectPermanent("/");
+            return Redirect("/");
         }
 
         [HttpGet]

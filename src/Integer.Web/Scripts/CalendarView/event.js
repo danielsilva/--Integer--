@@ -11,8 +11,6 @@ function setDateTimePicker() {
         $(this).datetimepicker({
             hourMin: 7,
             hourMax: 22,
-            hourGrid: 2,
-            minuteGrid: 10,
             prevText: '',
             nextText: ''
         });
@@ -33,18 +31,14 @@ function configureEventFormModal() {
 
 var lastDateFormEvent = '';
 function configureEventForm() {
-    $("#frmEvent").removeAttr("novalidate");
-
-    $(".datetimeField").change(function(){
+    $(".datetimeField").blur(function(){
         lastDateFormEvent = $(this).val();
     });
-    $("#txtDateBegin").change(function(){
-        if ($("#txtDateEnd").val() == '')
-            $("#txtDateEnd").val($(this).val());
+    $("#txtDateBegin").blur(function () {
+        $("#txtDateEnd").datetimepicker('option', { defaultDate: lastDateFormEvent });
     });
-    $("#txtDateEnd").change(function(){
-        if ($("#txtDateBegin").val() == '')
-            $("#txtDateBegin").val($(this).val());
+    $("#txtDateEnd").blur(function () {
+        $("#txtDateBegin").datetimepicker('option', { defaultDate: lastDateFormEvent });
     });
 
     $("#frmEvent").validate({
@@ -63,40 +57,51 @@ function configureEventForm() {
                 required: true,
                 greaterThan: "#txtDateBegin"
             }
-        },
-        submitHandler: function (form) {
-            if (validateReservedLocalsCount()) {
-                $('#btnSave').button('loading');
+        }
+    });
 
-                $.post("/Calendario/Salvar", $(form).serialize())
-                .success(function (response) {
+    $("#btnSave").live('click', function () {
+        if ($("#frmEvent").valid() && validateReservedLocalsCount()) {
+            $('#btnSave').button('loading');
+            
+            var successMessage;
+            var urlPost;
+            if ($("#txtIdEvento").val() == "") {
+                urlPost = '/Calendario/Salvar';
+                successMessage = '<div id="msgSuccess" class="alert alert-success"> \
+                                        <div class="pull-left" style="line-height:30px;"><h4 class="alert-heading">Evento agendado com sucesso!</h4></div> \
+                                        <div style="line-height:30px;"> \
+                                            <button type="button" id="btnScheduleOther" class="btn btn-info">Agendar outro</button> \
+                                        </div> \
+                                    </div>';
+            }
+            else {
+                urlPost = '/Calendario/Alterar';
+                successMessage = '<div id="msgSuccess" class="alert alert-success"> \
+                                        <div><h4 class="alert-heading pull-left">Evento alterado com sucesso!</h4></div> \
+                                    </div>';
+            }
+
+            $.ajax({
+                url: urlPost,
+                type: "POST",
+                data: $("#frmEvent").serialize(),
+                dataType: "json",
+                success: function (data, status, xhr) {
                     var txtId = $("#txtIdEvento");
                     $("#formEditTools").fadeIn("slow");
 
-                    if (txtId.val() == "") {
-                        $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
-                                                <h4 class="alert-heading">Evento agendado com sucesso!</h4> \
-                                                <p></p> \
-                                                <p> \
-                                                    <button type="button" id="btnScheduleOther" class="btn btn-info">Agendar outro</button> \
-                                                    <button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Fechar</button> \
-                                                </p> \
-                                            </div>');
-                    }
-                    else {
-                        $("#msgPanel").html('<div id="msgSuccess" class="alert alert-success"> \
-                                                <h4 class="alert-heading pull-left">Evento alterado com sucesso!</h4>&nbsp;<button type="button" id="btnCloseScheduler" class="btn" data-dismiss="modal">Ok</button> \
-                                            </div>');
-                    }
+                    $("#msgPanel").html(successMessage);
 
-                    $("#btnScheduleOther, #btnCloseScheduler").click(function () {
+                    $("#btnScheduleOther").click(function () {
                         clearFormEvent();
                     });
-                    txtId.val(response.Id);
+                    txtId.val(data.Id);
                     reloadCalendar();
-                })
-                .error(function (data) {
-                    var responseMessage = data.responseText;
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    var responseMessage = xhr.responseText;
                     try {
                         errorMessage = JSON.parse(responseMessage).ErrorMessage;
                     } catch (err) {
@@ -106,48 +111,44 @@ function configureEventForm() {
                                                 <h4 class="alert-heading">Não foi possível agendar o evento</h4> \
                                                 <p>' + errorMessage + '</p> \
                                             </div>');
-                })
-                .complete(function () {
+                },
+                complete: function () {
                     $('#btnSave').button('reset');
-                });
-            }
+                }
+            });
         }
-    });
-    $("#btnSave").click(function () { 
-        validateReservedLocalsCount();
+        return false;
     });
     $("#btnModalClose").click(function () {
         clearFormEvent();
     });
-    $("#btnCopy")
-        .click(function (){
-            $("#txtIdEvento").val('');
-            $.each($(".dateField"), function(){
-                $(this).val('');
-            });
-            $.each($(".datetimeField"), function(){
-                $(this).val('');
-            });
-            $("#formEditTools").fadeOut("slow");
+    $("#btnCopy").click(function (){
+        $("#txtIdEvento").val('');
+        $.each($(".dateField"), function(){
+            $(this).val('');
         });
-    $('#btnCancelEvent')
-        .click(function(){
-            jConfirm("Deseja cancelar este evento?", "Cancelamento", function (confirm) {
-                if (confirm) {
-                    $.post("/Calendario/Cancelar", { id: $("#txtIdEvento").val() })
-                        .success(function (response) {
-                            jAlert("Evento cancelado!", "Sucesso", function () {
-                               reloadCalendar();
-                               closeEventModal();
-                            });
-                        })
-                        .error(function (data) {
-                            alert('erro: evento cancelado');
+        $.each($(".datetimeField"), function(){
+            $(this).val('');
+        });
+        $("#formEditTools").fadeOut("slow");
+    });
+    $('#btnCancelEvent').click(function(){
+        jConfirm("Deseja cancelar este evento?", "Cancelamento", function (confirm) {
+            if (confirm) {
+                $.post("/Calendario/Cancelar", { id: $("#txtIdEvento").val() })
+                    .success(function (response) {
+                        jAlert("Evento cancelado!", "Sucesso", function () {
+                            reloadCalendar();
+                            closeEventModal();
                         });
-                    }
+                    })
+                    .error(function (data) {
+                        alert('erro: evento cancelado');
+                    });
                 }
-            );
-        });
+            }
+        );
+    });
 }
 
 function configureReservedLocals() {
@@ -240,16 +241,14 @@ function configureReservedLocalsValidation() {
     });
     $(".localDate").each(function () {
         $(this).rules('add', {
-            required: true,
-            //dateBR: true
+            required: true
         })
     });
     $(".timeSelection").each(function () {
         $(this).rules('add', {
             required: true,
             minlength: 1
-        })
-        
+        })        
     });
 }
 

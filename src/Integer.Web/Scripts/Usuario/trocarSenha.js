@@ -12,7 +12,7 @@
                     $("#frmSenha").replaceWith(xhr.responseText);
                 }
                 else {
-                    $("#message").html("Sua senha foi trocada com sucesso. <a href='/Usuario/Login'>Clique aqui para fazer o login</a>");
+                    $("#message").html("Sua senha foi trocada com sucesso. <a href='/Login'>Clique aqui para fazer o login</a>");
                     $(".alert").removeClass().addClass("alert alert-success").show();
                 }
             })
@@ -28,6 +28,7 @@
                 $('#btnSend').button('reset');
             });
         }
+        return false;
     });
 });
 

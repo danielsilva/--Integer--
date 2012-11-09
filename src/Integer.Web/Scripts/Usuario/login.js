@@ -32,40 +32,32 @@
             senha: {
                 required: true
             }
-        },
-        submitHandler: function (form) {
-            $('#btnDoLogin').button('loading');
-
-            $.ajax({
-                url: "/Usuario/Login",
-                type: 'POST',
-                dataType: 'text',
-                data: $(form).serialize(),
-                success: function (response, textStatus, xhr) {
-                    if (response) {
-                        var newDoc = document.open("text/html", "replace");
-                        newDoc.write(response);
-                        newDoc.close();
-                    }
-                    else {
-                        configureNavBarLoggedIn();
-                        configureCalendarReadOnly(false);
-                    }
-                },
-                error: function () {
-                    $("#errorMsg").text('E-mail e/ou senha incorretos');
-                },
-                complete: function () {
-                    $('#btnDoLogin').button('reset');
-                }
-            });
         }
     });
-});
 
-function configureNavBarLoggedIn() {
-    $("#notLoggedIn").hide();
-    $("#loggedInProfile").show();
-    $("#navMenu").load('Usuario/Menu');
-}
+    $('#btnDoLogin').click(function () {
+        $('#btnDoLogin').button('loading');
+
+        $.ajax({
+            url: "/Usuario/Login",
+            type: 'POST',
+            dataType: 'text',
+            data: $("#frmLogin").serialize(),
+            success: function (response, textStatus, xhr) {
+                if (response) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
+            },
+            error: function () {
+                $("#errorMsg").text('E-mail e/ou senha incorretos');
+            },
+            complete: function () {
+                $('#btnDoLogin').button('reset');
+            }
+        });
+        return false;
+    });
+});
 

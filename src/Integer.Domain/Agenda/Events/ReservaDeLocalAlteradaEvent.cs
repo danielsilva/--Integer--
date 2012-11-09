@@ -6,15 +6,13 @@ using Integer.Infrastructure.Events;
 
 namespace Integer.Domain.Agenda
 {
-    public class ReservaDeLocalCanceladaEvent : DomainEvent
+    public class ReservaDeLocalAlteradaEvent : DomainEvent
     {
-        public ReservaDeLocalCanceladaEvent(Evento evento, IEnumerable<Reserva> reservas)
+        public ReservaDeLocalAlteradaEvent(Evento evento)
         {
             this.Evento = evento;
-            this.Reservas = reservas;
         }
 
         public Evento Evento { get; private set; }
-        public IEnumerable<Reserva> Reservas { get; private set; }
     }
 }

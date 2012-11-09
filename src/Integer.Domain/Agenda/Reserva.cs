@@ -8,6 +8,7 @@ using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Agenda
 {
+    [Serializable]
     public class Reserva : IEquatable<Reserva>
     {
         public DateTime Data { get; set; }
@@ -17,7 +18,7 @@ namespace Integer.Domain.Agenda
         public Reserva(DenormalizedReference<Local> local, DateTime data, IList<HoraReservaEnum> hora)
         {
             PreencherLocal(local);
-            Data = data;
+            Data = data.Date;
             Hora = hora;
         }
 
@@ -52,7 +53,8 @@ namespace Integer.Domain.Agenda
                 return false;
 
             return (this.Local.Equals(outraReserva.Local)
-                    && this.Hora.Intersect(outraReserva.Hora).Count() > 0);
+                && this.Data.Date == outraReserva.Data.Date    
+                && this.Hora.Intersect(outraReserva.Hora).Count() == this.Hora.Count);
         }
 
         public override bool Equals(object obj)

@@ -12,10 +12,12 @@ using Integer.Infrastructure.DocumentModelling;
 using Integer.Infrastructure.Email;
 using Integer.Infrastructure.Enums;
 using System.Linq.Expressions;
+using Integer.Infrastructure.Domain;
 
 namespace Integer.Domain.Agenda
 {
-    public class Evento : INamedDocument
+    [Serializable]
+    public class Evento : Entity, INamedDocument
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRA_DESCRICAO = 150;
@@ -203,47 +205,14 @@ namespace Integer.Domain.Agenda
             this.Tipo = tipo; // TODO: disparar DomainEvent de tipo alterado (se o tipo diminuiu a prioridade, o handler deverá remover os conflitos dos eventos menos prioritários até então)
         }
 
-        public void AlterarReservasDeLocais(IEnumerable<Reserva> reservasNovas) 
+        public void AlterarReservasDeLocais(IEnumerable<Reserva> reservasInput) 
         {
-            IList<Reserva> reservasAlteradas = new List<Reserva>();
-            IList<Reserva> reservasCanceladas = new List<Reserva>();
+            IList<Reserva> reservasNovasOuAlteradas = reservasInput.Except(this.Reservas).ToList();
 
-            foreach (var reservaDoEvento in this.Reservas)
-            {
-                bool reservaDoEventoFoiAlterada = reservasNovas.Count(r => r.Local.Equals(reservaDoEvento.Local)) > 0;
-                if (reservaDoEventoFoiAlterada)
-                {
-                    Reserva reservaAlterada = reservasNovas.First(r => r.Local.Equals(reservaDoEvento.Local));
-                    if (reservaAlterada.Data != reservaDoEvento.Data
-                        || reservaAlterada.Hora.Except(reservaDoEvento.Hora).Count() > 0)
-                    {
-                        reservaDoEvento.AlterarHorario(reservaAlterada.Data, reservaAlterada.Hora);
-                        reservasAlteradas.Add(reservaDoEvento);
-                    }
-                }
-                else 
-                {
-                    reservasCanceladas.Add(reservaDoEvento);
-                }
-            }
-            var reservasAux = this.Reservas.ToList();
-            foreach (var reservaCancelada in reservasCanceladas)
-	        {
-                reservasAux.Remove(reservaCancelada);
-	        }
-            this.Reservas = reservasAux;
-            foreach (var reservaNova in reservasNovas)
-            {
-                var reserva = this.Reservas.SingleOrDefault(r => r.Local == reservaNova.Local);
-                if (reserva == null)
-                    this.Reservar(reservaNova.Local, reservaNova.Data, reservaNova.Hora);
-            }
+            this.Reservas = reservasInput;
 
-            if (reservasAlteradas.Count > 0)
-                DomainEvents.Raise<HorarioDeReservaDeLocalAlteradoEvent>(new HorarioDeReservaDeLocalAlteradoEvent(this, reservasAlteradas));
-
-            if (reservasCanceladas.Count > 0)
-                DomainEvents.Raise<ReservaDeLocalCanceladaEvent>(new ReservaDeLocalCanceladaEvent(this, reservasCanceladas));
+            if (reservasNovasOuAlteradas.Count > 0)
+                DomainEvents.Raise<ReservaDeLocalAlteradaEvent>(new ReservaDeLocalAlteradaEvent(this));
         }
 
         public bool PossuiPrioridadeSobre(Evento outroEvento)

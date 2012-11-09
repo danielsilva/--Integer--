@@ -8,8 +8,7 @@ using Integer.Domain.Agenda;
 namespace Integer.Domain.Agenda
 {
     public class RemoveConflitoService : DomainEventHandler<EventoCanceladoEvent>, 
-                                         DomainEventHandler<ReservaDeLocalCanceladaEvent>,
-                                         DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>, 
+                                         DomainEventHandler<ReservaDeLocalAlteradaEvent>, 
                                          DomainEventHandler<HorarioDeEventoAlteradoEvent>
     {
         private readonly Eventos eventos;
@@ -28,37 +27,36 @@ namespace Integer.Domain.Agenda
             }
         }
 
-        public void Handle(HorarioDeReservaDeLocalAlteradoEvent alteracaoDeHorario)
+        public void Handle(ReservaDeLocalAlteradaEvent alteracaoDeReserva)
         {
-            Evento eventoAlterado = alteracaoDeHorario.Evento;
-            IEnumerable<Reserva> reservasAlteradas = alteracaoDeHorario.ReservasAlteradas;
+            Evento eventoAlterado = alteracaoDeReserva.Evento;
 
-            RemoverConflitosDeReservaDeLocalDeOutrosEventos(eventoAlterado, reservasAlteradas);
-            RemoverConflitosDeReservaDeLocalDoEvento(eventoAlterado, reservasAlteradas);            
+            RemoverConflitosDeReservaDeLocalDeOutrosEventos(eventoAlterado);
+            RemoverConflitosDeReservaDeLocalDoEvento(eventoAlterado);            
         }
 
-        private void RemoverConflitosDeReservaDeLocalDeOutrosEventos(Evento eventoAlterado, IEnumerable<Reserva> reservasAlteradas)
+        private void RemoverConflitosDeReservaDeLocalDeOutrosEventos(Evento eventoAlterado)
         {
             IEnumerable<Evento> eventosComConflito = eventos.QuePossuemConflitoCom(eventoAlterado, MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
             foreach (Evento eventoComConflito in eventosComConflito)
             {
-                bool possuiConflito = eventoComConflito.VerificarSeReservasPossuemConflito(reservasAlteradas);
+                bool possuiConflito = eventoComConflito.VerificarSeReservasPossuemConflito(eventoAlterado.Reservas);
                 if (!possuiConflito)
                     eventoComConflito.RemoverConflitoCom(eventoAlterado);
             }
         }
 
-        private void RemoverConflitosDeReservaDeLocalDoEvento(Evento eventoAlterado, IEnumerable<Reserva> reservasAlteradas)
+        private void RemoverConflitosDeReservaDeLocalDoEvento(Evento eventoAlterado)
         {
             IEnumerable<Conflito> conflitosDeLocal = eventoAlterado.Conflitos.Where(c => c.Motivo == MotivoConflitoEnum.LocalReservadoParaEventoDeMaiorPrioridade);
             if (conflitosDeLocal.Count() > 0) 
             {
                 IEnumerable<string> idsEventosConflitantes = conflitosDeLocal.Select(c => c.Evento.Id);
-                IEnumerable<Evento> eventosConflitantes = eventos.Todos(e => idsEventosConflitantes.Contains(e.Id));
+                IEnumerable<Evento> eventosConflitantes = eventos.Com(idsEventosConflitantes);
 
                 foreach (Evento eventoConflitante in eventosConflitantes)
                 {
-                    bool possuiConflito = eventoConflitante.VerificarSeReservasPossuemConflito(reservasAlteradas);
+                    bool possuiConflito = eventoConflitante.VerificarSeReservasPossuemConflito(eventoAlterado.Reservas);
                     if (!possuiConflito)
                         eventoAlterado.RemoverConflitoCom(eventoConflitante);
                 }
@@ -72,7 +70,7 @@ namespace Integer.Domain.Agenda
             if (eventoAlterado.Tipo == TipoEventoEnum.Paroquial)
                 RemoverConflitosDeEventosNaoParoquiais(eventoAlterado);
 
-            RemoverConflitosDoEvento(eventoAlterado);               
+            RemoverConflitosComEventosParoquiais(eventoAlterado);               
         }
 
         private void RemoverConflitosDeEventosNaoParoquiais(Evento eventoAlterado)
@@ -86,13 +84,13 @@ namespace Integer.Domain.Agenda
             }
         }
 
-        private void RemoverConflitosDoEvento(Evento eventoAlterado)
+        private void RemoverConflitosComEventosParoquiais(Evento eventoAlterado)
         {
             IEnumerable<Conflito> conflitosComEventosParoquiais = eventoAlterado.Conflitos.Where(c => c.Motivo == MotivoConflitoEnum.ExisteEventoParoquialNaData);
             if (conflitosComEventosParoquiais.Count() > 0)
             {
                 IEnumerable<string> idsEventosParoquiais = conflitosComEventosParoquiais.Select(c => c.Evento.Id);
-                IEnumerable<Evento> eventosParoquiais = eventos.Todos(e => idsEventosParoquiais.Contains(e.Id));
+                IEnumerable<Evento> eventosParoquiais = eventos.Com(idsEventosParoquiais);
 
                 foreach (Evento evento in eventosParoquiais)
                 {
@@ -101,15 +99,6 @@ namespace Integer.Domain.Agenda
                         eventoAlterado.RemoverConflitoCom(evento);
                 }
             }
-        }
-
-        public void Handle(ReservaDeLocalCanceladaEvent cancelamentoDeReserva)
-        {
-            Evento eventoAlterado = cancelamentoDeReserva.Evento;
-            IEnumerable<Reserva> reservasCanceladas = cancelamentoDeReserva.Reservas;
-
-            RemoverConflitosDeReservaDeLocalDeOutrosEventos(eventoAlterado, reservasCanceladas);
-            RemoverConflitosDeReservaDeLocalDoEvento(eventoAlterado, reservasCanceladas); 
         }
     }
 }

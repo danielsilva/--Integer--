@@ -7,6 +7,7 @@ using Integer.Infrastructure.DocumentModelling;
 
 namespace Integer.Domain.Agenda
 {
+    [Serializable]
     public class Conflito
     {
         protected Conflito() 

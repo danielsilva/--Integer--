@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Integer.Infrastructure.DocumentModelling
 {
+    [Serializable]
     public class DenormalizedReference<T> : IEquatable<T>, IEquatable<DenormalizedReference<T>> where T : INamedDocument
     {
         private T reference;

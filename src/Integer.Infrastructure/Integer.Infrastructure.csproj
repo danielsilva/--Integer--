@@ -77,6 +77,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -90,6 +91,7 @@
     <Compile Include="DateAndTime\SystemTime.cs" />
     <Compile Include="DocumentModelling\DenormalizedReference.cs" />
     <Compile Include="DocumentModelling\INamedDocument.cs" />
+    <Compile Include="Domain\Entity.cs" />
     <Compile Include="Email\EmailWrapper.cs" />
     <Compile Include="Enums\EnumExtensions.cs" />
     <Compile Include="Events\DomainEvents.cs" />

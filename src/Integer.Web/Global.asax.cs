@@ -24,7 +24,9 @@ namespace Integer
     public class MvcApplication : System.Web.HttpApplication
     {
         private const string RavenSessionKey = "RavenDB.Session";
-        
+
+        public static IDocumentStore DocumentStore { get; set; }
+
         public static IDocumentSession CurrentSession
         {
             get 
@@ -55,6 +57,12 @@ namespace Integer
             routes.IgnoreRoute("{*robotstxt}", new { robotstxt = @"(.*/)?robots.txt(/.*)?" });
 
             routes.MapRoute(
+                "Login", 
+                "login",
+                new { controller = "Usuario", action = "Login" } 
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Calendario", action = "Index", id = UrlParameter.Optional } // Parameter defaults
@@ -75,6 +83,8 @@ namespace Integer
         private void Initialize() 
         {
             DocumentStoreHolder.Initialize();
+            DocumentStore = DocumentStoreHolder.DocumentStore;
+
             InitializeIoC();
             AutoMapperConfiguration.Configure();
         }
@@ -93,8 +103,7 @@ namespace Integer
             builder.RegisterType<UsuarioTokenRepository>().As<UsuarioTokens>();
 
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<EventoCanceladoEvent>>();
-            builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<ReservaDeLocalCanceladaEvent>>();
-            builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeReservaDeLocalAlteradoEvent>>();
+            builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<ReservaDeLocalAlteradaEvent>>();
             builder.RegisterType<RemoveConflitoService>().As<DomainEventHandler<HorarioDeEventoAlteradoEvent>>();
 
             builder.Register<AgendaEventoService>(c => new AgendaEventoService(c.Resolve<Eventos>()));

@@ -105,9 +105,8 @@
     <Compile Include="Acesso\UsuarioToken.cs" />
     <Compile Include="Acesso\Usuarios.cs" />
     <Compile Include="Agenda\Conflito.cs" />
-    <Compile Include="Agenda\Events\ReservaDeLocalCanceladaEvent.cs" />
     <Compile Include="Agenda\Events\HorarioDeEventoAlteradoEvent.cs" />
-    <Compile Include="Agenda\Events\HorarioDeReservaDeLocalAlteradoEvent.cs" />
+    <Compile Include="Agenda\Events\ReservaDeLocalAlteradaEvent.cs" />
     <Compile Include="Agenda\Events\EventoCanceladoEvent.cs" />
     <Compile Include="Agenda\Exceptions\LocalReservadoException.cs" />
     <Compile Include="Agenda\HoraReservaEnum.cs" />

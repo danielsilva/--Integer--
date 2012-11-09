@@ -57,12 +57,13 @@ namespace Integer.Web.Controllers
         }       
 
         [HttpPost]
+        [Authorize]
         public JsonResult Salvar(EventoViewModel input) 
         {
             Evento evento;
             try
             {
-                evento = GerarEvento(input);
+                evento = CriarEvento(input);
                 agenda.Agendar(evento);
             }
             catch (Exception ex)
@@ -82,38 +83,64 @@ namespace Integer.Web.Controllers
             return Json(evento);
         }
 
-        private Evento GerarEvento(EventoViewModel input) 
+        private Evento CriarEvento(EventoViewModel input)
         {
-            Evento evento;
+            Evento evento = new Evento(
+                input.Nome,
+                input.Descricao,
+                input.DataInicio.GetValueOrDefault(),
+                input.DataFim.GetValueOrDefault(),
+                GrupoLogado,
+                ((TipoEventoEnum)input.Tipo)
+            );
+            foreach (var reserva in input.Reservas)
+            {
+                var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
+                evento.Reservar(local, reserva.Data.GetValueOrDefault(), reserva.Hora);
+            }
+            return evento;
+        }
 
-            if (!string.IsNullOrEmpty(input.Id))
+        [HttpPost]
+        [Authorize]
+        public JsonResult Alterar(EventoViewModel input)
+        {
+            Evento evento = RavenSession.Load<Evento>(input.Id);
+            try
             {
-                evento = RavenSession.Load<Evento>(input.Id);
-                evento.Alterar(input.Nome, input.Descricao, input.DataInicio.GetValueOrDefault(), input.DataFim.GetValueOrDefault(), GrupoLogado, ((TipoEventoEnum)input.Tipo));
-                var reservas = new List<Reserva>();
-                foreach (var reserva in input.Reservas)
-                {
-                    var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
-                    reservas.Add(new Reserva(local, reserva.Data.GetValueOrDefault(), reserva.Hora));
-                }
-                evento.AlterarReservasDeLocais(reservas);
+                evento.SaveState();
+                MapearEvento(evento, input);
+                agenda.Agendar(evento);
             }
-            else
+            catch (Exception ex)
             {
-                evento = new Evento(
-                    input.Nome,
-                    input.Descricao,
-                    input.DataInicio.GetValueOrDefault(),
-                    input.DataFim.GetValueOrDefault(),
-                    GrupoLogado,
-                    ((TipoEventoEnum)input.Tipo)
-                );
-                foreach (var reserva in input.Reservas)
+                evento = evento.RestoreState<Evento>();
+                if (ex is DbCException
+                    || ex is LocalReservadoException
+                    || ex is EventoParoquialExistenteException)
                 {
-                    var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
-                    evento.Reservar(local, reserva.Data.GetValueOrDefault(), reserva.Hora);
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json(new { ErrorMessage = ex.Message.Replace(Environment.NewLine, "<br/>") });
+                }
+                else
+                {
+                    throw;
                 }
             }
+            return Json(evento);
+        }
+
+        private Evento MapearEvento(Evento evento, EventoViewModel input) 
+        {
+            evento.Alterar(input.Nome, input.Descricao, input.DataInicio.GetValueOrDefault(), input.DataFim.GetValueOrDefault(), GrupoLogado, ((TipoEventoEnum)input.Tipo));
+            var reservas = new List<Reserva>();
+            foreach (var reserva in input.Reservas)
+            {
+                var local = RavenSession.ObterLocais().First(l => l.Id == reserva.LocalId);
+                reservas.Add(new Reserva(local, reserva.Data.GetValueOrDefault(), reserva.Hora));
+            }
+            evento.AlterarReservasDeLocais(reservas);
+
             return evento;
         }
 

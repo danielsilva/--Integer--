@@ -18,6 +18,11 @@ namespace Integer.Infrastructure.Repository
             this.documentSession = documentSession;
         }
 
+        public IEnumerable<Evento> Com(IEnumerable<string> ids) 
+        {
+            return documentSession.Load<Evento>(ids);
+        }
+
         public IEnumerable<Evento> Todos(Expression<Func<Evento, bool>> condicao)
         {
             var ev = documentSession.Query<Evento>()

@@ -10,6 +10,7 @@ using Integer.Infrastructure.Criptografia;
 
 namespace Integer.Domain.Paroquia
 {
+    [Serializable]
     public class Grupo : INamedDocument
     {
         private const short NUMERO_MAXIMO_DE_CARACTERES_PRO_NOME = 50;

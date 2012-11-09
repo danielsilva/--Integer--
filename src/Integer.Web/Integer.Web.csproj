@@ -309,8 +309,6 @@
     <Content Include="Content\calendar\images\share\tool-sprites.gif" />
     <Content Include="Content\images\integer-blue.png" />
     <Content Include="Content\OffSite.css" />
-    <Content Include="Content\dateTimePicker\dark.datetimepicker.css" />
-    <Content Include="Content\dateTimePicker\dark.datetimepicker.min.css" />
     <Content Include="Content\Event.css" />
     <Content Include="Content\extCalendar\css\calendar-colors.css" />
     <Content Include="Content\extCalendar\css\calendar.css" />
@@ -628,7 +626,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\CalendarView\calendar.js" />
     <Content Include="Scripts\CalendarView\event.js" />
-    <Content Include="Scripts\CalendarView\EventoForm.js" />
     <Content Include="Scripts\jquery-1.8.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.1.js" />
     <Content Include="Scripts\jquery-1.8.1.min.js" />
@@ -654,8 +651,6 @@
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\Plugins\alerts\jquery.alerts.js" />
     <Content Include="Scripts\Plugins\alerts\jquery.alerts.min.js" />
-    <Content Include="Scripts\Plugins\blockUI\jquery.blockUI.js" />
-    <Content Include="Scripts\Plugins\blockUI\jquery.blockUI.min.js" />
     <Content Include="Scripts\Plugins\calendar\Common.js" />
     <Content Include="Scripts\Plugins\calendar\Common.min.js" />
     <Content Include="Scripts\Plugins\calendar\dateFormat.js" />
@@ -668,10 +663,6 @@
     <Content Include="Scripts\Plugins\calendar\jquery.datepicker.min.js" />
     <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.js" />
     <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.min.js" />
-    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker-pt-BR.js" />
-    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker-pt-BR.min.js" />
-    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.js" />
-    <Content Include="Scripts\Plugins\dateTimePicker\ui.datetimepicker.min.js" />
     <Content Include="Scripts\Plugins\extCalendar\calendar-debug.js" />
     <Content Include="Scripts\Plugins\extCalendar\calendar.js" />
     <Content Include="Scripts\Plugins\extCalendar\extensible-core-debug.js" />
@@ -771,9 +762,6 @@
     <Content Include="Views\Grupo\GrupoForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Calendario\EventoForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Calendario\Calendario.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -797,11 +785,6 @@
     <Content Include="Views\Shared\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.Staging.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Usuario\EsqueceuSenhaForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -818,6 +801,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Usuario\TrocarSenhaForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Production.pubxml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <None Include="Web.Staging.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
