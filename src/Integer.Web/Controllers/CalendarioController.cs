@@ -14,6 +14,9 @@ using Integer.Web.Infra.Raven;
 using Integer.Infrastructure.Email;
 using System.Web.UI;
 using Integer.Domain.Agenda.Exceptions;
+using Integer.Infrastructure.Transaction;
+using System.EnterpriseServices;
+using System.Transactions;
 
 namespace Integer.Web.Controllers
 {
@@ -108,11 +111,13 @@ namespace Integer.Web.Controllers
             Evento evento = RavenSession.Load<Evento>(input.Id);
             try
             {
+                evento.SaveState();
                 MapearEvento(evento, input);
                 agenda.Agendar(evento);
             }
             catch (Exception ex)
             {
+                evento.RestoreState<Evento>();
                 if (ex is DbCException
                     || ex is LocalReservadoException
                     || ex is EventoParoquialExistenteException)

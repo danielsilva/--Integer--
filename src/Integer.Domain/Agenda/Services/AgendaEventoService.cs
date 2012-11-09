@@ -8,6 +8,8 @@ using System.Linq.Expressions;
 using Integer.Infrastructure.LINQExpressions;
 using DbC;
 using Integer.Domain.Agenda.Exceptions;
+using System.EnterpriseServices;
+using Integer.Infrastructure.Transaction;
 
 namespace Integer.Domain.Agenda
 {

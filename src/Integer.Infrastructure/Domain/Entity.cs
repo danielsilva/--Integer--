@@ -6,6 +6,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Integer.Infrastructure.ValueInjecterHelpers;
+using Omu.ValueInjecter;
 
 namespace Integer.Infrastructure.Domain
 {
@@ -19,14 +22,14 @@ namespace Integer.Infrastructure.Domain
             new BinaryFormatter().Serialize(stream, this);
         }
 
-        public T RestoreState<T>()
+        public void RestoreState<T>()
         {
             stream.Seek(0, SeekOrigin.Begin);
             object o = new BinaryFormatter().Deserialize(stream);
             stream.Close();
 
-            return (T)o;
+            Mapper.CreateMap<T, T>();
+            Mapper.Map((T)o, this);
         }
-
     }
 }

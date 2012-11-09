@@ -22,6 +22,9 @@
     </SccProvider>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,9 +92,14 @@
     <Reference Include="DbC">
       <HintPath>..\..\lib\DbC.dll</HintPath>
     </Reference>
+    <Reference Include="PostSharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PostSharp.2.1.7.22\lib\net20\PostSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -131,6 +139,7 @@
     <Compile Include="Agenda\Services\AgendaEventoService.cs" />
     <Compile Include="Acesso\Services\TrocaSenhaService.cs" />
     <Compile Include="Agenda\Services\RemoveConflitoService.cs" />
+    <Compile Include="RequiresPostSharp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Integer.Infrastructure.Email\Integer.Infrastructure.Email.csproj">
@@ -142,7 +151,12 @@
       <Name>Integer.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="..\packages\PostSharp.2.1.7.22\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.2.1.7.22\tools\PostSharp.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

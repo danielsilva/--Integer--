@@ -119,6 +119,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Raven\UnitOfWork.cs" />
     <Compile Include="UsuarioTokensRepository.cs" />
     <Compile Include="UsuarioRepository.cs" />
     <Compile Include="Indexes\ReservasMap.cs" />

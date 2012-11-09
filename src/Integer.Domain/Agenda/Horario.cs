@@ -13,6 +13,8 @@ namespace Integer.Domain.Agenda
         private readonly DateTime dataInicio;
         private readonly DateTime dataFim;
 
+        private Horario() { }
+
         public Horario(DateTime dataInicio, DateTime dataFim)
         {
             var dataInicioEhMenorQueDataFim = Assertion.That(dataInicio < dataFim).WhenNot("Data Início deve ser anterior à Data Fim.");

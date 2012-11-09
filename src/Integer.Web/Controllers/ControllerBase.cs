@@ -10,6 +10,9 @@ using Integer.Domain.Paroquia;
 using Raven.Client;
 using Integer.Web.Infra.Raven;
 using IntegerElmah = Integer.Web.Infra.Elmah;
+using Integer.Infrastructure.Tasks;
+using Integer.Infrastructure.Repository;
+using Integer.Infrastructure.Transaction;
 
 namespace Integer.Web.Controllers
 {
@@ -46,35 +49,6 @@ namespace Integer.Web.Controllers
                 && (Request.Headers["Origin"].Contains(".calendarioparoquial.com.br")
                     || Request.Headers["Origin"].Contains("localhost"))) 
                 Response.AppendHeader("Access-Control-Allow-Origin", Request.Headers["Origin"]);
-        }
-
-        protected override void OnException(ExceptionContext filterContext)
-        {
-            base.OnException(filterContext);
-            if (filterContext.Exception is DbCException)
-            {
-                HandleError(filterContext.Exception);
-                filterContext.ExceptionHandled = true;
-                return;
-            }
-            string login = " sem login";
-            if (User != null)
-            {
-                login = User.Identity.Name;
-            }
-
-            // TODO log de erros
-            //ILog log = LogManager.GetLogger("EmailLogger");
-            //log.Error("Erro na Aplicação " + login, Server.GetLastError());
-
-            //ILog filelog = LogManager.GetLogger("FileLogger");
-            //filelog.Error("Erro na Aplicação", Server.GetLastError());
-        }
-
-        protected void HandleError(Exception ex) 
-        {
-            string msg = ex.Message.Replace("\r\n", "\n");
-            Response.AddHeader("ERRO", HttpUtility.HtmlEncode(msg));
         }
     }
 }

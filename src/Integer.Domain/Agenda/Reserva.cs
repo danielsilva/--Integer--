@@ -15,6 +15,8 @@ namespace Integer.Domain.Agenda
         public IList<HoraReservaEnum> Hora { get; set; }
         public DenormalizedReference<Local> Local { get; private set; }
 
+        private Reserva() { }
+
         public Reserva(DenormalizedReference<Local> local, DateTime data, IList<HoraReservaEnum> hora)
         {
             PreencherLocal(local);
