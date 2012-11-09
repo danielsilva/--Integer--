@@ -78,7 +78,7 @@ function configureEventForm() {
             else {
                 urlPost = '/Calendario/Alterar';
                 successMessage = '<div id="msgSuccess" class="alert alert-success"> \
-                                        <div><h4 class="alert-heading pull-left">Evento alterado com sucesso!</h4></div> \
+                                        <p><h4 class="alert-heading">Evento alterado com sucesso!</h4></p> \
                                     </div>';
             }
 
@@ -99,14 +99,13 @@ function configureEventForm() {
                     txtId.val(data.Id);
                     reloadCalendar();
                 },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
+                error: function (xhr, status, exception) {
                     var responseMessage = xhr.responseText;
+                    var errorMessage = 'Ocorreu um erro inesperado.';
                     try {
                         errorMessage = JSON.parse(responseMessage).ErrorMessage;
-                    } catch (err) {
-                        errorMessage = 'Ocorreu um erro inesperado.';
-                    }
+                    } catch (err) { }
+
                     $("#msgPanel").html('<div id="msgAlert" class="alert"> \
                                                 <h4 class="alert-heading">Não foi possível agendar o evento</h4> \
                                                 <p>' + errorMessage + '</p> \

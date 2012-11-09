@@ -35,7 +35,7 @@ namespace Integer.Infrastructure.Repository
                 ConnectionStringName = "Integer"
             };
             store.Conventions.SaveEnumsAsIntegers = true;
-            store.RegisterListener.Initialize();
+            store.Initialize();
 
             IndexCreation.CreateIndexes(typeof(ReservasMap).Assembly, store);
 
