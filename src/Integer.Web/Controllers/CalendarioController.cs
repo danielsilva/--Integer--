@@ -111,13 +111,12 @@ namespace Integer.Web.Controllers
             Evento evento = RavenSession.Load<Evento>(input.Id);
             try
             {
-                evento.SaveState();
                 MapearEvento(evento, input);
                 agenda.Agendar(evento);
             }
             catch (Exception ex)
             {
-                evento.RestoreState<Evento>();
+                DoNotCallSaveChanges = true;
                 if (ex is DbCException
                     || ex is LocalReservadoException
                     || ex is EventoParoquialExistenteException)

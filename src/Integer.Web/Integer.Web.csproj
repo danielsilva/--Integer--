@@ -233,6 +233,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AcessoController.cs" />
     <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
@@ -813,6 +814,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Production.pubxml" />
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <Content Include="Views\Acesso\Perfis.cshtml" />
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

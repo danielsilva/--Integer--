@@ -24,6 +24,7 @@ namespace Integer
     public class MvcApplication : System.Web.HttpApplication
     {
         private const string RavenSessionKey = "RavenDB.Session";
+        private const string RequestSaveChangesKey = "RequestSaveChanges";
 
         public static IDocumentStore DocumentStore { get; set; }
 
@@ -36,6 +37,17 @@ namespace Integer
             set 
             {
                 HttpContext.Current.Items[RavenSessionKey] = value;
+            }
+        }
+
+        public static bool RequestCannotSaveChanges
+        { 
+            get{
+                return (HttpContext.Current.Items[RequestSaveChangesKey] as bool?) ?? false; 
+            }
+            set 
+            {
+                HttpContext.Current.Items[RequestSaveChangesKey] = value;
             }
         }
 
@@ -124,10 +136,7 @@ namespace Integer
         {
             using (var session = CurrentSession)
             {
-                if (session == null)
-                    return;
-
-                if (Server.GetLastError() != null)
+                if (session == null || Server.GetLastError() != null || RequestCannotSaveChanges)
                     return;
 
                 session.SaveChanges();

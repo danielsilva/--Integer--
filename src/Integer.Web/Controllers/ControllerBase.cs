@@ -13,6 +13,7 @@ using IntegerElmah = Integer.Web.Infra.Elmah;
 using Integer.Infrastructure.Tasks;
 using Integer.Infrastructure.Repository;
 using Integer.Infrastructure.Transaction;
+using Autofac;
 
 namespace Integer.Web.Controllers
 {
@@ -41,14 +42,29 @@ namespace Integer.Web.Controllers
 
         public IDocumentSession RavenSession { get; set; }
 
+        protected bool DoNotCallSaveChanges 
+        {
+            set 
+            {
+                MvcApplication.RequestCannotSaveChanges = value;
+            }
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             RavenSession = MvcApplication.CurrentSession;
-            
+
             if (Request.Headers["Origin"] != null 
                 && (Request.Headers["Origin"].Contains(".calendarioparoquial.com.br")
                     || Request.Headers["Origin"].Contains("localhost"))) 
                 Response.AppendHeader("Access-Control-Allow-Origin", Request.Headers["Origin"]);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            DoNotCallSaveChanges = true;
+
+            base.OnException(filterContext);
         }
     }
 }
