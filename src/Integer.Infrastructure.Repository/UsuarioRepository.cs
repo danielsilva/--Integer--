@@ -23,5 +23,10 @@ namespace Integer.Infrastructure.Repository
         {
             return documentSession.Query<Usuario>().FirstOrDefault(condicao);
         }
+        
+        public void Salvar(Usuario usuario)
+        {
+            documentSession.Store(usuario);
+        }
     }
 }

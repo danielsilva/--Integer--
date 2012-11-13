@@ -12,7 +12,6 @@ using Integer.Web.Infra.Raven;
 using IntegerElmah = Integer.Web.Infra.Elmah;
 using Integer.Infrastructure.Tasks;
 using Integer.Infrastructure.Repository;
-using Integer.Infrastructure.Transaction;
 using Autofac;
 
 namespace Integer.Web.Controllers

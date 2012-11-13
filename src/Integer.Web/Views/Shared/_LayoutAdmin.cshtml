@@ -1,0 +1,67 @@
+﻿@using SquishIt.Framework;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Integer</title>
+    @MvcHtmlString.Create(Bundle.Css()
+        .Add("~/Content/Site.css")
+        .Add("~/Content/Validation.css")
+        .Render("~/Content/squished/squished_siteadmin_#.css"))
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />    
+
+    @RenderSection("Styles", required: false)
+
+    <script data-main="@Url.Content("~/Scripts/App/main")" src="//ajax.cdnjs.com/ajax/libs/require.js/2.1.1/require.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">       
+            <a class="brand" style="padding:3px 0 2px 12px" href="#"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>     
+                        
+            <div class="loginmenu">
+                <div class="btn-group">
+                    <button id="btnProfile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Menu&nbsp;<span class="caret"></span></button>
+                    <ul class="profileMenu dropdown-menu">
+                      <li><a href="@Url.Action("Sair", "Usuario")">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navMenu" class="nav pull-right">
+                @if (Request.IsAuthenticated) {
+                    @Html.Partial("Menu");
+                }
+            </div>            
+        </div>
+    </div>
+    <div class="container"></div>    
+
+    @RenderSection("Scripts", required: false)    
+
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function () {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/ZkpCLR97DUhpAnpPV4wfQg.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-31387531-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script type="text/javascript" src="//sawpf.com/1.0.js"></script>
+</body>
+</html>
+
+
+

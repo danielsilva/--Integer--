@@ -36,7 +36,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,9 +96,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="DbC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\DbC.dll</HintPath>
@@ -116,23 +112,8 @@
     <Reference Include="Elmah.Mvc">
       <HintPath>..\packages\Elmah.MVC.2.0.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Esent.Interop, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8dd49bbdae3f61af, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Esent.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.NRefactory, Version=3.0.0.3800, Culture=neutral, PublicKeyToken=efe927acf176eea2, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
-    </Reference>
     <Reference Include="Jurassic">
       <HintPath>..\packages\Jurassic.2.1.1\lib\Jurassic.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net, Version=2.9.4.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Lucene.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net.Contrib.Spatial, Version=2.9.1.2, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Lucene.Net.Contrib.Spatial.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net.Contrib.SpellChecker, Version=2.9.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Lucene.Net.Contrib.SpellChecker.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -142,42 +123,21 @@
     <Reference Include="MVC Foolproof Validation">
       <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PostSharp.2.1.7.22\lib\net20\PostSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Client.1.0.980\lib\net40\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Backup">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Backup.exe</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Client.1.0.980\lib\net40\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Munin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=974fec519e29970d, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Munin.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Smuggler">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Smuggler.exe</HintPath>
-    </Reference>
-    <Reference Include="Raven.Storage.Esent, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Storage.Esent.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Storage.Managed, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Raven.Storage.Managed.dll</HintPath>
-    </Reference>
-    <Reference Include="Spatial4n.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f9456e1ca16d45e, processorArchitecture=MSIL">
-      <HintPath>..\packages\RavenDB.Database.1.0.960\lib\net40\Spatial4n.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="SquishIt.Framework">
       <HintPath>..\packages\SquishIt.0.8.7.2\lib\SquishIt.Framework.dll</HintPath>
@@ -233,36 +193,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AcessoController.cs" />
-    <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
-    <Compile Include="Controllers\GrupoController.cs" />
-    <Compile Include="Controllers\ParoquiaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Enums\VisualizacaoCalendarioEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CalendarioHelper.cs" />
-    <Compile Include="Helpers\DivExtensions.cs" />
-    <Compile Include="Helpers\GrupoHelper.cs" />
     <Compile Include="Helpers\UriHelperExtensions.cs" />
-    <Compile Include="Helpers\ValidationExtensions.cs" />
-    <Compile Include="Infra\AutoMapper\AutoMapperConfiguration.cs" />
-    <Compile Include="Infra\AutoMapper\AutoMapperExtensions.cs" />
-    <Compile Include="Infra\AutoMapper\Profiles\EventoProfile.cs" />
-    <Compile Include="Infra\AutoMapper\Profiles\LocalProfile.cs" />
-    <Compile Include="Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
-    <Compile Include="Infra\AutoMapper\Profiles\GrupoProfile.cs" />
-    <Compile Include="Infra\Elmah\HandleErrorAttribute.cs" />
     <Compile Include="Infra\EmailAttribute.cs" />
-    <Compile Include="Infra\Raven\EventoDocumentSessionExtensions.cs" />
-    <Compile Include="Infra\Raven\TipoEventoDocumentSessionExtensions.cs" />
-    <Compile Include="Infra\Raven\LocalDocumentSessionExtensions.cs" />
-    <Compile Include="Infra\Raven\UsuarioDocumentSessionExtensions.cs" />
-    <Compile Include="Infra\Raven\GrupoDocumentSessionExtensions.cs" />
+    <Compile Include="Raven\EventoDocumentSessionExtensions.cs" />
+    <Compile Include="Raven\TipoEventoDocumentSessionExtensions.cs" />
+    <Compile Include="Raven\LocalDocumentSessionExtensions.cs" />
+    <Compile Include="Raven\UsuarioDocumentSessionExtensions.cs" />
+    <Compile Include="Raven\GrupoDocumentSessionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequiresPostSharp.cs" />
     <Compile Include="ValidationHelpers\ValidationHelper.cs" />
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
     <Compile Include="ViewModels\UsuarioTrocarSenhaViewModel.cs" />
@@ -270,7 +213,7 @@
     <Compile Include="ViewModels\EventoForCalendarioViewModel.cs" />
     <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
     <Compile Include="ViewModels\EventoViewModel.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="Raven\ItemViewModel.cs" />
     <Compile Include="ViewModels\GrupoViewModel.cs" />
     <Compile Include="ViewModels\ReservaDeLocalViewModel.cs" />
     <Compile Include="ViewModels\UsuarioCriarViewModel.cs" />
@@ -285,6 +228,10 @@
     <Content Include="Content\alerts\images\title.gif" />
     <Content Include="Content\alerts\jquery.alerts.css" />
     <Content Include="Content\alerts\jquery.alerts.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar\calendar.css" />
     <Content Include="Content\calendar\calendar.min.css" />
     <Content Include="Content\calendar\dp.css" />
@@ -316,6 +263,8 @@
     <Content Include="Content\calendar\images\share\table_c.gif" />
     <Content Include="Content\calendar\images\share\tbg.gif" />
     <Content Include="Content\calendar\images\share\tool-sprites.gif" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\integer-blue.png" />
     <Content Include="Content\OffSite.css" />
     <Content Include="Content\Event.css" />
@@ -622,6 +571,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\jquery-ui-redmond.css" />
+    <Content Include="Content\toastr.css" />
     <Content Include="Content\toolTip2\jquery.tooltip.css" />
     <Content Include="Content\toolTip\jquery.bt.css" />
     <Content Include="Content\ttbootstrap\css\bootstrap-responsive.css" />
@@ -633,6 +583,20 @@
     <Content Include="Content\Validation.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Acesso\perfilDetails.js" />
+    <Content Include="Scripts\Acesso\perfilEdit.js" />
+    <Content Include="Scripts\Acesso\perfilModel.js" />
+    <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\boilerplate.js" />
+    <Content Include="Scripts\App\Collections\perfis.js" />
+    <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\App\Models\perfil.js" />
+    <Content Include="Scripts\App\router.js" />
+    <Content Include="Scripts\App\Views\Perfil\perfilList.js" />
+    <Content Include="Scripts\backbone.js" />
+    <Content Include="Scripts\backbone.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CalendarView\calendar.js" />
     <Content Include="Scripts\CalendarView\event.js" />
     <Content Include="Scripts\jquery-1.8.1-vsdoc.js" />
@@ -647,10 +611,16 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.js" />
     <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\Shared\date.js" />
     <Content Include="Scripts\Shared\global.js" />
     <Content Include="Scripts\Shared\jquery.validation.js" />
     <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
+    <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\Usuario\trocarSenha.js" />
     <Content Include="Scripts\Usuario\esqueceuSenha.js" />
     <Content Include="Scripts\Usuario\criar.js" />
@@ -721,6 +691,8 @@
     <Content Include="Scripts\Plugins\toolTip\jquery.bt.min.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.js" />
     <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.min.js" />
+    <Content Include="Templates\Perfil\perfilList.html" />
+    <Content Include="Templates\Perfil\perfilEdit.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -741,6 +713,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Integer.Api\Integer.Api.csproj">
+      <Project>{9afa1604-d400-4446-81aa-871a3cb71ccf}</Project>
+      <Name>Integer.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Integer.Domain\Integer.Domain.csproj">
       <Project>{6D72F9EE-9D92-4E5B-A359-79C3A4271154}</Project>
       <Name>Integer.Domain</Name>
@@ -814,11 +790,13 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Production.pubxml" />
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
-    <Content Include="Views\Acesso\Perfis.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Perfil\Index.cshtml" />
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -855,5 +833,4 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <Import Project="..\packages\PostSharp.2.1.7.22\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.2.1.7.22\tools\PostSharp.targets')" />
 </Project>

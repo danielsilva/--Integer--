@@ -11,8 +11,7 @@ using Integer.Infrastructure.Repository;
 using Integer.Infrastructure.Events;
 using Integer.Domain.Agenda;
 using Raven.Client;
-using Raven.Database.Server;
-using Integer.Web.Infra.AutoMapper;
+using Integer.Api.Infra.AutoMapper;
 using Integer.Infrastructure.Email;
 using System.Text;
 using Integer.Infrastructure.IoC;
@@ -21,36 +20,8 @@ using Integer.Infrastructure.Tasks;
 
 namespace Integer
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : Integer.Api.WebApiApplication
     {
-        private const string RavenSessionKey = "RavenDB.Session";
-        private const string RequestSaveChangesKey = "RequestSaveChanges";
-
-        public static IDocumentStore DocumentStore { get; set; }
-
-        public static IDocumentSession CurrentSession
-        {
-            get 
-            { 
-                return (IDocumentSession)HttpContext.Current.Items[RavenSessionKey]; 
-            }
-            set 
-            {
-                HttpContext.Current.Items[RavenSessionKey] = value;
-            }
-        }
-
-        public static bool RequestCannotSaveChanges
-        { 
-            get{
-                return (HttpContext.Current.Items[RequestSaveChangesKey] as bool?) ?? false; 
-            }
-            set 
-            {
-                HttpContext.Current.Items[RequestSaveChangesKey] = value;
-            }
-        }
-
         public MvcApplication()
         {
             BeginRequest += this.Application_BeginRequest;
@@ -90,6 +61,8 @@ namespace Integer
             RegisterRoutes(RouteTable.Routes);
 
             Initialize();
+
+            base.Application_Start();
         }
 
         private void Initialize() 

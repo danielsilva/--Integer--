@@ -10,12 +10,14 @@ namespace Integer.Domain.Acesso
     {
         protected Usuario() { }
 
-        public Usuario(string email, string senha)
+        public Usuario(string email, string senha, string grupoId)
         {
             this.Email = email;
             this.Senha = Encryptor.Encrypt(senha);
             Ativo = true;
             DataCriacao = DateTime.Now;
+            this.GrupoId = grupoId;
+            PrecisaTrocarSenha = true;
         }
 
         public string Id { get; set; }
@@ -23,6 +25,8 @@ namespace Integer.Domain.Acesso
         public string Email { get; private set; }
         public string Senha { get; private set; }
         public bool Ativo { get; private set; }
+        public string GrupoId { get; set; }
+        public bool PrecisaTrocarSenha { get; set; }
 
         public DateTime DataCriacao { get; private set; }
 
@@ -34,6 +38,12 @@ namespace Integer.Domain.Acesso
         public void TrocarSenha(string senha)
         {
             this.Senha = Encryptor.Encrypt(senha);
+        }
+
+        public void CriarSenha(string senha) 
+        {
+            this.Senha = Encryptor.Encrypt(senha);
+            PrecisaTrocarSenha = false;
         }
     }
 }

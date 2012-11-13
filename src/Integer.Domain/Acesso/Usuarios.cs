@@ -10,5 +10,7 @@ namespace Integer.Domain.Acesso
     public interface Usuarios
     {
         Usuario Com(Expression<Func<Usuario, bool>> condicao);
+
+        void Salvar(Usuario usuario);
     }
 }

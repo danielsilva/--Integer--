@@ -7,8 +7,6 @@ using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Integer.Infrastructure.ValueInjecterHelpers;
-using Omu.ValueInjecter;
 
 namespace Integer.Infrastructure.Domain
 {
