@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Integer</title>
+    @Styles.Render("~/Content/css/site")
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
+
+    <!--ExtJS-->
+    <script type="text/javascript">
+        Ext = {
+            buildSettings: {
+                "scopeResetCSS": true
+            }
+        };
+    </script>
+    <link href="//cdn.sencha.io/ext-4.0.7-gpl/resources/css/ext-all-scoped.css" rel="stylesheet" type="text/css" /> 
+
+    @Styles.Render("~/Content/css/jqueryUI")    
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">       
+            <a class="brand" style="padding:3px 0 2px 12px" href="#"><img id="titulo" class="imageLink" src="@Url.Content("~/Content/images/integer.png")" align="top" alt=""/></a>     
+            
+            <div id="notLoggedIn" class="loginmenu" @if (Request.IsAuthenticated) { <text>style="display:none;"</text> }>
+                <div class="btn-group">
+                    <button id="btnlogin" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Login&nbsp;<span class="caret"></span></button>
+                </div>
+                <div id="loginForm" style="display:none;">
+                    @Html.Partial("~/Views/Usuario/LoginForm.cshtml")
+                </div>
+            </div>
+            <div id="loggedInProfile" class="loginmenu" @if (!Request.IsAuthenticated) { <text>style="display:none;"</text> }>
+                <div class="btn-group">
+                    <button id="btnProfile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">Menu&nbsp;<span class="caret"></span></button>
+                    <ul class="profileMenu dropdown-menu">
+                      <li><a href="@Url.Action("Sair", "Usuario")">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navMenu" class="nav pull-right">
+                @if (Request.IsAuthenticated) {
+                    @Html.Partial("Menu");
+                }
+            </div>
+            
+        </div>
+    </div>
+    <div class="container">
+                @RenderBody()
+        </div>
+
+    <div id="divErro"></div>    
+
+    @Styles.Render("~/Content/css/jqueryPlugins")
+
+    @RenderSection("Styles", required: false)
+    
+    <!--jquery-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <script>!window.jQuery && document.write(unescape('%3Cscript src="Scripts/jquery-1.8.1.min.js"%3E%3C/script%3E'))</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+    <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="Scripts/jquery-ui-1.8.23.min.js"%3E%3C/script%3E'))</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/i18n/jquery.ui.datepicker-pt-BR.js" type="text/javascript"></script>
+
+    @Scripts.Render("~/bundle/jmCustomScrollBar", "~/bundle/jUITimePicker")
+    
+    <!--ExtJS-->    
+    <script src="//cdn.sencha.io/ext-4.0.7-gpl/ext-all.js" type="text/javascript"></script>
+    <script src="//cdn.sencha.io/ext-4.0.7-gpl/locale/ext-lang-pt_BR.js" type="text/javascript"></script>
+    <!--TTBootstrap-->
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+    
+    @Scripts.Render("~/bundle/site")
+
+    @RenderSection("Scripts", required: false)    
+
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var isAuthenticated = @Request.IsAuthenticated.ToString().ToLower();
+            configureCalendarReadOnly(!isAuthenticated);
+        });
+        $().ready(function(){
+            $('body').tooltip({
+                selector: '[rel=tooltip]'
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function () {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/ZkpCLR97DUhpAnpPV4wfQg.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-31387531-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script type="text/javascript" src="//sawpf.com/1.0.js"></script>
+</body>
+</html>
+
+
+

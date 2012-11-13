@@ -1,0 +1,725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F774534B-15DA-430E-9E31-F50EFC8ED856}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AssemblyResolver.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\alerts\images\help.gif" />
+    <Content Include="Content\alerts\images\important.gif" />
+    <Content Include="Content\alerts\images\info.gif" />
+    <Content Include="Content\alerts\images\title.gif" />
+    <Content Include="Content\alerts\jquery.alerts.css" />
+    <Content Include="Content\alerts\jquery.alerts.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\calendar\calendar.css" />
+    <Content Include="Content\calendar\calendar.min.css" />
+    <Content Include="Content\calendar\dp.css" />
+    <Content Include="Content\calendar\dp.min.css" />
+    <Content Include="Content\calendar\images\calendar\bgs\CardHeadbg.jpg" />
+    <Content Include="Content\calendar\images\calendar\bgs\CardHeadbg.png" />
+    <Content Include="Content\calendar\images\calendar\bgs\ch.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\headbg.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\minus1.gif" />
+    <Content Include="Content\calendar\images\calendar\bgs\plus1.gif" />
+    <Content Include="Content\calendar\images\calendar\bubble_combined.png" />
+    <Content Include="Content\calendar\images\calendar\combined.gif" />
+    <Content Include="Content\calendar\images\calendar\dp\btn-arrow-light.gif" />
+    <Content Include="Content\calendar\images\calendar\dp\btn-arrow.gif" />
+    <Content Include="Content\calendar\images\calendar\grid.png" />
+    <Content Include="Content\calendar\images\calendar\gridth.gif" />
+    <Content Include="Content\calendar\images\calendar\headbg.gif" />
+    <Content Include="Content\calendar\images\calendar\indicator_web20_working.gif" />
+    <Content Include="Content\calendar\images\calendar\load-bg.png" />
+    <Content Include="Content\calendar\images\calendar\tbg.gif" />
+    <Content Include="Content\calendar\images\share\card.gif" />
+    <Content Include="Content\calendar\images\share\glass-bg.gif" />
+    <Content Include="Content\calendar\images\share\hd-sprite.gif" />
+    <Content Include="Content\calendar\images\share\headbg.gif" />
+    <Content Include="Content\calendar\images\share\information.png" />
+    <Content Include="Content\calendar\images\share\left-btn.gif" />
+    <Content Include="Content\calendar\images\share\right-btn.gif" />
+    <Content Include="Content\calendar\images\share\table.gif" />
+    <Content Include="Content\calendar\images\share\table_c.gif" />
+    <Content Include="Content\calendar\images\share\tbg.gif" />
+    <Content Include="Content\calendar\images\share\tool-sprites.gif" />
+    <Content Include="Content\Event.css" />
+    <Content Include="Content\extCalendar\css\calendar-colors.css" />
+    <Content Include="Content\extCalendar\css\calendar.css" />
+    <Content Include="Content\extCalendar\css\extensible-all.css" />
+    <Content Include="Content\extCalendar\css\recurrence.css" />
+    <Content Include="Content\extCalendar\images\default\calendar-sprites.gif" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-edit-hd.png" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-list-hidden-ie6.png" />
+    <Content Include="Content\extCalendar\images\default\ext-cal-list-hidden.png" />
+    <Content Include="Content\extCalendar\images\default\ext\button-arrow.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\page-next.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\page-prev.gif" />
+    <Content Include="Content\extCalendar\images\default\ext\toolbar-bg.gif" />
+    <Content Include="Content\extCalendar\images\default\recur-edit-options.png" />
+    <Content Include="Content\extCalendar\images\default\silk\calendar_edit.png" />
+    <Content Include="Content\extCalendar\images\default\silk\calendar_view_month.png" />
+    <Content Include="Content\extCalendar\images\default\silk\cross.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_add.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_copy.png" />
+    <Content Include="Content\extCalendar\images\default\silk\date_go.png" />
+    <Content Include="Content\extCalendar\images\default\silk\silk-readme.txt" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-add.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\dd\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\checkbox.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\clear-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\date-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\error-tip-corners.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\exclamation.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\radio.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\search-trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\spinner-small.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\spinner.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\text-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger-square.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger-tpl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\form\trigger.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\arrow-left-white.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\arrow-right-white.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-selected-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\cell-special-selected-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\checked.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\col-move-bottom.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\col-move-top.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-over-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\column-header-over-bg.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\columns.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-left.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-left.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-right.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dd-insert-arrow-right.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\dirty.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\done.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\footer-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-blue-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-blue-split.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-hrow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-split.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid-vista-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hd-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hrow-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-hrow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\grid3-rowheader.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-by.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-collapse.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-expand-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\group-expand.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hd-pop.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-asc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-desc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-lock.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-lock.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-unlock.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\hmenu-unlock.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\invalid_line.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\mso-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\nowait.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-first-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-first.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-last-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-last.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-next-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-next.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-prev-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\page-prev.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\pick-button.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\property-cell-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\property-cell-selected-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\refresh-disabled.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\refresh.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-check-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-expand-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\row-sel.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort-hd.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort_asc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\sort_desc.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\unchecked.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\grid\wait.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\blue-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\calendar.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\glass-bg.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\hd-sprite.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-error.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-info.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-question.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\icon-warning.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\large-loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\left-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\loading-balls.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\right-btn.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow-c.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow-lr.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\shadow.png" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\shared\warning.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tool-sprite-tpl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tool-sprites.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tools\tools-sprites-trans.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\arrows.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-above.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-add.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-append.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-below.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-between.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-no.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-over.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-under.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\drop-yes.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-minus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-minus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-plus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end-plus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-end.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-line.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-minus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-minus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-plus-nl.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow-plus.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\elbow.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\folder-open.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\folder.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\leaf.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\loading.gif" />
+    <Content Include="Content\ExtJS\resources\themes\images\default\tree\s.gif" />
+    <Content Include="Content\ExtJS\style\css\ext-all-scoped.css" />
+    <Content Include="Content\ExtJS\style\css\ext-all.css" />
+    <Content Include="Content\ExtJS\style\css\ext-ie-scoped.css" />
+    <Content Include="Content\fonts\icomoon.svg" />
+    <Content Include="Content\fonts\lte-ie7.js" />
+    <Content Include="Content\FormPrincipal.css" />
+    <Content Include="Content\images\amarelo.gif" />
+    <Content Include="Content\images\azul.gif" />
+    <Content Include="Content\images\btnAzul.gif" />
+    <Content Include="Content\images\busy.gif" />
+    <Content Include="Content\images\cancelar.png" />
+    <Content Include="Content\images\cancelar16.png" />
+    <Content Include="Content\images\cancelar2_16.png" />
+    <Content Include="Content\images\exclamacao.png" />
+    <Content Include="Content\images\exclamacao_alerta.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\green.gif" />
+    <Content Include="Content\images\header_background.png" />
+    <Content Include="Content\images\icons\add.png" />
+    <Content Include="Content\images\icons\appt.gif" />
+    <Content Include="Content\images\icons\au.gif" />
+    <Content Include="Content\images\icons\Btn.Close.gif" />
+    <Content Include="Content\images\icons\cacheClear.png" />
+    <Content Include="Content\images\icons\cal-day.gif" />
+    <Content Include="Content\images\icons\cal-month.gif" />
+    <Content Include="Content\images\icons\cal-proc.gif" />
+    <Content Include="Content\images\icons\cal-rsc-perm.gif" />
+    <Content Include="Content\images\icons\cal-week.gif" />
+    <Content Include="Content\images\icons\cal-wk-week.gif" />
+    <Content Include="Content\images\icons\cal.gif" />
+    <Content Include="Content\images\icons\calendar.gif" />
+    <Content Include="Content\images\icons\calwrkwk.gif" />
+    <Content Include="Content\images\icons\canmtg.gif" />
+    <Content Include="Content\images\icons\circle_animation.gif" />
+    <Content Include="Content\images\icons\clndr.gif" />
+    <Content Include="Content\images\icons\clndrsmll.gif" />
+    <Content Include="Content\images\icons\cn.gif" />
+    <Content Include="Content\images\icons\date.png" />
+    <Content Include="Content\images\icons\date_add.png" />
+    <Content Include="Content\images\icons\date_reflash.png" />
+    <Content Include="Content\images\icons\delete.png" />
+    <Content Include="Content\images\icons\edit.png" />
+    <Content Include="Content\images\icons\folder_user.gif" />
+    <Content Include="Content\images\icons\group.gif" />
+    <Content Include="Content\images\icons\group_add.gif" />
+    <Content Include="Content\images\icons\hk.png" />
+    <Content Include="Content\images\icons\ico1.gif" />
+    <Content Include="Content\images\icons\indicator.gif" />
+    <Content Include="Content\images\icons\Item.Add.gif" />
+    <Content Include="Content\images\icons\Item.Delete.gif" />
+    <Content Include="Content\images\icons\Item.Edit.gif" />
+    <Content Include="Content\images\icons\Item.Input.gif" />
+    <Content Include="Content\images\icons\Item.Save.gif" />
+    <Content Include="Content\images\icons\Item.Search.gif" />
+    <Content Include="Content\images\icons\msg_center.gif" />
+    <Content Include="Content\images\icons\msg_email.gif" />
+    <Content Include="Content\images\icons\msg_im.gif" />
+    <Content Include="Content\images\icons\msg_mobile.gif" />
+    <Content Include="Content\images\icons\mtgreq-cancel.gif" />
+    <Content Include="Content\images\icons\mtgreq.gif" />
+    <Content Include="Content\images\icons\mtgrsp-accept.gif" />
+    <Content Include="Content\images\icons\mtgrsp-decline.gif" />
+    <Content Include="Content\images\icons\mtgrsp-tent.gif" />
+    <Content Include="Content\images\icons\pgrs-sm.gif" />
+    <Content Include="Content\images\icons\printButton.png" />
+    <Content Include="Content\images\icons\resultset_next.png" />
+    <Content Include="Content\images\icons\resultset_previous.png" />
+    <Content Include="Content\images\icons\rowdelete.png" />
+    <Content Include="Content\images\icons\table.gif" />
+    <Content Include="Content\images\icons\table_c.gif" />
+    <Content Include="Content\images\icons\table_copy.png" />
+    <Content Include="Content\images\icons\table_r.png" />
+    <Content Include="Content\images\icons\table_refresh.png" />
+    <Content Include="Content\images\icons\tick.png" />
+    <Content Include="Content\images\icons\turnback.png" />
+    <Content Include="Content\images\icons\us.gif" />
+    <Content Include="Content\images\icons\view.png" />
+    <Content Include="Content\images\integer-blue.png" />
+    <Content Include="Content\images\integer.png" />
+    <Content Include="Content\images\integer2.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\main_background.png" />
+    <Content Include="Content\images\question_mark.png" />
+    <Content Include="Content\images\titulo.png" />
+    <Content Include="Content\images\titulo1.png" />
+    <Content Include="Content\images\validation\accept.png" />
+    <Content Include="Content\images\validation\exclamation.png" />
+    <Content Include="Content\images\validation\tooltop.gif" />
+    <Content Include="Content\images\validation\warning.gif" />
+    <Content Include="Content\images\_main_background.png" />
+    <Content Include="Content\jQueryScrollBar\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\jQueryScrollBar\mCSB_buttons.png" />
+    <Content Include="Content\jQueryUITimePicker\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\OffSite.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui-redmond.css" />
+    <Content Include="Content\themes\base\jquery-ui-redmond.min.css" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toolTip2\jquery.tooltip.css" />
+    <Content Include="Content\toolTip\jquery.bt.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap.css" />
+    <Content Include="Content\ttbootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\ttbootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\ttbootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\Validation.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\fonts\icomoon.eot" />
+    <Content Include="Content\fonts\icomoon.ttf" />
+    <Content Include="Content\fonts\icomoon.woff" />
+    <Content Include="Scripts\Acesso\perfilDetails.js" />
+    <Content Include="Scripts\Acesso\perfilEdit.js" />
+    <Content Include="Scripts\Acesso\perfilModel.js" />
+    <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\boilerplate.js" />
+    <Content Include="Scripts\App\Collections\perfis.js" />
+    <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\App\Models\perfil.js" />
+    <Content Include="Scripts\App\router.js" />
+    <Content Include="Scripts\App\Views\Perfil\perfilList.js" />
+    <Content Include="Scripts\backbone.js" />
+    <Content Include="Scripts\backbone.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CalendarView\calendar.js" />
+    <Content Include="Scripts\CalendarView\event.js" />
+    <None Include="Scripts\jquery-1.8.1-vsdoc.js" />
+    <None Include="Scripts\jquery-1.7.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.2.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-1.8.1.js" />
+    <Content Include="Scripts\jquery-1.8.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.js" />
+    <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Scripts\MvcFoolproofValidation.min.js" />
+    <Content Include="Scripts\Plugins\alerts\jquery.alerts.js" />
+    <Content Include="Scripts\Plugins\alerts\jquery.alerts.min.js" />
+    <Content Include="Scripts\Plugins\calendar\Common.js" />
+    <Content Include="Scripts\Plugins\calendar\Common.min.js" />
+    <Content Include="Scripts\Plugins\calendar\dateFormat.js" />
+    <Content Include="Scripts\Plugins\calendar\dateFormat.min.js" />
+    <Content Include="Scripts\Plugins\calendar\datepicker_lang_BR.js" />
+    <Content Include="Scripts\Plugins\calendar\datepicker_lang_BR.min.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.calendar.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.calendar.min.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.datepicker.js" />
+    <Content Include="Scripts\Plugins\calendar\jquery.datepicker.min.js" />
+    <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.js" />
+    <Content Include="Scripts\Plugins\calendar\wdCalendar_lang_BR.min.js" />
+    <Content Include="Scripts\Plugins\extCalendar\calendar-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\calendar.js" />
+    <Content Include="Scripts\Plugins\extCalendar\extensible-core-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\extensible-core.js" />
+    <Content Include="Scripts\Plugins\extCalendar\locale\ext-lang-pt_BR.js" />
+    <Content Include="Scripts\Plugins\extCalendar\recurrence-debug.js" />
+    <Content Include="Scripts\Plugins\extCalendar\recurrence.js" />
+    <Content Include="Scripts\Plugins\ExtJS\bootstrap.js" />
+    <Content Include="Scripts\Plugins\ExtJS\ext-all-debug.js" />
+    <Content Include="Scripts\Plugins\ExtJS\ext-all.js" />
+    <Content Include="Scripts\Plugins\ExtJS\locale\ext-lang-pt_BR.js" />
+    <Content Include="Scripts\Plugins\foolproof\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.js" />
+    <Content Include="Scripts\Plugins\jQueryCookie\jquery.cookies.2.2.0.min.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mCustomScrollbar.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mousewheel.js" />
+    <Content Include="Scripts\Plugins\jQueryScrollBar\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-sliderAccess.js" />
+    <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\Plugins\jQueryUITimePicker\jquery-ui-timepicker-pt-BR.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.bgiframe.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.core.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.core.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.dialog.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.dialog.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.draggable.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.draggable.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.mouse.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.mouse.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.position.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.position.min.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.widget.js" />
+    <Content Include="Scripts\Plugins\jQueryUI\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\Plugins\livequery\jquery.livequery.js" />
+    <Content Include="Scripts\Plugins\livequery\jquery.livequery.min.js" />
+    <Content Include="Scripts\Plugins\mask\jquery.meio.mask.js" />
+    <Content Include="Scripts\Plugins\mask\jquery.meio.mask.min.js" />
+    <Content Include="Scripts\Plugins\shadedBorder\shadedborder.js" />
+    <Content Include="Scripts\Plugins\shadedBorder\shadedborder.min.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.dimensions.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.tooltip.js" />
+    <Content Include="Scripts\Plugins\toolTip2\jquery.tooltip.min.js" />
+    <Content Include="Scripts\Plugins\toolTip\excanvas.compiled.js" />
+    <Content Include="Scripts\Plugins\toolTip\excanvas.js" />
+    <Content Include="Scripts\Plugins\toolTip\jquery.bt.js" />
+    <Content Include="Scripts\Plugins\toolTip\jquery.bt.min.js" />
+    <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.js" />
+    <Content Include="Scripts\Plugins\ttbootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\Shared\date.js" />
+    <Content Include="Scripts\Shared\global.js" />
+    <Content Include="Scripts\Shared\jquery.validation.js" />
+    <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
+    <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\Usuario\criar.js" />
+    <Content Include="Scripts\Usuario\esqueceuSenha.js" />
+    <Content Include="Scripts\Usuario\login.js" />
+    <Content Include="Scripts\Usuario\trocarSenha.js" />
+    <Content Include="Templates\Perfil\perfilEdit.html" />
+    <Content Include="Templates\Perfil\perfilList.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\MailTemplates\_Layout.cshtml" />
+    <Content Include="Views\MailTemplates\_ViewStart.cshtml" />
+    <Content Include="Views\MailTemplates\TrocarSenha.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutOffSite.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8642/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,14 @@
+﻿<div>
+    <p class="row">
+        <input id="btnNovo" type="button" class="btn" value="Novo" />
+    </p>
+
+    <div class="row">
+        <div class="span3">Nome</div>
+    </div>   
+    <% for (var i = 0; i < data.length; i++) { %>
+        <div class="row">
+            <div class="span3"><%= data[i].Nome %></div>
+        </div>
+    <% } %>
+</div>

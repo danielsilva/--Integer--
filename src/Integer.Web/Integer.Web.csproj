@@ -100,11 +100,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\DbC.dll</HintPath>
     </Reference>
-    <Reference Include="dotless.Core">
-      <HintPath>..\packages\dotless.1.3.0.5\lib\dotless.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="EcmaScript.NET.modified">
-      <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\EcmaScript.NET.modified.dll</HintPath>
+    <Reference Include="EcmaScript.NET">
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\EcmaScript.NET.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -112,8 +109,8 @@
     <Reference Include="Elmah.Mvc">
       <HintPath>..\packages\Elmah.MVC.2.0.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Jurassic">
-      <HintPath>..\packages\Jurassic.2.1.1\lib\Jurassic.dll</HintPath>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -139,8 +136,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
-    <Reference Include="SquishIt.Framework">
-      <HintPath>..\packages\SquishIt.0.8.7.2\lib\SquishIt.Framework.dll</HintPath>
+    <Reference Include="SquishIt.Framework, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SquishIt.0.9.1\lib\SquishIt.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="Microsoft.CSharp" />
@@ -188,35 +186,20 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Yahoo.Yui.Compressor">
-      <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\Yahoo.Yui.Compressor.dll</HintPath>
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\UriHelperExtensions.cs" />
-    <Compile Include="Infra\EmailAttribute.cs" />
-    <Compile Include="Raven\EventoDocumentSessionExtensions.cs" />
-    <Compile Include="Raven\TipoEventoDocumentSessionExtensions.cs" />
-    <Compile Include="Raven\LocalDocumentSessionExtensions.cs" />
-    <Compile Include="Raven\UsuarioDocumentSessionExtensions.cs" />
-    <Compile Include="Raven\GrupoDocumentSessionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationHelpers\ValidationHelper.cs" />
-    <Compile Include="ViewModels\CalendarioViewModel.cs" />
-    <Compile Include="ViewModels\UsuarioTrocarSenhaViewModel.cs" />
-    <Compile Include="ViewModels\UsuarioEsqueceuSenhaViewModel.cs" />
-    <Compile Include="ViewModels\EventoForCalendarioViewModel.cs" />
-    <Compile Include="ViewModels\GrupoExtTreeViewModel.cs" />
-    <Compile Include="ViewModels\EventoViewModel.cs" />
-    <Compile Include="Raven\ItemViewModel.cs" />
-    <Compile Include="ViewModels\GrupoViewModel.cs" />
-    <Compile Include="ViewModels\ReservaDeLocalViewModel.cs" />
-    <Compile Include="ViewModels\UsuarioCriarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
@@ -713,10 +696,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Integer.Api\Integer.Api.csproj">
-      <Project>{9afa1604-d400-4446-81aa-871a3cb71ccf}</Project>
-      <Name>Integer.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Integer.Domain\Integer.Domain.csproj">
       <Project>{6D72F9EE-9D92-4E5B-A359-79C3A4271154}</Project>
       <Name>Integer.Domain</Name>
@@ -792,6 +771,7 @@
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

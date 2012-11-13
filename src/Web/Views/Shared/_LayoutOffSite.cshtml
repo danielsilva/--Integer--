@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Integer</title>
+    @Styles.Render("~/Content/css/offSite", "~/Content/css/jqueryUI")
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img alt="Integer Logo" src="@Url.Content("~/Content/images/integer-blue.png")" />
+        </div>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundle/offSite")
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

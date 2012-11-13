@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http.Filters;
+using System.Web.Mvc;
 using Elmah;
 using Integer.Api.Controllers;
 
@@ -18,8 +19,7 @@ namespace Integer.Api.Filters
             if (controller != null)
                 controller.DoNotCallSaveChanges = true;
 
-            ErrorSignal.FromCurrentContext().Raise(actionExecutedContext.Exception);
-            
+            ErrorSignal.FromCurrentContext().Raise(actionExecutedContext.Exception);            
         }
     }
 }
