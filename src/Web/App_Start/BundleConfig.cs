@@ -29,6 +29,13 @@ namespace Web
                 "~/Scripts/Shared/jquery.validation.js",
                 "~/Scripts/Shared/global.js"));
 
+            bundles.Add(new ScriptBundle("~/bundle/site/calendario").Include(
+                "~/Scripts/Plugins/extCalendar/extensible-core.js",
+                "~/Scripts/Plugins/extCalendar/recurrence-debug.js",
+                "~/Scripts/Plugins/extCalendar/calendar-debug.js",
+                "~/Scripts/Plugins/extCalendar/locale/ext-lang-pt_BR.js",
+                "~/Scripts/Calendario/calendario.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -51,6 +58,10 @@ namespace Web
             bundles.Add(new StyleBundle("~/Content/css/jqueryPlugins").Include(
                 "~/Content/jQueryScrollBar/jquery.mCustomScrollbar.css",
                 "~/Content/jQueryUITimePicker/jquery-ui-timepicker-addon.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css/calendario").Include(
+                "~/Content/extCalendar/css/extensible-all.css",
+                "~/Content/calendario.css"));
         }
     }
 }

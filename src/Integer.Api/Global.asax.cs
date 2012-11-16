@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
-using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Integer.Api.Infra.AutoMapper;
 using Integer.Domain.Acesso;
 using Integer.Domain.Agenda;
@@ -58,7 +59,7 @@ namespace Integer.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            Initialize();
+            //Initialize();
         }
 
         private void Initialize()
@@ -73,7 +74,9 @@ namespace Integer.Api
         private void InitializeIoC()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
+            //builder.ConfigureWebApi(GlobalConfiguration.Configuration);
+
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.Register(c => CurrentSession).As<IDocumentSession>();
 
@@ -91,8 +94,9 @@ namespace Integer.Api
             builder.Register<TrocaSenhaService>(c => new TrocaSenhaService(c.Resolve<Usuarios>(), c.Resolve<UsuarioTokens>()));
 
             var container = builder.Build();
-            var resolver = new AutofacDependencyResolver(container);
-            DependencyResolver.SetResolver(resolver);
+            var resolver = new AutofacWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+
             IoCWorker.Initialize(resolver);
         }
     }

@@ -1,0 +1,27 @@
+﻿.ext-cal-evt
+{
+    padding: 1px 1px 1px 5px !important;
+}
+    
+.ext-cal-ev-spanleft
+{
+    margin-left:0px !important;
+}        
+    
+.ext-cal-ev-spanright
+{
+    float:none !important;
+    margin-left:0px !important;
+}
+    
+.ext-cal-ev-spanboth 
+{
+    float:none !important;
+    margin-left:0px !important;
+}
+
+.ext-evt-block
+{
+    display: block !important;
+}
+    

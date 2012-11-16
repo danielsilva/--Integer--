@@ -41,11 +41,60 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\packages\Autofac.WebApi.2.6.2.859\lib\NET40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DbC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\DbC.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MVC Foolproof Validation">
+      <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.1.0.972\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Json">
+      <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -68,9 +117,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -111,6 +157,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.2\lib\net40\WebActivator.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -163,7 +212,35 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="AssemblyResolver.cs" />
+    <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\AgendaController.cs" />
+    <Compile Include="Areas\Api\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Api\Controllers\EventoController.cs" />
+    <Compile Include="Areas\Api\Controllers\ParoquiaController.cs" />
+    <Compile Include="Areas\Api\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Api\Filters\HandleErrorFilter.cs" />
+    <Compile Include="Areas\Api\Filters\ValidateModelFilter.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\Profiles\EventoProfile.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\Profiles\GrupoProfile.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\Profiles\LocalProfile.cs" />
+    <Compile Include="Areas\Api\Infra\AutoMapper\Profiles\UsuarioProfile.cs" />
+    <Compile Include="Areas\Api\Infra\Raven\EventoDocumentSessionExtensions.cs" />
+    <Compile Include="Areas\Api\Infra\Raven\GrupoDocumentSessionExtensions.cs" />
+    <Compile Include="Areas\Api\Infra\Raven\LocalDocumentSessionExtensions.cs" />
+    <Compile Include="Areas\Api\Infra\Raven\TipoEventoDocumentSessionExtensions.cs" />
+    <Compile Include="Areas\Api\Infra\Raven\UsuarioDocumentSessionExtensions.cs" />
+    <Compile Include="Areas\Api\Models\EventoForCalendarioModel.cs" />
+    <Compile Include="Areas\Api\Models\EventoModel.cs" />
+    <Compile Include="Areas\Api\Models\GrupoModel.cs" />
+    <Compile Include="Areas\Api\Models\ItemModel.cs" />
+    <Compile Include="Areas\Api\Models\ReservaDeLocalModel.cs" />
+    <Compile Include="Areas\Api\Models\UsuarioCriarModel.cs" />
+    <Compile Include="Areas\Api\Models\UsuarioEsqueceuSenhaModel.cs" />
+    <Compile Include="Areas\Api\Models\UsuarioTrocarSenhaModel.cs" />
+    <Compile Include="Areas\Api\Security\ApiIdentity.cs" />
+    <Compile Include="Areas\Api\Security\BasicAuthenticationFilter.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -171,6 +248,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\alerts\images\help.gif" />
     <Content Include="Content\alerts\images\important.gif" />
     <Content Include="Content\alerts\images\info.gif" />
@@ -212,7 +290,8 @@
     <Content Include="Content\calendar\images\share\table_c.gif" />
     <Content Include="Content\calendar\images\share\tbg.gif" />
     <Content Include="Content\calendar\images\share\tool-sprites.gif" />
-    <Content Include="Content\Event.css" />
+    <Content Include="Content\calendario.css" />
+    <Content Include="Content\evento.css" />
     <Content Include="Content\extCalendar\css\calendar-colors.css" />
     <Content Include="Content\extCalendar\css\calendar.css" />
     <Content Include="Content\extCalendar\css\extensible-all.css" />
@@ -550,8 +629,9 @@
     <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\CalendarView\calendar.js" />
-    <Content Include="Scripts\CalendarView\event.js" />
+    <Content Include="Scripts\Calendario\calendario.js" />
+    <Content Include="Scripts\Calendario\event.js" />
+    <Content Include="Areas\Api\Views\Web.config" />
     <None Include="Scripts\jquery-1.8.1-vsdoc.js" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
@@ -679,13 +759,32 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutOffSite.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Usuario\LoginForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Integer.Domain\Integer.Domain.csproj">
+      <Project>{6d72f9ee-9d92-4e5b-a359-79c3a4271154}</Project>
+      <Name>Integer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integer.Infrastructure.Repository\Integer.Infrastructure.Repository.csproj">
+      <Project>{e67baa91-5a25-440a-bcbf-c7d9e85c28cf}</Project>
+      <Name>Integer.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integer.Infrastructure\Integer.Infrastructure.csproj">
+      <Project>{40103d98-6f26-4bcd-a994-7a16567f713b}</Project>
+      <Name>Integer.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
