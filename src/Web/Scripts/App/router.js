@@ -3,7 +3,7 @@
   'underscore',
   'backbone',
   'views/calendario/calendario'
-], function($, _, Backbone, Session, CalendarioView){
+], function($, _, Backbone, CalendarioView){
     var AppRouter = Backbone.Router.extend({
         routes: {
             'calendario': 'showCalendarView',
@@ -14,7 +14,7 @@
 
     var initialize = function () {
         var app_router = new AppRouter(); 
-        app_router.on('showCalendarView', function () {            
+        app_router.on('route:showCalendarView', function () {
             var calView = new CalendarioView();
             calView.render();
         });
@@ -22,6 +22,7 @@
             console.log('no route');
         });
         Backbone.history.start();
+        app_router.navigate('calendario', true);
     };
 
     return {

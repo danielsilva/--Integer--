@@ -17,8 +17,6 @@
     <link href="//cdn.sencha.io/ext-4.0.7-gpl/resources/css/ext-all-scoped.css" rel="stylesheet" type="text/css" /> 
 
     @Styles.Render("~/Content/css/jqueryUI")    
-
-    <script data-main="@Url.Content("~/Scripts/App/main")" src="//ajax.cdnjs.com/ajax/libs/require.js/2.1.1/require.min.js"></script>
 </head>
 
 <body>
@@ -71,6 +69,8 @@
     @Scripts.Render("~/bundle/jmCustomScrollBar", "~/bundle/jUITimePicker")
     
     @Scripts.Render("~/bundle/site")
+
+    <script data-main="@Url.Content("~/Scripts/App/main")" src="//ajax.cdnjs.com/ajax/libs/require.js/2.1.1/require.min.js"></script>
 
     @RenderSection("Scripts", required: false)    
 

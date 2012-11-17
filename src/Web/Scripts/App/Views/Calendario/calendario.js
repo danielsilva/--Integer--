@@ -17,8 +17,7 @@
             //this.$el.html(compiledTemplate);
         },
         render: function () {
-            console.log('render calendar view');
-            var template = _.template(calendarioTemplate, {}); alert(this.$el);
+            var template = _.template(calendarioTemplate, {});
             this.$el.html(template);
         }
     });
