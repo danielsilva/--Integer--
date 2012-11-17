@@ -2,28 +2,29 @@
   'jquery',
   'underscore',
   'backbone',
-  'views/perfil/perfilList'
-], function($, _, Backbone, Session, PerfilListView){
+  'views/calendario/calendario'
+], function($, _, Backbone, Session, CalendarioView){
     var AppRouter = Backbone.Router.extend({
         routes: {
-            '/perfil': 'showPerfis',
+            'calendario': 'showCalendarView',
             // Default
             '*actions': 'defaultAction'
         }
     });
 
-var initialize = function(){
-    var app_router = new AppRouter;
-    app_router.on('showPerfis', function () {
-        var perfilListView = new PerfilListView();
-        perfilListView.render();
-    });
-    app_router.on('defaultAction', function(actions){
-        console.log('No route:', actions);
-    });
-    Backbone.history.start();
-};
-return {
-    initialize: initialize
-};
+    var initialize = function () {
+        var app_router = new AppRouter(); 
+        app_router.on('showCalendarView', function () {            
+            var calView = new CalendarioView();
+            calView.render();
+        });
+        app_router.on('defaultAction', function(actions){
+            console.log('no route');
+        });
+        Backbone.history.start();
+    };
+
+    return {
+        initialize: initialize
+    };
 });

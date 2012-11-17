@@ -40,7 +40,6 @@ namespace Integer.Api.Controllers
             return eventos.MapTo<EventoForCalendarioModel>();
         }
 
-        [BasicAuthentication]
         public HttpResponseMessage Post(EventoModel input) 
         {
             Evento evento;
@@ -85,7 +84,6 @@ namespace Integer.Api.Controllers
             return evento;
         }
 
-        [BasicAuthentication]
         public HttpResponseMessage Put(string id, EventoModel input) 
         {
             Evento evento = RavenSession.Load<Evento>(input.Id);
@@ -125,7 +123,6 @@ namespace Integer.Api.Controllers
             return evento;
         }
 
-        [BasicAuthentication]
         public void Delete(string id)
         {
             var evento = RavenSession.Load<Evento>(id);

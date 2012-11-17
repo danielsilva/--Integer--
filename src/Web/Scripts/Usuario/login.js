@@ -39,7 +39,7 @@
         $('#btnDoLogin').button('loading');
 
         $.ajax({
-            url: "/Usuario/Login",
+            url: "/Acesso/Login",
             type: 'POST',
             dataType: 'text',
             data: $("#frmLogin").serialize(),

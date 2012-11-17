@@ -10,7 +10,7 @@ namespace Integer.Domain.Acesso
     {
         protected Usuario() { }
 
-        public Usuario(string email, string senha, string grupoId)
+        public Usuario(string Nome, string email, string senha, string grupoId)
         {
             this.Email = email;
             this.Senha = Encryptor.Encrypt(senha);
@@ -29,11 +29,6 @@ namespace Integer.Domain.Acesso
         public bool PrecisaTrocarSenha { get; set; }
 
         public DateTime DataCriacao { get; private set; }
-
-        public bool ValidaSenha(string senha)
-        {
-            return Encryptor.Encrypt(senha) == this.Senha;
-        }
 
         public void TrocarSenha(string senha)
         {

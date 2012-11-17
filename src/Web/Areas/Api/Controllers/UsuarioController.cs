@@ -17,11 +17,13 @@ namespace Integer.Api.Controllers
 {
     public class UsuarioController : BaseController
     {
+        private readonly Usuarios usuarios;
         private readonly Grupos grupos;
         private readonly TrocaSenhaService trocaSenhaService;
 
-        public UsuarioController(Grupos grupos, TrocaSenhaService trocaSenhaService)
+        public UsuarioController(Usuarios usuarios, Grupos grupos, TrocaSenhaService trocaSenhaService)
         {
+            this.usuarios = usuarios;
             this.grupos = grupos;
             this.trocaSenhaService = trocaSenhaService;
         }
@@ -92,6 +94,20 @@ namespace Integer.Api.Controllers
                     throw;
             }
             return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        public Usuario Get(string email, string senha) 
+        {
+            Usuario usuario = RavenSession.ObterUsuario(email, senha);
+            if (usuario == null)
+            {
+                Grupo grupo = grupos.Com(g => g.Email == email);
+                if (grupo != null && grupo.PrecisaCriarUsuario && grupo.ValidarSenha(senha))
+                {
+                    usuario = RavenSession.CriarUsuario(grupo.Nome, grupo.Email, grupo.Senha, grupo.Id);
+                }
+            }
+            return usuario;
         }
 
         // TODO: get menu for current user

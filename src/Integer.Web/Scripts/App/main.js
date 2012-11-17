@@ -16,12 +16,23 @@
             'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min',
             'Scripts/bootstrap.min'
         ],
+        extJS: [
+            'http://cdn.sencha.io/ext-4.0.7-gpl/ext-all',
+            'Scripts/plugins/ExtJS/ext-all'
+        ],
+        extJS_BR: [
+            'http://cdn.sencha.io/ext-4.0.7-gpl/locale/ext-lang-pt_BR',
+            'Scripts/plugins/ExtJS/locale/ext-lang-pt_BR'
+        ],
         text: '../text',
         templates: '/Templates'
     },
     shim: {
         "bootstrap": {
             deps: ["jquery"]
+        },
+        "extJS_BR": {
+            deps: ["extJS"]
         }
     }
 });

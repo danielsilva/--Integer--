@@ -241,10 +241,13 @@
     <Compile Include="Areas\Api\Models\UsuarioTrocarSenhaModel.cs" />
     <Compile Include="Areas\Api\Security\ApiIdentity.cs" />
     <Compile Include="Areas\Api\Security\BasicAuthenticationFilter.cs" />
+    <Compile Include="Controllers\AcessoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DTO\Usuario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\WebApiHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -620,11 +623,16 @@
     <Content Include="Scripts\Acesso\perfilModel.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\boilerplate.js" />
+    <Content Include="Scripts\App\Collections\eventos.js" />
     <Content Include="Scripts\App\Collections\perfis.js" />
     <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\App\Models\evento.js" />
     <Content Include="Scripts\App\Models\perfil.js" />
     <Content Include="Scripts\App\router.js" />
+    <Content Include="Scripts\App\Views\Calendario\calendario.js" />
     <Content Include="Scripts\App\Views\Perfil\perfilList.js" />
+    <Content Include="Scripts\backbone-amdjs-min.js" />
+    <Content Include="Scripts\backbone-amdjs.js" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -719,12 +727,15 @@
     <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\underscore-amdjs-min.js" />
+    <Content Include="Scripts\underscore-amdjs.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\Usuario\criar.js" />
     <Content Include="Scripts\Usuario\esqueceuSenha.js" />
     <Content Include="Scripts\Usuario\login.js" />
     <Content Include="Scripts\Usuario\trocarSenha.js" />
+    <Content Include="Templates\Calendario\calendarioView.html" />
     <Content Include="Templates\Perfil\perfilEdit.html" />
     <Content Include="Templates\Perfil\perfilList.html" />
     <Content Include="Web.config" />

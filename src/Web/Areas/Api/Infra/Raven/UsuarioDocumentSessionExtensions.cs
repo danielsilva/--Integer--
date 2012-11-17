@@ -6,6 +6,7 @@ using Raven.Client;
 using Integer.Domain.Acesso;
 using Integer.Domain.Acesso.Exceptions;
 using Integer.Domain.Paroquia;
+using Integer.Infrastructure.Criptografia;
 
 namespace Integer.Api.Infra.Raven
 {
@@ -16,10 +17,17 @@ namespace Integer.Api.Infra.Raven
             return session.Query<Usuario>().FirstOrDefault(u => u.Email == email);
         }
 
-        public static bool ValidaUsuario(this IDocumentSession session, string email, string senha) 
+        public static Usuario ObterUsuario(this IDocumentSession session, string email, string senha) 
         {
-            var usuario = session.Query<Usuario>().FirstOrDefault(u => u.Email == email && u.Ativo);
-            return (usuario != null && usuario.ValidaSenha(senha));
+            return session.Query<Usuario>().FirstOrDefault(u => u.Email == email && u.Senha == Encryptor.Encrypt(senha) && u.Ativo);
+        }
+        
+        public static Usuario CriarUsuario(this IDocumentSession session, string nome, string email, string senha, string grupoId)
+        {
+            var usuario = new Usuario(nome, email, senha, grupoId);
+            session.Store(usuario);
+
+            return usuario;
         }
 
         public static void CriarSenha(this IDocumentSession session, string usuarioId, string senha)         
