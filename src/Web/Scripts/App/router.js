@@ -6,7 +6,7 @@
 ], function($, _, Backbone, CalendarioView){
     var AppRouter = Backbone.Router.extend({
         routes: {
-            'calendario': 'showCalendarView',
+            '': 'showCalendarView',
             // Default
             '*actions': 'defaultAction'
         }
@@ -22,7 +22,6 @@
             console.log('no route');
         });
         Backbone.history.start();
-        app_router.navigate('calendario', true);
     };
 
     return {

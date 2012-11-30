@@ -9,15 +9,15 @@ using Integer.Domain.Paroquia;
 using Raven.Client;
 using Integer.Api.Infra.Raven;
 using Integer.Domain.Acesso;
-using Integer.Api.Security;
 using System.Web.Http.Controllers;
 using System.Threading;
 using Integer.Infrastructure.Repository;
 using System.Threading.Tasks;
 using Integer.Infrastructure.IoC;
 using Web;
+using Web.Areas.Api.Security;
 
-namespace Integer.Api.Controllers
+namespace Web.Areas.Api.Controllers
 {
     public class BaseController : ApiController
     {

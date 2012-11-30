@@ -7,7 +7,7 @@ using Integer.Api.Models;
 using Integer.Api.Infra.Raven;
 using Integer.Api.Infra.AutoMapper;
 
-namespace Integer.Api.Controllers
+namespace Web.Areas.Api.Controllers
 {
     public class ParoquiaController : BaseController
     {

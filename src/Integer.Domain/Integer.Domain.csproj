@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Acesso\Exceptions\UsuarioTokenExpiradoException.cs" />
+    <Compile Include="Acesso\Services\AutenticaUsuarioService.cs" />
     <Compile Include="Acesso\UsuarioTokens.cs" />
     <Compile Include="Acesso\UsuarioToken.cs" />
     <Compile Include="Acesso\Usuarios.cs" />

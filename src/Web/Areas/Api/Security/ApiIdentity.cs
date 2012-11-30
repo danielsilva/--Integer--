@@ -5,7 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using Integer.Domain.Acesso;
 
-namespace Integer.Api.Security
+namespace Web.Areas.Api.Security
 {
     public class ApiIdentity : IIdentity
     {

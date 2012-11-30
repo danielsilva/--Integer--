@@ -13,10 +13,9 @@ using System.Net;
 using DbC;
 using System.Net.Http;
 using System.Web.Http;
-using Integer.Api.Security;
-using Integer.Api.Infra.AutoMapper;
+using Web.Areas.Api.Security;
 
-namespace Integer.Api.Controllers
+namespace Web.Areas.Api.Controllers
 {
     public class EventoController : BaseController
     {

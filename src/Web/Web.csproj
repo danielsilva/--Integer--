@@ -241,6 +241,9 @@
     <Compile Include="Areas\Api\Models\UsuarioTrocarSenhaModel.cs" />
     <Compile Include="Areas\Api\Security\ApiIdentity.cs" />
     <Compile Include="Areas\Api\Security\BasicAuthenticationFilter.cs" />
+    <Compile Include="Areas\Api\Security\BasicAuthMessageHandler.cs" />
+    <Compile Include="Areas\Api\Security\Credentials.cs" />
+    <Compile Include="Areas\Api\Security\CustomHttpsAttribute.cs" />
     <Compile Include="Controllers\AcessoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTO\Usuario.cs" />
@@ -626,9 +629,11 @@
     <Content Include="Scripts\App\Collections\eventos.js" />
     <Content Include="Scripts\App\Collections\perfis.js" />
     <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\App\Models\login.js" />
     <Content Include="Scripts\App\Models\evento.js" />
     <Content Include="Scripts\App\Models\perfil.js" />
     <Content Include="Scripts\App\router.js" />
+    <Content Include="Scripts\App\Views\Acesso\loginView.js" />
     <Content Include="Scripts\App\Views\Calendario\calendario.js" />
     <Content Include="Scripts\App\Views\Perfil\perfilList.js" />
     <Content Include="Scripts\backbone-amdjs-min.js" />
@@ -723,7 +728,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\Shared\date.js" />
     <Content Include="Scripts\Shared\global.js" />
-    <Content Include="Scripts\Shared\jquery.validation.js" />
+    <Content Include="Scripts\Shared\integer.jquery.validate.js" />
     <Content Include="Scripts\squished\squished_calendar_024B6965D106B970AEDABB45915310D7.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
@@ -735,6 +740,8 @@
     <Content Include="Scripts\Usuario\esqueceuSenha.js" />
     <Content Include="Scripts\Usuario\login.js" />
     <Content Include="Scripts\Usuario\trocarSenha.js" />
+    <Content Include="Templates\Acesso\naoLogado.html" />
+    <Content Include="Templates\Acesso\logado.html" />
     <Content Include="Templates\Calendario\calendarioView.html" />
     <Content Include="Templates\Perfil\perfilEdit.html" />
     <Content Include="Templates\Perfil\perfilList.html" />

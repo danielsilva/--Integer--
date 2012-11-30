@@ -13,7 +13,7 @@ using Integer.Domain.Acesso.Exceptions;
 using Integer.Api.Infra.Raven;
 using Integer.Infrastructure.Criptografia;
 
-namespace Integer.Api.Controllers
+namespace Web.Areas.Api.Controllers
 {
     public class UsuarioController : BaseController
     {

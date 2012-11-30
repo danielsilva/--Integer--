@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 using Elmah;
-using Integer.Api.Controllers;
+using Web.Areas.Api.Controllers;
 
-namespace Integer.Api.Filters
+namespace Web.Areas.Api.Filters
 {
     public class HandleErrorFilter : ExceptionFilterAttribute
     {

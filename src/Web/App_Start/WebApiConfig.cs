@@ -14,6 +14,7 @@ using Integer.Infrastructure.IoC;
 using Integer.Infrastructure.Repository;
 using Raven.Client;
 using Autofac.Integration.WebApi;
+using Web.Areas.Api.Security;
 
 namespace Web
 {
@@ -38,6 +39,8 @@ namespace Web
             InitializeDocumentStore();
             ConfigIoC();
             ConfigAutoMapper();
+
+            ConfigWebApi(config);
         }
 
         private static void InitializeDocumentStore()
@@ -81,6 +84,12 @@ namespace Web
         private static void ConfigAutoMapper()
         {
             AutoMapperConfiguration.Configure();
+        }
+
+        private static void ConfigWebApi(HttpConfiguration config)
+        {
+            config.MessageHandlers.Add(new BasicAuthMessageHandler());
+            config.Filters.Add(new CustomHttpsAttribute());
         }
     }
 }

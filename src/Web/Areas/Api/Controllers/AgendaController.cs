@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Integer.Api.Controllers
+namespace Web.Areas.Api.Controllers
 {
     public class AgendaController : BaseController
     {

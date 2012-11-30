@@ -19,7 +19,6 @@ namespace Web
 
             bundles.Add(new ScriptBundle("~/bundle/site").Include(
                 "~/Scripts/Shared/jquery.validation.js",
-                "~/Scripts/Usuario/login.js",
                 "~/Scripts/Plugins/jQueryCookie/jquery.cookies.2.2.0.js",
                 "~/Scripts/Plugins/alerts/jquery.alerts.min.js",
                 "~/Scripts/shared/global.js",
