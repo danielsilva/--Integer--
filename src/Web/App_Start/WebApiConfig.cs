@@ -88,8 +88,8 @@ namespace Web
 
         private static void ConfigWebApi(HttpConfiguration config)
         {
+            config.MessageHandlers.Add(new HttpsHandler());
             config.MessageHandlers.Add(new BasicAuthMessageHandler());
-            config.Filters.Add(new CustomHttpsAttribute());
         }
     }
 }

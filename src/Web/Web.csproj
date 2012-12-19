@@ -243,7 +243,7 @@
     <Compile Include="Areas\Api\Security\BasicAuthenticationFilter.cs" />
     <Compile Include="Areas\Api\Security\BasicAuthMessageHandler.cs" />
     <Compile Include="Areas\Api\Security\Credentials.cs" />
-    <Compile Include="Areas\Api\Security\CustomHttpsAttribute.cs" />
+    <Compile Include="Areas\Api\Security\HttpsHandler.cs" />
     <Compile Include="Controllers\AcessoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTO\Usuario.cs" />
